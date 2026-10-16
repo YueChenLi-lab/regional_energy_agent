@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "regional-energy-agent"
+version = "0.1.0"
+description = "可追溯的区域综合能源低碳规划候选评估"
+requires-python = ">=3.12"
+dependencies = [
+  "pydantic==2.14.1", "pandas==3.0.6", "numpy==2.5.4", "scipy==1.18.1",
+  "streamlit==1.66.0", "httpx==0.28.1", "python-dotenv==1.2.4",
+]
+
+[project.optional-dependencies]
+test = ["pytest==9.1.1"]
+
+[project.scripts]
+energy-agent = "energy_agent.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["energy_agent*"]
+
+[tool.setuptools.package-data]
+energy_agent = ["*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
