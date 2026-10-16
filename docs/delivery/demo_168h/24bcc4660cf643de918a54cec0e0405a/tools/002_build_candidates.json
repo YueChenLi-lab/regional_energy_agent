@@ -1,0 +1,47 @@
+{
+  "input_sha256": "607e350c3a94c792d14970c5c4d1468866400ed10bf606d8f16519823a265a75",
+  "output": {
+    "candidates": [
+      {
+        "candidate_id": "A",
+        "name": "电网＋燃气锅炉",
+        "source_id": "demo-candidates",
+        "pv_kw": 0.0,
+        "battery_power_kw": 0.0,
+        "battery_energy_kwh": 0.0,
+        "hp_kw_th": 0.0,
+        "boiler_kw_th": 120.0
+      },
+      {
+        "candidate_id": "B",
+        "name": "光伏＋电网＋燃气锅炉",
+        "source_id": "demo-candidates",
+        "pv_kw": 120.0,
+        "battery_power_kw": 0.0,
+        "battery_energy_kwh": 0.0,
+        "hp_kw_th": 0.0,
+        "boiler_kw_th": 120.0
+      },
+      {
+        "candidate_id": "C",
+        "name": "光伏＋热泵＋辅助燃气锅炉",
+        "source_id": "demo-candidates",
+        "pv_kw": 120.0,
+        "battery_power_kw": 0.0,
+        "battery_energy_kwh": 0.0,
+        "hp_kw_th": 100.0,
+        "boiler_kw_th": 60.0
+      },
+      {
+        "candidate_id": "D",
+        "name": "光伏＋储能＋热泵＋辅助燃气锅炉",
+        "source_id": "demo-candidates",
+        "pv_kw": 120.0,
+        "battery_power_kw": 40.0,
+        "battery_energy_kwh": 100.0,
+        "hp_kw_th": 100.0,
+        "boiler_kw_th": 60.0
+      }
+    ]
+  }
+}

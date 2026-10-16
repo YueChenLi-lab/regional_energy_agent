@@ -1,6 +1,6 @@
 # v0.1 实际验证记录
 
-验证环境：Python 3.12.14，项目独立 `.venv`；依赖完整版本见 `requirements.lock.txt`。未修改全局 Python。下列记录来自本地云工作区实际执行，不代表 GitHub CI 或新云任务快照已经验收。
+验证环境：Python 3.12.14，项目独立 `.venv`；依赖完整版本见 `requirements.lock.txt`。未修改全局 Python。下列命令记录来自云工作区实际执行；GitHub CI结果另有运行链接，新云任务快照恢复尚未验收。
 
 ## 执行与结果
 
@@ -19,6 +19,10 @@
 | `git diff --check` | 通过 |
 
 CLI 表中简写的 `energy_agent.cli` 均通过 `.venv/bin/python -m energy_agent.cli` 执行。
+
+最新交付再次执行上述测试，仍为 **58 passed**。完整命令输出、可复算任务和168小时报告已提交至 [交付目录](delivery/README.md)。
+
+上一实现提交 `ad6249f` 的远程 [push CI](https://github.com/YueChenLi-lab/regional_energy_agent/actions/runs/38903493834) 与 [PR CI](https://github.com/YueChenLi-lab/regional_energy_agent/actions/runs/38903560825) 均已通过。交付补充提交的状态以对应PR检查为准。
 
 ## 固定种子42的168小时结果
 
@@ -49,5 +53,5 @@ CLI 表中简写的 `energy_agent.cli` 均通过 `.venv/bin/python -m energy_age
 
 - 真实LLM服务、四项外部数据格式及实际地区参数未接入；API兼容性只通过本地模拟测试。
 - 超时“有解/无解”分支通过模拟求解器返回状态验证，未以耗尽墙钟时间作真实超时验收。
-- 完整年度MILP性能、真实浏览器视觉/交互验收、新云任务恢复、GitHub远程CI尚未验收。
+- 完整年度MILP性能、真实浏览器视觉/交互验收、新云任务恢复尚未验收。
 - 供冷、管网、多节点、空间选址、故障备用、生命周期评价等范围见模型说明与路线，不属于v0.1已实现能力。

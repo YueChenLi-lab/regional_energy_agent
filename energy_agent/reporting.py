@@ -74,6 +74,8 @@ def _cell(value: Any) -> str:
     if value is None:
         return "—"
     if isinstance(value, float):
+        if 0 < abs(value) < 0.001:
+            return f"{value:.4g}"
         return f"{value:,.4f}"
     if isinstance(value, bool):
         return "是" if value else "否"

@@ -1,0 +1,230 @@
+{
+  "input_sha256": "fc0486ceea0bc12745319b320f80f38aa4469e93cdbb68a7885e15f987b7ecfc",
+  "output": {
+    "valid": true,
+    "checks": [
+      {
+        "name": "solver_has_solution",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0,
+        "detail": "求解状态：optimal"
+      },
+      {
+        "name": "candidate_identity",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0,
+        "detail": ""
+      },
+      {
+        "name": "result_dimensions",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0,
+        "detail": "逐时点=N，SOC=N+1，充放电模式=N"
+      },
+      {
+        "name": "timestamps",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0,
+        "detail": ""
+      },
+      {
+        "name": "objective_available",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0,
+        "detail": ""
+      },
+      {
+        "name": "electric_balance",
+        "passed": true,
+        "max_violation": 1.4210854715202004e-14,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "heat_balance",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "heat_pump_cop",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "boiler_efficiency",
+        "passed": true,
+        "max_violation": 7.105427357601002e-15,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "pv_allocation",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "nonnegative_flows",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "grid_limit",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "pv_availability",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "heat_pump_capacity",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "boiler_capacity",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "battery_charge_power",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "battery_discharge_power",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "soc_lower",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "soc_upper",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "soc_initial",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "soc_terminal",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": "期末必须恢复初始能量，不允许免费消耗初始储能"
+      },
+      {
+        "name": "soc_dynamics",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "binary_charge_mode",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "charge_mode_limit",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "discharge_mode_limit",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "no_simultaneous_charge_discharge",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "investment_budget",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0001,
+        "detail": ""
+      },
+      {
+        "name": "pv_site_limit",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "emission_limit",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0001,
+        "detail": "未设置排放上限"
+      },
+      {
+        "name": "objective_recalculation",
+        "passed": true,
+        "max_violation": 1.8189894035458565e-12,
+        "tolerance": 0.0001,
+        "detail": ""
+      }
+    ],
+    "metrics": {
+      "investment_yuan": 486099.99999999994,
+      "operating_cost_yuan": 9235.273600645423,
+      "emissions_kg": 6461.740170995679,
+      "grid_kwh": 6946.321150639638,
+      "gas_kwh_lhv": 13075.562070019198,
+      "curtailed_pv_kwh": 204.6402363561528,
+      "electric_load_kwh": 11917.136118458111,
+      "heat_load_kwh_th": 11768.005863017277,
+      "supply_satisfied": true,
+      "period_hours": 168.0
+    }
+  }
+}
