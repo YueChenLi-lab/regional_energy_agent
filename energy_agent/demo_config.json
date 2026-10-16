@@ -1,0 +1,22 @@
+{
+  "devices": {
+    "source_id": "demo-equipment",
+    "hp_cop": 3.2, "boiler_efficiency": 0.9,
+    "charge_efficiency": 0.95, "discharge_efficiency": 0.95,
+    "soc_min_fraction": 0.1, "soc_max_fraction": 0.9, "soc_initial_fraction": 0.5,
+    "pv_cost_per_kw": 3200, "battery_cost_per_kwh": 900,
+    "battery_power_cost_per_kw": 450, "hp_cost_per_kw_th": 1800,
+    "boiler_cost_per_kw_th": 250, "installation_fraction": 0.15,
+    "grid_connection_cost_yuan": 10000
+  },
+  "constraints": {
+    "source_id": "demo-conditions", "budget_yuan": 1200000,
+    "grid_limit_kw": 180, "pv_limit_kw": 180, "emission_limit_kg": null
+  },
+  "candidates": [
+    {"candidate_id": "A", "name": "电网＋燃气锅炉", "source_id": "demo-candidates", "pv_kw": 0, "battery_power_kw": 0, "battery_energy_kwh": 0, "hp_kw_th": 0, "boiler_kw_th": 120},
+    {"candidate_id": "B", "name": "光伏＋电网＋燃气锅炉", "source_id": "demo-candidates", "pv_kw": 120, "battery_power_kw": 0, "battery_energy_kwh": 0, "hp_kw_th": 0, "boiler_kw_th": 120},
+    {"candidate_id": "C", "name": "光伏＋热泵＋辅助燃气锅炉", "source_id": "demo-candidates", "pv_kw": 120, "battery_power_kw": 0, "battery_energy_kwh": 0, "hp_kw_th": 100, "boiler_kw_th": 60},
+    {"candidate_id": "D", "name": "光伏＋储能＋热泵＋辅助燃气锅炉", "source_id": "demo-candidates", "pv_kw": 120, "battery_power_kw": 40, "battery_energy_kwh": 100, "hp_kw_th": 100, "boiler_kw_th": 60}
+  ]
+}

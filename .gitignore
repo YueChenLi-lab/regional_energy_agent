@@ -10,3 +10,8 @@ __pycache__/
 .codex/
 auth.json
 .streamlit/secrets.toml
+outputs/
+*.egg-info/
+build/
+dist/
+.ruff_cache/
