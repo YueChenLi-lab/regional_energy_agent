@@ -1,0 +1,45 @@
+v0.1 delivery verification
+Time: 2026-10-16T20:57:36.718249+08:00
+Application base commit: 674d895a3b1cba9c50b5f4b2674b8de4980d6068
+Uncommitted application changes at verification: corrected synthetic-data provenance wording and preserved small numeric tolerances in Markdown; no mathematical model changes. These changes are included in the delivery commit.
+Formatter check: 1e-5 displays as 1e-05; 1.4e-14 is not rounded to zero. Passed.
+
+$ .venv/bin/python --version
+Python 3.12.14
+Exit status: 0
+
+$ .venv/bin/python -m pip check
+WARNING: The directory '/home/agent/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag.
+No broken requirements found.
+Exit status: 0
+
+$ .venv/bin/python -m pytest -q
+..........................................................               [100%]
+58 passed in 4.64s
+Exit status: 0
+
+$ .venv/bin/python -m energy_agent.cli demo --seed 42 --hours 168 --output docs/delivery/demo_168h --task-out docs/delivery/demo_task.json
+run_id=24bcc4660cf643de918a54cec0e0405a 输入版本=1 状态=完成
+合成演示数据；价格、排放因子和设备单价均为演示假设。
+在本次评估的候选方案中，D 通过全部约束校验，按评估期运行费升序排名第一。初始投资与评估期排放单独展示；此结果不代表全部可能容量配置的全局最优。
+A: optimal 投资=44500.00元 运行费=12889.76元 排放=9195.69kgCO2e
+B: optimal 投资=486100.00元 运行费=9235.27元 排放=6461.74kgCO2e
+C: optimal 投资=675850.00元 运行费=7381.59元 排放=5833.93kgCO2e
+D: optimal 投资=800050.00元 运行费=7002.16元 排放=5861.00kgCO2e
+{
+  "json": "docs/delivery/demo_168h/24bcc4660cf643de918a54cec0e0405a/result.json",
+  "csv": "docs/delivery/demo_168h/24bcc4660cf643de918a54cec0e0405a/scenarios.csv",
+  "markdown": "docs/delivery/demo_168h/24bcc4660cf643de918a54cec0e0405a/report.md",
+  "dispatch_A": "docs/delivery/demo_168h/24bcc4660cf643de918a54cec0e0405a/dispatch_A.csv",
+  "dispatch_B": "docs/delivery/demo_168h/24bcc4660cf643de918a54cec0e0405a/dispatch_B.csv",
+  "dispatch_C": "docs/delivery/demo_168h/24bcc4660cf643de918a54cec0e0405a/dispatch_C.csv",
+  "dispatch_D": "docs/delivery/demo_168h/24bcc4660cf643de918a54cec0e0405a/dispatch_D.csv"
+}
+Exit status: 0
+
+Packaging-only normalization: CSV CRLF line endings converted to LF before Git storage; no data fields or numeric values changed.
+docs/delivery/demo_168h/24bcc4660cf643de918a54cec0e0405a/dispatch_A.csv
+docs/delivery/demo_168h/24bcc4660cf643de918a54cec0e0405a/dispatch_B.csv
+docs/delivery/demo_168h/24bcc4660cf643de918a54cec0e0405a/dispatch_C.csv
+docs/delivery/demo_168h/24bcc4660cf643de918a54cec0e0405a/dispatch_D.csv
+docs/delivery/demo_168h/24bcc4660cf643de918a54cec0e0405a/scenarios.csv

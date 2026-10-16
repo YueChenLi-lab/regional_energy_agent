@@ -105,7 +105,7 @@ def make_demo_task(seed: int = 42, hours: int = 168) -> ProjectTask:
     sources = [
         Source(source_id="demo-series", name="合成演示数据：电热负荷与光伏", region="虚构园区（未知真实地区）", time_range=period,
                units={k: v for k, v in SERIES_UNITS.items() if k in ("electric_load_kw", "heat_load_kw_th", "pv_per_kw")},
-               category="synthetic", processing=[f"NumPy default_rng 固定随机种子 {seed}", "解析日周期加有界随机扰动；夜间光伏显式置零；负荷非负裁剪"], conditions="仅用于功能演示，非实测，不能直接用于工程决策"),
+               category="synthetic", processing=[f"NumPy default_rng 固定随机种子 {seed}", "电热负荷：解析日周期加正态随机扰动后非负裁剪；光伏：正弦包络乘有界均匀随机系数，夜间显式置零"], conditions="仅用于功能演示，非实测，不能直接用于工程决策"),
         Source(source_id="demo-market", name="合成演示数据：价格与排放因子假设", region="未知", time_range=period,
                units={k: v for k, v in SERIES_UNITS.items() if k not in ("electric_load_kw", "heat_load_kw_th", "pv_per_kw")},
                category="synthetic", processing=["预设峰谷电价、固定燃气价格和排放因子"], conditions="全部为演示假设，不代表当地现行价格或排放因子"),
