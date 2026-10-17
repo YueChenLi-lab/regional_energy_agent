@@ -15,3 +15,4 @@ outputs/
 build/
 dist/
 .ruff_cache/
+data_cache/

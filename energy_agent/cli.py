@@ -12,8 +12,10 @@ from .schemas import RunResult, RunState, SolverOptions, TaskPatch
 
 def main(argv=None) -> int:
     load_dotenv(Path(__file__).resolve().parents[1] / ".env", override=False)
-    parser = argparse.ArgumentParser(description="区域综合能源低碳规划评估 Agent v0.1")
+    parser = argparse.ArgumentParser(description="区域综合能源低碳规划评估 Agent v0.2")
     commands = parser.add_subparsers(dest="command", required=True)
+    from .import_cli import register_import_commands
+    register_import_commands(commands)
     demo = commands.add_parser("demo", help="合成演示数据，无需模型密钥")
     demo.add_argument("--seed", type=int, default=42)
     demo.add_argument("--hours", type=int, default=168)
@@ -33,6 +35,9 @@ def main(argv=None) -> int:
         command.add_argument("--grid-limit", type=float)
         command.add_argument("--pv-limit", type=float)
     args = parser.parse_args(argv)
+    if args.command in ("data-fetch", "data-import", "data-replay"):
+        from .import_cli import handle_import_command
+        return handle_import_command(args)
     previous = None
     try:
         if args.command == "run":
@@ -57,11 +62,14 @@ def main(argv=None) -> int:
     print(f"run_id={result.run_id} 输入版本={result.input_version} 状态={result.state}")
     if result.task.demo:
         print("合成演示数据；价格、排放因子和设备单价均为演示假设。")
+    elif result.task.case_context:
+        from .data import case_label
+        print(case_label(result.task), result.task.case_context.boundary)
     if result.comparison:
         print(result.comparison.explanation)
     for scenario in result.scenarios:
         m = scenario.validation.metrics
-        suffix = f"运行费={m.operating_cost_yuan:.2f}元 排放={m.emissions_kg:.2f}kgCO2e" if m else "；".join(scenario.dispatch.reasons)
+        suffix = f"运行费={m.operating_cost_yuan:.2f}元 排放={m.emissions_kg:.2f}kg{result.task.emission_species}" if m else "；".join(scenario.dispatch.reasons)
         print(f"{scenario.candidate.candidate_id}: {scenario.dispatch.status} 投资={scenario.investment_yuan:.2f}元 {suffix}")
     for issue in result.issues:
         print(f"待处理 {issue.field}: {issue.message}")

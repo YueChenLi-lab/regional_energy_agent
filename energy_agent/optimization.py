@@ -125,7 +125,7 @@ def solve_dispatch(request: SolveRequest) -> DispatchResult:
         reasons = ["HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；"
                    "未进行最小冲突集诊断，不能归因于单一约束"]
         if limits.emission_limit_kg is not None:
-            reasons.append(f"模型已包含评估期排放上限 {limits.emission_limit_kg:g} kgCO2e")
+            reasons.append(f"模型已包含评估期排放上限 {limits.emission_limit_kg:g} kg{task.emission_species}")
         return failure("infeasible", "运行模型不可行", reasons)
     has_solution = result.x is not None and np.all(np.isfinite(result.x))
     if result.status == 1 and not has_solution:

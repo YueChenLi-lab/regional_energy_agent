@@ -1,0 +1,7 @@
+{
+  "budget_yuan": 3000000,
+  "emission_factor": 0.55,
+  "emission_species": "CO2e",
+  "emission_factor_year": "人工情景，非2017官方历史排放因子",
+  "include_solar": false
+}

@@ -1,0 +1,47 @@
+{
+  "input_sha256": "714bdc3cd6663bc2b6bc16684600c3ee2805e38c1ef222850451ae4a88f8a422",
+  "output": {
+    "candidates": [
+      {
+        "candidate_id": "G",
+        "name": "既有电网基线",
+        "source_id": "electric-scenario",
+        "pv_kw": 0.0,
+        "battery_power_kw": 0.0,
+        "battery_energy_kwh": 0.0,
+        "hp_kw_th": 0.0,
+        "boiler_kw_th": 0.0
+      },
+      {
+        "candidate_id": "GB",
+        "name": "电网＋新增储能",
+        "source_id": "electric-scenario",
+        "pv_kw": 0.0,
+        "battery_power_kw": 270.0,
+        "battery_energy_kwh": 540.0,
+        "hp_kw_th": 0.0,
+        "boiler_kw_th": 0.0
+      },
+      {
+        "candidate_id": "GP",
+        "name": "电网＋新增光伏",
+        "source_id": "electric-scenario",
+        "pv_kw": 540.0,
+        "battery_power_kw": 0.0,
+        "battery_energy_kwh": 0.0,
+        "hp_kw_th": 0.0,
+        "boiler_kw_th": 0.0
+      },
+      {
+        "candidate_id": "GPB",
+        "name": "电网＋新增光伏储能",
+        "source_id": "electric-scenario",
+        "pv_kw": 540.0,
+        "battery_power_kw": 270.0,
+        "battery_energy_kwh": 540.0,
+        "hp_kw_th": 0.0,
+        "boiler_kw_th": 0.0
+      }
+    ]
+  }
+}

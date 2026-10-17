@@ -1,0 +1,57 @@
+{
+  "budget_yuan": 3000000.0,
+  "grid_limit_kw": null,
+  "pv_limit_kw": null,
+  "emission_limit_kg": null,
+  "emission_factor": 0.55,
+  "emission_species": "CO2e",
+  "emission_factor_year": "人为情景假设，非官方历史因子",
+  "tariff": {
+    "region": "上海（人工情景，非官方现行电价）",
+    "applicable_year": "情景假设，不宣称适用于2017或当前年份",
+    "customer_class": "办公建筑情景，未核实电压等级与用户分类",
+    "cost_scope": "仅按购电量计费；未计基本电费、需量费、容量费、功率因数调整及税费差异",
+    "periods": [
+      {
+        "start_hour": 0,
+        "end_hour": 7,
+        "yuan_per_kwh": 0.38
+      },
+      {
+        "start_hour": 7,
+        "end_hour": 17,
+        "yuan_per_kwh": 0.72
+      },
+      {
+        "start_hour": 17,
+        "end_hour": 22,
+        "yuan_per_kwh": 1.15
+      },
+      {
+        "start_hour": 22,
+        "end_hour": 24,
+        "yuan_per_kwh": 0.72
+      }
+    ]
+  },
+  "pv_cost_per_kw": 3200.0,
+  "battery_cost_per_kwh": 900.0,
+  "battery_power_cost_per_kw": 450.0,
+  "installation_fraction": 0.15,
+  "battery_charge_efficiency": 0.95,
+  "battery_discharge_efficiency": 0.95,
+  "battery_power_fraction_of_peak": 0.25,
+  "battery_duration_hours": 2.0,
+  "pv_fraction_of_peak": 0.5,
+  "solar": {
+    "latitude": 31.23,
+    "longitude": 121.47,
+    "coordinate_scope": "上海市级代表点，非匿名楼宇精确位置；与NASA网格存在空间代表性误差",
+    "tilt_degrees": 20.0,
+    "azimuth_degrees": 180.0,
+    "system_loss_fraction": 0.14,
+    "gamma_pdc": -0.004,
+    "inverter_efficiency": 0.96
+  },
+  "include_solar": true
+}

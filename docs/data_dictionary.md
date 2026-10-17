@@ -132,3 +132,19 @@ JSON 是完整可追溯结果；CSV 便于比较与绘图；Markdown 报告描�
 `Source` 包含 `source_id`、`name`、`region`、`time_range`、`units`、`category`、`processing` 和 `conditions`。`category` 可为 `measured`（实测）、`simulated`（仿真）、`synthetic`（合成）、`user`（用户输入）或 `unknown`。地区、时间范围和使用条件的缺省文字为“未知”；未知类别为 `unknown`。处理记录说明操作及影响区间，尤其是负荷缩放或其它数据转换；本版不默认插补缺失数据。
 
 运行状态记录在 `state` 和 `states` 中，使用明确的中文状态枚举。`Issue.kind` 为 `missing`、`invalid` 或 `unsupported`，配合 `field` 与 `message` 返回结构化待补项或问题。
+
+
+## v0.2兼容扩展
+
+- `TaskRequest.assessment_mode`：默认`electric_heat`保留旧流程；`electric_only`必须提供`case_context`、零热占位且候选热泵/锅炉容量均为0。
+- `case_context`：计量边界、排除项、时间约定、投资范围、位置精度、质量摘要、能量核对、待核实事项与导入文件位置。零热值不代表无供热需求或已保障供热。
+- `emission_species`：`CO2e`（兼容默认）或`CO2`；`units`中的因子单位必须同步为`kgCO2e/kWh`或`kgCO2/kWh`，气体基准同理，报告/界面/无解说明保留物质口径。`emissions_kg`与排放约束均按此物质计kg，不做CO2↔CO2e替换。
+- `Source`新增`url`、`version`、`artifacts`、`parent_source_ids`；类别新增`estimated`（模型/资源估计）与`assumption`（人为假设），保持原有枚举。`Artifact`保存下载URL、文件名、SHA-256、获取时间、档案成员路径、容器SHA、发布方校验值及实际核实的许可标识。用户本地文件获取时间可空，不假装网络下载。
+- `MeterSelection`：建筑、Q/W类别、明确的区间起/止假设、类别合计与时区确认。`data_kind=artificial_fixture`将人工样本标为合成，不冒充外部实测。
+- `IntervalContract`：`power_kw`区间平均功率按时长积分，`interval_kwh`逐间隔电量求和，`cumulative_kwh`相邻边界读数做差；累计复位拒绝。不支持隐含上采样，降采样只接收完整且对齐的目标区间。原时区声明后统一到Asia/Shanghai。
+- `QualityReport`：记录数、起止、观测/期望步长、缺失、重复、非法时间、缺失/非有限/负值、跳变与带时间示例的问题；整份所选建筑/测点与窗口分别报告。跳变阈值是审查规则，不是自动故障判断，不自动填补、删点。
+- `EnergyAudit`：转换前后kWh、差值、容差、声明数值分辨率、源舍入不确定性上界及解释。输入分辨率不是已核实的仪表精度；同一输入的无舍入转换只允许浮点误差。
+
+逐时电价CSV只支持`timestamp,yuan_per_kwh`两列，严格对齐全部负荷小时，拒绝重复、负值和缺失。时段价格表必须恰好覆盖24小时，无重叠或空档；只核算按电量收费，其他收费不默认为0已核实。
+
+`load_csv(..., emission_species="CO2")`可读CO2口径的统一CSV；省略仍为旧版CO2e。NASA适配器只接受响应明确UTC与已支持单位的GHI、T2M、WS10M，拒绝fill值和缺失；小时Wh/m²除以1h成为平均W/m²，再经独立光伏模型得到kW/kW，不能直接当光伏出力。

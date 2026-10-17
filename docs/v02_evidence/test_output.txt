@@ -1,0 +1,9 @@
+$ .venv/bin/python -m pytest -q
+........................................................................ [ 74%]
+.........................                                                [100%]
+97 passed in 6.14s
+
+Exit status: 0
+
+Original v0.1 tests retained: 58. Current total: 97.
+Artificial format/transport fixtures and actual captured external-data tests are labelled separately.

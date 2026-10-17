@@ -15,15 +15,42 @@ class Model(BaseModel):
     model_config = ConfigDict(extra="forbid", allow_inf_nan=False, validate_assignment=True)
 
 
+class Artifact(Model):
+    url: str
+    filename: str
+    sha256: str = Field(pattern=r"^[a-f0-9]{64}$")
+    retrieved_at: datetime | None = None
+    member_path: str | None = None
+    container_sha256: str | None = Field(default=None, pattern=r"^[a-f0-9]{64}$")
+    publisher_checksum: str | None = None
+    license_id: str = "未知"
+
+
 class Source(Model):
     source_id: str
     name: str
     region: str = "未知"
     time_range: str = "未知"
     units: dict[str, str] = Field(default_factory=dict)
-    category: Literal["measured", "simulated", "synthetic", "user", "unknown"] = "unknown"
+    category: Literal["measured", "simulated", "synthetic", "estimated", "assumption", "user", "unknown"] = "unknown"
     processing: list[str] = Field(default_factory=list)
     conditions: str = "未知"
+    url: str | None = None
+    version: str = "未知"
+    artifacts: list[Artifact] = Field(default_factory=list)
+    parent_source_ids: list[str] = Field(default_factory=list)
+
+
+class CaseContext(Model):
+    boundary: str
+    excluded: list[str]
+    timestamp_convention: str
+    investment_scope: str
+    location: str = "未知"
+    quality_summary: str = "未知"
+    energy_check: str = "未知"
+    pending: list[str] = Field(default_factory=list)
+    import_files: dict[str, str] = Field(default_factory=dict)
 
 
 SERIES_UNITS = {
@@ -42,8 +69,8 @@ class TimeSeriesData(Model):
     pv_per_kw: list[Fraction] = Field(description="单位光伏装机平均出力，kW/kW，0..1")
     electricity_price: list[NonNegative] = Field(description="购电价格，元/kWh")
     gas_price: list[NonNegative] = Field(description="燃气低位热值价格，元/kWh_LHV")
-    grid_emission_factor: list[NonNegative] = Field(description="电网运行排放因子，kgCO2e/kWh")
-    gas_emission_factor: list[NonNegative] = Field(description="燃气运行排放因子，kgCO2e/kWh_LHV")
+    grid_emission_factor: list[NonNegative] = Field(description="电网运行排放因子，kgCO2e/kWh；任务emission_species=CO2时为kgCO2/kWh")
+    gas_emission_factor: list[NonNegative] = Field(description="燃气运行排放因子，kgCO2e/kWh_LHV；物质为CO2时相应改为kgCO2/kWh_LHV")
     units: dict[str, str]
     source_ids: dict[str, str] = Field(description="每个时序列到 Source.source_id 的映射")
 
@@ -77,7 +104,7 @@ class Constraints(Model):
     budget_yuan: NonNegative | None = Field(default=None, description="初始投资预算，元；缺失需补充")
     grid_limit_kw: NonNegative = Field(description="电网购电功率上限，kW")
     pv_limit_kw: NonNegative = Field(description="场地可容纳光伏装机上限，kW")
-    emission_limit_kg: NonNegative | None = Field(default=None, description="评估期运行排放上限，kgCO2e；空表示不限制")
+    emission_limit_kg: NonNegative | None = Field(default=None, description="评估期运行排放上限，kgCO2e或kgCO2，见任务emission_species；空表示不限制")
 
 
 class Candidate(Model):
@@ -108,6 +135,9 @@ class TaskRequest(Model):
     sources: list[Source] = Field(default_factory=list)
     unsupported_demands: list[str] = Field(default_factory=list, description="例如供冷；存在时拒绝运行并要求明确移除")
     demo: bool = False
+    assessment_mode: Literal["electric_heat", "electric_only"] = "electric_heat"
+    emission_species: Literal["CO2e", "CO2"] = "CO2e"
+    case_context: CaseContext | None = None
 
 
 class ProjectTask(TaskRequest):
@@ -122,6 +152,13 @@ class ProjectTask(TaskRequest):
             raise ValueError("缺少初始投资预算")
         if self.unsupported_demands:
             raise ValueError("存在尚未支持的需求：" + "、".join(self.unsupported_demands))
+        if self.assessment_mode == "electric_only":
+            if self.case_context is None:
+                raise ValueError("电侧评估必须声明计量边界与未建模供热")
+            if any(self.data.heat_load_kw_th):
+                raise ValueError("电侧评估不建模供热，热负荷占位数组必须全部为零")
+            if any(c.hp_kw_th or c.boiler_kw_th for c in self.candidates):
+                raise ValueError("电侧候选不得含热泵或锅炉，不保证供热需求")
         return self
 
 
@@ -185,7 +222,7 @@ class ConstraintCheck(Model):
 class Metrics(Model):
     investment_yuan: NonNegative = Field(description="新建项目初始投资，元")
     operating_cost_yuan: float = Field(description="评估期购电与购气费用，元")
-    emissions_kg: float = Field(description="评估期运行阶段排放，kgCO2e")
+    emissions_kg: float = Field(description="评估期运行阶段排放，kgCO2e或kgCO2，见任务emission_species；禁止互换")
     grid_kwh: float = Field(description="评估期购电量，kWh")
     gas_kwh_lhv: float = Field(description="评估期燃气低位热值输入量，kWh_LHV")
     curtailed_pv_kwh: float = Field(description="评估期弃光量，kWh")

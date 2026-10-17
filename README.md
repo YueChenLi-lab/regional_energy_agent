@@ -1,8 +1,44 @@
-# 区域综合能源低碳规划评估 Agent · v0.1
+# 区域综合能源低碳规划评估 Agent · v0.2
 
 可运行的单节点电热规划原型：根据负荷、预算、场地与运行排放约束，比较有限的光伏、储能、热泵、燃气锅炉组合。单个 Agent 编排确定性工具，SciPy/HiGHS 求解运行，独立算术检查复核结果，中文 Streamlit 界面与 CLI 共用同一流程。
 
-**演示全部采用合成演示数据。** 价格、排放因子、成本与设备参数都是演示假设，不代表当地现行值。结果只覆盖输入的评估期，不年化，也不称为全生命周期零碳或所有容量组合的全局最优。
+**合成演示入口采用合成演示数据。** 价格、排放因子、成本与设备参数都是演示假设，不代表当地现行值。结果只覆盖输入的评估期，不年化，也不称为全生命周期零碳或所有容量组合的全局最优。
+
+
+## v0.2 第一阶段：真实数据电侧评估
+
+保留原有电热合成演示与模型适配器，新增独立的“外部数据导入（电侧）”入口。已实际读取Zenodo 6590976的`dataset_v2.zip`、核对发布MD5与SHA-256及CC BY 4.0；Q/W的`Record`是每小时kWh。**Q+W只称发布方计量类别合计，不声称全楼总电量**，重复测点与不明格式会被拒绝；Time起止约定未获发布方证明，需要显式确认假设。
+
+真实168小时案例与NASA UTC资源、质量报告及原始校验值已随代码保存于[许可与离线案例](examples/shanghai_168h/README.md)。光伏由pvlib估算，非楼宇实测。价格、排放因子、设备成本、场地和时间锚点仍是假设，整体标为**实测与假设混合案例**。仅比较电网/光伏/储能；W若被选中保留为电负荷，不再推算热需求。供热模块显式停用，不代表供热需求不存在或已获保障。
+
+无需网络即可重新解析原始子集、校验NASA资源、估算光伏并实际优化：
+
+```bash
+.venv/bin/python -m energy_agent.cli data-replay --output outputs/real_replay
+.venv/bin/python -m energy_agent.cli data-replay --budget 0 --output outputs/real_budget0
+```
+
+自行下载、选择建筑/测点/窗口（联网必须显式启用；已缓存后去掉`--online`可重放）：
+
+```bash
+.venv/bin/python -m energy_agent.cli data-fetch --provider zenodo --online
+.venv/bin/python -m energy_agent.cli data-import --provider zenodo --building test --meters Q,W --acknowledge-category-sum --timestamp-position start --acknowledge-time-assumption --start 2017-01-01 --hours 168 --parameters configs/electric_assumptions.json --with-solar --online --output outputs/my_shanghai --run
+```
+
+每次导入使用新的空结果目录，避免覆盖旧记录。省略预算时返回待补项，不默认假定用户预算；示例参数文件明确加载人工情景。支持`--records`本地原CSV、`--dataset reference --building <BuildingID>`、`--tariff-csv`逐时电价和带年份/费用范围的`--price-description`。详细格式、处理、许可及证据见[v0.2说明](docs/real_data.md)。
+
+Windows Conda（已有`regional-energy`环境，Python 3.12）：
+
+```powershell
+conda activate regional-energy
+python -m pip install -r requirements.txt
+python -m pip install -e . --no-deps
+python -m pytest -q
+python -m energy_agent.cli data-replay --output outputs/real_replay
+python -m streamlit run app.py
+```
+
+云端继续使用项目`.venv`与`bash scripts/setup.sh`；新增依赖`pvlib==0.16.1`及其依赖已固定于锁文件。Windows命令是兼容性说明，本轮执行环境为Linux，未实际在Windows验收。
 
 ## 安装与启动
 
@@ -79,6 +115,6 @@ python3.12 -m venv .venv
 
 测试覆盖标准168小时闭环、预算全拒绝、供热不足、碳约束无解与绑定后的运行变化、半小时时步能量换算、电池互斥与终态、篡改结果的独立检出、固定种子复现、版本与实际重算、缺失/异常数据、无密钥UI和模型适配器。超时分类用模拟求解器返回状态验证；完整年度运行性能与真实模型未验收。
 
-实际验证：**58 项测试通过**，包括无密钥界面闭环，详见[验证记录与演示结果](docs/validation.md)。可下载快照内包含[完整交付报告、JSON/CSV和命令日志](docs/delivery/README.md)。
+v0.2实际验证：**97 项测试通过**（原58项保留），包括真实捕获数据离线求解与中文导入界面；详见[v0.2验证记录](docs/v02_validation.md)。v0.1历史记录见[原验证记录](docs/validation.md)。可下载快照内包含[完整交付报告、JSON/CSV和命令日志](docs/delivery/README.md)。
 
-进一步阅读：[数学模型](docs/model.md)、[数据字典](docs/data_dictionary.md)、[数据来源登记](docs/data_sources.md)、[后续路线](docs/roadmap.md)。登记的四项外部数据本轮均未读取或接入。
+进一步阅读：[数学模型](docs/model.md)、[数据字典](docs/data_dictionary.md)、[数据来源登记](docs/data_sources.md)、[后续路线](docs/roadmap.md)。EnergyDetective正式档案与NASA POWER同期资源已实际读取；瑞丽、NREL和Calliope仍仅登记。
