@@ -1,0 +1,10 @@
+{
+  "raw_energy_kwh": 90087.68999999999,
+  "normalized_energy_kwh": 90087.69,
+  "difference_kwh": 1.4551915228366852e-11,
+  "tolerance_kwh": 0.0002,
+  "input_numeric_precision": 0.01,
+  "source_rounding_bound_kwh": 1.68,
+  "passed": true,
+  "explanation": "转换前后使用同一输入且不舍入，只允许浮点求和误差；容差取声明输入能量分辨率的1/100与1e-8 kWh较大者。原始数值舍入不确定性上界另列，不等同于转换误差或仪表精度。"
+}

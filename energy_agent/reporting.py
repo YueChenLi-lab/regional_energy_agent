@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from .schemas import ReportRequest, ReportText, RunResult, ScenarioResult
+from .data import case_label
 
 
 STATUS_LABELS = {
@@ -94,11 +95,12 @@ def generate_report(request: ReportRequest) -> ReportText:
     run = request.run
     task = run.task
     scenarios = ordered_scenarios(run)
+    emission_unit = f"kg{task.emission_species}"
     chunks = [
         "# 区域综合能源低碳规划评估报告",
         f"项目：{_cell(task.project_name)}\n\n运行 ID：`{run.run_id}`；输入版本：{run.input_version}；状态：{run.state.value}。",
         "**合成演示数据**：负荷、资源、价格、排放因子和设备费用为演示假设，不代表当地现行参数。"
-        if task.demo else "数据性质与使用条件见来源记录；未知信息不能视为实测依据。",
+        if task.demo else f"**{case_label(task)}**。实测、估算与人为假设逐字段记录；不代表真实工程投资决策，未知信息不能视为实测依据。",
         "## 任务条件",
     ]
     if task.data is not None:
@@ -113,7 +115,7 @@ def generate_report(request: ReportRequest) -> ReportText:
         c = task.constraints
         chunks.append(_table(["条件", "数值", "单位"], [
             ["初始投资预算", c.budget_yuan, "元"],
-            ["评估期排放上限", c.emission_limit_kg if c.emission_limit_kg is not None else "不限制", "kgCO2e"],
+            ["评估期排放上限", c.emission_limit_kg if c.emission_limit_kg is not None else "不限制", emission_unit],
             ["电网购电功率上限", c.grid_limit_kw, "kW"],
             ["光伏场地上限", c.pv_limit_kw, "kW"],
         ]))
@@ -126,7 +128,7 @@ def generate_report(request: ReportRequest) -> ReportText:
     chunks.append("## 候选配置与结果")
     if run.scenarios:
         chunks.append(_table(
-            ["方案", "光伏 kW", "电池 kW / kWh", "热泵 kW_th", "锅炉 kW_th", "投资 元", "运行费 元", "排放 kgCO2e", "求解状态", "约束通过", "容量来源"],
+            ["方案", "光伏 kW", "电池 kW / kWh", "热泵 kW_th", "锅炉 kW_th", "投资 元", "运行费 元", f"排放 {emission_unit}", "求解状态", "约束通过", "容量来源"],
             [[s.candidate.candidate_id + " " + s.candidate.name,
               s.candidate.pv_kw, f"{s.candidate.battery_power_kw:g} / {s.candidate.battery_energy_kwh:g}",
               s.candidate.hp_kw_th, s.candidate.boiler_kw_th, s.investment_yuan,
@@ -168,7 +170,7 @@ def generate_report(request: ReportRequest) -> ReportText:
         ]))
     if task.devices is not None:
         d = task.devices
-        chunks.extend(["## 设备与新建项目投资假设", _table(["参数", "值", "单位"], [
+        chunks.extend(["## 设备与投资假设" + ("（电侧模式：热泵与锅炉停用，参数不参与计算）" if task.assessment_mode == "electric_only" else "（新建项目）"), _table(["参数", "值", "单位"], [
             ["光伏设备单价", d.pv_cost_per_kw, "元/kW"],
             ["电池能量单价", d.battery_cost_per_kwh, "元/kWh"],
             ["电池功率单价", d.battery_power_cost_per_kw, "元/kW"],
@@ -189,13 +191,30 @@ def generate_report(request: ReportRequest) -> ReportText:
             ["单位", json.dumps(source.units, ensure_ascii=False)],
             ["处理记录", "；".join(source.processing) or "未处理 / 未知"],
             ["使用条件", source.conditions],
+            ["发布链接", source.url or "未知"], ["版本", source.version],
+            ["原始文件、SHA-256与获取时间", json.dumps([a.model_dump(mode="json") for a in source.artifacts], ensure_ascii=False) or "未知"],
+            ["父来源", "、".join(source.parent_source_ids) or "无 / 未知"],
         ]))
     if task.data is not None:
         chunks.append("时序字段来源映射：\n\n" + _table(["字段", "source_id", "单位"], [
             [name, source_id, task.data.units.get(name, "未知")]
             for name, source_id in task.data.source_ids.items()
         ]))
-    chunks.extend(["## 模型假设、适用范围与尚未实现内容", "\n".join(f"- {item}" for item in ASSUMPTIONS)])
+    assumptions = list(ASSUMPTIONS)
+    if task.assessment_mode == "electric_only":
+        assumptions[0] = "仅评估已声明计量边界的电侧；保留选中W类别的暖通用电；不估算热需求，不保证供热。零热数组仅为停用占位，不代表没有供热需求。"
+        assumptions[1] = "增量投资只计新增光伏/储能及安装；既有电网接入和既有用能设备不在投资范围，运行费仅统计本评估期的电量收费部分。"
+    assumptions = [a.replace("kgCO2e", emission_unit) for a in assumptions]
+    if task.case_context:
+        context = task.case_context
+        chunks.extend(["## 本次评估边界、质量与未覆盖项", _table(["项目", "说明"], [
+            ["模式", task.assessment_mode], ["计量边界", context.boundary],
+            ["未覆盖", "；".join(context.excluded)], ["时间假设", context.timestamp_convention],
+            ["投资范围", context.investment_scope], ["位置精度", context.location],
+            ["质量摘要", context.quality_summary], ["转换能量核对", context.energy_check],
+            ["未完成或待核实", "；".join(context.pending)],
+        ])])
+    chunks.extend(["## 模型假设、适用范围与尚未实现内容", "\n".join(f"- {item}" for item in assumptions)])
     if run.previous_run_id is not None:
         chunks.extend(["## 场景变更", f"前次运行：`{run.previous_run_id}`；本次输入版本 {run.input_version}，计算状态见执行追溯。",
                        "```json\n" + json.dumps(run.changes, ensure_ascii=False, indent=2) + "\n```"])
@@ -226,7 +245,9 @@ def export_run(run: RunResult, output_dir: Path) -> dict[str, str]:
         "markdown": str(directory / "report.md"),
     }
     ranks = {name: i + 1 for i, name in enumerate(run.comparison.ranked_ids)} if run.comparison else {}
-    _write_csv(Path(files["csv"]), [dict(run_id=run.run_id, input_version=run.input_version, **scenario_row(s, ranks.get(s.candidate.candidate_id))) for s in ordered_scenarios(run)], ["run_id", "input_version", "candidate_id", "status"])
+    _write_csv(Path(files["csv"]), [dict(run_id=run.run_id, input_version=run.input_version,
+        assessment_mode=run.task.assessment_mode, emissions_unit=f"kg{run.task.emission_species}",
+        **scenario_row(s, ranks.get(s.candidate.candidate_id))) for s in ordered_scenarios(run)], ["run_id", "input_version", "candidate_id", "status"])
     for scenario in run.scenarios:
         dispatch = scenario.dispatch
         path = directory / f"dispatch_{scenario.candidate.candidate_id}.csv"

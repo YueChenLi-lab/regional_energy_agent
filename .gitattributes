@@ -1,0 +1,5 @@
+examples/shanghai_168h/** -text
+examples/shanghai_168h/*.json linguist-generated=true
+examples/shanghai_168h/*.csv linguist-generated=true
+examples/shanghai_168h/runs/** linguist-generated=true
+examples/shanghai_168h/report.md linguist-generated=true

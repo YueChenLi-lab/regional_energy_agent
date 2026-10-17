@@ -1,0 +1,37 @@
+[
+  {
+    "name": "zenodo_metadata",
+    "url": "https://zenodo.org/api/records/6590976",
+    "attempted_at": "2026-10-17T08:54:26.984933+00:00",
+    "status_code": 200,
+    "content_type": "application/json"
+  },
+  {
+    "name": "nasa_documentation",
+    "url": "https://power.larc.nasa.gov/docs/services/api/temporal/hourly/",
+    "attempted_at": "2026-10-17T08:54:28.153400+00:00",
+    "status_code": 200,
+    "content_type": "text/html"
+  },
+  {
+    "name": "nasa_actual_hourly_request",
+    "url": "https://power.larc.nasa.gov/api/temporal/hourly/point?parameters=ALLSKY_SFC_SW_DWN%2CT2M%2CWS10M&community=RE&longitude=121.47&latitude=31.23&start=20161231&end=20170107&format=JSON&time-standard=UTC",
+    "attempted_at": "2026-10-17T08:54:28.586528+00:00",
+    "status_code": 200,
+    "content_type": "application/json"
+  },
+  {
+    "name": "official_environment_site",
+    "url": "https://www.mee.gov.cn/",
+    "attempted_at": "2026-10-17T08:54:29.279917+00:00",
+    "status_code": 200,
+    "content_type": "text/html"
+  },
+  {
+    "name": "pvlib_documentation",
+    "url": "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.pvsystem.pvwatts_dc.html",
+    "attempted_at": "2026-10-17T08:54:30.933673+00:00",
+    "status_code": 200,
+    "content_type": "text/html; charset=utf-8"
+  }
+]

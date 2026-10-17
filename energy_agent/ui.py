@@ -8,7 +8,7 @@ import pandas as pd
 import streamlit as st
 
 from .agent import EnergyAgent, revise_task
-from .data import make_demo_task
+from .data import case_label, make_demo_task
 from .reporting import ASSUMPTIONS, STATUS_LABELS, ordered_scenarios, scenario_row
 from .schemas import RunResult, TaskPatch
 
@@ -26,6 +26,7 @@ DISPLAY_COLUMNS = {
 def _show_results(run: RunResult) -> None:
     st.subheader(f"评估结果 · 输入版本 {run.input_version}")
     st.caption(f"运行 ID：{run.run_id}　状态：{run.state.value}")
+    st.caption(case_label(run.task))
     st.caption(" → ".join(state.value for state in run.states))
     if run.issues:
         st.error("输入尚未就绪，请补充或修正以下条件。")
@@ -40,7 +41,8 @@ def _show_results(run: RunResult) -> None:
         rows = [scenario_row(s, ranks.get(s.candidate.candidate_id)) for s in ordered_scenarios(run)]
         frame = pd.DataFrame(rows)
         frame["status"] = frame["status"].map(STATUS_LABELS)
-        st.dataframe(frame[list(DISPLAY_COLUMNS)].rename(columns=DISPLAY_COLUMNS), hide_index=True)
+        columns = {**DISPLAY_COLUMNS, "emissions_kg": f"评估期排放（kg{run.task.emission_species}）"}
+        st.dataframe(frame[list(columns)].rename(columns=columns), hide_index=True)
         st.caption("投资与评估期运行费分列；不年化、不相加为生命周期成本。")
         failures = [s for s in run.scenarios if not s.validation.valid]
         if failures:
@@ -62,11 +64,14 @@ def _show_results(run: RunResult) -> None:
             if run.task.data is not None:
                 electric["常规电负荷"] = run.task.data.electric_load_kw
             st.line_chart(electric.rename(columns={"grid_kw": "电网购电", "pv_used_kw": "光伏利用", "hp_electric_kw": "热泵用电", "charge_kw": "充电", "discharge_kw": "放电"}))
-            st.write("热功率（kW_th）")
-            heat = dispatch[["hp_heat_kw_th", "boiler_heat_kw_th"]].copy()
-            if run.task.data is not None:
-                heat["热负荷"] = run.task.data.heat_load_kw_th
-            st.line_chart(heat.rename(columns={"hp_heat_kw_th": "热泵供热", "boiler_heat_kw_th": "锅炉供热"}))
+            if run.task.assessment_mode == "electric_only":
+                st.caption("供热模块已停用，未核查热需求或供热保障；不绘制零热曲线暗示已满足供热。")
+            else:
+                st.write("热功率（kW_th）")
+                heat = dispatch[["hp_heat_kw_th", "boiler_heat_kw_th"]].copy()
+                if run.task.data is not None:
+                    heat["热负荷"] = run.task.data.heat_load_kw_th
+                st.line_chart(heat.rename(columns={"hp_heat_kw_th": "热泵供热", "boiler_heat_kw_th": "锅炉供热"}))
             if scenario.candidate.battery_energy_kwh > 0:
                 st.write("电池边界状态（kWh；第 0 项为期初，第 N 项为期末）")
                 st.line_chart(pd.DataFrame({"储能量": scenario.dispatch.soc_kwh}))
@@ -97,8 +102,13 @@ def _show_results(run: RunResult) -> None:
 def main() -> None:
     st.set_page_config(page_title="区域综合能源低碳规划评估 Agent", layout="wide")
     st.title("区域综合能源低碳规划评估 Agent")
-    st.write("v0.1 · 单供能节点 · 有限候选配置比较 · 运行阶段排放")
+    st.write("v0.2 · 单供能节点 · 有限候选配置比较 · 运行阶段排放")
     st.info("规则演示模式：支持预设任务和表单修改，可在没有模型密钥时完成评估；不具备任意自然语言理解能力。")
+    workflow = st.radio("工作流程", ["合成演示", "外部数据导入（电侧）"], horizontal=True, key="workflow")
+    if workflow == "外部数据导入（电侧）":
+        from .import_ui import render_import
+        render_import(_show_results)
+        return
     if st.button("加载合成演示案例", key="load_demo"):
         st.session_state.task = make_demo_task()
         st.session_state.last_run = None

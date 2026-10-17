@@ -12,10 +12,13 @@ from .schemas import (
 )
 
 
-def check_data(data: TimeSeriesData) -> list[Issue]:
+def check_data(data: TimeSeriesData, emission_species: str = "CO2e") -> list[Issue]:
     issues = []
     n = len(data.timestamps)
-    for field, unit in SERIES_UNITS.items():
+    expected_units = dict(SERIES_UNITS)
+    for name in ("grid_emission_factor", "gas_emission_factor"):
+        expected_units[name] = expected_units[name].replace("CO2e", emission_species)
+    for field, unit in expected_units.items():
         values = getattr(data, field)
         if len(values) != n:
             issues.append(Issue(field=f"data.{field}", message=f"长度 {len(values)} 与时间戳数 {n} 不符"))
@@ -44,13 +47,21 @@ def validate_inputs(request: TaskRequest) -> InputValidation:
     if request.unsupported_demands:
         issues.append(Issue(field="unsupported_demands", message="v0.1 尚不支持：" + "、".join(request.unsupported_demands), kind="unsupported"))
     if request.data:
-        issues.extend(check_data(request.data))
+        issues.extend(check_data(request.data, request.emission_species))
+    if request.assessment_mode == "electric_only":
+        if request.case_context is None:
+            issues.append(Issue(field="case_context", message="电侧模式需声明边界、供热未覆盖和投资口径", kind="missing"))
+        if request.data and any(request.data.heat_load_kw_th):
+            issues.append(Issue(field="data.heat_load_kw_th", message="电侧模式必须停用供热；不能将W电量当成热需求"))
+        if any(c.hp_kw_th or c.boiler_kw_th for c in request.candidates or []):
+            issues.append(Issue(field="candidates", message="电侧候选不得包含热泵和锅炉"))
     source_ids = [s.source_id for s in request.sources]
     if len(source_ids) != len(set(source_ids)):
         issues.append(Issue(field="sources", message="source_id 不得重复"))
     refs = set(request.data.source_ids.values()) if request.data else set()
     refs |= {obj.source_id for obj in (request.devices, request.constraints) if obj is not None}
     refs |= {c.source_id for c in request.candidates or []}
+    refs |= {parent for source in request.sources for parent in source.parent_source_ids}
     for ref in sorted(refs - set(source_ids)):
         issues.append(Issue(field="sources", message=f"来源 {ref} 未登记", kind="missing"))
     if request.candidates:
@@ -62,7 +73,7 @@ def validate_inputs(request: TaskRequest) -> InputValidation:
     return InputValidation(ready=True, task=ProjectTask.model_validate(request.model_dump()))
 
 
-def load_csv(path: str | Path, metadata: dict) -> TimeSeriesData:
+def load_csv(path: str | Path, metadata: dict, *, emission_species: str = "CO2e") -> TimeSeriesData:
     """Read only our documented CSV + metadata format; never fill missing values."""
     if set(metadata) != {"step_hours", "units", "source_ids"}:
         raise ValueError("metadata 必须恰包含 step_hours、units、source_ids，不能覆盖 CSV 数据列")
@@ -77,10 +88,26 @@ def load_csv(path: str | Path, metadata: dict) -> TimeSeriesData:
     payload.update(metadata)
     payload["timestamps"] = frame["timestamp"].tolist()
     data = TimeSeriesData.model_validate(payload)
-    issues = check_data(data)
+    issues = check_data(data, emission_species)
     if issues:
         raise ValueError("; ".join(issue.message for issue in issues))
     return data
+
+
+def case_label(task: TaskRequest) -> str:
+    if task.demo:
+        return "合成演示数据"
+    active = set(task.data.source_ids.values()) if task.data else set()
+    categories = {s.category for s in task.sources if s.source_id in active}
+    if "measured" in categories and categories - {"measured"}:
+        return "实测与假设混合案例"
+    if categories == {"measured"}:
+        return "实测计量边界案例（来源声明仍需核实）"
+    if task.data:
+        load_source = next((s for s in task.sources if s.source_id == task.data.source_ids.get("electric_load_kw")), None)
+        if load_source and load_source.category == "synthetic":
+            return "人工格式测试样本与假设案例（非实测）"
+    return "用户情景/估算案例（含未核实假设）"
 
 
 def make_demo_task(seed: int = 42, hours: int = 168) -> ProjectTask:
