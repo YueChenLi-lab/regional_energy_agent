@@ -47,6 +47,12 @@ def render_planning(show_results):
     with st.expander('数据质量、来源与研究假设'):
         st.write(task.case_context.quality_summary if task.case_context else '未知')
         st.write(task.case_context.pending if task.case_context else [])
+        from .diagnostics import diagnose_peak
+        diagnostic=diagnose_peak(task)
+        st.write(diagnostic.summary)
+        st.write(diagnostic.treatment)
+        st.dataframe(pd.DataFrame(diagnostic.peak_neighbors),hide_index=True)
+        st.download_button('下载峰值诊断JSON',diagnostic.model_dump_json(indent=2),file_name='peak_diagnostics.json',key='peak_download')
         st.json([s.model_dump(mode='json') for s in task.sources])
     if task.economics is None or task.capacity_bounds is None:
         st.error('全年规划入口需要完整经济参数与容量边界');return
@@ -59,6 +65,7 @@ def render_planning(show_results):
         grid=st.number_input('购电功率上限 kW',min_value=0.0,value=float(task.constraints.grid_limit_kw))
         horizon=st.number_input('规划年数',min_value=1,max_value=100,value=task.economics.horizon_years)
         rate=st.number_input('折现率',min_value=0.0,max_value=1.0,value=task.economics.discount_rate)
+        annual_fixed_fee=st.number_input('项目额外年固定维护费 元/年',min_value=0.0,value=float(task.economics.additional_fixed_om_yuan_per_year))
         seconds=st.number_input('每个求解时限 秒',min_value=1.0,value=60.0)
         ranges={};assets={}
         with st.expander('容量下限/上限、设备寿命与费用（假设，可修改）'):
@@ -80,7 +87,7 @@ def render_planning(show_results):
             revised=revise_task(task,TaskPatch(budget_yuan=budget,emission_limit_kg=emission if cap_on else None,clear_emission_limit=not cap_on,grid_limit_kw=grid))
             raw=revised.model_dump(mode='json')
             raw['planning_mode']='capacity' if mode=='容量优化' else 'candidates'
-            raw['economics'].update(horizon_years=horizon,discount_rate=rate,assets=assets,**variable)
+            raw['economics'].update(horizon_years=horizon,discount_rate=rate,assets=assets,additional_fixed_om_yuan_per_year=annual_fixed_fee,**variable)
             raw['capacity_bounds'].update(ranges);raw['constraints']['pv_limit_kw']=ranges['pv_kw']['upper']
             revision=raw['constraints']['source_id']
             raw['economics']['source_id']=raw['capacity_bounds']['source_id']=revision
@@ -120,33 +127,91 @@ def render_planning(show_results):
 
 
 def render_model(run):
-    with st.expander('DeepSeek / 可配置模型 Agent',expanded=True):
+    from .llm import RuleClient
+    with st.expander('可持续对话规划助手',expanded=True):
         if 'planning_llm' not in st.session_state:st.session_state.planning_llm=get_llm_client()
         client=st.session_state.planning_llm
-        if not isinstance(client,OpenAICompatibleClient):st.caption(client.description);return
-        st.caption(f'提供商：{client.provider}；模型：{client._model}；密钥已配置（不显示）；本会话请求 {client.budget.count}/10。只在点击按钮时联网。')
-        if st.button('显式测试模型连接（1次请求，可能计费）'):
+        configured=isinstance(client,OpenAICompatibleClient)
+        st.caption(f'密钥配置：{"已收到" if configured else "未配置"}；只有显式提交或连接测试才联网。普通刷新不调用模型。')
+        if configured:
+            st.caption(f'本会话请求 {client.budget.count}/10；所有重试计入。')
+        else:st.caption(client.description)
+        if st.button('显式测试模型连接（1次请求，可能计费）',disabled=not configured):
             try:
                 result=client.call_tool('connectivity_check',ConnectivityCheck,{'request':'返回status=ok'})
                 st.success('真实服务结构化连通检查通过：'+result.status)
             except LLMError as exc:st.error(str(exc))
-        text=st.text_area('自然语言要求',value='预算减少20%，供热要求保持不变。',key='annual_nl')
-        request_id=st.text_input('请求ID：重试保持相同；再次应用同一修改请换ID',value=uuid4().hex,key='annual_request_id')
-        if st.button('调用模型并执行受支持工具（可能计费）'):
-            try:
-                session=AgentSession(EnergyAgent('outputs/ui_agent',run.solver_options),client,'outputs/ui_agent_receipts')
-                reply=session.submit(text,run,request_id=request_id)
-                st.session_state.agent_reply=reply
-                if reply.run:
-                    st.session_state.annual_run=reply.run
-                    st.session_state.annual_task=reply.run.task
+        with st.expander('会话恢复与请求标识'):
+            session_id=st.text_input('会话ID（保存此ID可恢复同一服务器上的对话）',value=uuid4().hex,key='assistant_session_id')
+            request_id=st.text_input('请求ID（重试保持相同；新的修改使用新ID）',value=uuid4().hex,key='annual_request_id')
+        import hashlib
+        import os
+        directory=Path(os.getenv('ENERGY_AGENT_OUTPUT_DIR','outputs'))/'ui_conversations'/hashlib.sha256(session_id.encode()).hexdigest()
+        session=AgentSession(EnergyAgent(directory/'runs',run.solver_options),client,directory/'receipts')
+        text=st.text_area('原始要求',value='预算少一点，供热不变。',key='annual_nl')
+        def remember(reply):
+            st.session_state.agent_reply=reply
+            if reply.run:
+                st.session_state.annual_run=reply.run
+                st.session_state.annual_task=reply.run.task
+                st.rerun()
+        if st.button('发送原始请求（可能计费）',disabled=not configured,key='assistant_submit'):
+            try:remember(session.submit(text,run,request_id=request_id))
+            except (ValueError,OSError) as exc:st.error(str(exc))
+        if st.button('恢复此请求（不联网、不求解）',key='assistant_restore'):
+            try:remember(session.restore(request_id))
             except (ValueError,OSError) as exc:st.error(str(exc))
         reply=st.session_state.get('agent_reply')
-        if reply:
+        if reply and reply.request_id==request_id:
             st.write(reply.text)
-            st.caption(f'供热与时段完全不变：{reply.heat_unchanged}；当前结果数字核对：{reply.explanation_verified}')
+            dialog=reply.pending
+            if dialog:
+                st.caption(f'固定基准：{dialog.base_run_id}；输入版本{dialog.input_version}；对话状态：{dialog.status}。')
+                st.write('接续原始要求：'+dialog.original_request)
+                c=dialog.confirmed_conditions
+                st.write(f"已确认预算：{c['budget_yuan']:,.2f}元；时段：{c['period_start']} 至 {c['period_end']}。")
+                if reply.contract:
+                    with st.expander('修改前的授权清单：变更与保留条件'):
+                        st.dataframe(pd.DataFrame(reply.contract.edits),hide_index=True)
+                        st.write('明确保留：'+ '、'.join(reply.contract.preserves))
+                if dialog.status=='awaiting_answer' and dialog.missing_fields:
+                    fields={m.field:m.question for m in dialog.missing_fields}
+                    st.write('待补信息：'+' '.join(fields.values()))
+                    if 'confirm_rebase' not in fields:
+                        field=st.selectbox('回答对应的待补项',list(fields),format_func=lambda x:fields[x],key='assistant_answer_field')
+                        answer=st.text_area('补充回答（接续上面的原始请求）',key='assistant_answer')
+                        turn_id=st.text_input('回答ID（重试保持相同）',value=uuid4().hex,key='assistant_turn_id')
+                        if st.button('接续原请求并重算（可能计费）',disabled=not configured,key='assistant_answer_submit'):
+                            try:remember(session.answer(request_id,answer,turn_id=turn_id,field=field));st.rerun()
+                            except (ValueError,OSError) as exc:st.error(str(exc))
+                if dialog.status!='cancelled':
+                    if st.button('确认接续 / 重试未完成步骤（可能计费）',disabled=not configured,key='assistant_resume'):
+                        try:remember(session.resume(request_id));st.rerun()
+                        except (ValueError,OSError) as exc:st.error(str(exc))
+                    if st.button('取消此请求（保留历史，不再求解）',key='assistant_cancel'):
+                        try:remember(session.cancel(request_id));st.rerun()
+                        except (ValueError,OSError) as exc:st.error(str(exc))
+                    if dialog.answers:
+                        with st.expander('修改已有回答（仍使用原基准，不连续乘比例）'):
+                            options={a['turn_id']:a for a in dialog.answers}
+                            selected=st.selectbox('选择回答',list(options),format_func=lambda t:options[t]['text'],key='assistant_edit_turn')
+                            edit=st.text_area('修改后的回答',value=options[selected]['text'],key='assistant_edit_text_'+selected)
+                            edit_id=st.text_input('修改ID（重试保持相同）',value=uuid4().hex,key='assistant_edit_id')
+                            if st.button('保存修改并重算（可能计费）',disabled=not configured,key='assistant_edit_submit'):
+                                try:remember(session.edit_answer(request_id,selected,edit,edit_id=edit_id));st.rerun()
+                                except (ValueError,OSError) as exc:st.error(str(exc))
+                    with st.expander('重新选择基准任务（不会自动求解）'):
+                        baseline_file=st.file_uploader('可上传其他已确认运行result.json；留空使用当前展示运行',type=['json'],key='assistant_baseline_upload')
+                        if st.button('重新选择基准，等待确认',key='assistant_rebase'):
+                            try:
+                                baseline=RunResult.model_validate_json(baseline_file.getvalue()) if baseline_file else run
+                                remember(session.rebase(request_id,baseline));st.rerun()
+                            except (ValueError,OSError) as exc:st.error(str(exc))
+                st.download_button('下载对话状态与当前结果',reply.model_dump_json(indent=2),file_name='conversation_reply.json',key='assistant_download')
             if reply.run:
-                with st.expander('工具步骤与前后差异'):
+                st.caption(f'供热及评估时段不变：{reply.heat_unchanged}；当前结果引用核对：{reply.explanation_verified}')
+                with st.expander('结果字段、差异及工具证据'):
                     st.dataframe(pd.DataFrame([c.model_dump() for c in reply.run.tool_calls]),hide_index=True)
                     st.json(reply.run.changes)
-        with st.expander('脱敏服务调用记录'):st.json(client.budget.records)
+        if configured:
+            with st.expander('脱敏服务调用记录'):st.json(client.budget.records)

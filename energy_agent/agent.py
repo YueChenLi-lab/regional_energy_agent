@@ -59,7 +59,7 @@ class ToolRegistry:
         return tool.output_schema.model_validate(raw_output)
 
 
-def revise_task(task: TaskRequest, patch: TaskPatch, parent_run_id: str | None = None) -> TaskRequest:
+def revise_task(task: TaskRequest, patch: TaskPatch, parent_run_id: str | None = None, *, new_version: int | None = None) -> TaskRequest:
     """Create a new input version, retaining prior provenance and recomputing later."""
     patch = TaskPatch.model_validate(patch)
     if patch.preserve_heat and task.assessment_mode == "electric_only":
@@ -69,7 +69,9 @@ def revise_task(task: TaskRequest, patch: TaskPatch, parent_run_id: str | None =
             raise ValueError("相对修改需要已确认预算")
         patch = patch.model_copy(update={"budget_yuan": task.constraints.budget_yuan*patch.budget_multiplier, "budget_multiplier": None})
     payload = task.model_dump(mode="json")
-    payload["version"] += 1
+    if new_version is not None and new_version <= task.version:
+        raise ValueError("新输入版本必须高于基准版本")
+    payload["version"] = new_version or task.version + 1
     payload["parent_run_id"] = parent_run_id
     source_id = f"revision-v{payload['version']}"
     changes = patch.model_dump(exclude_none=True, exclude_defaults=True)
@@ -85,20 +87,32 @@ def revise_task(task: TaskRequest, patch: TaskPatch, parent_run_id: str | None =
         if patch.clear_emission_limit:
             payload["constraints"]["emission_limit_kg"] = None
         payload["constraints"]["source_id"] = source_id
+    scales = {"electric_load_kw": patch.electric_demand_scale, "heat_load_kw_th": patch.heat_demand_scale}
     if patch.demand_scale is not None:
-        if payload["data"] is None:
-            raise ValueError("请先补全负荷，再修改需求规模")
-        for name in ("electric_load_kw", "heat_load_kw_th"):
-            payload["data"][name] = [x * patch.demand_scale for x in payload["data"][name]]
+        scales = dict.fromkeys(scales,patch.demand_scale)
+    for name, scale in scales.items():
+        if scale is not None:
+            if payload["data"] is None:
+                raise ValueError("请先补全负荷，再修改需求规模")
+            payload["data"][name] = [x * scale for x in payload["data"][name]]
             payload["data"]["source_ids"][name] = source_id
-        if payload.get("case_context") and patch.demand_scale != 1:
-            payload["case_context"]["pending"].append("本版本负荷已按用户显式倍数进行情景缩放，不再是原始实测；原文件转换能量核对只适用于未缩放输入，不作为本情景能量验收。")
+            if payload.get("case_context") and scale != 1:
+                payload["case_context"]["pending"].append(f"本版本{name}按用户明确倍数{scale:g}作情景缩放，不再是该字段原始实测；原转换能量核对只适用于未缩放输入。")
+    if patch.economics:
+        if payload["economics"] is None:
+            raise ValueError("当前任务缺少全年经济参数，不能猜测经济评价条件")
+        economic_changes=patch.economics.model_dump(exclude_none=True)
+        assets=economic_changes.pop("assets",{})
+        payload["economics"].update(economic_changes)
+        for asset, edits in assets.items():
+            payload["economics"]["assets"][asset].update(edits)
+        payload["economics"]["source_id"]=source_id
     if patch.unsupported_demands:
         payload["unsupported_demands"] = list(dict.fromkeys(payload["unsupported_demands"] + patch.unsupported_demands))
     payload["sources"].append(Source(
         source_id=source_id, name=f"用户场景修改 v{payload['version']}", category="synthetic" if task.demo else "user",
         time_range=task.sources[0].time_range if task.sources else "未知",
-        units={"budget_yuan": "元", "emission_limit_kg": f"kg{task.emission_species}", "grid_limit_kw": "kW", "pv_limit_kw": "kW", "demand_scale": "1", "electric_load_kw": "kW", "heat_load_kw_th": "kW_th"},
+        units={"budget_yuan": "元", "emission_limit_kg": f"kg{task.emission_species}", "grid_limit_kw": "kW", "pv_limit_kw": "kW", "demand_scale": "1", "electric_load_kw": "kW", "heat_load_kw_th": "kW_th", "discount_rate":"1", "horizon_years":"年", "lifetime_years":"年", "fixed_om_fraction":"1/年", "additional_fixed_om_yuan_per_year":"元/年"},
         processing=[f"由输入v{task.version}派生；父运行 {parent_run_id or '未知'}", json.dumps(changes, ensure_ascii=False), "负荷缩放作用于全部已提供时间区间；无缺失填充"],
         conditions="用户设定的场景；原始来源保留；合成演示属性保持" if task.demo else "用户指定的情景假设，不代表实测",
     ).model_dump(mode="json"))
@@ -237,16 +251,27 @@ class EnergyAgent:
         return result
 
     def run_text(self, text: str, task: TaskRequest, client, previous: RunResult | None = None, *, request_id: str | None = None) -> RunResult:
-        if request_id and previous and hasattr(client, "call_tool"):
+        # Every connected model path uses the same authorization and durable
+        # conversation layer; there is no legacy absolute-edit bypass.
+        if hasattr(client, "call_tool"):
             from .conversation import AgentSession
-            reply = AgentSession(self,client,self.output_dir/"receipts").submit(text,previous,request_id=request_id)
-            if reply.run is None:
-                from .llm import LLMError
-                raise LLMError(reply.text)
-            return reply.run
-        patch = client.parse_patch(text, task)
-        if patch.budget_multiplier is not None:
             from .llm import LLMError
-            raise LLMError("相对预算修改需要已确认运行与稳定request_id；请使用全年Agent入口或agent-chat，防止重复扣减")
-        revised = revise_task(task, patch, parent_run_id=previous.run_id if previous else None)
-        return self.run(revised, previous=previous)
+            if previous is None or not request_id:
+                raise LLMError("自然语言修改需要已确认的基准运行与稳定request_id；请先完成表单评估")
+            reply = AgentSession(self,client,self.output_dir/"receipts").submit(text,previous,request_id=request_id)
+            if reply.run is None:raise LLMError(reply.text)
+            return reply.run
+        # Preserve the explicit rule-mode error and the replaceable parse-only
+        # protocol, but enforce the same local contract before any calculation.
+        patch=client.parse_patch(text,task)
+        from .modifications import compile_contract,validate_proposal,assert_preserved
+        from .llm import LLMError
+        if previous is None or not request_id:raise LLMError("自然语言修改需要已确认运行与稳定request_id")
+        contract=compile_contract(text,previous)
+        if not contract.ready:raise LLMError("仍有待补或矛盾条件，未求解")
+        validate_proposal(patch,contract)
+        revised=revise_task(previous.task,contract.patch,parent_run_id=previous.run_id)
+        assert_preserved(previous.task,revised,contract)
+        # Parse-only integrations cannot promise durable model explanations;
+        # require the full tool adapter for automatic conversational execution.
+        raise LLMError("该模型适配器仅提供参数解析；请使用支持call_tool的适配器或表单执行已校验修改")

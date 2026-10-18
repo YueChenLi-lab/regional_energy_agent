@@ -105,7 +105,7 @@ def _show_results(run: RunResult) -> None:
 def main() -> None:
     st.set_page_config(page_title="区域综合能源低碳规划评估 Agent", layout="wide")
     st.title("区域综合能源低碳规划评估 Agent")
-    st.write("v0.3 · 单供能节点 · 全年容量/有限候选 · 运行阶段排放")
+    st.write("v0.3.1 · 可接续对话 · 单供能节点 · 全年容量/有限候选 · 运行阶段排放")
     st.info("规则演示模式：支持预设任务和表单修改，可在没有模型密钥时完成评估；不具备任意自然语言理解能力。")
     workflow = st.radio("工作流程", ["合成演示", "外部数据导入（电侧）", "全年规划与Agent"], horizontal=True, key="workflow")
     if workflow == "全年规划与Agent":

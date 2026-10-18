@@ -1,9 +1,30 @@
-# 区域综合能源低碳规划评估 Agent · v0.3
+# 区域综合能源低碳规划评估 Agent · v0.3.1
 
 可运行的单节点电热规划原型：根据负荷、预算、场地与运行排放约束，比较有限的光伏、储能、热泵、燃气锅炉组合。单个 Agent 编排确定性工具，SciPy/HiGHS 求解运行，独立算术检查复核结果，中文 Streamlit 界面与 CLI 共用同一流程。
 
 **合成演示入口采用合成演示数据。** 价格、排放因子、成本与设备参数都是演示假设，不代表当地现行值。结果只覆盖输入的评估期，不年化，也不称为全生命周期零碳或所有容量组合的全局最优。
 
+
+
+## v0.3.1：真实 DeepSeek 验收与可接续对话
+
+本轮云端真实接口已完成 **10次请求、全部HTTP200**：连接、必要澄清、回答接续、全年实际重算、当前结果引用解释、不可行解释和经济参数修改均通过，达到上限后不再自动调用。普通测试和刷新不调用付费模型。源代码不含密钥，不按密钥前缀猜测有效性；实际验收见[完整记录](docs/v031_validation.md)。
+
+新增持久多轮状态：保存原请求、待补字段、基准run_id/版本、确认条件和回答；支持恢复、取消、修订回答与显式重选基准。示例“预算少一点，供热不变”→询问幅度→“减少15%”，在原预算上乘0.85，保留热负荷和时段，生成新版本并优化。请求/回答/修订ID与文件锁保护重试，不重复扣减或发起并发重复调用。
+
+通用修改契约区分“减少20%”与“降到原来的20%”，支持明确元/万元金额、分别修改电/热负荷、折现率、规划期、寿命及维护费；含糊、矛盾或未支持的句子先澄清。中文摘要展示变更、保持项、可行性/最优性、容量及初投/NPV/运行排放变化，数字来自确定性工具，不要求用户读JSON。详见[助手与复现命令](docs/conversation_v031.md)。
+
+```powershell
+# RUN替换为已确认电热result.json；先在本机安全配置.env（密钥不放命令行）
+python -m energy_agent.cli agent-chat --run RUN --text "预算少一点，供热不变。" --request-id budget-001 --output outputs/my_dialog
+python -m energy_agent.cli agent-dialog --action answer --request-id budget-001 --turn-id answer-001 --text "减少15%。" --output outputs/my_dialog
+python -m energy_agent.cli agent-dialog --action status --request-id budget-001 --output outputs/my_dialog
+python -m streamlit run app.py
+```
+
+云端使用`.venv/bin/python`。UI“全年规划与Agent”增加会话恢复、待补回答、修订、取消和重选基准；配置变更后重启应用。CLI/UI均沿用现有计算模型与离线功能。Q峰值/两个跳变及邻时诊断为只读，未覆盖原值，也未进行替代值敏感性求解。
+
+以下v0.3/v0.2章节保留为原有功能说明；其中模型未验收描述为历史状态，当前结果以上述v0.3.1记录为准。
 
 ## v0.3：全年规划、容量优化与 DeepSeek Agent
 
@@ -20,7 +41,7 @@
 
 DeepSeek继续使用`energy_agent/llm.py`，从项目根`.env`或环境变量读取（不覆盖已有变量）。`.env.example`仅含非秘密默认值，密钥为空；请在本机安全填写。仅显式按钮/命令调用，普通刷新和测试不收费。模型输出经过工具白名单、schema、当前run_id与数字引用核对，数值来自优化工具；相对修改使用确认任务与稳定请求ID，重复提交不再次扣减预算。
 
-本轮没有项目环境密钥，**真实模型请求0次，DeepSeek真实接口尚未验收**；本地模拟协议测试和确定性全年预算修改已验证，不能替代真实调用。配置后直接运行（RUN替换为上一命令输出的电热result.json）：
+v0.3交付时没有项目环境密钥，**当时真实模型请求0次**；v0.3.1已完成真实验收，本地模拟协议测试和确定性全年预算修改已验证，不能替代真实调用。配置后直接运行（RUN替换为上一命令输出的电热result.json）：
 
 ```bash
 .venv/bin/python -m energy_agent.cli llm-acceptance --run RUN --output outputs/deepseek_acceptance --time-limit 60
@@ -140,7 +161,7 @@ python3.12 -m venv .venv
 
 注册工具：`validate_inputs`、`build_candidates`、`solve_dispatch`、`validate_solution`、`compare_scenarios`、`generate_report`，输入输出均经过 Pydantic 校验。模型只能提出经过 schema 校验的参数修改，不执行 Python/shell、不产生计算结果替代求解。
 
-默认规则模式支持表单和预设，不宣称任意自然语言理解。可复制 `.env.example` 为 `.env` 并自行配置 `LLM_BASE_URL`、`LLM_MODEL`、`LLM_API_KEY`。适配器使用 OpenAI-compatible `chat/completions` 工具协议，只有在界面明确点击模型按钮或显式调用 `EnergyAgent.run_text` 时才请求模型；不自动使用付费服务。非法输出有限重试，DeepSeek协议及调用预算见上方v0.3说明。只有本地模拟响应测试已验证，**尚未连接真实模型验收**。
+默认规则模式支持表单和预设，不宣称任意自然语言理解。可复制 `.env.example` 为 `.env` 并自行配置 `LLM_BASE_URL`、`LLM_MODEL`、`LLM_API_KEY`。适配器使用 OpenAI-compatible `chat/completions` 工具协议，只有在界面明确点击模型按钮或显式调用 `EnergyAgent.run_text` 时才请求模型；不自动使用付费服务。非法输出有限重试，DeepSeek协议及调用预算见上方v0.3说明。v0.1/v0.2当时只有本地模拟响应测试；当前真实验收见v0.3.1记录。
 
 ## 代码与验证
 

@@ -167,6 +167,7 @@ class Economics(Model):
     horizon_years: int = Field(default=20, ge=1, le=100)
     discount_rate: float = Field(default=0.05, ge=0, le=1)
     assets: dict[str, AssetEconomics]
+    additional_fixed_om_yuan_per_year: NonNegative = Field(default=0, description="项目额外年固定维护费，元/年；在设备比例维护费之外单列")
     battery_variable_om_per_kwh: NonNegative = Field(default=0, description="按放电电量收取，元/kWh")
     hp_variable_om_per_kwh_th: NonNegative = 0
     boiler_variable_om_per_kwh_th: NonNegative = 0
@@ -409,6 +410,21 @@ class RunResult(Model):
     changes: dict = Field(default_factory=dict)
 
 
+class AssetEconomicPatch(Model):
+    lifetime_years: int | None = Field(default=None, ge=1, le=100)
+    fixed_om_fraction: NonNegative | None = None
+
+
+class EconomicPatch(Model):
+    discount_rate: float | None = Field(default=None, ge=0, le=1)
+    horizon_years: int | None = Field(default=None, ge=1, le=100)
+    additional_fixed_om_yuan_per_year: NonNegative | None = None
+    battery_variable_om_per_kwh: NonNegative | None = None
+    hp_variable_om_per_kwh_th: NonNegative | None = None
+    boiler_variable_om_per_kwh_th: NonNegative | None = None
+    assets: dict[Literal["pv_kw", "battery_power_kw", "battery_energy_kwh", "hp_kw_th", "boiler_kw_th"], AssetEconomicPatch] = Field(default_factory=dict)
+
+
 class TaskPatch(Model):
     budget_yuan: NonNegative | None = None
     emission_limit_kg: NonNegative | None = None
@@ -419,12 +435,23 @@ class TaskPatch(Model):
     unsupported_demands: list[str] = Field(default_factory=list)
     budget_multiplier: Annotated[float, Field(gt=0, le=10)] | None = None
     preserve_heat: bool = False
+    electric_demand_scale: Annotated[float, Field(gt=0, le=100)] | None = None
+    heat_demand_scale: Annotated[float, Field(gt=0, le=100)] | None = None
+    economics: EconomicPatch | None = None
+    preserve_conditions: list[str] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def consistent_emission_change(self):
         if self.budget_yuan is not None and self.budget_multiplier is not None:
             raise ValueError("绝对预算与相对预算不能同时修改")
-        if self.preserve_heat and self.demand_scale not in (None, 1):
+        allowed = {"heat_load", "electric_load", "period", "budget", "emission_limit", "grid_limit", "pv_limit", "economics"}
+        allowed |= {"economics."+key for key in ("discount_rate","horizon_years","additional_fixed_om_yuan_per_year","battery_variable_om_per_kwh","hp_variable_om_per_kwh_th","boiler_variable_om_per_kwh_th")}
+        allowed |= {f"economics.assets.{asset}.{field}" for asset in CAPACITY_FIELDS for field in ("lifetime_years","fixed_om_fraction")}
+        if set(self.preserve_conditions) - allowed:
+            raise ValueError("保留条件超出已注册范围")
+        if self.demand_scale is not None and (self.electric_demand_scale is not None or self.heat_demand_scale is not None):
+            raise ValueError("共同缩放与分别缩放不能同时使用")
+        if (self.preserve_heat or "heat_load" in self.preserve_conditions) and (self.demand_scale not in (None, 1) or self.heat_demand_scale not in (None,1)):
             raise ValueError("保持供热时不得缩放负荷")
         if self.clear_emission_limit and self.emission_limit_kg is not None:
             raise ValueError("不能同时设置与清除排放上限")

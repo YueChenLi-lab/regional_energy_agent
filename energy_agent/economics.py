@@ -49,7 +49,7 @@ def evaluate_economics(task, candidate, dispatch, metrics):
     # Caller validates a complete year before invoking representative-year economics.
     capacities = np.array([getattr(candidate, k) for k in CAPACITY_FIELDS])
     initial_by_asset = capacities * unit_investments(task.devices)
-    fixed = sum(cost * e.assets[name].fixed_om_fraction for name, cost in zip(CAPACITY_FIELDS, initial_by_asset))
+    fixed = e.additional_fixed_om_yuan_per_year + sum(cost * e.assets[name].fixed_om_fraction for name, cost in zip(CAPACITY_FIELDS, initial_by_asset))
     dt = task.data.step_hours
     variable = dt * sum(p.discharge_kw * e.battery_variable_om_per_kwh
         + p.hp_heat_kw_th * e.hp_variable_om_per_kwh_th
