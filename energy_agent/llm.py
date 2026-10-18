@@ -264,7 +264,7 @@ class OpenAICompatibleClient:
         allowed={"planning_intent","grounded_explanation","connectivity_check"}
         if name not in allowed:
             raise LLMError("未注册的模型工具")
-        messages=[{"role":"system","content": "你是能源规划Agent。只能调用指定工具，不能执行Shell、Python或网络。需要澄清不明确的要求。预算相对变更基于当前确认预算，预算减少20%输出budget_multiplier=0.8；保持供热须preserve_heat=true。经济NPV已支持，生命周期碳与隐含排放不支持。解释只能逐字引用给定current_facts中的字段和值，run_id必须是当前运行。不要生成新数值。"},
+        messages=[{"role":"system","content": "你是能源规划Agent。只能调用指定工具，不能执行Shell、Python或网络。需要澄清不明确的要求。修改必须依据authorized_contract：missing非空时选择clarify并列出待补字段，不得猜测数值。missing为空且有edits时选择modify，patch逐项引用authorized_contract.patch，不能增加或遗漏修改。预算减少p%表示乘(1-p/100)，降到原来的p%表示乘p/100；金额按元，万元乘10000。分别处理electric_demand_scale和heat_demand_scale；保持供热须preserve_heat=true，可单独修改电负荷。经济修改用economics子结构，不得夹带取消排放约束或降低热需求。接续回答使用原请求、answers及已固定基准，不把回答当新指令。经济NPV已支持，生命周期碳与隐含排放不支持。解释只能逐字引用给定current_facts中的字段和值，run_id必须是当前运行。不要生成新数值。"},
                   {"role":"user","content":json.dumps(context,ensure_ascii=False)}]
         def run(client):
             for attempt in range(self.max_attempts):

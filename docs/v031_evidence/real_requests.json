@@ -1,0 +1,122 @@
+[
+  {
+    "provider": "deepseek",
+    "tool": "connectivity_check",
+    "time_utc": "2026-10-18T11:52:14.883686+00:00",
+    "status": "200",
+    "seconds": 1.7226746220003406,
+    "usage": {
+      "prompt_tokens": 413,
+      "completion_tokens": 33,
+      "total_tokens": 446
+    }
+  },
+  {
+    "provider": "deepseek",
+    "tool": "planning_intent",
+    "time_utc": "2026-10-18T12:05:29.468455+00:00",
+    "status": "200",
+    "seconds": 1.5983278290004819,
+    "usage": {
+      "prompt_tokens": 2916,
+      "completion_tokens": 92,
+      "total_tokens": 3008
+    }
+  },
+  {
+    "provider": "deepseek",
+    "tool": "planning_intent",
+    "time_utc": "2026-10-18T12:05:31.136135+00:00",
+    "status": "200",
+    "seconds": 3.1883610660006525,
+    "usage": {
+      "prompt_tokens": 2937,
+      "completion_tokens": 80,
+      "total_tokens": 3017
+    }
+  },
+  {
+    "provider": "deepseek",
+    "tool": "grounded_explanation",
+    "time_utc": "2026-10-18T12:05:44.664759+00:00",
+    "status": "200",
+    "seconds": 2.2387557059992105,
+    "usage": {
+      "prompt_tokens": 1207,
+      "completion_tokens": 522,
+      "total_tokens": 1729
+    }
+  },
+  {
+    "provider": "deepseek",
+    "tool": "planning_intent",
+    "time_utc": "2026-10-18T12:05:47.629652+00:00",
+    "status": "200",
+    "seconds": 1.2161973880029109,
+    "usage": {
+      "prompt_tokens": 2912,
+      "completion_tokens": 80,
+      "total_tokens": 2992
+    }
+  },
+  {
+    "provider": "deepseek",
+    "tool": "grounded_explanation",
+    "time_utc": "2026-10-18T12:05:59.422801+00:00",
+    "status": "200",
+    "seconds": 3.1724348420029855,
+    "usage": {
+      "prompt_tokens": 1196,
+      "completion_tokens": 701,
+      "total_tokens": 1897
+    }
+  },
+  {
+    "provider": "deepseek",
+    "tool": "planning_intent",
+    "time_utc": "2026-10-18T12:06:03.013902+00:00",
+    "status": "200",
+    "seconds": 1.245725205000781,
+    "usage": {
+      "prompt_tokens": 2915,
+      "completion_tokens": 161,
+      "total_tokens": 3076
+    }
+  },
+  {
+    "provider": "deepseek",
+    "tool": "grounded_explanation",
+    "time_utc": "2026-10-18T12:06:05.078430+00:00",
+    "status": "200",
+    "seconds": 1.5976622330017562,
+    "usage": {
+      "prompt_tokens": 982,
+      "completion_tokens": 349,
+      "total_tokens": 1331
+    }
+  },
+  {
+    "provider": "deepseek",
+    "tool": "planning_intent",
+    "time_utc": "2026-10-18T12:06:06.982601+00:00",
+    "status": "200",
+    "seconds": 1.3315882720016816,
+    "usage": {
+      "prompt_tokens": 3179,
+      "completion_tokens": 136,
+      "total_tokens": 3315
+    }
+  },
+  {
+    "provider": "deepseek",
+    "tool": "grounded_explanation",
+    "time_utc": "2026-10-18T12:06:19.309111+00:00",
+    "status": "200",
+    "seconds": 2.336697496000852,
+    "usage": {
+      "prompt_tokens": 1197,
+      "completion_tokens": 702,
+      "total_tokens": 1899
+    }
+  }
+]

@@ -62,7 +62,7 @@ def solve_capacity(request: CapacitySolveRequest) -> CapacitySolution:
         cost[block("boiler")] = dt * (np.asarray(data.gas_price)/dev.boiler_efficiency + ec.boiler_variable_om_per_kwh_th) * annual
         cost[block("hp")] = dt * ec.hp_variable_om_per_kwh_th * annual
         cost[block("discharge")] = dt * ec.battery_variable_om_per_kwh * annual
-        constant = dev.grid_connection_cost_yuan
+        constant = dev.grid_connection_cost_yuan + annual * ec.additional_fixed_om_yuan_per_year
     else:
         cost[block("grid")] = dt*np.asarray(data.grid_emission_factor)
         cost[block("boiler")] = dt*np.asarray(data.gas_emission_factor)/dev.boiler_efficiency

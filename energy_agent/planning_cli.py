@@ -32,6 +32,19 @@ def register_planning_commands(commands):
     chat.add_argument('--request-id',required=True)
     chat.add_argument('--output',type=Path,required=True)
     chat.add_argument('--time-limit',type=float,default=60)
+    dialog=commands.add_parser('agent-dialog',help='恢复、回答、修改回答、取消或重新选择已有对话基准')
+    dialog.add_argument('--action',choices=['status','answer','edit','cancel','rebase','resume'],required=True)
+    dialog.add_argument('--request-id',required=True)
+    dialog.add_argument('--output',type=Path,required=True,help='与原agent-chat相同的会话输出目录')
+    dialog.add_argument('--text')
+    dialog.add_argument('--field')
+    dialog.add_argument('--turn-id')
+    dialog.add_argument('--edit-id')
+    dialog.add_argument('--run',type=Path,help='仅rebase时使用新的已确认result.json')
+    dialog.add_argument('--time-limit',type=float,default=60)
+    diagnostic=commands.add_parser('data-diagnose',help='只读峰值及邻近时段诊断，不处理或覆盖原值')
+    diagnostic.add_argument('--task',type=Path,required=True,help='任务JSON或result.json')
+    diagnostic.add_argument('--output',type=Path,required=True)
     check=commands.add_parser('llm-check',help='一次显式连通请求，消耗模型额度')
     check.add_argument('--output',type=Path,default=Path('outputs/model_check'))
     acceptance=commands.add_parser('llm-acceptance',help='真实接口验收，含重试最多10次；需要已确认电热运行')
@@ -64,6 +77,30 @@ def handle_planning_command(args):
         study=sensitivity_analysis(SensitivityRequest(task=task,output_dir=str(out),scans=args.scans,
             options=SolverOptions(time_limit_seconds=args.time_limit,mip_rel_gap=0.002)))
         print(study.model_dump_json(indent=2));return 0
+    if args.command=='data-diagnose':
+        from .diagnostics import diagnose_peak,export_diagnostics
+        raw=json.loads(args.task.read_text(encoding='utf-8'))
+        task=RunResult.model_validate(raw).task if 'run_id' in raw else TaskRequest.model_validate(raw)
+        diagnostic=diagnose_peak(task)
+        export_diagnostics(diagnostic,out)
+        print(diagnostic.summary);print(diagnostic.treatment);return 0
+    if args.command=='agent-dialog':
+        session=AgentSession(EnergyAgent(out/'runs',SolverOptions(time_limit_seconds=args.time_limit,mip_rel_gap=.002)),configured_client(out),out/'session')
+        if args.action=='status':reply=session.restore(args.request_id)
+        elif args.action=='cancel':reply=session.cancel(args.request_id)
+        elif args.action=='resume':reply=session.resume(args.request_id)
+        elif args.action=='rebase':
+            if args.run is None:raise ValueError('重新选择基准需要--run')
+            reply=session.rebase(args.request_id,RunResult.model_validate_json(args.run.read_text(encoding='utf-8')))
+        elif args.action=='answer':
+            if args.text is None or not args.turn_id:raise ValueError('回答需要--text和稳定--turn-id')
+            reply=session.answer(args.request_id,args.text,turn_id=args.turn_id,field=args.field)
+        else:
+            if args.text is None or not args.turn_id or not args.edit_id:raise ValueError('修改回答需要--text、--turn-id和--edit-id')
+            reply=session.edit_answer(args.request_id,args.turn_id,args.text,edit_id=args.edit_id)
+        print(reply.text)
+        if reply.pending:print(reply.pending.model_dump_json(indent=2))
+        return 0
     client=configured_client(out)
     if isinstance(client,RuleClient):
         status={'status':'not_verified','reason':'当前运行环境缺少完整模型配置；未发起真实请求','actual_requests':0}
@@ -78,36 +115,7 @@ def handle_planning_command(args):
     if args.command=='agent-chat':
         reply=session.submit(args.text,previous,request_id=args.request_id)
         print(reply.text);return 0
-    return real_acceptance(client,session,previous,out)
-
-
-def real_acceptance(client,session,previous,out):
-    evidence={'status':'running','checks':[],'actual_requests':client.budget.count,'verified_real_endpoint':False}
-    def check(name,condition):
-        evidence['checks'].append({'name':name,'passed':bool(condition)})
-        if not condition:raise LLMError('真实验收检查未通过：'+name)
-    try:
-        if previous.task.assessment_mode!='electric_heat':raise LLMError('真实验收需要已确认且有供热负荷的电热任务')
-        check('connectivity',client.call_tool('connectivity_check',ConnectivityCheck,{'request':'返回status=ok'}).status=='ok')
-        intent=client.call_tool('planning_intent',PlanningIntent,{'request':'预算减少20%，供热要求保持不变。','budget_yuan':previous.task.constraints.budget_yuan,'assessment_mode':'electric_heat'})
-        check('structured_relative_patch',intent.operation=='modify' and intent.patch is not None and intent.patch.budget_multiplier==0.8 and intent.patch.preserve_heat)
-        reply=session.submit('预算减少20%，供热要求保持不变。',previous,request_id='acceptance-budget20')
-        check('heat_unchanged_and_recomputed',reply.run is not None and reply.run.run_id!=previous.run_id and reply.heat_unchanged and reply.run.task.constraints.budget_yuan==previous.task.constraints.budget_yuan*0.8)
-        check('current_evidence_explanation',reply.explanation_verified)
-        count=client.budget.count
-        duplicate=session.submit('预算减少20%，供热要求保持不变。',reply.run,request_id='acceptance-budget20')
-        check('duplicate_is_idempotent',duplicate.run.run_id==reply.run.run_id and count==client.budget.count)
-        ambiguity=session.submit('希望方案更好一点，帮我调整。',reply.run,request_id='acceptance-ambiguity')
-        check('ambiguous_requirement_clarified',ambiguity.status=='clarification')
-        infeasible=session.submit('初始投资预算设为0元，供热要求保持不变。',previous,request_id='acceptance-infeasible')
-        check('infeasible_truthfully_explained',infeasible.run is not None and not any(s.validation.valid for s in infeasible.run.scenarios) and infeasible.explanation_verified)
-        evidence.update(status='passed',verified_real_endpoint=True)
-    except (LLMError,ValueError) as exc:
-        # Errors are locally authored and do not include raw response bodies.
-        evidence.update(status='not_verified',reason=str(exc))
-    finally:
-        evidence['actual_requests']=client.budget.count
-        evidence['fees']='未核实，不推算费用'
-        (out/'acceptance.json').write_text(json.dumps(evidence,ensure_ascii=False,indent=2),encoding='utf-8')
+    from .acceptance import run_live_acceptance
+    evidence=run_live_acceptance(previous,out,agent.options)
     print(json.dumps(evidence,ensure_ascii=False,indent=2))
     return 0 if evidence['status']=='passed' else 2

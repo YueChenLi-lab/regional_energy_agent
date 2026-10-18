@@ -162,3 +162,16 @@ JSON 是完整可追溯结果；CSV 便于比较与绘图；Markdown 报告描�
 `DispatchResult.model_statistics`：原模型intervals/variables/binaries/constraints/nonzeros、objective_kind/value及dual_bound。NPV目标元、排放目标kg；原objective_yuan仍指实际评估期购能费，保证原独立校验接口兼容。solve_seconds和mip_gap继续保留。
 
 `TaskPatch`新增budget_multiplier（相对已确认预算的倍数，不与绝对budget_yuan并用）、preserve_heat（与负荷缩放互斥）。自然语言修改另由AgentSession约束稳定request_id、确认基准、热/时间指纹、父运行、回执及当前字段引用。引用 `scenarios.OPT.npv_cost_yuan` 等标量，禁止旧run_id与编造数字。见[模型协议与验收边界](deepseek_agent.md)。
+
+
+## v0.3.1 对话和修改契约
+
+`PendingDialog`：request_id、original_request、base_run_id/input_version、基准快照文件名、confirmed_conditions、missing_fields（字段/问题/原因）、answers（turn_id/field/text）、generation、status（awaiting_answer/ready/completed/cancelled）、history。`ConversationReply`新增pending和contract；cancelled明确停止后续计算。
+
+`ModificationContract`：基准、resolved_request、TaskPatch、edits（field/before/after/unit/evidence）、明确preserves、其他unchanged和missing。模型提议只允许这些已核实修改，修改前记录、修改后逐项核对；有待补项时不求解。
+
+`TaskPatch`新增electric_demand_scale、heat_demand_scale（相对固定基准，不能与旧demand_scale并用）、preserve_conditions、EconomicPatch。preserve_heat只禁止热负荷缩放，允许独立电负荷修改。经济patch包括discount_rate、horizon_years、assets内lifetime_years/fixed_om_fraction、按放电/供热计的变动维护率和additional_fixed_om_yuan_per_year。
+
+`Economics.additional_fixed_om_yuan_per_year`单位元/年，默认0，作为项目额外费用在年1…H支付；不同于设备含安装投资比例维护费，二者单列相加。容量优化只增加对应NPV常数，不计入第0年预算。原任务/结果JSON兼容默认值。
+
+`PeakDiagnostics`保存Source ID/category、记录数、峰值/第二大/99分位、时点/邻近区间、跳变、当前约束/容量边界及必要供电条件，不处理或覆盖输入。输入已缩放时按user情景解释，不冒充原始实测。

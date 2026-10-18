@@ -1,0 +1,144 @@
+{
+  "base_run_id": "5a529fa3feba4cc099df2e7e545cdbb8",
+  "stages": {
+    "connectivity": {
+      "status": "passed",
+      "evidence": "connectivity.json；计入同一model_requests.json"
+    },
+    "clarification": {
+      "status": "passed",
+      "user": "预算少一点，供热不变。",
+      "assistant": "尚未修改或求解。预算要减少多少？请说明减少百分比、降到原来比例，或明确金额（元/万元）。 基准运行 5a529fa3feba4cc099df2e7e545cdbb8，版本1；回答将接续该请求。",
+      "base_run_id": "5a529fa3feba4cc099df2e7e545cdbb8",
+      "input_version": 1,
+      "model_operation": "clarify"
+    },
+    "continuation": {
+      "status": "passed",
+      "user": "减少15%。",
+      "assistant": "当前运行 1c7b3c1df00b4ca1a81f88046b902afd，输入版本 2：可行且通过独立校验。运行排放单位kgCO2e。\n基准运行：5a529fa3feba4cc099df2e7e545cdbb8，版本1。\n- 修改：初始投资预算，10000000.0 → 8500000.0 元。\n保持：供热负荷与逐时足额保障、电负荷、评估时段和步长、排放上限、购电上限、光伏场地限制、经济参数、economics.discount_rate、economics.horizon_years、economics.additional_fixed_om_yuan_per_year、economics.battery_variable_om_per_kwh、economics.hp_variable_om_per_kwh_th、economics.boiler_variable_om_per_kwh_th、economics.assets.pv_kw.lifetime_years、economics.assets.pv_kw.fixed_om_fraction、economics.assets.battery_energy_kwh.lifetime_years、economics.assets.battery_energy_kwh.fixed_om_fraction、economics.assets.boiler_kw_th.lifetime_years、economics.assets.boiler_kw_th.fixed_om_fraction、economics.assets.hp_kw_th.lifetime_years、economics.assets.hp_kw_th.fixed_om_fraction、economics.assets.battery_power_kw.lifetime_years、economics.assets.battery_power_kw.fixed_om_fraction。\n方案 OPT：当前模型及容差内已证明最优；独立校验通过。\n- 光伏（kW）：1587.30，同ID方案变化 -232.14。\n- 电池功率（kW）：343.67，同ID方案变化 -78.03。\n- 电池能量（kWh）：2192.99，同ID方案变化 -435.23。\n- 热泵（kW_th）：27.99，同ID方案变化 -156.60。\n- 锅炉（kW_th）：636.67，同ID方案变化 +156.60。\n- 初始投资：8,500,000.00元；同ID方案变化 -1,500,000.00元。\n- 规划期NPV：30,271,904.80元；同ID方案变化 +553,188.28元。\n- 年度运行排放：1,374,782.60kgCO2e；同ID方案变化 +118,941.45kgCO2e。\n- 年度购能费：1,531,265.19元；同ID方案变化 +210,235.66元。\n推荐依据：本次声明的容量范围与线性模型内，当前容量与运行解通过独立校验，目标为规划期NPV成本；最优性见求解状态和间隙。有限排放扫描不证明完整全局前沿，也不构成真实工程投资结论。\n经济口径：规划期20年，折现率5.00%，重复同一完整代表年；运行排放不折现，不含设备隐含排放。\n服务边界：Q照明与插座；仅所选计量边界，不声称全楼总电量；无电气回路图可独立核实重叠或遗漏；另加参数化仿真供热，不含W，不是实测全楼改造。关键假设与待核实事项见当前报告；不构成真实工程决策。",
+      "result": {
+        "run_id": "1c7b3c1df00b4ca1a81f88046b902afd",
+        "version": 2,
+        "status": "optimal",
+        "feasible": true,
+        "emission_cap_kg": null,
+        "candidate_id": "OPT",
+        "pv_kw": 1587.3040880577676,
+        "battery_power_kw": 343.67,
+        "battery_energy_kwh": 2192.9868421052633,
+        "hp_kw_th": 27.992381565691858,
+        "boiler_kw_th": 636.6666184343081,
+        "investment_yuan": 8500000.000000002,
+        "npv_cost_yuan": 30271904.800086576,
+        "annual_emissions_kg": 1374782.5976134215,
+        "annual_energy_cost_yuan": 1531265.187935139,
+        "solve_seconds": 9.412460225001269,
+        "mip_gap": 0.0,
+        "model_statistics": {
+          "intervals": 8760,
+          "variables": 70086,
+          "binaries": 8760,
+          "constraints": 105127,
+          "nonzeros": 249657,
+          "objective_kind": "npv",
+          "objective_value": 30271904.800086576,
+          "dual_bound": 30271904.800086576
+        }
+      },
+      "heat_unchanged": true,
+      "period_unchanged": true,
+      "explanation_verified": true,
+      "duplicate_api_requests": 0
+    },
+    "relative20": {
+      "status": "passed",
+      "user": "预算减少20%，供热要求保持不变。",
+      "assistant": "当前运行 fc8d26e2ee0545aba908a62047a2eaa8，输入版本 2：可行且通过独立校验。运行排放单位kgCO2e。\n基准运行：5a529fa3feba4cc099df2e7e545cdbb8，版本1。\n- 修改：初始投资预算，10000000.0 → 8000000.0 元。\n保持：供热负荷与逐时足额保障、电负荷、评估时段和步长、排放上限、购电上限、光伏场地限制、经济参数、economics.discount_rate、economics.horizon_years、economics.additional_fixed_om_yuan_per_year、economics.battery_variable_om_per_kwh、economics.hp_variable_om_per_kwh_th、economics.boiler_variable_om_per_kwh_th、economics.assets.pv_kw.lifetime_years、economics.assets.pv_kw.fixed_om_fraction、economics.assets.battery_energy_kwh.lifetime_years、economics.assets.battery_energy_kwh.fixed_om_fraction、economics.assets.boiler_kw_th.lifetime_years、economics.assets.boiler_kw_th.fixed_om_fraction、economics.assets.hp_kw_th.lifetime_years、economics.assets.hp_kw_th.fixed_om_fraction、economics.assets.battery_power_kw.lifetime_years、economics.assets.battery_power_kw.fixed_om_fraction。\n方案 OPT：当前模型及容差内已证明最优；独立校验通过。\n- 光伏（kW）：1502.49，同ID方案变化 -316.95。\n- 电池功率（kW）：321.40，同ID方案变化 -100.30。\n- 电池能量（kWh）：2049.33，同ID方案变化 -578.89。\n- 热泵（kW_th）：0.00，同ID方案变化 -184.59。\n- 锅炉（kW_th）：664.66，同ID方案变化 +184.59。\n- 初始投资：8,000,000.00元；同ID方案变化 -2,000,000.00元。\n- 规划期NPV：30,531,925.89元；同ID方案变化 +813,209.37元。\n- 年度运行排放：1,417,604.46kgCO2e；同ID方案变化 +161,763.31kgCO2e。\n- 年度购能费：1,606,535.01元；同ID方案变化 +285,505.48元。\n推荐依据：本次声明的容量范围与线性模型内，当前容量与运行解通过独立校验，目标为规划期NPV成本；最优性见求解状态和间隙。有限排放扫描不证明完整全局前沿，也不构成真实工程投资结论。\n经济口径：规划期20年，折现率5.00%，重复同一完整代表年；运行排放不折现，不含设备隐含排放。\n服务边界：Q照明与插座；仅所选计量边界，不声称全楼总电量；无电气回路图可独立核实重叠或遗漏；另加参数化仿真供热，不含W，不是实测全楼改造。关键假设与待核实事项见当前报告；不构成真实工程决策。",
+      "result": {
+        "run_id": "fc8d26e2ee0545aba908a62047a2eaa8",
+        "version": 2,
+        "status": "optimal",
+        "feasible": true,
+        "emission_cap_kg": null,
+        "candidate_id": "OPT",
+        "pv_kw": 1502.492932114934,
+        "battery_power_kw": 321.4,
+        "battery_energy_kwh": 2049.3291070696077,
+        "hp_kw_th": 0.0,
+        "boiler_kw_th": 664.659,
+        "investment_yuan": 8000000.000000001,
+        "npv_cost_yuan": 30531925.89084807,
+        "annual_emissions_kg": 1417604.4578914873,
+        "annual_energy_cost_yuan": 1606535.0103610992,
+        "solve_seconds": 9.788598361999902,
+        "mip_gap": 0.0,
+        "model_statistics": {
+          "intervals": 8760,
+          "variables": 70086,
+          "binaries": 8760,
+          "constraints": 105127,
+          "nonzeros": 249657,
+          "objective_kind": "npv",
+          "objective_value": 30531925.89084807,
+          "dual_bound": 30531925.89084807
+        }
+      },
+      "heat_unchanged": true,
+      "explanation_verified": true
+    },
+    "infeasible": {
+      "status": "passed",
+      "user": "初始投资预算设为0元，供热要求保持不变。",
+      "assistant": "当前运行 8101a4e852514e97adcef244f4e917e6，输入版本 2：无可行方案。运行排放单位kgCO2e。\n基准运行：5a529fa3feba4cc099df2e7e545cdbb8，版本1。\n- 修改：初始投资预算，10000000.0 → 0.0 元。\n保持：供热负荷与逐时足额保障、电负荷、评估时段和步长、排放上限、购电上限、光伏场地限制、经济参数、economics.discount_rate、economics.horizon_years、economics.additional_fixed_om_yuan_per_year、economics.battery_variable_om_per_kwh、economics.hp_variable_om_per_kwh_th、economics.boiler_variable_om_per_kwh_th、economics.assets.pv_kw.lifetime_years、economics.assets.pv_kw.fixed_om_fraction、economics.assets.battery_energy_kwh.lifetime_years、economics.assets.battery_energy_kwh.fixed_om_fraction、economics.assets.boiler_kw_th.lifetime_years、economics.assets.boiler_kw_th.fixed_om_fraction、economics.assets.hp_kw_th.lifetime_years、economics.assets.hp_kw_th.fixed_om_fraction、economics.assets.battery_power_kw.lifetime_years、economics.assets.battery_power_kw.fixed_om_fraction。\n方案 OPT：infeasible；独立校验未通过或无可用解。\n- HiGHS判定容量边界、预算、逐时供能与排放等联合约束不可行；未计算最小冲突集，不能指定唯一原因\n推荐依据：在本次评估的候选方案中，没有通过供能、预算、场地、排放及独立结果校验的可行方案。\n经济口径：规划期20年，折现率5.00%，重复同一完整代表年；运行排放不折现，不含设备隐含排放。\n服务边界：Q照明与插座；仅所选计量边界，不声称全楼总电量；无电气回路图可独立核实重叠或遗漏；另加参数化仿真供热，不含W，不是实测全楼改造。关键假设与待核实事项见当前报告；不构成真实工程决策。",
+      "result": {
+        "run_id": "8101a4e852514e97adcef244f4e917e6",
+        "version": 2,
+        "status": "infeasible",
+        "feasible": false,
+        "emission_cap_kg": null
+      },
+      "heat_unchanged": true,
+      "explanation_verified": true
+    },
+    "economics": {
+      "status": "passed",
+      "user": "折现率改为4%，规划期25年，光伏寿命改为30年，光伏年维护费率改为2%，项目额外年固定维护费改为1万元，供热不变。",
+      "assistant": "当前运行 673a042320464a00847cd4046405600c，输入版本 2：可行且通过独立校验。运行排放单位kgCO2e。\n基准运行：5a529fa3feba4cc099df2e7e545cdbb8，版本1。\n- 修改：折现率，0.05 → 0.04 1。\n- 修改：规划期，20 → 25.0 年。\n- 修改：economics.assets.pv_kw.lifetime_years，25 → 30.0 年。\n- 修改：economics.assets.pv_kw.fixed_om_fraction，0.015 → 0.02 1/年。\n- 修改：economics.additional_fixed_om_yuan_per_year，0.0 → 10000.0 元/年。\n保持：供热负荷与逐时足额保障、电负荷、评估时段和步长、预算、排放上限、购电上限、光伏场地限制、economics.battery_variable_om_per_kwh、economics.hp_variable_om_per_kwh_th、economics.boiler_variable_om_per_kwh_th、economics.assets.battery_energy_kwh.lifetime_years、economics.assets.battery_energy_kwh.fixed_om_fraction、economics.assets.boiler_kw_th.lifetime_years、economics.assets.boiler_kw_th.fixed_om_fraction、economics.assets.hp_kw_th.lifetime_years、economics.assets.hp_kw_th.fixed_om_fraction、economics.assets.battery_power_kw.lifetime_years、economics.assets.battery_power_kw.fixed_om_fraction。\n方案 OPT：当前模型及容差内已证明最优；独立校验通过。\n- 光伏（kW）：1825.47，同ID方案变化 +6.02。\n- 电池功率（kW）：416.33，同ID方案变化 -5.37。\n- 电池能量（kWh）：2604.58，同ID方案变化 -23.64。\n- 热泵（kW_th）：189.73，同ID方案变化 +5.14。\n- 锅炉（kW_th）：474.93，同ID方案变化 -5.14。\n- 初始投资：10,000,000.00元；同ID方案变化 -0.00元。\n- 规划期NPV：36,174,005.74元；同ID方案变化 +6,455,289.23元。\n- 年度运行排放：1,253,956.34kgCO2e；同ID方案变化 -1,884.81kgCO2e。\n- 年度购能费：1,322,404.53元；同ID方案变化 +1,374.99元。\n推荐依据：本次声明的容量范围与线性模型内，当前容量与运行解通过独立校验，目标为规划期NPV成本；最优性见求解状态和间隙。有限排放扫描不证明完整全局前沿，也不构成真实工程投资结论。\n经济口径：规划期25年，折现率4.00%，重复同一完整代表年；运行排放不折现，不含设备隐含排放。\n服务边界：Q照明与插座；仅所选计量边界，不声称全楼总电量；无电气回路图可独立核实重叠或遗漏；另加参数化仿真供热，不含W，不是实测全楼改造。关键假设与待核实事项见当前报告；不构成真实工程决策。",
+      "result": {
+        "run_id": "673a042320464a00847cd4046405600c",
+        "version": 2,
+        "status": "optimal",
+        "feasible": true,
+        "emission_cap_kg": null,
+        "candidate_id": "OPT",
+        "pv_kw": 1825.4676116060566,
+        "battery_power_kw": 416.33093542011295,
+        "battery_energy_kwh": 2604.5826398162358,
+        "hp_kw_th": 189.726,
+        "boiler_kw_th": 474.933,
+        "investment_yuan": 10000000.0,
+        "npv_cost_yuan": 36174005.74104893,
+        "annual_emissions_kg": 1253956.34106935,
+        "annual_energy_cost_yuan": 1322404.527237041,
+        "solve_seconds": 10.199048118000064,
+        "mip_gap": 0.0,
+        "model_statistics": {
+          "intervals": 8760,
+          "variables": 70086,
+          "binaries": 8760,
+          "constraints": 105127,
+          "nonzeros": 249657,
+          "objective_kind": "npv",
+          "objective_value": 36174005.74104893,
+          "dual_bound": 36174005.74104893
+        }
+      },
+      "heat_unchanged": true,
+      "explanation_verified": true
+    }
+  },
+  "actual_requests": 10,
+  "status": "passed",
+  "fees": "未核实，不估算费用"
+}

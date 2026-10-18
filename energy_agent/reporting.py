@@ -144,6 +144,10 @@ def generate_report(request: ReportRequest) -> ReportText:
                 chunks.append(_table(["年","初始投资","购能费","固定维护","变动维护","更换","残值抵扣","净支出","折现支出"],[[f.year,f.investment_yuan,f.energy_yuan,f.fixed_om_yuan,f.variable_om_yuan,f.replacement_yuan,f.residual_credit_yuan,f.net_yuan,f.discounted_yuan] for f in v.cashflows]))
             if scenario.dispatch.model_statistics:
                 chunks.append("模型规模与求解证据：`"+scenario.dispatch.model_statistics.model_dump_json()+"`；耗时="+str(scenario.dispatch.solve_seconds)+"s；间隙="+str(scenario.dispatch.mip_gap))
+    if task.resolution == "full_year" and task.data and task.constraints:
+        from .diagnostics import diagnose_peak
+        diagnostic=diagnose_peak(task)
+        chunks.extend(["## 输入负荷峰值与可靠性",diagnostic.summary,diagnostic.treatment])
     chunks.append("## 候选配置与结果")
     if run.scenarios:
         chunks.append(_table(

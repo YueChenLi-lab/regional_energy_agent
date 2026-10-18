@@ -12,7 +12,7 @@ from .schemas import RunResult, RunState, SolverOptions, TaskPatch
 
 def main(argv=None) -> int:
     load_dotenv(Path(__file__).resolve().parents[1] / ".env", override=False)
-    parser = argparse.ArgumentParser(description="区域综合能源低碳规划评估 Agent v0.3")
+    parser = argparse.ArgumentParser(description="区域综合能源低碳规划评估 Agent v0.3.1")
     commands = parser.add_subparsers(dest="command", required=True)
     from .import_cli import register_import_commands
     register_import_commands(commands)
@@ -37,7 +37,7 @@ def main(argv=None) -> int:
         command.add_argument("--grid-limit", type=float)
         command.add_argument("--pv-limit", type=float)
     args = parser.parse_args(argv)
-    if args.command in ("annual-build","plan-study","agent-chat","llm-check","llm-acceptance"):
+    if args.command in ("annual-build","plan-study","agent-chat","llm-check","llm-acceptance","agent-dialog","data-diagnose"):
         from .planning_cli import handle_planning_command
         try:
             return handle_planning_command(args)

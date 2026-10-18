@@ -1,0 +1,206 @@
+{
+  "source_id": "energydetective-load",
+  "records": 8760,
+  "source_category": "measured",
+  "peak_timestamp": "2017-01-13T00:00:00+08:00",
+  "peak_kw": 4907.06,
+  "second_highest_kw": 898.5500000000003,
+  "percentile_99_kw": 853.8533,
+  "grid_limit_kw": 5400.0,
+  "baseline_no_pv_storage_required_grid_kw": 4907.06,
+  "peak_necessary_battery_power_kw": 0.0,
+  "configured_capacity_bounds": {
+    "source_id": "annual-assumptions",
+    "pv_kw": {
+      "lower": 0.0,
+      "upper": 2500.0
+    },
+    "battery_power_kw": {
+      "lower": 0.0,
+      "upper": 1000.0
+    },
+    "battery_energy_kwh": {
+      "lower": 0.0,
+      "upper": 4000.0
+    },
+    "hp_kw_th": {
+      "lower": 0.0,
+      "upper": 797.5908
+    },
+    "boiler_kw_th": {
+      "lower": 0.0,
+      "upper": 797.5908
+    },
+    "battery_min_duration_hours": 0.5,
+    "battery_max_duration_hours": 8.0
+  },
+  "jumps": [
+    {
+      "timestamp": "2017-01-13T00:00:00+08:00",
+      "previous_kw": 193.23,
+      "current_kw": 4907.06,
+      "absolute_change_kw": 4713.830000000001,
+      "neighbors": [
+        {
+          "timestamp": "2017-01-12T21:00:00+08:00",
+          "electric_load_kw": 246.05,
+          "heat_load_kw_th": 0.0,
+          "pv_per_kw": 0.0,
+          "is_peak": false
+        },
+        {
+          "timestamp": "2017-01-12T22:00:00+08:00",
+          "electric_load_kw": 196.62,
+          "heat_load_kw_th": 0.0,
+          "pv_per_kw": 0.0,
+          "is_peak": false
+        },
+        {
+          "timestamp": "2017-01-12T23:00:00+08:00",
+          "electric_load_kw": 193.23,
+          "heat_load_kw_th": 0.0,
+          "pv_per_kw": 0.0,
+          "is_peak": false
+        },
+        {
+          "timestamp": "2017-01-13T00:00:00+08:00",
+          "electric_load_kw": 4907.06,
+          "heat_load_kw_th": 0.0,
+          "pv_per_kw": 0.0,
+          "is_peak": true
+        },
+        {
+          "timestamp": "2017-01-13T01:00:00+08:00",
+          "electric_load_kw": 291.63,
+          "heat_load_kw_th": 0.0,
+          "pv_per_kw": 0.0,
+          "is_peak": false
+        },
+        {
+          "timestamp": "2017-01-13T02:00:00+08:00",
+          "electric_load_kw": 284.16,
+          "heat_load_kw_th": 0.0,
+          "pv_per_kw": 0.0,
+          "is_peak": false
+        },
+        {
+          "timestamp": "2017-01-13T03:00:00+08:00",
+          "electric_load_kw": 284.57,
+          "heat_load_kw_th": 0.0,
+          "pv_per_kw": 0.0,
+          "is_peak": false
+        }
+      ]
+    },
+    {
+      "timestamp": "2017-01-13T01:00:00+08:00",
+      "previous_kw": 4907.06,
+      "current_kw": 291.63,
+      "absolute_change_kw": 4615.43,
+      "neighbors": [
+        {
+          "timestamp": "2017-01-12T22:00:00+08:00",
+          "electric_load_kw": 196.62,
+          "heat_load_kw_th": 0.0,
+          "pv_per_kw": 0.0,
+          "is_peak": false
+        },
+        {
+          "timestamp": "2017-01-12T23:00:00+08:00",
+          "electric_load_kw": 193.23,
+          "heat_load_kw_th": 0.0,
+          "pv_per_kw": 0.0,
+          "is_peak": false
+        },
+        {
+          "timestamp": "2017-01-13T00:00:00+08:00",
+          "electric_load_kw": 4907.06,
+          "heat_load_kw_th": 0.0,
+          "pv_per_kw": 0.0,
+          "is_peak": true
+        },
+        {
+          "timestamp": "2017-01-13T01:00:00+08:00",
+          "electric_load_kw": 291.63,
+          "heat_load_kw_th": 0.0,
+          "pv_per_kw": 0.0,
+          "is_peak": false
+        },
+        {
+          "timestamp": "2017-01-13T02:00:00+08:00",
+          "electric_load_kw": 284.16,
+          "heat_load_kw_th": 0.0,
+          "pv_per_kw": 0.0,
+          "is_peak": false
+        },
+        {
+          "timestamp": "2017-01-13T03:00:00+08:00",
+          "electric_load_kw": 284.57,
+          "heat_load_kw_th": 0.0,
+          "pv_per_kw": 0.0,
+          "is_peak": false
+        },
+        {
+          "timestamp": "2017-01-13T04:00:00+08:00",
+          "electric_load_kw": 283.03,
+          "heat_load_kw_th": 0.0,
+          "pv_per_kw": 0.0,
+          "is_peak": false
+        }
+      ]
+    }
+  ],
+  "peak_neighbors": [
+    {
+      "timestamp": "2017-01-12T21:00:00+08:00",
+      "electric_load_kw": 246.05,
+      "heat_load_kw_th": 0.0,
+      "pv_per_kw": 0.0,
+      "is_peak": false
+    },
+    {
+      "timestamp": "2017-01-12T22:00:00+08:00",
+      "electric_load_kw": 196.62,
+      "heat_load_kw_th": 0.0,
+      "pv_per_kw": 0.0,
+      "is_peak": false
+    },
+    {
+      "timestamp": "2017-01-12T23:00:00+08:00",
+      "electric_load_kw": 193.23,
+      "heat_load_kw_th": 0.0,
+      "pv_per_kw": 0.0,
+      "is_peak": false
+    },
+    {
+      "timestamp": "2017-01-13T00:00:00+08:00",
+      "electric_load_kw": 4907.06,
+      "heat_load_kw_th": 0.0,
+      "pv_per_kw": 0.0,
+      "is_peak": true
+    },
+    {
+      "timestamp": "2017-01-13T01:00:00+08:00",
+      "electric_load_kw": 291.63,
+      "heat_load_kw_th": 0.0,
+      "pv_per_kw": 0.0,
+      "is_peak": false
+    },
+    {
+      "timestamp": "2017-01-13T02:00:00+08:00",
+      "electric_load_kw": 284.16,
+      "heat_load_kw_th": 0.0,
+      "pv_per_kw": 0.0,
+      "is_peak": false
+    },
+    {
+      "timestamp": "2017-01-13T03:00:00+08:00",
+      "electric_load_kw": 284.57,
+      "heat_load_kw_th": 0.0,
+      "pv_per_kw": 0.0,
+      "is_peak": false
+    }
+  ],
+  "summary": "当前输入8760个区间（每区间1小时）电负荷峰值4907.06kW，发生于2017-01-13T00:00:00+08:00；第二大值898.55kW，99分位数853.85kW。按相邻差值>100kW且大值>小值8倍的既有规则，检出2个跳变。当前购电上限5400.00kW。无PV/储能的电网基线至少需要覆盖原电峰值4907.06kW（尚未加热泵用电）；在当前PV/锅炉最大容量下，该峰值时段还要求至少0.00kW放电功率，这只是瞬时必要条件，不证明电池能量或SOC足够。全年案例的默认购电上限和容量上界按原峰值量级设置，异常峰值会改变可行域，但不等于优化一定选择这些上界。跳变真实性和回路关系尚未核实，不能据此认定测量错误或替换原值。",
+  "treatment": "本诊断不替代、删点、插补或缩放输入，不覆盖原始发布文件。若输入已有人工情景处理，应按来源记录解释，不是校准实测数据。未执行替代值敏感性求解。"
+}
