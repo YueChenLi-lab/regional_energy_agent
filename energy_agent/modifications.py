@@ -109,6 +109,10 @@ def _relative(clause):
     return None
 
 
+def _is_target(clause):
+    return bool(re.search(r'降到|降至|减少到|减少至|降低到|降低至|削减至|下调至|减至|增加到|增加至|提高到|提高至|上调至',clause))
+
+
 def _budget(clause,current):
     if re.search(r'[-－负]\s*\d|至少|不低于|或者|或|范围',clause):return None
     money=list(re.finditer(NUM+r'\s*(万元|万|元)',clause))
@@ -167,6 +171,10 @@ def compile_contract(text,previous,answers=()):
         edits.append({'field':key,'before':old,'after':value,'unit':unit,'evidence':clause})
     for c in clauses:
         counts=(len(edits),len(missing),len(preserves))
+        if re.search(r'[-－负]\s*\d|或者|或|至少|不低于|范围|\d\s*(?:~|～|—)\s*\d',c):
+            need('clause_'+hashlib.sha256(c.encode()).hexdigest()[:10],
+                '请给出该项修改唯一、有效且无歧义的数值：'+c+'。','负值、多个选项或范围不能取其中一个正数执行')
+            continue
         keep=bool(re.search(r'不变|保持|保留|维持|不要取消|不取消|无需取消|禁止取消|不能取消',c))
         if keep:
             asset=next((value for name,value in ASSETS.items() if name in c),None)
@@ -192,13 +200,18 @@ def compile_contract(text,previous,answers=()):
             v=float(Decimal(match[1])/(100 if match[2] else 1))
             relative=_relative(c)
             if match[2]=='个百分点':v=task.economics.discount_rate+(-v if re.search('减少|降低|下降|下调',c) else v)
-            elif relative is not None and (not re.search('降到|降至',c) or '原来' in c):v=task.economics.discount_rate*relative
+            elif relative is not None and (not _is_target(c) or '原来' in c):v=task.economics.discount_rate*relative
             eco['discount_rate']=v;record('economics.discount_rate',v,task.economics.discount_rate,'1',c)
         if re.search('规划期|规划年数|评价期',c) and not keep:
             match=re.search(NUM+r'\s*年',c)
             if not match:need('horizon_years','请明确规划期年数。')
             elif task.economics is None:need('economics','请先提供完整年度经济评价条件。')
-            else:eco['horizon_years']=float(match[1]);record('economics.horizon_years',float(match[1]),task.economics.horizon_years,'年',c)
+            else:
+                value=float(match[1]);prior=task.economics.horizon_years
+                if not _is_target(c):
+                    if re.search('减少|降低|削减|下调|缩减',c):value=prior-value
+                    elif re.search('增加|提高|上调|延长',c):value=prior+value
+                eco['horizon_years']=value;record('economics.horizon_years',value,prior,'年',c)
         if re.search('寿命|维护|运维',c) and not keep:
             asset=next((value for name,value in ASSETS.items() if name in c),None)
             if task.economics is None:need('economics','请先提供完整年度经济参数。');continue
@@ -206,7 +219,11 @@ def compile_contract(text,previous,answers=()):
                 m=re.search(NUM+r'\s*年',c)
                 if not asset or not m:need('asset_lifetime','请说明哪种设备的寿命及年数。')
                 else:
-                    value=float(m[1]);eco.setdefault('assets',{}).setdefault(asset,{})['lifetime_years']=value
+                    value=float(m[1])
+                    if not _is_target(c):
+                        if re.search('减少|降低|削减|下调|缩减',c):value=task.economics.assets[asset].lifetime_years-value
+                        elif re.search('增加|提高|上调|延长',c):value=task.economics.assets[asset].lifetime_years+value
+                    eco.setdefault('assets',{}).setdefault(asset,{})['lifetime_years']=value
                     record('economics.assets.'+asset+'.lifetime_years',value,task.economics.assets[asset].lifetime_years,'年',c)
             elif re.search('变动|按放电|每.*kWh',c,re.I):
                 var_key={'battery_energy_kwh':'battery_variable_om_per_kwh','hp_kw_th':'hp_variable_om_per_kwh_th','boiler_kw_th':'boiler_variable_om_per_kwh_th'}.get(asset)
@@ -221,8 +238,9 @@ def compile_contract(text,previous,answers=()):
                 if value is None:need('additional_fixed_om','请给出项目额外年固定维护费用（元/年或万元/年）。')
                 else:
                     prior=task.economics.additional_fixed_om_yuan_per_year
-                    if re.search('减少|降低|下调',c):value=prior-value
-                    elif re.search('增加|提高|上调',c):value=prior+value
+                    if not _is_target(c):
+                        if re.search('减少|降低|下调',c):value=prior-value
+                        elif re.search('增加|提高|上调',c):value=prior+value
                     eco['additional_fixed_om_yuan_per_year']=value;record('economics.additional_fixed_om_yuan_per_year',value,prior,'元/年',c)
             else:
                 m=re.search(NUM+r'\s*%',c)
@@ -230,7 +248,7 @@ def compile_contract(text,previous,answers=()):
                 else:
                     value=float(Decimal(m[1])/100)
                     relative=_relative(c)
-                    if relative is not None and (not re.search('降到|降至',c) or '原来' in c):value=task.economics.assets[asset].fixed_om_fraction*relative
+                    if relative is not None and (not _is_target(c) or '原来' in c):value=task.economics.assets[asset].fixed_om_fraction*relative
                     eco.setdefault('assets',{}).setdefault(asset,{})['fixed_om_fraction']=value
                     record('economics.assets.'+asset+'.fixed_om_fraction',value,task.economics.assets[asset].fixed_om_fraction,'1/年',c)
         if re.search('排放上限|排放约束|碳上限',c) and not keep:

@@ -253,3 +253,23 @@ def test_completed_reply_survives_interrupted_idempotency_receipt_write(base,tmp
     reply=perform(restored)
     assert reply.run.run_id==expected.run.run_id and reply.run.input_version==expected.run.input_version
     assert len(model.calls)==count
+
+
+@pytest.mark.parametrize('text',['折现率改为-4%','规划期改为-5年','光伏寿命改为-5年','光伏维护费率改为-2%','电负荷减少10%或20%','规划期20～25年'])
+def test_nonbudget_negative_values_and_choices_require_clarification(base,text):
+    base.task.economics=default_economics('demo-equipment')
+    assert not compile_contract(text,base).ready
+
+
+def test_economic_reductions_distinguish_delta_from_target(base):
+    base.task.economics=default_economics('demo-equipment')
+    base.task.economics.additional_fixed_om_yuan_per_year=30000
+    c=compile_contract('折现率降低到4%，规划期减少5年，光伏寿命减少5年，光伏维护费率降低到2%，项目额外年固定维护费降低到1万元，供热不变',base)
+    assert c.ready
+    updated=revise_task(base.task,c.patch)
+    assert updated.economics.discount_rate==.04
+    assert updated.economics.horizon_years==base.task.economics.horizon_years-5
+    assert updated.economics.assets['pv_kw'].lifetime_years==base.task.economics.assets['pv_kw'].lifetime_years-5
+    assert updated.economics.assets['pv_kw'].fixed_om_fraction==.02
+    assert updated.economics.additional_fixed_om_yuan_per_year==10000
+    assert_preserved(base.task,updated,c)
