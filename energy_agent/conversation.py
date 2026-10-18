@@ -142,7 +142,7 @@ class AgentSession:
             return self._remember(reply,receipt,path)
         context={'request':text,'confirmed_run_id':previous.run_id,'input_version':task.version,
             'budget_yuan':task.constraints.budget_yuan,'assessment_mode':task.assessment_mode,
-            'planning_mode':task.planning_mode,'economics':task.economics.model_dump() if task.economics else None,
+            'planning_mode':task.planning_mode,'emission_species':task.emission_species,'economics':task.economics.model_dump() if task.economics else None,
             'quality_summary':task.case_context.quality_summary if task.case_context else '合成演示',
             'boundary':task.case_context.boundary if task.case_context else '单节点常规电与热',
             'period_start':task.data.timestamps[0].isoformat(),'intervals':len(task.data.timestamps),'heat_fingerprint':heat_fingerprint(task),

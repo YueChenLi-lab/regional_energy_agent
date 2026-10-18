@@ -98,7 +98,7 @@ def revise_task(task: TaskRequest, patch: TaskPatch, parent_run_id: str | None =
     payload["sources"].append(Source(
         source_id=source_id, name=f"用户场景修改 v{payload['version']}", category="synthetic" if task.demo else "user",
         time_range=task.sources[0].time_range if task.sources else "未知",
-        units={"budget_yuan": "元", "emission_limit_kg": "kgCO2e", "grid_limit_kw": "kW", "pv_limit_kw": "kW", "demand_scale": "1", "electric_load_kw": "kW", "heat_load_kw_th": "kW_th"},
+        units={"budget_yuan": "元", "emission_limit_kg": f"kg{task.emission_species}", "grid_limit_kw": "kW", "pv_limit_kw": "kW", "demand_scale": "1", "electric_load_kw": "kW", "heat_load_kw_th": "kW_th"},
         processing=[f"由输入v{task.version}派生；父运行 {parent_run_id or '未知'}", json.dumps(changes, ensure_ascii=False), "负荷缩放作用于全部已提供时间区间；无缺失填充"],
         conditions="用户设定的场景；原始来源保留；合成演示属性保持" if task.demo else "用户指定的情景假设，不代表实测",
     ).model_dump(mode="json"))

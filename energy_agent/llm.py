@@ -46,7 +46,7 @@ _SETTINGS = ("LLM_BASE_URL", "LLM_MODEL", "LLM_API_KEY")
 _TOOL_NAME = "propose_task_patch"
 _SYSTEM_PROMPT = """你是区域综合能源规划的输入适配器，只负责参数修改，不进行规划计算。
 只能调用 propose_task_patch 且必须恰好调用一次；禁止返回自由文本代替工具调用。
-只转换用户明确给出的预算（元）、评估期运行排放上限（kgCO2e）、需求缩放倍数、
+只转换用户明确给出的预算（元）、评估期运行排放上限（物质按当前任务CO2/CO2e，单位kg）、需求缩放倍数、
 电网购电上限（kW）和光伏场地容量上限（kW）。没有明确要求修改的字段不要填写。
 取消排放上限使用 clear_emission_limit=true，同时不得给 emission_limit_kg。
 不能编造容量组合、费用、排放、减排量、推荐结论，所有计算由确定性工具完成。
@@ -172,6 +172,7 @@ class OpenAICompatibleClient:
         context = {
             "project_name": task.project_name,
             "input_version": task.version,
+            "emission_species": task.emission_species,
             "constraints": task.constraints.model_dump(mode="json") if task.constraints else None,
             "unsupported_demands": task.unsupported_demands,
             "demand_scale_semantics": "倍数相对于当前任务的用电和供热负荷",
