@@ -1,0 +1,22 @@
+{
+  "records": {
+    "url": "https://zenodo.org/api/records/6590976/files/dataset_v2.zip/content",
+    "filename": "test_building_records.csv",
+    "sha256": "7a9f6158ca5d6102c72c24623bce7930fc57e16825a2803d8e55b66bd3bb78f9",
+    "retrieved_at": "2026-10-17T08:56:43.164462Z",
+    "member_path": "test_building/test_building_records.csv",
+    "container_sha256": "ae43c6fb205fb9442ab7ac8da7156afdf91767e06ed4a3252a2fa94c662c2fde",
+    "publisher_checksum": "md5:b54c73f1fb441db156b8e6cc7c7551b2",
+    "license_id": "CC-BY-4.0"
+  },
+  "documentation": {
+    "url": "https://zenodo.org/api/records/6590976/files/dataset_v2.zip/content",
+    "filename": "README.md",
+    "sha256": "2dc077de74c79637c661db62c732f3b3d24ff3decef3d1809c2b5e69a6a6b5c7",
+    "retrieved_at": "2026-10-17T08:56:43.164462Z",
+    "member_path": "README.md",
+    "container_sha256": "ae43c6fb205fb9442ab7ac8da7156afdf91767e06ed4a3252a2fa94c662c2fde",
+    "publisher_checksum": "md5:b54c73f1fb441db156b8e6cc7c7551b2",
+    "license_id": "CC-BY-4.0"
+  }
+}

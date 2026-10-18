@@ -5,6 +5,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+from pydantic import ValidationError
 
 from .schemas import (
     SERIES_UNITS, InputValidation, Issue, ProjectTask, Source,
@@ -68,9 +69,24 @@ def validate_inputs(request: TaskRequest) -> InputValidation:
         ids = [c.candidate_id for c in request.candidates]
         if len(ids) != len(set(ids)):
             issues.append(Issue(field="candidates", message="candidate_id 不得重复"))
+    if request.economics or request.resolution == "full_year":
+        from .annual import validate_calendar_year
+        try:
+            validate_calendar_year(request.data)
+        except ValueError as exc:
+            issues.append(Issue(field="data.timestamps", message=str(exc)))
+    if request.planning_mode == "capacity" and (not request.capacity_bounds or not request.economics):
+        issues.append(Issue(field="capacity_bounds", message="容量规划需要容量边界和经济参数", kind="missing"))
+    for obj in (request.capacity_bounds, request.economics):
+        if obj and obj.source_id not in source_ids:
+            issues.append(Issue(field="sources", message=f"来源 {obj.source_id} 未登记", kind="missing"))
     if issues:
         return InputValidation(ready=False, issues=issues)
-    return InputValidation(ready=True, task=ProjectTask.model_validate(request.model_dump()))
+    try:
+        task = ProjectTask.model_validate(request.model_dump())
+    except ValidationError as exc:
+        return InputValidation(ready=False, issues=[Issue(field=".".join(map(str,e["loc"])),message=e["msg"]) for e in exc.errors(include_input=False)])
+    return InputValidation(ready=True, task=task)
 
 
 def load_csv(path: str | Path, metadata: dict, *, emission_species: str = "CO2e") -> TimeSeriesData:

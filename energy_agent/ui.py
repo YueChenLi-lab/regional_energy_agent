@@ -41,9 +41,12 @@ def _show_results(run: RunResult) -> None:
         rows = [scenario_row(s, ranks.get(s.candidate.candidate_id)) for s in ordered_scenarios(run)]
         frame = pd.DataFrame(rows)
         frame["status"] = frame["status"].map(STATUS_LABELS)
-        columns = {**DISPLAY_COLUMNS, "emissions_kg": f"评估期排放（kg{run.task.emission_species}）"}
+        columns = {**DISPLAY_COLUMNS, "rank": "NPV排名" if run.task.economics else "运行费排名", "emissions_kg": f"评估期排放（kg{run.task.emission_species}）"}
         st.dataframe(frame[list(columns)].rename(columns=columns), hide_index=True)
-        st.caption("投资与评估期运行费分列；不年化、不相加为生命周期成本。")
+        st.caption("初始投资与购能费分列；NPV使用完整年现金流，运行排放不折现。" if run.task.economics else "投资与评估期运行费分列；不年化、不相加为生命周期成本。")
+        if run.task.economics:
+            economic_rows=[{"方案":s.candidate.candidate_id,"NPV成本 元":s.economics.npv_cost_yuan,"年度固定维护 元":s.economics.annual_fixed_om_yuan,"年度变动维护 元":s.economics.annual_variable_om_yuan,"规划期运行排放 kg":s.economics.horizon_operating_emissions_kg} for s in run.scenarios if s.economics]
+            st.dataframe(pd.DataFrame(economic_rows),hide_index=True)
         failures = [s for s in run.scenarios if not s.validation.valid]
         if failures:
             with st.expander("不满足约束或未完成求解的方案", expanded=True):
@@ -102,9 +105,13 @@ def _show_results(run: RunResult) -> None:
 def main() -> None:
     st.set_page_config(page_title="区域综合能源低碳规划评估 Agent", layout="wide")
     st.title("区域综合能源低碳规划评估 Agent")
-    st.write("v0.2 · 单供能节点 · 有限候选配置比较 · 运行阶段排放")
+    st.write("v0.3 · 单供能节点 · 全年容量/有限候选 · 运行阶段排放")
     st.info("规则演示模式：支持预设任务和表单修改，可在没有模型密钥时完成评估；不具备任意自然语言理解能力。")
-    workflow = st.radio("工作流程", ["合成演示", "外部数据导入（电侧）"], horizontal=True, key="workflow")
+    workflow = st.radio("工作流程", ["合成演示", "外部数据导入（电侧）", "全年规划与Agent"], horizontal=True, key="workflow")
+    if workflow == "全年规划与Agent":
+        from .planning_ui import render_planning
+        render_planning(_show_results)
+        return
     if workflow == "外部数据导入（电侧）":
         from .import_ui import render_import
         render_import(_show_results)
@@ -173,7 +180,7 @@ def main() -> None:
                 st.session_state.applied_scale = scale
                 st.session_state.last_run = result
     with st.expander("可选：自然语言修改参数"):
-        st.caption("只有点击下方按钮才调用所配置的模型服务，可能产生费用；演示和表单评估不自动调用模型。模型仅转换结构化参数，数值结果仍由相同计算工具产生。真实模型接入尚未验收。")
+        st.caption("只有点击下方按钮才调用所配置的模型服务，可能产生费用；演示和表单评估不自动调用模型。模型仅转换结构化参数，数值结果仍由相同计算工具产生。真实模型接入需单独显式验收。")
         text = st.text_area("修改要求", placeholder="例如：将预算改为 800000 元，排放上限设为 6000 kgCO2e", key="natural_language")
         if st.button("调用已配置模型并重新评估", key="interpret"):
             from .llm import LLMError, get_llm_client
@@ -183,10 +190,14 @@ def main() -> None:
             else:
                 previous = st.session_state.last_run
                 current_task = st.session_state.task
+                if st.session_state.get("demo_last_nl_text") != text:
+                    st.session_state.demo_nl_request_id = __import__("uuid").uuid4().hex
+                    st.session_state.demo_last_nl_text = text
                 try:
                     with st.spinner("正在解析结构化参数并重新计算……"):
                         result = EnergyAgent(output_dir=Path(os.environ.get("ENERGY_AGENT_OUTPUT_DIR", "outputs"))).run_text(
                             text, current_task, get_llm_client(), previous=previous,
+                            request_id=st.session_state.setdefault("demo_nl_request_id", __import__("uuid").uuid4().hex),
                         )
                 except (LLMError, ValueError, OSError) as exc:
                     st.error(f"自然语言修改未完成：{exc}")

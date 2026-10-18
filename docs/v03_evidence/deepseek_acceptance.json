@@ -1,0 +1,5 @@
+{
+  "status": "not_verified",
+  "reason": "当前运行环境缺少完整模型配置；未发起真实请求",
+  "actual_requests": 0
+}

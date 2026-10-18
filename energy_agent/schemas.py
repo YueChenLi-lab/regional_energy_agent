@@ -124,6 +124,95 @@ class Candidate(Model):
         return self
 
 
+CAPACITY_FIELDS = ("pv_kw", "battery_power_kw", "battery_energy_kwh", "hp_kw_th", "boiler_kw_th")
+
+
+class CapacityRange(Model):
+    lower: NonNegative = 0
+    upper: NonNegative
+
+    @model_validator(mode="after")
+    def ordered(self):
+        if self.lower > self.upper:
+            raise ValueError("容量下限不得大于上限")
+        return self
+
+
+class CapacityBounds(Model):
+    source_id: str
+    pv_kw: CapacityRange
+    battery_power_kw: CapacityRange
+    battery_energy_kwh: CapacityRange
+    hp_kw_th: CapacityRange
+    boiler_kw_th: CapacityRange
+    battery_min_duration_hours: Positive = 0.5
+    battery_max_duration_hours: Positive = 8
+
+    @model_validator(mode="after")
+    def duration(self):
+        if self.battery_min_duration_hours > self.battery_max_duration_hours:
+            raise ValueError("电池时长范围反向")
+        return self
+
+
+class AssetEconomics(Model):
+    lifetime_years: int = Field(ge=1, le=100)
+    fixed_om_fraction: NonNegative = Field(default=0, description="每年固定维护费/该设备含安装的第0年投资")
+    replacement_fraction: NonNegative = Field(default=1, description="更换费用/该设备含安装的第0年投资")
+    residual_method: Literal["straight_line", "none"] = "straight_line"
+
+
+class Economics(Model):
+    source_id: str
+    horizon_years: int = Field(default=20, ge=1, le=100)
+    discount_rate: float = Field(default=0.05, ge=0, le=1)
+    assets: dict[str, AssetEconomics]
+    battery_variable_om_per_kwh: NonNegative = Field(default=0, description="按放电电量收取，元/kWh")
+    hp_variable_om_per_kwh_th: NonNegative = 0
+    boiler_variable_om_per_kwh_th: NonNegative = 0
+    representative_year_assumption: str = Field(min_length=1, default="同一完整年度的负荷、资源、价格和排放因子重复用于未来每年；无增长、衰减或多年预测")
+
+    @model_validator(mode="after")
+    def known_assets(self):
+        if set(self.assets) != set(CAPACITY_FIELDS):
+            raise ValueError("经济参数必须完整包含五种容量的寿命、维护、更换与残值")
+        return self
+
+
+class CashFlow(Model):
+    year: int
+    investment_yuan: float = 0
+    energy_yuan: float = 0
+    fixed_om_yuan: float = 0
+    variable_om_yuan: float = 0
+    replacement_yuan: float = 0
+    residual_credit_yuan: float = 0
+    net_yuan: float
+    discounted_yuan: float
+
+
+class EconomicResult(Model):
+    npv_cost_yuan: float
+    annual_energy_cost_yuan: float
+    annual_fixed_om_yuan: float
+    annual_variable_om_yuan: float
+    annual_emissions_kg: float
+    horizon_operating_emissions_kg: float
+    cashflows: list[CashFlow]
+    assumption: str
+
+
+class ModelStatistics(Model):
+    intervals: int
+    variables: int
+    binaries: int
+    constraints: int
+    nonzeros: int
+    objective_kind: str
+    objective_value: float | None = None
+    dual_bound: float | None = None
+
+
 class TaskRequest(Model):
     project_name: str = "区域综合能源规划"
     version: int = Field(default=1, ge=1)
@@ -138,6 +227,11 @@ class TaskRequest(Model):
     assessment_mode: Literal["electric_heat", "electric_only"] = "electric_heat"
     emission_species: Literal["CO2e", "CO2"] = "CO2e"
     case_context: CaseContext | None = None
+    planning_mode: Literal["candidates", "capacity"] = "candidates"
+    capacity_objective: Literal["npv", "emissions"] = "npv"
+    resolution: Literal["period", "full_year", "quick_period"] = "period"
+    capacity_bounds: CapacityBounds | None = None
+    economics: Economics | None = None
 
 
 class ProjectTask(TaskRequest):
@@ -159,6 +253,11 @@ class ProjectTask(TaskRequest):
                 raise ValueError("电侧评估不建模供热，热负荷占位数组必须全部为零")
             if any(c.hp_kw_th or c.boiler_kw_th for c in self.candidates):
                 raise ValueError("电侧候选不得含热泵或锅炉，不保证供热需求")
+        if self.planning_mode == "capacity" and (self.capacity_bounds is None or self.economics is None):
+            raise ValueError("容量规划需要容量范围与全年经济参数")
+        if self.assessment_mode == "electric_only" and self.capacity_bounds:
+            if self.capacity_bounds.hp_kw_th.upper or self.capacity_bounds.boiler_kw_th.upper:
+                raise ValueError("电侧模式不能启用热设备容量")
         return self
 
 
@@ -209,6 +308,7 @@ class DispatchResult(Model):
     soc_kwh: list[float] = Field(default_factory=list, description="N+1个边界状态：e[0]初值，e[t+1]区间t结束")
     charge_mode: list[float] = Field(default_factory=list, description="二进制：1可充电、0可放电")
     reasons: list[str] = Field(default_factory=list)
+    model_statistics: ModelStatistics | None = None
 
 
 class ConstraintCheck(Model):
@@ -253,10 +353,13 @@ class ScenarioResult(Model):
     investment_yuan: NonNegative
     dispatch: DispatchResult
     validation: SolutionValidation
+    economics: EconomicResult | None = None
 
 
 class ComparisonRequest(Model):
     scenarios: list[ScenarioResult]
+    planning_mode: Literal["candidates", "capacity"] = "candidates"
+    objective: Literal["npv", "emissions"] = "npv"
 
 
 class Comparison(Model):
@@ -314,9 +417,15 @@ class TaskPatch(Model):
     grid_limit_kw: NonNegative | None = None
     pv_limit_kw: NonNegative | None = None
     unsupported_demands: list[str] = Field(default_factory=list)
+    budget_multiplier: Annotated[float, Field(gt=0, le=10)] | None = None
+    preserve_heat: bool = False
 
     @model_validator(mode="after")
     def consistent_emission_change(self):
+        if self.budget_yuan is not None and self.budget_multiplier is not None:
+            raise ValueError("绝对预算与相对预算不能同时修改")
+        if self.preserve_heat and self.demand_scale not in (None, 1):
+            raise ValueError("保持供热时不得缩放负荷")
         if self.clear_emission_limit and self.emission_limit_kg is not None:
             raise ValueError("不能同时设置与清除排放上限")
         return self

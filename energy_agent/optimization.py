@@ -81,6 +81,11 @@ def solve_dispatch(request: SolveRequest) -> DispatchResult:
     integrality[block("mode")] = 1
     cost[block("grid")] = dt * eprice
     cost[block("boiler")] = dt * gprice / devices.boiler_efficiency
+    if task.economics:
+        ec = task.economics
+        cost[block("boiler")] += dt * ec.boiler_variable_om_per_kwh_th
+        cost[block("hp")] += dt * ec.hp_variable_om_per_kwh_th
+        cost[block("discharge")] += dt * ec.battery_variable_om_per_kwh
 
     rows, cols, values, row_lower, row_upper = [], [], [], [], []
 
@@ -151,5 +156,5 @@ def solve_dispatch(request: SolveRequest) -> DispatchResult:
         status="optimal" if result.status == 0 else "feasible_limit",
         message=("HiGHS 在所设容差内求得最优运行解" if result.status == 0 else
                  "达到求解限制，已有解但未证明最优；须通过独立约束校验"),
-        solve_seconds=elapsed, mip_gap=gap, objective_yuan=float(cost @ x), points=points,
+        solve_seconds=elapsed, mip_gap=gap, objective_yuan=float(dt * np.sum(x[block("grid")]*eprice + x[block("boiler")]*gprice/devices.boiler_efficiency)), points=points,
         soc_kwh=x[block("soc", n + 1)].tolist(), charge_mode=x[block("mode")].tolist())

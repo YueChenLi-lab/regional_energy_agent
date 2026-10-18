@@ -148,3 +148,17 @@ JSON 是完整可追溯结果；CSV 便于比较与绘图；Markdown 报告描�
 逐时电价CSV只支持`timestamp,yuan_per_kwh`两列，严格对齐全部负荷小时，拒绝重复、负值和缺失。时段价格表必须恰好覆盖24小时，无重叠或空档；只核算按电量收费，其他收费不默认为0已核实。
 
 `load_csv(..., emission_species="CO2")`可读CO2口径的统一CSV；省略仍为旧版CO2e。NASA适配器只接受响应明确UTC与已支持单位的GHI、T2M、WS10M，拒绝fill值和缺失；小时Wh/m²除以1h成为平均W/m²，再经独立光伏模型得到kW/kW，不能直接当光伏出力。
+
+## v0.3 全年、经济与容量契约
+
+`TaskRequest.planning_mode`：candidates（原有限候选）/capacity（连续容量联合优化）；`capacity_objective`：npv/emissions；`resolution`：period/full_year/quick_period。经济评价只允许完整日历年，不对短期数组默认年化。`economics`可空；`capacity_bounds`可空，capacity模式二者必需。旧任务JSON保持兼容。
+
+`CapacityBounds`以五个`CapacityRange(lower,upper)`分别记录pv_kw、battery_power_kw、battery_energy_kwh、hp_kw_th、boiler_kw_th，附来源ID和电池最短/最长储能时长。上下界不倒置；电侧热设备上界为零。输出Candidate仍使用原单位与来源契约。
+
+`Economics`：source_id、horizon_years、discount_rate、assets（以五种容量名为键，完整记录lifetime_years、fixed_om_fraction、replacement_fraction、residual_method）、电池按放电电量及热设备按供热量的变动维护单价、representative_year_assumption。寿命为整数年，比例和费用非负，零折现允许。NPV元与运行排放kg分开。
+
+`ScenarioResult.economics`：npv_cost_yuan、annual_energy_cost_yuan、annual_fixed_om_yuan、annual_variable_om_yuan、annual_emissions_kg、horizon_operating_emissions_kg、cashflows、assumption。每条CashFlow明确year（0…H）、investment/energy/fixed_om/variable_om/replacement/residual_credit/net/discounted各项元，不混淆投资和NPV。
+
+`DispatchResult.model_statistics`：原模型intervals/variables/binaries/constraints/nonzeros、objective_kind/value及dual_bound。NPV目标元、排放目标kg；原objective_yuan仍指实际评估期购能费，保证原独立校验接口兼容。solve_seconds和mip_gap继续保留。
+
+`TaskPatch`新增budget_multiplier（相对已确认预算的倍数，不与绝对budget_yuan并用）、preserve_heat（与负荷缩放互斥）。自然语言修改另由AgentSession约束稳定request_id、确认基准、热/时间指纹、父运行、回执及当前字段引用。引用 `scenarios.OPT.npv_cost_yuan` 等标量，禁止旧run_id与编造数字。见[模型协议与验收边界](deepseek_agent.md)。

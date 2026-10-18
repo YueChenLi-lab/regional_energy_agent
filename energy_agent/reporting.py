@@ -55,6 +55,10 @@ def scenario_row(scenario: ScenarioResult, rank: int | None = None) -> dict[str,
         "boiler_kw_th": c.boiler_kw_th,
         "investment_yuan": scenario.investment_yuan,
         "operating_cost_yuan": m.operating_cost_yuan if m else None,
+        "npv_cost_yuan": scenario.economics.npv_cost_yuan if scenario.economics else None,
+        "annual_fixed_om_yuan": scenario.economics.annual_fixed_om_yuan if scenario.economics else None,
+        "annual_variable_om_yuan": scenario.economics.annual_variable_om_yuan if scenario.economics else None,
+        "horizon_operating_emissions_kg": scenario.economics.horizon_operating_emissions_kg if scenario.economics else None,
         "emissions_kg": m.emissions_kg if m else None,
         "grid_kwh": m.grid_kwh if m else None,
         "gas_kwh_lhv": m.gas_kwh_lhv if m else None,
@@ -125,6 +129,21 @@ def generate_report(request: ReportRequest) -> ReportText:
         chunks.extend(["## 待补充或修正", _table(["字段", "类别", "说明"], [
             [i.field, i.kind, i.message] for i in run.issues
         ])])
+    chunks.append(f"规划模式：{task.planning_mode}；时间分辨率标识：{task.resolution}。")
+    if task.planning_mode == "capacity":
+        chunks.append("连续容量与全部时间区间联合优化；容量范围见输入。最优性仅针对本次设备线性模型、边界与求解容差，不是工程全局最优或完整前沿证明。")
+        chunks.append("电池线性互斥：C<=P、C<=Pmax*z、D<=P、D<=Pmax*(1-z)，不使用未知容量与二进制乘积。")
+    if task.economics:
+        e=task.economics
+        chunks.append(f"## 全年与规划期经济评价\n\n完整日历年逐时输入，规划期{e.horizon_years}年，折现率{e.discount_rate:g}；{e.representative_year_assumption}。初始预算只约束第0年投资；经济指标为NPV成本，容量目标为{'年度运行排放' if task.capacity_objective == 'emissions' else 'NPV成本'}；不使用一周乘52。")
+        chunks.append("购能费只含按电量/燃气LHV用量收费；未计基本电费、需量费、税费、土地、融资、增长或设备衰减。物理运行排放不折现，不含设备隐含排放，未完成生命周期碳核算。")
+        for scenario in run.scenarios:
+            if scenario.economics:
+                v=scenario.economics
+                chunks.append(f"### {scenario.candidate.candidate_id} 现金流\n\nNPV={v.npv_cost_yuan:.6f}元；年度运行排放={v.annual_emissions_kg:.6f}{emission_unit}；规划期运行排放={v.horizon_operating_emissions_kg:.6f}{emission_unit}。{v.assumption}")
+                chunks.append(_table(["年","初始投资","购能费","固定维护","变动维护","更换","残值抵扣","净支出","折现支出"],[[f.year,f.investment_yuan,f.energy_yuan,f.fixed_om_yuan,f.variable_om_yuan,f.replacement_yuan,f.residual_credit_yuan,f.net_yuan,f.discounted_yuan] for f in v.cashflows]))
+            if scenario.dispatch.model_statistics:
+                chunks.append("模型规模与求解证据：`"+scenario.dispatch.model_statistics.model_dump_json()+"`；耗时="+str(scenario.dispatch.solve_seconds)+"s；间隙="+str(scenario.dispatch.mip_gap))
     chunks.append("## 候选配置与结果")
     if run.scenarios:
         chunks.append(_table(
@@ -201,6 +220,11 @@ def generate_report(request: ReportRequest) -> ReportText:
             for name, source_id in task.data.source_ids.items()
         ]))
     assumptions = list(ASSUMPTIONS)
+    if task.planning_mode == "capacity":
+        assumptions = [a for a in assumptions if "仅比较配置文件" not in a]
+        assumptions.append("联合优化连续设备容量与逐时运行，最优性仅针对声明的模型和上下界；有限扫描不是完整前沿证明。")
+    if task.economics:
+        assumptions.append("NPV包含第0年投资、年末购能与维护、更换和期末残值；使用重复代表年假设，运行排放不折现。")
     if task.assessment_mode == "electric_only":
         assumptions[0] = "仅评估已声明计量边界的电侧；保留选中W类别的暖通用电；不估算热需求，不保证供热。零热数组仅为停用占位，不代表没有供热需求。"
         assumptions[1] = "增量投资只计新增光伏/储能及安装；既有电网接入和既有用能设备不在投资范围，运行费仅统计本评估期的电量收费部分。"

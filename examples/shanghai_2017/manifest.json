@@ -1,0 +1,10 @@
+{
+  "format": "regional-energy-annual-input-v1",
+  "files": {
+    "95d1d9061ffd6002.manifest.json": "9b877fea59e5750649d966780fb9d329661efe1c0463a83d5e3ed3372c986458",
+    "95d1d9061ffd6002_point": "cb0417cff0bd8cf2adcd6f4c40a43c2cc4e753752e12c0960c3627e8f66d452b",
+    "records.csv": "7a9f6158ca5d6102c72c24623bce7930fc57e16825a2803d8e55b66bd3bb78f9",
+    "source_manifest.json": "6605be4ccb93122233dc38f1ed90d4f7cd062f08cf77243c4ca6200432d55a7e",
+    "publisher_README.md": "2dc077de74c79637c661db62c732f3b3d24ff3decef3d1809c2b5e69a6a6b5c7"
+  }
+}

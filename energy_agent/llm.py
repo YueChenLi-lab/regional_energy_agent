@@ -9,6 +9,9 @@ from __future__ import annotations
 import json
 import os
 import re
+import time
+from datetime import datetime, timezone
+from pathlib import Path
 from collections.abc import Mapping
 from typing import Protocol, runtime_checkable
 
@@ -65,7 +68,7 @@ _UNSUPPORTED_TERMS = {
     "冷热管网": ("管网", "district network"),
     "空间选址": ("空间选址", "选址", "spatial siting"),
     "设备故障备用": ("故障备用", "故障冗余", "failure backup"),
-    "全生命周期隐含排放": ("隐含排放", "全生命周期", "embodied emission", "life cycle"),
+    "全生命周期隐含排放": ("隐含排放", "生命周期碳", "全生命周期排放", "embodied emission", "life cycle carbon"),
 }
 
 
@@ -117,6 +120,10 @@ class OpenAICompatibleClient:
         client: httpx.Client | None = None,
         max_attempts: int = 3,
         timeout_seconds: float = 30.0,
+        provider: str = "auto",
+        budget=None,
+        parse_max_tokens: int = 1000,
+        explain_max_tokens: int = 1600,
     ) -> None:
         if not all(value.strip() for value in (base_url, model, api_key)):
             raise LLMError("模型服务地址、模型名和密钥均需配置；请在环境设置中提供，勿在聊天中粘贴密钥。")
@@ -136,6 +143,14 @@ class OpenAICompatibleClient:
         self._client = client
         self.max_attempts = max_attempts
         self.timeout_seconds = timeout_seconds
+        self.provider = ("deepseek" if url.host == "api.deepseek.com" else "openai") if provider == "auto" else provider
+        if self.provider not in ("deepseek", "openai"):
+            raise LLMError("仅支持明确配置的deepseek或openai提供商协议")
+        if not 1 <= parse_max_tokens <= 4096 or not 1 <= explain_max_tokens <= 4096:
+            raise ValueError("单次输出token限制必须在1..4096")
+        self.parse_max_tokens, self.explain_max_tokens = parse_max_tokens, explain_max_tokens
+        self.budget = budget or RequestBudget()
+        self._host = url.host
 
     @classmethod
     def from_environment(
@@ -145,6 +160,7 @@ class OpenAICompatibleClient:
         missing = [name for name in _SETTINGS if not env.get(name, "").strip()]
         if missing:
             raise LLMError("模型配置不完整，缺少：" + "、".join(missing))
+        kwargs.setdefault("provider", env.get("LLM_PROVIDER", "auto"))
         return cls(*(env[name] for name in _SETTINGS), **kwargs)
 
     def parse_patch(self, text: str, task: TaskRequest) -> TaskPatch:
@@ -171,37 +187,14 @@ class OpenAICompatibleClient:
 
     def _parse(self, client: httpx.Client, messages: list[dict], text: str, task: TaskRequest) -> TaskPatch:
         for attempt in range(self.max_attempts):
-            try:
-                response = client.post(
-                    self._url,
-                    headers={"Authorization": f"Bearer {self._api_key}"},
-                    timeout=self.timeout_seconds,
-                    json={
-                        "model": self._model,
-                        "messages": messages,
-                        "temperature": 0,
-                        "tools": [{
-                            "type": "function",
-                            "function": {
-                                "name": _TOOL_NAME,
-                                "description": "提出结构化条件修改；不能计算方案结果或执行其他工具。",
-                                "parameters": TaskPatch.model_json_schema(),
-                            },
-                        }],
-                        "tool_choice": {"type": "function", "function": {"name": _TOOL_NAME}},
-                        "parallel_tool_calls": False,
-                    },
-                )
-                response.raise_for_status()
-            except httpx.HTTPStatusError as error:
-                raise LLMError(f"模型服务返回 HTTP {error.response.status_code}；请检查服务配置、权限或额度。未读取响应正文。") from None
-            except httpx.HTTPError:
-                raise LLMError("模型服务连接失败或超时；请检查服务地址、网络和 TLS 配置。") from None
+            response = self._post(client, messages, _TOOL_NAME, TaskPatch.model_json_schema(), self.parse_max_tokens)
             try:
                 payload = response.json()
                 choices = payload["choices"]
                 if not isinstance(choices, list) or len(choices) != 1:
                     raise ValueError("one completion required")
+                if choices[0].get("finish_reason", "tool_calls" if self.provider != "deepseek" else None) != "tool_calls":
+                    raise ValueError("incomplete or truncated tool response")
                 message = choices[0]["message"]
                 calls = message["tool_calls"]
                 if message.get("content") not in (None, ""):
@@ -232,6 +225,94 @@ class OpenAICompatibleClient:
                     "content": "上一次输出未通过校验。请仅调用一次 propose_task_patch，参数须严格符合 schema；不要附加正文、未知字段或冲突的排放修改。",
                 })
         raise AssertionError("unreachable")
+
+
+    def _post(self, client, messages, name, schema, max_tokens):
+        body = {"model": self._model, "messages": messages, "temperature": 0,
+            "max_tokens": max_tokens, "stream": False,
+            "tools": [{"type":"function","function":{"name":name,"description":"仅输出受限结构化数据；不执行代码或任意网络操作", "parameters":schema}}],
+            "tool_choice":{"type":"function","function":{"name":name}}}
+        if self.provider == "deepseek":
+            body["thinking"] = {"type":"disabled"}
+        else:
+            body["parallel_tool_calls"] = False
+        for retry in range(2):
+            index = self.budget.reserve(self.provider,self._model,name)
+            started = time.perf_counter()
+            try:
+                response=client.post(self._url,headers={"Authorization":f"Bearer {self._api_key}"},timeout=self.timeout_seconds,json=body)
+            except httpx.HTTPError:
+                self.budget.finish(index,"transport_error",time.perf_counter()-started)
+                raise LLMError("模型服务连接失败或超时；未应用任何模型输出。") from None
+            usage={}
+            if response.is_success:
+                try:
+                    raw=response.json().get("usage",{})
+                    usage={k:v for k,v in raw.items() if k in ("prompt_tokens","completion_tokens","total_tokens") and isinstance(v,int) and v>=0}
+                except (ValueError,AttributeError): pass
+            self.budget.finish(index,str(response.status_code),time.perf_counter()-started,usage)
+            if response.status_code in (429,500,502,503,504) and retry==0:
+                time.sleep(0.25)
+                continue
+            if not response.is_success:
+                raise LLMError(f"模型服务返回 HTTP {response.status_code}；请检查服务配置、权限或额度。未读取响应正文。")
+            return response
+        raise AssertionError("unreachable")
+
+    def call_tool(self, name, schema_class, context, *, explain=False):
+        allowed={"planning_intent","grounded_explanation","connectivity_check"}
+        if name not in allowed:
+            raise LLMError("未注册的模型工具")
+        messages=[{"role":"system","content": "你是能源规划Agent。只能调用指定工具，不能执行Shell、Python或网络。需要澄清不明确的要求。预算相对变更基于当前确认预算，预算减少20%输出budget_multiplier=0.8；保持供热须preserve_heat=true。经济NPV已支持，生命周期碳与隐含排放不支持。解释只能逐字引用给定current_facts中的字段和值，run_id必须是当前运行。不要生成新数值。"},
+                  {"role":"user","content":json.dumps(context,ensure_ascii=False)}]
+        def run(client):
+            for attempt in range(self.max_attempts):
+                response=self._post(client,messages,name,schema_class.model_json_schema(),self.explain_max_tokens if explain else self.parse_max_tokens)
+                try:
+                    choices=response.json()["choices"]
+                    if len(choices)!=1 or choices[0].get("finish_reason")!="tool_calls": raise ValueError()
+                    message=choices[0]["message"]; calls=message["tool_calls"]
+                    if message.get("content") not in (None,"") or len(calls)!=1: raise ValueError()
+                    call=calls[0]
+                    if call['type']!='function' or call['function']['name']!=name: raise ValueError()
+                    return schema_class.model_validate_json(call['function']['arguments'])
+                except (ValueError,KeyError,TypeError,ValidationError):
+                    if attempt+1 == self.max_attempts:
+                        raise LLMError("模型输出未通过完整性、工具白名单或schema校验；未应用修改") from None
+                    messages.append({"role":"user","content":"输出未通过校验；仅调用指定工具且参数严格符合schema，不附加正文。"})
+        if self._client is not None: return run(self._client)
+        with httpx.Client(timeout=self.timeout_seconds,follow_redirects=False) as client:
+            return run(client)
+
+
+class RequestBudget:
+    """Counts every attempted request, including HTTP and schema retries.
+
+    One instance is shared for an acceptance session. Optional file persists the
+    counter across command restarts; only whitelisted metadata is retained.
+    """
+    def __init__(self, maximum=10, log_path=None):
+        if not 1 <= maximum <= 10: raise ValueError("自动验收请求上限为1..10")
+        self.maximum=maximum
+        self.path=Path(log_path) if log_path else None
+        self.records=json.loads(self.path.read_text(encoding="utf-8")) if self.path and self.path.exists() else []
+
+    @property
+    def count(self): return len(self.records)
+
+    def _save(self):
+        if self.path:
+            self.path.parent.mkdir(parents=True,exist_ok=True)
+            self.path.write_text(json.dumps(self.records,ensure_ascii=False,indent=2),encoding="utf-8")
+
+    def reserve(self, provider, model, tool):
+        if self.count>=self.maximum: raise LLMError("本次验收已达到模型请求上限；所有重试计入，未继续联网")
+        self.records.append({"provider":provider,"model":model,"tool":tool,"time_utc":datetime.now(timezone.utc).isoformat(),"status":"started"})
+        self._save();return self.count-1
+
+    def finish(self,index,status,seconds,usage=None):
+        self.records[index].update(status=status,seconds=seconds,usage=usage or {})
+        self._save()
 
 
 def get_llm_client(

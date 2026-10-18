@@ -12,10 +12,12 @@ from pydantic import BaseModel, ValidationError
 from .data import validate_inputs
 from .evaluation import compare_scenarios, validate_solution
 from .optimization import solve_dispatch
+from .capacity import CapacitySolveRequest, CapacitySolution, solve_capacity
+from .economics import evaluate_economics
 from .planning import build_candidates, investment_yuan
 from .reporting import export_run, generate_report
 from .schemas import (
-    CandidateList, Comparison, ComparisonRequest, DispatchResult, InputValidation,
+    ConstraintCheck, CandidateList, Comparison, ComparisonRequest, DispatchResult, InputValidation,
     Issue, ProjectTask, ReportRequest, ReportText, RunResult, RunState, ScenarioResult,
     SolutionValidation, SolveRequest, SolverOptions, Source, TaskPatch, TaskRequest,
     ToolCall, ValidationRequest,
@@ -59,6 +61,13 @@ class ToolRegistry:
 
 def revise_task(task: TaskRequest, patch: TaskPatch, parent_run_id: str | None = None) -> TaskRequest:
     """Create a new input version, retaining prior provenance and recomputing later."""
+    patch = TaskPatch.model_validate(patch)
+    if patch.preserve_heat and task.assessment_mode == "electric_only":
+        raise ValueError("电侧任务未建模供热，请先澄清供热边界")
+    if patch.budget_multiplier is not None:
+        if task.constraints is None or task.constraints.budget_yuan is None:
+            raise ValueError("相对修改需要已确认预算")
+        patch = patch.model_copy(update={"budget_yuan": task.constraints.budget_yuan*patch.budget_multiplier, "budget_multiplier": None})
     payload = task.model_dump(mode="json")
     payload["version"] += 1
     payload["parent_run_id"] = parent_run_id
@@ -107,6 +116,11 @@ def compare_runs(previous: RunResult, current: RunResult) -> dict:
         if old and old.validation.metrics and scenario.validation.metrics:
             for metric in ("investment_yuan", "operating_cost_yuan", "emissions_kg", "grid_kwh", "gas_kwh_lhv"):
                 item[f"delta_{metric}"] = getattr(scenario.validation.metrics, metric) - getattr(old.validation.metrics, metric)
+        if old:
+            for key in ("pv_kw", "battery_power_kw", "battery_energy_kwh", "hp_kw_th", "boiler_kw_th"):
+                item["delta_"+key] = getattr(scenario.candidate,key)-getattr(old.candidate,key)
+            if old.economics and scenario.economics:
+                item["delta_npv_cost_yuan"] = scenario.economics.npv_cost_yuan-old.economics.npv_cost_yuan
         differences.append(item)
     return {
         "previous_version": previous.input_version, "current_version": current.input_version,
@@ -190,14 +204,26 @@ class EnergyAgent:
                 state(RunState.READY)
                 state(RunState.BUILDING)
                 candidates = invoke("build_candidates", ready).candidates
+                if ready.planning_mode == "capacity":
+                    state(RunState.SOLVING)
+                    self.registry._tools["solve_capacity"] = Tool(CapacitySolveRequest, CapacitySolution, solve_capacity)
+                    capacity = invoke("solve_capacity", CapacitySolveRequest(task=ready,options=self.options,objective=ready.capacity_objective))
+                    candidates = [capacity.candidate]
                 for candidate in candidates:
                     state(RunState.SOLVING)
-                    dispatch = invoke("solve_dispatch", SolveRequest(task=ready, candidate=candidate, options=self.options))
+                    dispatch = capacity.dispatch if ready.planning_mode == "capacity" else invoke("solve_dispatch", SolveRequest(task=ready, candidate=candidate, options=self.options))
                     state(RunState.CHECKING)
                     validation = invoke("validate_solution", ValidationRequest(task=ready, candidate=candidate, dispatch=dispatch))
-                    result.scenarios.append(ScenarioResult(candidate=candidate, investment_yuan=investment_yuan(candidate, ready.devices), dispatch=dispatch, validation=validation))
+                    economic = evaluate_economics(ready,candidate,dispatch,validation.metrics) if validation.valid else None
+                    if validation.valid and ready.planning_mode == "capacity":
+                        actual = economic.npv_cost_yuan if ready.capacity_objective == "npv" else validation.metrics.emissions_kg
+                        expected = dispatch.model_statistics.objective_value
+                        violation = abs(actual-expected) if expected is not None else 1
+                        validation.checks.append(ConstraintCheck(name="planning_objective_recalculation",passed=violation<=1e-4,max_violation=violation,tolerance=1e-4,detail="独立逐年现金流NPV或物理排放与规划目标核对"))
+                        validation.valid = all(check.passed for check in validation.checks)
+                    result.scenarios.append(ScenarioResult(candidate=candidate, investment_yuan=investment_yuan(candidate, ready.devices), dispatch=dispatch, validation=validation, economics=economic))
                 state(RunState.COMPARING)
-                result.comparison = invoke("compare_scenarios", ComparisonRequest(scenarios=result.scenarios))
+                result.comparison = invoke("compare_scenarios", ComparisonRequest(scenarios=result.scenarios,planning_mode=ready.planning_mode,objective=ready.capacity_objective))
                 if previous:
                     result.changes = compare_runs(previous, result)
                 state(RunState.REPORTING)
@@ -210,7 +236,17 @@ class EnergyAgent:
         result.files = export_run(result, run_dir)
         return result
 
-    def run_text(self, text: str, task: TaskRequest, client, previous: RunResult | None = None) -> RunResult:
+    def run_text(self, text: str, task: TaskRequest, client, previous: RunResult | None = None, *, request_id: str | None = None) -> RunResult:
+        if request_id and previous and hasattr(client, "call_tool"):
+            from .conversation import AgentSession
+            reply = AgentSession(self,client,self.output_dir/"receipts").submit(text,previous,request_id=request_id)
+            if reply.run is None:
+                from .llm import LLMError
+                raise LLMError(reply.text)
+            return reply.run
         patch = client.parse_patch(text, task)
+        if patch.budget_multiplier is not None:
+            from .llm import LLMError
+            raise LLMError("相对预算修改需要已确认运行与稳定request_id；请使用全年Agent入口或agent-chat，防止重复扣减")
         revised = revise_task(task, patch, parent_run_id=previous.run_id if previous else None)
         return self.run(revised, previous=previous)

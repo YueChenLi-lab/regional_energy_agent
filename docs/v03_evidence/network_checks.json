@@ -1,0 +1,48 @@
+{
+  "api-docs.deepseek.com.html": {
+    "sha256": "dd1838ffe374797130d1db0fe983bd10041c2c1f17718011cf76abe6e40cfd37",
+    "bytes": 144485
+  },
+  "www.nbsdc.cn.html": {
+    "sha256": "61bafa9ed332a442fd6e1496161a8aa64bb3690dc69aa2b4132df1d7c8cccf2c",
+    "bytes": 92044
+  },
+  "ruili_metadata.json": {
+    "sha256": "3d4d163341715a687f5e6ab893b0b758474a6f27afe6e46063f9a8c32947f2dc",
+    "bytes": 3133
+  },
+  "ruili_filetree.json": {
+    "sha256": "574022801f0c89f74464e008aed6d6b295e96ef095a7b700fc9f506fd2db0d75",
+    "bytes": 452
+  },
+  "ruili_children.json": {
+    "sha256": "74e54bf13e2010ef4ac318fb44d01ab94836af71a4e248ceaaa138bff2c968c2",
+    "bytes": 1079
+  },
+  "ruili_download.json": {
+    "sha256": "3dc242b38b1d0017e43b33734ca67e875ea6280f7a1f23089f721d7662c54ec1",
+    "bytes": 121
+  },
+  "ruili_login.json": {
+    "sha256": "9e2bc3629372cd04bcaccfa9046bb67b2a36e78fe308768998b35db751100325",
+    "bytes": 54
+  },
+  "ruili_observation": {
+    "metadata": "HTTP200; simulation, xlsx/docx",
+    "file_tree": "HTTP200; actual two filenames found",
+    "download_response": {
+      "code": 403,
+      "message": "目前只支持部分数据集的说明文件下载，数据文件请通过数据申请获取。"
+    },
+    "login_response": {
+      "message": "token失效，请重新登录",
+      "code": 400
+    },
+    "actual_load_files_read": false
+  },
+  "deepseek": {
+    "official_document_read": true,
+    "model_api_requests": 0,
+    "real_acceptance": "not_verified; no environment settings or project .env key"
+  }
+}
