@@ -94,7 +94,7 @@ _LABELS={'investment_yuan':'初始投资（元）','npv_cost_yuan':'规划期NPV
 
 
 def deterministic_reply(run):
-    text=f'当前运行 {run.run_id}，输入版本 {run.input_version}：{actual_conclusion(run)}。'
+    text=f'当前运行 {run.run_id}，输入版本 {run.input_version}：{actual_conclusion(run)}。运行排放单位kg{run.task.emission_species}。'
     for s in run.scenarios:
         text+=f'\n方案 {s.candidate.candidate_id}：{s.dispatch.status}。'
         if s.validation.valid:

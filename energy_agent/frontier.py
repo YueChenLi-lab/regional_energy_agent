@@ -70,6 +70,8 @@ def sensitivity_analysis(request: SensitivityRequest) -> StudyResult:
         dominated=any(q['npv_cost_yuan']<=p['npv_cost_yuan']+1e-4 and q['annual_emissions_kg']<=p['annual_emissions_kg']+1e-4
             and (q['npv_cost_yuan']<p['npv_cost_yuan']-1e-4 or q['annual_emissions_kg']<p['annual_emissions_kg']-1e-4) for q in feasible)
         if not dominated:non.append(p['run_id'])
+    for point in points:
+        point['nondominated_among_solved']=point['run_id'] in non
     files={key:str(out/name) for key,name in [('json','study.json'),('csv','tradeoffs.csv'),('markdown','study.md')]}
     result=StudyResult(baseline_run_id=baseline.run_id,run_ids=[r.run_id for r in runs],points=points,nondominated_run_ids=non,files=files)
     Path(files['json']).write_text(json.dumps({'baseline':base,**result.model_dump()},ensure_ascii=False,indent=2),encoding='utf-8')

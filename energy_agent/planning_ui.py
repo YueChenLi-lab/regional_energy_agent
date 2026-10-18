@@ -108,9 +108,10 @@ def render_planning(show_results):
     if result:
         st.write(result.note)
         frame=pd.DataFrame(result.points)
+        frame['已求得点类型']=frame.run_id.map(lambda rid:'已求得非支配点' if rid in result.nondominated_run_ids else '其余已求得点')
         st.dataframe(frame.drop(columns=['model_statistics'],errors='ignore'),hide_index=True)
         feasible=frame[frame.feasible]
-        if not feasible.empty:st.scatter_chart(feasible,x='annual_emissions_kg',y='npv_cost_yuan')
+        if not feasible.empty:st.scatter_chart(feasible,x='annual_emissions_kg',y='npv_cost_yuan',color='已求得点类型')
         for key,file in result.files.items():st.download_button('下载取舍分析 '+key,Path(file).read_bytes(),file_name=Path(file).name,key='study_'+key)
     run=st.session_state.get('annual_run')
     if run:
