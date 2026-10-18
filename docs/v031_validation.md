@@ -43,7 +43,7 @@
 
 ## 离线验证
 
-基线126项重新通过。完整套件包含原测试和新增多轮恢复、单位/一般百分比、经济参数、保留条件、并发重复提交、真实外部峰值诊断及模拟UI服务测试。具体计数以`v031_evidence/test_output.txt`为准（最终套件158项，37.66秒）。
+基线126项重新通过。完整套件包含原测试和新增多轮恢复、单位/一般百分比、经济参数、保留条件、并发重复提交、真实外部峰值诊断及模拟UI服务测试。具体计数以`v031_evidence/test_output.txt`为准（最终套件162项，37.75秒）。
 
 实际命令：
 
@@ -57,7 +57,7 @@
 .venv/bin/python -m energy_agent.cli agent-dialog --action status --request-id live-multiround --output outputs/v031_real
 ```
 
-真实验收通过显式调用`run_live_acceptance`，复用首个连通请求计数，再执行整套流程；现已由相同`llm-acceptance` CLI暴露。没有以模拟回答替代真实响应。模拟测试使用Fake/MockTransport，真实本地优化仍实际执行。状态恢复测试覆盖目录复制、解释失败后不重复求解、回答修订不连续扣减、显式rebase和取消；错误数字/旧run_id等原测试保留。
+真实验收通过显式调用`run_live_acceptance`，复用首个连通请求计数，再执行整套流程；现已由相同`llm-acceptance` CLI暴露。没有以模拟回答替代真实响应。模拟测试使用Fake/MockTransport，真实本地优化仍实际执行。状态恢复测试覆盖目录复制、解释失败后不重复求解、回答修订不连续扣减、回答/修订解释失败及操作回执写入中断后复用相同运行、显式rebase和取消；错误数字/旧run_id等原测试保留。
 
 ## 峰值可靠性与限制
 

@@ -263,40 +263,57 @@ class AgentSession:
         if turn_file.exists():
             saved=json.loads(turn_file.read_text(encoding='utf-8'))
             if saved['text_sha']!=digest:raise ValueError('同一turn_id回答不同；请使用edit_answer并提供新的edit_id')
+            if field is not None and saved.get('field',field)!=field:raise ValueError('同一turn_id不能回答不同字段')
             return ConversationReply.model_validate(saved['reply'])
         dialog=PendingDialog.model_validate(receipt['dialog'])
         if dialog.status=='cancelled':raise ValueError('请求已取消，回答不能恢复已取消任务；请创建新请求')
+        prior=next((a for a in dialog.answers if a['turn_id']==turn_id),None)
+        if prior:
+            if prior['text']!=text or (field is not None and prior['field']!=field):raise ValueError('回答已记录，修改请使用edit_answer')
+            if any(m.field=='confirm_rebase' for m in dialog.missing_fields):raise ValueError('基准已重选，请显式resume确认，不能用旧回答重试代替确认')
+            # A failed explanation (or interrupted turn receipt write) must
+            # retain the already computed run and generation on answer retry.
+            reply=ConversationReply.model_validate(receipt['reply']) if receipt.get('reply') else self._advance(receipt,path)
+            self._save(turn_file,{'text_sha':digest,'field':prior['field'],'reply':reply.model_dump(mode='json')})
+            return reply
         if dialog.status=='completed':raise ValueError('请求已完成；修改既有回答请使用edit_answer')
         available=[m.field for m in dialog.missing_fields]
         field=field or (available[0] if len(available)==1 else None)
         if field not in available:raise ValueError('请指定当前待补字段，不能把回答当作新的自由指令')
-        prior=next((a for a in dialog.answers if a['turn_id']==turn_id),None)
-        if prior and prior['text']!=text:raise ValueError('回答已记录，修改请使用edit_answer')
-        if not prior:dialog.answers.append({'turn_id':turn_id,'field':field,'text':text})
+        dialog.answers.append({'turn_id':turn_id,'field':field,'text':text})
         self._reset(receipt,dialog)
         self._save(path,receipt)
         reply=self._advance(receipt,path)
-        self._save(turn_file,{'text_sha':digest,'reply':reply.model_dump(mode='json')})
+        self._save(turn_file,{'text_sha':digest,'field':field,'reply':reply.model_dump(mode='json')})
         return reply
 
     @_serialized
     def edit_answer(self,request_id,turn_id,text,*,edit_id):
         path,receipt=self._read(request_id)
+        if not edit_id:raise ValueError('修改回答需要稳定edit_id')
         edit_file=path.with_name(path.stem+'.edit.'+hashlib.sha256(edit_id.encode()).hexdigest()+'.json')
         digest=hashlib.sha256(text.encode()).hexdigest()
         if edit_file.exists():
             saved=json.loads(edit_file.read_text(encoding='utf-8'))
-            if saved['text_sha']!=digest:raise ValueError('edit_id已用于其他回答')
+            if saved['text_sha']!=digest or saved.get('turn_id',turn_id)!=turn_id:raise ValueError('edit_id已用于其他回答')
             return ConversationReply.model_validate(saved['reply'])
         dialog=PendingDialog.model_validate(receipt['dialog'])
         if dialog.status=='cancelled':raise ValueError('请求已取消，不能修改回答')
+        prior=next((h for h in dialog.history if h.get('event')=='edit_answer' and h.get('edit_id')==edit_id),None)
+        if prior:
+            if prior['turn_id']!=turn_id or prior['text_sha']!=digest:raise ValueError('edit_id已用于其他回答')
+            if prior['generation']!=dialog.generation:raise ValueError('此修改后已有其他变更，请恢复当前状态；不能重放旧修改')
+            reply=ConversationReply.model_validate(receipt['reply']) if receipt.get('reply') else self._advance(receipt,path)
+            self._save(edit_file,{'text_sha':digest,'turn_id':turn_id,'reply':reply.model_dump(mode='json')})
+            return reply
         answer=next((a for a in dialog.answers if a['turn_id']==turn_id),None)
         if answer is None:raise ValueError('未找到该回答turn_id')
-        dialog.history.append({'event':'edit_answer','turn_id':turn_id,'previous_text':answer['text'],'previous_run_id':receipt.get('new_run_id')})
+        dialog.history.append({'event':'edit_answer','edit_id':edit_id,'text_sha':digest,'generation':dialog.generation+1,
+            'turn_id':turn_id,'previous_text':answer['text'],'previous_run_id':receipt.get('new_run_id')})
         answer['text']=text;dialog.generation+=1
         self._reset(receipt,dialog);self._save(path,receipt)
         reply=self._advance(receipt,path)
-        self._save(edit_file,{'text_sha':digest,'reply':reply.model_dump(mode='json')})
+        self._save(edit_file,{'text_sha':digest,'turn_id':turn_id,'reply':reply.model_dump(mode='json')})
         return reply
 
     @_serialized

@@ -206,3 +206,50 @@ def test_negated_cancellation_is_preservation_not_a_clear_operation(base,text):
     assert updated.constraints.emission_limit_kg==10000
     assert_preserved(base.task,updated,c)
     with pytest.raises(ValueError):validate_proposal(TaskPatch(budget_multiplier=.85,preserve_heat=True,clear_emission_limit=True),c)
+
+
+@pytest.mark.parametrize('operation',['answer','edit'])
+def test_answer_and_edit_retry_after_lost_explanation_reuse_saved_run(base,tmp_path,operation):
+    model=SimulatedModel();session=AgentSession(EnergyAgent(tmp_path/'runs'),model,tmp_path/'session')
+    session.submit('预算少一点，供热不变',base,request_id='root')
+    if operation=='edit':session.answer('root','减少15%',turn_id='a')
+    model.fail_explanation=True
+    def perform(s):
+        return s.answer('root','减少15%',turn_id='a') if operation=='answer' else s.edit_answer('root','a','减少30%',edit_id='edit-a')
+    with pytest.raises(LLMError):perform(session)
+    _,receipt=session._read('root')
+    expected_run=receipt['new_run_id'];generation=receipt['dialog']['generation']
+    results=list((tmp_path/'runs').glob('*/result.json'))
+    intent_count=sum(name=='planning_intent' for name,_ in model.calls)
+    model.fail_explanation=False
+    restored=AgentSession(EnergyAgent(tmp_path/'runs'),model,tmp_path/'session')
+    reply=perform(restored)
+    assert reply.run.run_id==expected_run and reply.run.input_version==base.input_version+generation
+    assert list((tmp_path/'runs').glob('*/result.json'))==results
+    assert sum(name=='planning_intent' for name,_ in model.calls)==intent_count
+    assert reply.run.task.constraints.budget_yuan==pytest.approx(base.task.constraints.budget_yuan*(.85 if operation=='answer' else .7))
+    count=len(model.calls)
+    assert perform(restored).run.run_id==expected_run and len(model.calls)==count
+    if operation=='answer':
+        with pytest.raises(ValueError,match='不同字段'):restored.answer('root','减少15%',turn_id='a',field='heat_load')
+
+
+@pytest.mark.parametrize('operation',['answer','edit'])
+def test_completed_reply_survives_interrupted_idempotency_receipt_write(base,tmp_path,monkeypatch,operation):
+    model=SimulatedModel();s=AgentSession(EnergyAgent(tmp_path/'runs'),model,tmp_path/'session')
+    s.submit('预算少一点，供热不变',base,request_id='root')
+    if operation=='edit':s.answer('root','减少15%',turn_id='a')
+    original=s._save
+    def interrupted(path,payload):
+        if ('.turn.' if operation=='answer' else '.edit.') in path.name:raise OSError('simulated interrupted operation receipt write')
+        return original(path,payload)
+    monkeypatch.setattr(s,'_save',interrupted)
+    def perform(session):
+        return session.answer('root','减少15%',turn_id='a') if operation=='answer' else session.edit_answer('root','a','减少30%',edit_id='edit-a')
+    with pytest.raises(OSError):perform(s)
+    expected=s.restore('root');count=len(model.calls)
+    assert expected.status=='completed'
+    restored=AgentSession(EnergyAgent(tmp_path/'runs'),model,tmp_path/'session')
+    reply=perform(restored)
+    assert reply.run.run_id==expected.run.run_id and reply.run.input_version==expected.run.input_version
+    assert len(model.calls)==count
