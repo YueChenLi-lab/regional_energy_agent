@@ -74,6 +74,14 @@ def validate_solution(request: ValidationRequest) -> SolutionValidation:
           "未设置排放上限" if limits.emission_limit_kg is None else "按评估期统计", tol=1e-4)
     if result.objective_yuan is not None:
         check("objective_recalculation", abs(operating_cost - result.objective_yuan), tol=1e-4)
+    if task.planning_mode == "capacity" and task.capacity_bounds:
+        from .schemas import CAPACITY_FIELDS
+        b = task.capacity_bounds
+        for key in CAPACITY_FIELDS:
+            value, interval = getattr(candidate,key), getattr(b,key)
+            check("capacity_bound_"+key, max(interval.lower-value,value-interval.upper))
+        check("battery_min_duration", candidate.battery_power_kw*b.battery_min_duration_hours-candidate.battery_energy_kwh)
+        check("battery_max_duration", candidate.battery_energy_kwh-candidate.battery_power_kw*b.battery_max_duration_hours)
     supply_ok = all(c.passed for c in checks if c.name in ("electric_balance", "heat_balance"))
     metrics = Metrics(
         investment_yuan=investment, operating_cost_yuan=operating_cost, emissions_kg=emissions,
@@ -88,13 +96,17 @@ def compare_scenarios(request: ComparisonRequest) -> Comparison:
     eligible = [s for s in request.scenarios if s.validation.valid
                 and s.validation.metrics is not None and s.validation.metrics.supply_satisfied
                 and s.dispatch.status in ("optimal", "feasible_limit")]
-    eligible.sort(key=lambda s: (s.validation.metrics.operating_cost_yuan, s.candidate.candidate_id))
+    eligible.sort(key=lambda s: (s.validation.metrics.emissions_kg if request.planning_mode == "capacity" and request.objective == "emissions" else (s.economics.npv_cost_yuan if s.economics else s.validation.metrics.operating_cost_yuan), s.candidate.candidate_id))
     ranked = [s.candidate.candidate_id for s in eligible]
     if not ranked:
         return Comparison(ranked_ids=[], recommended_id=None,
                           explanation="在本次评估的候选方案中，没有通过供能、预算、场地、排放及独立结果校验的可行方案。")
-    explanation = (f"在本次评估的候选方案中，{ranked[0]} 通过全部约束校验，按评估期运行费升序排名第一。"
+    metric_name = "规划期NPV成本" if eligible[0].economics else "评估期运行费"
+    explanation = (f"在本次评估的候选方案中，{ranked[0]} 通过全部约束校验，按{metric_name}升序排名第一。"
                    "初始投资与评估期排放单独展示；此结果不代表全部可能容量配置的全局最优。")
+    if request.planning_mode == "capacity":
+        objective_name = "年度运行排放" if request.objective == "emissions" else "规划期NPV成本"
+        explanation = f"本次声明的容量范围与线性模型内，当前容量与运行解通过独立校验，目标为{objective_name}；最优性见求解状态和间隙。有限排放扫描不证明完整全局前沿，也不构成真实工程投资结论。"
     if any(s.dispatch.status == "feasible_limit" for s in eligible):
         explanation += " 部分方案为达到求解限制后的可行解，排序基于当前已得运行费，尚未全部证明最优。"
     return Comparison(ranked_ids=ranked, recommended_id=ranked[0], explanation=explanation)

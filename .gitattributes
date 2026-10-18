@@ -3,3 +3,9 @@ examples/shanghai_168h/*.json linguist-generated=true
 examples/shanghai_168h/*.csv linguist-generated=true
 examples/shanghai_168h/runs/** linguist-generated=true
 examples/shanghai_168h/report.md linguist-generated=true
+
+examples/shanghai_2017/** -text
+# Preserve publisher bytes (including CRLF and original trailing spaces) for SHA replay.
+examples/shanghai_2017/records.csv -whitespace
+examples/shanghai_2017/publisher_README.md -whitespace
+docs/v03_evidence/*_scenarios.csv whitespace=cr-at-eol

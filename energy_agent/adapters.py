@@ -190,7 +190,7 @@ def read_energydetective(path: str | Path, selection: MeterSelection):
 
 def import_energydetective(path: str | Path, selection: MeterSelection, *, start: str | None = None,
                            hours: int = 168, artifact: Artifact | None = None,
-                           documentation: Artifact | None = None) -> ImportedLoad:
+                           documentation: Artifact | None = None, retain_flagged_jumps: bool = False) -> ImportedLoad:
     if not isinstance(hours, int) or hours < 1:
         raise ValueError("窗口小时数必须为正整数")
     raw = read_energydetective(path, selection)
@@ -229,7 +229,9 @@ def import_energydetective(path: str | Path, selection: MeterSelection, *, start
         group = window.loc[window.Type == meter]
         report = inspect_series(group.timestamp, group.Record, step_minutes=60, timezone="Asia/Shanghai", scope=f"所选窗口/{selection.building}/{meter}")
         reports.append(report)
-        if not report.valid or report.records != hours:
+        errors = [f for f in report.findings if f.severity == "error"]
+        retained_warning = retain_flagged_jumps and not errors
+        if (not report.valid and not retained_warning) or report.records != hours:
             raise ImportQualityError(f"{meter}窗口不合格，需完整{hours}小时。\n" + report.markdown(), whole + reports)
         contract = IntervalContract(quantity="interval_kwh", source_step_minutes=60,
             timestamp_position=selection.timestamp_position, source_timezone="Asia/Shanghai", numeric_precision=0.01)
@@ -259,6 +261,7 @@ def import_energydetective(path: str | Path, selection: MeterSelection, *, start
         artifacts=[artifact] + ([documentation] if documentation else []),
         processing=[note, f"原文件建筑筛选={selection.building}；类别={selection.meters}；对每类按原时间稳定排序；检查(time,type)重复，未去重",
             "按发布方README把Record解释为每小时电量，除以1h得到区间平均kW；未缩放实测负荷，未插补、删点或填零",
+            f"异常跳变策略：{'显式保留全部跳变，研究情景未经测点核实；不代表质量告警解除' if retain_flagged_jumps else '选中窗口拒绝跳变'}",
             "输入数值分辨率按0.01kWh声明用于核对，不代表已核实仪表精度；浮点长尾保留", audit.model_dump_json()],
         conditions="发布方GitHub仓库未声明许可证；本次实际读取公开文件做本地验证，未确认再分发条件，原始及逐时派生数据不提交公共仓库。Zenodo元数据尚待核实。")
     if not verified_download and not artificial:

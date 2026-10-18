@@ -50,3 +50,9 @@ NASA POWER：已读取[Referencing Guide](https://power.larc.nasa.gov/docs/refer
 |[Calliope城市示例](https://calliope.readthedocs.io/en/latest/examples/urban_scale/)|国际，模型/示例|仅登记，未适配；不等同实测城市数据|
 
 原v0.1合成来源demo-series、demo-market、demo-equipment、demo-conditions、demo-candidates保留，仍明确标为synthetic。导入有实测负荷但包含估算和假设时，整体显示“实测与假设混合案例”，不靠demo=False删除假设提示。
+
+## v0.3 全年核查补充
+
+已实际取得并随代码保留CC BY 4.0许可的EnergyDetective测试楼完整2017 CSV（Q/W各8760小时）；当前全年研究仅选Q，2个跳变告警显式保留，未作异常修复。原始文件、文档、父档案/成员SHA与发布MD5见 `examples/shanghai_2017/source_manifest.json`。NASA POWER同期UTC完整响应及获取时间、请求URL、SHA见该目录缓存manifest；模型估算PV不是实测PV。混合来源不会被demo=False隐藏。
+
+瑞丽2026-10-18已读取官方网页、公开元数据和文件目录API，确认发布说明为仿真建筑负荷。已读取新目录内xlsx/docx文件名；数据实体下载返回code=403要求数据申请，实际xlsx/docx内容未取得/解析，使用条件与时间/单位契约尚未核实，不宣称接入。上海Q＋物理仿真供热是另一个明确的研究情景。DeepSeek当前官方协议已读取（模型名、非思考、工具选择、参数支持），账号真实接口验收仍需项目环境配置，不能以文档可访问代替模型连通。

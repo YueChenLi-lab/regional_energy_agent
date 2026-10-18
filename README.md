@@ -1,9 +1,48 @@
-# 区域综合能源低碳规划评估 Agent · v0.2
+# 区域综合能源低碳规划评估 Agent · v0.3
 
 可运行的单节点电热规划原型：根据负荷、预算、场地与运行排放约束，比较有限的光伏、储能、热泵、燃气锅炉组合。单个 Agent 编排确定性工具，SciPy/HiGHS 求解运行，独立算术检查复核结果，中文 Streamlit 界面与 CLI 共用同一流程。
 
 **合成演示入口采用合成演示数据。** 价格、排放因子、成本与设备参数都是演示假设，不代表当地现行值。结果只覆盖输入的评估期，不年化，也不称为全生命周期零碳或所有容量组合的全局最优。
 
+
+## v0.3：全年规划、容量优化与 DeepSeek Agent
+
+已实际解析上海2017全年Q照明插座电量及同期NASA UTC资源，完成8760小时电侧与“Q实测＋物理仿真供热”研究案例。保留旧168小时离线演示、真实导入与有限候选模式。新增连续容量/逐时运行联合优化、20年NPV现金流（维护、更换、残值、零折现）、成本—运行排放有限扫描及受限模型动作。**混合研究情景，含异常告警与假设，不是实测全楼改造或工程投资结论**。
+
+```bash
+# 无需网络/密钥：原始许可输入、气象缓存及SHA校验随代码提供
+.venv/bin/python -m energy_agent.cli annual-build --bundle examples/shanghai_2017 --retain-flagged-jumps --output outputs/annual_electric --run --time-limit 60
+.venv/bin/python -m energy_agent.cli annual-build --bundle examples/shanghai_2017 --heat --retain-flagged-jumps --output outputs/annual_heat --run --time-limit 60
+.venv/bin/python -m energy_agent.cli plan-study --task outputs/annual_heat/task.json --scans 3 --time-limit 120 --output outputs/study
+```
+
+每次使用新空目录；保留跳变的开关是明确接受原值的研究风险，没有删除/插补异常。UI新增“全年规划与Agent”：选择全年/快速运行、容量/有限候选，修改预算、容量边界、经济参数；显示配置、NPV、运行排放、取舍图及下载。快速168小时仅作有限候选运行检查，不计算全年NPV。
+
+DeepSeek继续使用`energy_agent/llm.py`，从项目根`.env`或环境变量读取（不覆盖已有变量）。`.env.example`仅含非秘密默认值，密钥为空；请在本机安全填写。仅显式按钮/命令调用，普通刷新和测试不收费。模型输出经过工具白名单、schema、当前run_id与数字引用核对，数值来自优化工具；相对修改使用确认任务与稳定请求ID，重复提交不再次扣减预算。
+
+本轮没有项目环境密钥，**真实模型请求0次，DeepSeek真实接口尚未验收**；本地模拟协议测试和确定性全年预算修改已验证，不能替代真实调用。配置后直接运行（RUN替换为上一命令输出的电热result.json）：
+
+```bash
+.venv/bin/python -m energy_agent.cli llm-acceptance --run RUN --output outputs/deepseek_acceptance --time-limit 60
+.venv/bin/python -m energy_agent.cli agent-chat --run RUN --text "预算减少20%，供热要求保持不变。" --request-id budget20-001 --output outputs/chat
+```
+
+验收自身包含连接测试、结构化修改、重算/解释、澄清与不可行解释，最多10次请求含重试。没有有效配置时输出not_verified，不假装通过。重试沿用同一request-id；确实再次扣减才换新ID。
+
+Windows Conda：
+
+```powershell
+conda activate regional-energy
+python -m pip install -r requirements.txt
+python -m pip install -e . --no-deps
+python -m pytest -q
+python -m energy_agent.cli annual-build --bundle examples/shanghai_2017 --heat --retain-flagged-jumps --output outputs/annual_heat --run --time-limit 60
+python -m streamlit run app.py
+```
+
+云端使用`.venv/bin/python`，环境恢复为`bash scripts/setup.sh`。本轮没有增加依赖，仍使用固定版本锁。Windows旧168小时已由用户验证，本轮新增全年路径在Linux验收，尚未在Windows重测。
+
+详细口径与证据：[全年/经济模型](docs/annual_planning.md)、[DeepSeek协议与限制](docs/deepseek_agent.md)、[实际验证](docs/v03_validation.md)、[全年原始输入及许可](examples/shanghai_2017/README.md)。后续v0.1/v0.2章节保留作旧模式说明；未启用economics的旧任务仍只报告其评估期。
 
 ## v0.2 第一阶段：真实数据电侧评估
 
@@ -101,7 +140,7 @@ python3.12 -m venv .venv
 
 注册工具：`validate_inputs`、`build_candidates`、`solve_dispatch`、`validate_solution`、`compare_scenarios`、`generate_report`，输入输出均经过 Pydantic 校验。模型只能提出经过 schema 校验的参数修改，不执行 Python/shell、不产生计算结果替代求解。
 
-默认规则模式支持表单和预设，不宣称任意自然语言理解。可复制 `.env.example` 为 `.env` 并自行配置 `LLM_BASE_URL`、`LLM_MODEL`、`LLM_API_KEY`。适配器使用 OpenAI-compatible `chat/completions` 工具协议，只有在界面明确点击模型按钮或显式调用 `EnergyAgent.run_text` 时才请求模型；不自动使用付费服务。非法输出最多尝试3次，之后明确失败。只有本地模拟响应测试已验证，**尚未连接真实模型验收**。
+默认规则模式支持表单和预设，不宣称任意自然语言理解。可复制 `.env.example` 为 `.env` 并自行配置 `LLM_BASE_URL`、`LLM_MODEL`、`LLM_API_KEY`。适配器使用 OpenAI-compatible `chat/completions` 工具协议，只有在界面明确点击模型按钮或显式调用 `EnergyAgent.run_text` 时才请求模型；不自动使用付费服务。非法输出有限重试，DeepSeek协议及调用预算见上方v0.3说明。只有本地模拟响应测试已验证，**尚未连接真实模型验收**。
 
 ## 代码与验证
 
@@ -113,7 +152,7 @@ python3.12 -m venv .venv
 | `agent.py` / `llm.py` | 状态、工具注册、任务版本、可替换模型接口 |
 | `reporting.py` / `ui.py` / `cli.py` | 报告与导出、中文界面、命令行 |
 
-测试覆盖标准168小时闭环、预算全拒绝、供热不足、碳约束无解与绑定后的运行变化、半小时时步能量换算、电池互斥与终态、篡改结果的独立检出、固定种子复现、版本与实际重算、缺失/异常数据、无密钥UI和模型适配器。超时分类用模拟求解器返回状态验证；完整年度运行性能与真实模型未验收。
+测试覆盖标准168小时闭环、预算全拒绝、供热不足、碳约束无解与绑定后的运行变化、半小时时步能量换算、电池互斥与终态、篡改结果的独立检出、固定种子复现、版本与实际重算、缺失/异常数据、无密钥UI和模型适配器。超时分类用模拟求解器返回状态验证；v0.1/v0.2阶段未验收完整年度；本轮全年计算见上方v0.3证据，真实模型仍需单独验收。
 
 v0.2实际验证：**97 项测试通过**（原58项保留），包括真实捕获数据离线求解与中文导入界面；详见[v0.2验证记录](docs/v02_validation.md)。v0.1历史记录见[原验证记录](docs/validation.md)。可下载快照内包含[完整交付报告、JSON/CSV和命令日志](docs/delivery/README.md)。
 

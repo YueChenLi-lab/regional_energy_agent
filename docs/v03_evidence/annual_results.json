@@ -1,0 +1,1911 @@
+{
+  "annual_electric": {
+    "run_id": "0cb43fb6cad74358b50ff67b18b6932c",
+    "version": 1,
+    "status": "optimal",
+    "feasible": true,
+    "emission_cap_kg": null,
+    "candidate_id": "OPT",
+    "pv_kw": 1860.4121184925632,
+    "battery_power_kw": 466.89,
+    "battery_energy_kwh": 2813.592105263158,
+    "hp_kw_th": 0.0,
+    "boiler_kw_th": 0.0,
+    "investment_yuan": 10000000.0,
+    "npv_cost_yuan": 27560461.458077442,
+    "annual_emissions_kg": 1145967.430815735,
+    "annual_energy_cost_yuan": 1144394.6298764236,
+    "solve_seconds": 12.687535089004086,
+    "mip_gap": 0.0,
+    "model_statistics": {
+      "intervals": 8760,
+      "variables": 70086,
+      "binaries": 8760,
+      "constraints": 105127,
+      "nonzeros": 249655,
+      "objective_kind": "npv",
+      "objective_value": 27560461.45807744,
+      "dual_bound": 27560461.45807744
+    },
+    "assessment_mode": "electric_only",
+    "heat_fingerprint": "ea1593ec03b31942e9ca091e3b7a9698c1132c5d0651d1875ff3a25c6ff933ec",
+    "electric_load_kwh": 3961671.29,
+    "heat_load_kwh_th": 0.0,
+    "input_sha256": "7a75b4e1a212c2b522f5c1ddb8e06e54f575439859010227c1435e7bf8842525",
+    "result_sha256": "20fe6714ff4aa6ca3d9dbf6d0adbb96e8491fb3fd46fb3c51c2dc2a9f62edb01",
+    "checks": [
+      {
+        "name": "solver_has_solution",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0,
+        "detail": "求解状态：optimal"
+      },
+      {
+        "name": "candidate_identity",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0,
+        "detail": ""
+      },
+      {
+        "name": "result_dimensions",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0,
+        "detail": "逐时点=N，SOC=N+1，充放电模式=N"
+      },
+      {
+        "name": "timestamps",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0,
+        "detail": ""
+      },
+      {
+        "name": "objective_available",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0,
+        "detail": ""
+      },
+      {
+        "name": "electric_balance",
+        "passed": true,
+        "max_violation": 1.1368683772161603e-13,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "heat_balance",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "heat_pump_cop",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "boiler_efficiency",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "pv_allocation",
+        "passed": true,
+        "max_violation": 1.1368683772161603e-13,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "nonnegative_flows",
+        "passed": true,
+        "max_violation": 5.983517774821896e-14,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "grid_limit",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "pv_availability",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "heat_pump_capacity",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "boiler_capacity",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "battery_charge_power",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "battery_discharge_power",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "soc_lower",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "soc_upper",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "soc_initial",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "soc_terminal",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": "期末必须恢复初始能量，不允许免费消耗初始储能"
+      },
+      {
+        "name": "soc_dynamics",
+        "passed": true,
+        "max_violation": 2.2737367544323206e-13,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "binary_charge_mode",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "charge_mode_limit",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "discharge_mode_limit",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "no_simultaneous_charge_discharge",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "investment_budget",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0001,
+        "detail": ""
+      },
+      {
+        "name": "pv_site_limit",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "emission_limit",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0001,
+        "detail": "未设置排放上限"
+      },
+      {
+        "name": "objective_recalculation",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0001,
+        "detail": ""
+      },
+      {
+        "name": "capacity_bound_pv_kw",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "capacity_bound_battery_power_kw",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "capacity_bound_battery_energy_kwh",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "capacity_bound_hp_kw_th",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "capacity_bound_boiler_kw_th",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "battery_min_duration",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "battery_max_duration",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      }
+    ],
+    "economic_result": {
+      "npv_cost_yuan": 27560461.458077442,
+      "annual_energy_cost_yuan": 1144394.6298764236,
+      "annual_fixed_om_yuan": 150000.0,
+      "annual_variable_om_yuan": 8203.540441391968,
+      "annual_emissions_kg": 1145967.430815735,
+      "horizon_operating_emissions_kg": 22919348.616314698,
+      "cashflows": [
+        {
+          "year": 0,
+          "investment_yuan": 10000000.0,
+          "energy_yuan": 0.0,
+          "fixed_om_yuan": 0.0,
+          "variable_om_yuan": 0.0,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 10000000.0,
+          "discounted_yuan": 10000000.0
+        },
+        {
+          "year": 1,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1144394.6298764236,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 8203.540441391968,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1302598.1703178156,
+          "discounted_yuan": 1240569.6860169673
+        },
+        {
+          "year": 2,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1144394.6298764236,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 8203.540441391968,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1302598.1703178156,
+          "discounted_yuan": 1181494.9390637784
+        },
+        {
+          "year": 3,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1144394.6298764236,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 8203.540441391968,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1302598.1703178156,
+          "discounted_yuan": 1125233.2752988364
+        },
+        {
+          "year": 4,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1144394.6298764236,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 8203.540441391968,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1302598.1703178156,
+          "discounted_yuan": 1071650.738379844
+        },
+        {
+          "year": 5,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1144394.6298764236,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 8203.540441391968,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1302598.1703178156,
+          "discounted_yuan": 1020619.7508379467
+        },
+        {
+          "year": 6,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1144394.6298764236,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 8203.540441391968,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1302598.1703178156,
+          "discounted_yuan": 972018.810321854
+        },
+        {
+          "year": 7,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1144394.6298764236,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 8203.540441391968,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1302598.1703178156,
+          "discounted_yuan": 925732.2003065275
+        },
+        {
+          "year": 8,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1144394.6298764236,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 8203.540441391968,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1302598.1703178156,
+          "discounted_yuan": 881649.7145776453
+        },
+        {
+          "year": 9,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1144394.6298764236,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 8203.540441391968,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1302598.1703178156,
+          "discounted_yuan": 839666.3948358526
+        },
+        {
+          "year": 10,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1144394.6298764236,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 8203.540441391968,
+          "replacement_yuan": 2912067.8289473685,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 4214665.999265185,
+          "discounted_yuan": 2587439.3161965045
+        },
+        {
+          "year": 11,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1144394.6298764236,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 8203.540441391968,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1302598.1703178156,
+          "discounted_yuan": 761602.1721867144
+        },
+        {
+          "year": 12,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1144394.6298764236,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 8203.540441391968,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1302598.1703178156,
+          "discounted_yuan": 725335.402082585
+        },
+        {
+          "year": 13,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1144394.6298764236,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 8203.540441391968,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1302598.1703178156,
+          "discounted_yuan": 690795.6210310333
+        },
+        {
+          "year": 14,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1144394.6298764236,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 8203.540441391968,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1302598.1703178156,
+          "discounted_yuan": 657900.5914581269
+        },
+        {
+          "year": 15,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1144394.6298764236,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 8203.540441391968,
+          "replacement_yuan": 241615.57499999998,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1544213.7453178156,
+          "discounted_yuan": 742793.2146049638
+        },
+        {
+          "year": 16,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1144394.6298764236,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 8203.540441391968,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1302598.1703178156,
+          "discounted_yuan": 596735.2303475074
+        },
+        {
+          "year": 17,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1144394.6298764236,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 8203.540441391968,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1302598.1703178156,
+          "discounted_yuan": 568319.266997626
+        },
+        {
+          "year": 18,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1144394.6298764236,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 8203.540441391968,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1302598.1703178156,
+          "discounted_yuan": 541256.4447596439
+        },
+        {
+          "year": 19,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1144394.6298764236,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 8203.540441391968,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1302598.1703178156,
+          "discounted_yuan": 515482.3283425179
+        },
+        {
+          "year": 20,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1144394.6298764236,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 8203.540441391968,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 1530340.3692105266,
+          "net_yuan": -227742.19889271096,
+          "discounted_yuan": -85833.63956903384
+        }
+      ],
+      "assumption": "同一完整年度的负荷、资源、价格和排放因子重复用于未来每年；无增长、衰减或多年预测；年末付费，更换发生在寿命结束年末，期末线性剩余寿命残值；电网接入费不更换且无残值；运行排放不折现；未计设备隐含排放"
+    },
+    "solver_options": {
+      "time_limit_seconds": 60.0,
+      "mip_rel_gap": 0.002
+    },
+    "parameters": {
+      "devices": {
+        "source_id": "electric-scenario",
+        "hp_cop": 1.0,
+        "boiler_efficiency": 1.0,
+        "charge_efficiency": 0.95,
+        "discharge_efficiency": 0.95,
+        "soc_min_fraction": 0.1,
+        "soc_max_fraction": 0.9,
+        "soc_initial_fraction": 0.5,
+        "pv_cost_per_kw": 3200.0,
+        "battery_cost_per_kwh": 900.0,
+        "battery_power_cost_per_kw": 450.0,
+        "hp_cost_per_kw_th": 0.0,
+        "boiler_cost_per_kw_th": 0.0,
+        "installation_fraction": 0.15,
+        "grid_connection_cost_yuan": 0.0
+      },
+      "constraints": {
+        "source_id": "electric-scenario",
+        "budget_yuan": 10000000.0,
+        "grid_limit_kw": 5400.0,
+        "pv_limit_kw": 2500.0,
+        "emission_limit_kg": null
+      },
+      "capacity_bounds": {
+        "source_id": "annual-assumptions",
+        "pv_kw": {
+          "lower": 0.0,
+          "upper": 2500.0
+        },
+        "battery_power_kw": {
+          "lower": 0.0,
+          "upper": 1000.0
+        },
+        "battery_energy_kwh": {
+          "lower": 0.0,
+          "upper": 4000.0
+        },
+        "hp_kw_th": {
+          "lower": 0.0,
+          "upper": 0.0
+        },
+        "boiler_kw_th": {
+          "lower": 0.0,
+          "upper": 0.0
+        },
+        "battery_min_duration_hours": 0.5,
+        "battery_max_duration_hours": 8.0
+      },
+      "economics": {
+        "source_id": "annual-assumptions",
+        "horizon_years": 20,
+        "discount_rate": 0.05,
+        "assets": {
+          "pv_kw": {
+            "lifetime_years": 25,
+            "fixed_om_fraction": 0.015,
+            "replacement_fraction": 1.0,
+            "residual_method": "straight_line"
+          },
+          "battery_power_kw": {
+            "lifetime_years": 15,
+            "fixed_om_fraction": 0.015,
+            "replacement_fraction": 1.0,
+            "residual_method": "straight_line"
+          },
+          "battery_energy_kwh": {
+            "lifetime_years": 10,
+            "fixed_om_fraction": 0.015,
+            "replacement_fraction": 1.0,
+            "residual_method": "straight_line"
+          },
+          "hp_kw_th": {
+            "lifetime_years": 15,
+            "fixed_om_fraction": 0.015,
+            "replacement_fraction": 1.0,
+            "residual_method": "straight_line"
+          },
+          "boiler_kw_th": {
+            "lifetime_years": 20,
+            "fixed_om_fraction": 0.015,
+            "replacement_fraction": 1.0,
+            "residual_method": "straight_line"
+          }
+        },
+        "battery_variable_om_per_kwh": 0.01,
+        "hp_variable_om_per_kwh_th": 0.005,
+        "boiler_variable_om_per_kwh_th": 0.003,
+        "representative_year_assumption": "同一完整年度的负荷、资源、价格和排放因子重复用于未来每年；无增长、衰减或多年预测"
+      }
+    }
+  },
+  "annual_heat": {
+    "run_id": "da9172d5ef5242f9a2f72203aeb66e2d",
+    "version": 1,
+    "status": "optimal",
+    "feasible": true,
+    "emission_cap_kg": null,
+    "candidate_id": "OPT",
+    "pv_kw": 1819.4447908528905,
+    "battery_power_kw": 421.70208578051063,
+    "battery_energy_kwh": 2628.218394790556,
+    "hp_kw_th": 184.5909177570529,
+    "boiler_kw_th": 480.06808224294707,
+    "investment_yuan": 10000000.000000004,
+    "npv_cost_yuan": 29718716.515954085,
+    "annual_emissions_kg": 1255841.146503538,
+    "annual_energy_cost_yuan": 1321029.5323230498,
+    "solve_seconds": 13.225752602011198,
+    "mip_gap": 0.0,
+    "model_statistics": {
+      "intervals": 8760,
+      "variables": 70086,
+      "binaries": 8760,
+      "constraints": 105127,
+      "nonzeros": 249657,
+      "objective_kind": "npv",
+      "objective_value": 29718716.515954085,
+      "dual_bound": 29718716.515954085
+    },
+    "assessment_mode": "electric_heat",
+    "heat_fingerprint": "50a1a76dd9f6519c000cc4512f6f2c3faa5f14a70af6beecad48b60c42b7d1a1",
+    "electric_load_kwh": 3961671.29,
+    "heat_load_kwh_th": 437095.641,
+    "input_sha256": "740671a3f19122f4e36bd2a73deb5dba2a52ba00e957b69eb59126fdd1bd3c30",
+    "result_sha256": "b581ad011272da0ae2d9b22577d7a8f565837865f84bb0e9056ad0ebac387e70",
+    "checks": [
+      {
+        "name": "solver_has_solution",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0,
+        "detail": "求解状态：optimal"
+      },
+      {
+        "name": "candidate_identity",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0,
+        "detail": ""
+      },
+      {
+        "name": "result_dimensions",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0,
+        "detail": "逐时点=N，SOC=N+1，充放电模式=N"
+      },
+      {
+        "name": "timestamps",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0,
+        "detail": ""
+      },
+      {
+        "name": "objective_available",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0,
+        "detail": ""
+      },
+      {
+        "name": "electric_balance",
+        "passed": true,
+        "max_violation": 3.410605131648481e-13,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "heat_balance",
+        "passed": true,
+        "max_violation": 5.684341886080802e-14,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "heat_pump_cop",
+        "passed": true,
+        "max_violation": 1.4210854715202004e-14,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "boiler_efficiency",
+        "passed": true,
+        "max_violation": 5.684341886080802e-14,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "pv_allocation",
+        "passed": true,
+        "max_violation": 1.1368683772161603e-13,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "nonnegative_flows",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "grid_limit",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "pv_availability",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "heat_pump_capacity",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "boiler_capacity",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "battery_charge_power",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "battery_discharge_power",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "soc_lower",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "soc_upper",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "soc_initial",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "soc_terminal",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": "期末必须恢复初始能量，不允许免费消耗初始储能"
+      },
+      {
+        "name": "soc_dynamics",
+        "passed": true,
+        "max_violation": 1.2931877790833823e-12,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "binary_charge_mode",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "charge_mode_limit",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "discharge_mode_limit",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "no_simultaneous_charge_discharge",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "investment_budget",
+        "passed": true,
+        "max_violation": 3.725290298461914e-09,
+        "tolerance": 0.0001,
+        "detail": ""
+      },
+      {
+        "name": "pv_site_limit",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "emission_limit",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0001,
+        "detail": "未设置排放上限"
+      },
+      {
+        "name": "objective_recalculation",
+        "passed": true,
+        "max_violation": 2.3283064365386963e-10,
+        "tolerance": 0.0001,
+        "detail": ""
+      },
+      {
+        "name": "capacity_bound_pv_kw",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "capacity_bound_battery_power_kw",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "capacity_bound_battery_energy_kwh",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "capacity_bound_hp_kw_th",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "capacity_bound_boiler_kw_th",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "battery_min_duration",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "battery_max_duration",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      }
+    ],
+    "economic_result": {
+      "npv_cost_yuan": 29718716.515954085,
+      "annual_energy_cost_yuan": 1321029.5323230498,
+      "annual_fixed_om_yuan": 150000.0,
+      "annual_variable_om_yuan": 9418.33476724505,
+      "annual_emissions_kg": 1255841.146503538,
+      "horizon_operating_emissions_kg": 25116822.930070758,
+      "cashflows": [
+        {
+          "year": 0,
+          "investment_yuan": 10000000.000000004,
+          "energy_yuan": 0.0,
+          "fixed_om_yuan": 0.0,
+          "variable_om_yuan": 0.0,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 10000000.000000004,
+          "discounted_yuan": 10000000.000000004
+        },
+        {
+          "year": 1,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1321029.5323230498,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 9418.33476724505,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1480447.8670902948,
+          "discounted_yuan": 1409950.3496098046
+        },
+        {
+          "year": 2,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1321029.5323230498,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 9418.33476724505,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1480447.8670902948,
+          "discounted_yuan": 1342809.8567712423
+        },
+        {
+          "year": 3,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1321029.5323230498,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 9418.33476724505,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1480447.8670902948,
+          "discounted_yuan": 1278866.530258326
+        },
+        {
+          "year": 4,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1321029.5323230498,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 9418.33476724505,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1480447.8670902948,
+          "discounted_yuan": 1217968.1240555486
+        },
+        {
+          "year": 5,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1321029.5323230498,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 9418.33476724505,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1480447.8670902948,
+          "discounted_yuan": 1159969.641957665
+        },
+        {
+          "year": 6,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1321029.5323230498,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 9418.33476724505,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1480447.8670902948,
+          "discounted_yuan": 1104732.9923406334
+        },
+        {
+          "year": 7,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1321029.5323230498,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 9418.33476724505,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1480447.8670902948,
+          "discounted_yuan": 1052126.659372032
+        },
+        {
+          "year": 8,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1321029.5323230498,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 9418.33476724505,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1480447.8670902948,
+          "discounted_yuan": 1002025.3898781255
+        },
+        {
+          "year": 9,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1321029.5323230498,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 9418.33476724505,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1480447.8670902948,
+          "discounted_yuan": 954309.8951220242
+        },
+        {
+          "year": 10,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1321029.5323230498,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 9418.33476724505,
+          "replacement_yuan": 2720206.0386082255,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 4200653.90569852,
+          "discounted_yuan": 2578837.1062460756
+        },
+        {
+          "year": 11,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1321029.5323230498,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 9418.33476724505,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1480447.8670902948,
+          "discounted_yuan": 865587.2064598859
+        },
+        {
+          "year": 12,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1321029.5323230498,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 9418.33476724505,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1480447.8670902948,
+          "discounted_yuan": 824368.7680570341
+        },
+        {
+          "year": 13,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1321029.5323230498,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 9418.33476724505,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1480447.8670902948,
+          "discounted_yuan": 785113.1124352706
+        },
+        {
+          "year": 14,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1321029.5323230498,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 9418.33476724505,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1480447.8670902948,
+          "discounted_yuan": 747726.7737478766
+        },
+        {
+          "year": 15,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1321029.5323230498,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 9418.33476724505,
+          "replacement_yuan": 451738.34035408613,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1932186.207444381,
+          "discounted_yuan": 929414.6024762931
+        },
+        {
+          "year": 16,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1321029.5323230498,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 9418.33476724505,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1480447.8670902948,
+          "discounted_yuan": 678210.2256216569
+        },
+        {
+          "year": 17,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1321029.5323230498,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 9418.33476724505,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1480447.8670902948,
+          "discounted_yuan": 645914.5005920541
+        },
+        {
+          "year": 18,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1321029.5323230498,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 9418.33476724505,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1480447.8670902948,
+          "discounted_yuan": 615156.6672305277
+        },
+        {
+          "year": 19,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1321029.5323230498,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 9418.33476724505,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1480447.8670902948,
+          "discounted_yuan": 585863.4926005026
+        },
+        {
+          "year": 20,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1321029.5323230498,
+          "fixed_om_yuan": 150000.0,
+          "variable_om_yuan": 9418.33476724505,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 1640270.2596371183,
+          "net_yuan": -159822.39254682348,
+          "discounted_yuan": -60235.37887849798
+        }
+      ],
+      "assumption": "同一完整年度的负荷、资源、价格和排放因子重复用于未来每年；无增长、衰减或多年预测；年末付费，更换发生在寿命结束年末，期末线性剩余寿命残值；电网接入费不更换且无残值；运行排放不折现；未计设备隐含排放"
+    },
+    "solver_options": {
+      "time_limit_seconds": 60.0,
+      "mip_rel_gap": 0.002
+    },
+    "parameters": {
+      "devices": {
+        "source_id": "annual-assumptions",
+        "hp_cop": 3.2,
+        "boiler_efficiency": 0.9,
+        "charge_efficiency": 0.95,
+        "discharge_efficiency": 0.95,
+        "soc_min_fraction": 0.1,
+        "soc_max_fraction": 0.9,
+        "soc_initial_fraction": 0.5,
+        "pv_cost_per_kw": 3200.0,
+        "battery_cost_per_kwh": 900.0,
+        "battery_power_cost_per_kw": 450.0,
+        "hp_cost_per_kw_th": 1100.0,
+        "boiler_cost_per_kw_th": 240.0,
+        "installation_fraction": 0.15,
+        "grid_connection_cost_yuan": 0.0
+      },
+      "constraints": {
+        "source_id": "electric-scenario",
+        "budget_yuan": 10000000.0,
+        "grid_limit_kw": 5400.0,
+        "pv_limit_kw": 2500.0,
+        "emission_limit_kg": null
+      },
+      "capacity_bounds": {
+        "source_id": "annual-assumptions",
+        "pv_kw": {
+          "lower": 0.0,
+          "upper": 2500.0
+        },
+        "battery_power_kw": {
+          "lower": 0.0,
+          "upper": 1000.0
+        },
+        "battery_energy_kwh": {
+          "lower": 0.0,
+          "upper": 4000.0
+        },
+        "hp_kw_th": {
+          "lower": 0.0,
+          "upper": 797.5908
+        },
+        "boiler_kw_th": {
+          "lower": 0.0,
+          "upper": 797.5908
+        },
+        "battery_min_duration_hours": 0.5,
+        "battery_max_duration_hours": 8.0
+      },
+      "economics": {
+        "source_id": "annual-assumptions",
+        "horizon_years": 20,
+        "discount_rate": 0.05,
+        "assets": {
+          "pv_kw": {
+            "lifetime_years": 25,
+            "fixed_om_fraction": 0.015,
+            "replacement_fraction": 1.0,
+            "residual_method": "straight_line"
+          },
+          "battery_power_kw": {
+            "lifetime_years": 15,
+            "fixed_om_fraction": 0.015,
+            "replacement_fraction": 1.0,
+            "residual_method": "straight_line"
+          },
+          "battery_energy_kwh": {
+            "lifetime_years": 10,
+            "fixed_om_fraction": 0.015,
+            "replacement_fraction": 1.0,
+            "residual_method": "straight_line"
+          },
+          "hp_kw_th": {
+            "lifetime_years": 15,
+            "fixed_om_fraction": 0.015,
+            "replacement_fraction": 1.0,
+            "residual_method": "straight_line"
+          },
+          "boiler_kw_th": {
+            "lifetime_years": 20,
+            "fixed_om_fraction": 0.015,
+            "replacement_fraction": 1.0,
+            "residual_method": "straight_line"
+          }
+        },
+        "battery_variable_om_per_kwh": 0.01,
+        "hp_variable_om_per_kwh_th": 0.005,
+        "boiler_variable_om_per_kwh_th": 0.003,
+        "representative_year_assumption": "同一完整年度的负荷、资源、价格和排放因子重复用于未来每年；无增长、衰减或多年预测"
+      }
+    }
+  },
+  "budget20": {
+    "run_id": "5cdc6e94ddbf45999616268e763f87ac",
+    "version": 2,
+    "status": "optimal",
+    "feasible": true,
+    "emission_cap_kg": null,
+    "candidate_id": "OPT",
+    "pv_kw": 1502.492932114934,
+    "battery_power_kw": 321.4,
+    "battery_energy_kwh": 2049.3291070696077,
+    "hp_kw_th": 0.0,
+    "boiler_kw_th": 664.659,
+    "investment_yuan": 8000000.000000001,
+    "npv_cost_yuan": 30531925.89084807,
+    "annual_emissions_kg": 1417604.4578914873,
+    "annual_energy_cost_yuan": 1606535.0103610992,
+    "solve_seconds": 13.785531875997549,
+    "mip_gap": 0.0,
+    "model_statistics": {
+      "intervals": 8760,
+      "variables": 70086,
+      "binaries": 8760,
+      "constraints": 105127,
+      "nonzeros": 249657,
+      "objective_kind": "npv",
+      "objective_value": 30531925.89084807,
+      "dual_bound": 30531925.89084807
+    },
+    "assessment_mode": "electric_heat",
+    "heat_fingerprint": "50a1a76dd9f6519c000cc4512f6f2c3faa5f14a70af6beecad48b60c42b7d1a1",
+    "electric_load_kwh": 3961671.29,
+    "heat_load_kwh_th": 437095.641,
+    "input_sha256": "4a445524042f5d93e671186fa450ae94b70d6c82459fcd65b707e654f52a4e2f",
+    "result_sha256": "bc86ffca782a8e0acc2ff5e64043b7f56876b74da0a26c30b9bf31ee37c65984",
+    "checks": [
+      {
+        "name": "solver_has_solution",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0,
+        "detail": "求解状态：optimal"
+      },
+      {
+        "name": "candidate_identity",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0,
+        "detail": ""
+      },
+      {
+        "name": "result_dimensions",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0,
+        "detail": "逐时点=N，SOC=N+1，充放电模式=N"
+      },
+      {
+        "name": "timestamps",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0,
+        "detail": ""
+      },
+      {
+        "name": "objective_available",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0,
+        "detail": ""
+      },
+      {
+        "name": "electric_balance",
+        "passed": true,
+        "max_violation": 3.410605131648481e-13,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "heat_balance",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "heat_pump_cop",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "boiler_efficiency",
+        "passed": true,
+        "max_violation": 5.684341886080802e-14,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "pv_allocation",
+        "passed": true,
+        "max_violation": 1.1368683772161603e-13,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "nonnegative_flows",
+        "passed": true,
+        "max_violation": 7.105427357601002e-15,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "grid_limit",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "pv_availability",
+        "passed": true,
+        "max_violation": 7.105427357601002e-15,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "heat_pump_capacity",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "boiler_capacity",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "battery_charge_power",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "battery_discharge_power",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "soc_lower",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "soc_upper",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "soc_initial",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "soc_terminal",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": "期末必须恢复初始能量，不允许免费消耗初始储能"
+      },
+      {
+        "name": "soc_dynamics",
+        "passed": true,
+        "max_violation": 2.2737367544323206e-13,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "binary_charge_mode",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "charge_mode_limit",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "discharge_mode_limit",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "no_simultaneous_charge_discharge",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "investment_budget",
+        "passed": true,
+        "max_violation": 9.313225746154785e-10,
+        "tolerance": 0.0001,
+        "detail": ""
+      },
+      {
+        "name": "pv_site_limit",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "emission_limit",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0001,
+        "detail": "未设置排放上限"
+      },
+      {
+        "name": "objective_recalculation",
+        "passed": true,
+        "max_violation": 2.3283064365386963e-10,
+        "tolerance": 0.0001,
+        "detail": ""
+      },
+      {
+        "name": "capacity_bound_pv_kw",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "capacity_bound_battery_power_kw",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "capacity_bound_battery_energy_kwh",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "capacity_bound_hp_kw_th",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "capacity_bound_boiler_kw_th",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "battery_min_duration",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "battery_max_duration",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 1e-05,
+        "detail": ""
+      },
+      {
+        "name": "planning_objective_recalculation",
+        "passed": true,
+        "max_violation": 0.0,
+        "tolerance": 0.0001,
+        "detail": "独立逐年现金流NPV或物理排放与规划目标核对"
+      }
+    ],
+    "economic_result": {
+      "npv_cost_yuan": 30531925.89084807,
+      "annual_energy_cost_yuan": 1606535.0103610992,
+      "annual_fixed_om_yuan": 120000.0,
+      "annual_variable_om_yuan": 7374.49285714431,
+      "annual_emissions_kg": 1417604.4578914873,
+      "horizon_operating_emissions_kg": 28352089.157829747,
+      "cashflows": [
+        {
+          "year": 0,
+          "investment_yuan": 8000000.000000001,
+          "energy_yuan": 0.0,
+          "fixed_om_yuan": 0.0,
+          "variable_om_yuan": 0.0,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 8000000.000000001,
+          "discounted_yuan": 8000000.000000001
+        },
+        {
+          "year": 1,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1606535.0103610992,
+          "fixed_om_yuan": 120000.0,
+          "variable_om_yuan": 7374.49285714431,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1733909.5032182434,
+          "discounted_yuan": 1651342.3840173746
+        },
+        {
+          "year": 2,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1606535.0103610992,
+          "fixed_om_yuan": 120000.0,
+          "variable_om_yuan": 7374.49285714431,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1733909.5032182434,
+          "discounted_yuan": 1572707.0323974995
+        },
+        {
+          "year": 3,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1606535.0103610992,
+          "fixed_om_yuan": 120000.0,
+          "variable_om_yuan": 7374.49285714431,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1733909.5032182434,
+          "discounted_yuan": 1497816.221330952
+        },
+        {
+          "year": 4,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1606535.0103610992,
+          "fixed_om_yuan": 120000.0,
+          "variable_om_yuan": 7374.49285714431,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1733909.5032182434,
+          "discounted_yuan": 1426491.639362811
+        },
+        {
+          "year": 5,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1606535.0103610992,
+          "fixed_om_yuan": 120000.0,
+          "variable_om_yuan": 7374.49285714431,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1733909.5032182434,
+          "discounted_yuan": 1358563.46605982
+        },
+        {
+          "year": 6,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1606535.0103610992,
+          "fixed_om_yuan": 120000.0,
+          "variable_om_yuan": 7374.49285714431,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1733909.5032182434,
+          "discounted_yuan": 1293869.967676019
+        },
+        {
+          "year": 7,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1606535.0103610992,
+          "fixed_om_yuan": 120000.0,
+          "variable_om_yuan": 7374.49285714431,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1733909.5032182434,
+          "discounted_yuan": 1232257.1120723991
+        },
+        {
+          "year": 8,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1606535.0103610992,
+          "fixed_om_yuan": 120000.0,
+          "variable_om_yuan": 7374.49285714431,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1733909.5032182434,
+          "discounted_yuan": 1173578.2019737135
+        },
+        {
+          "year": 9,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1606535.0103610992,
+          "fixed_om_yuan": 120000.0,
+          "variable_om_yuan": 7374.49285714431,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1733909.5032182434,
+          "discounted_yuan": 1117693.5256892508
+        },
+        {
+          "year": 10,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1606535.0103610992,
+          "fixed_om_yuan": 120000.0,
+          "variable_om_yuan": 7374.49285714431,
+          "replacement_yuan": 2121055.625817044,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 3854965.1290352875,
+          "discounted_yuan": 2366614.1846522256
+        },
+        {
+          "year": 11,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1606535.0103610992,
+          "fixed_om_yuan": 120000.0,
+          "variable_om_yuan": 7374.49285714431,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1733909.5032182434,
+          "discounted_yuan": 1013780.9756818601
+        },
+        {
+          "year": 12,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1606535.0103610992,
+          "fixed_om_yuan": 120000.0,
+          "variable_om_yuan": 7374.49285714431,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1733909.5032182434,
+          "discounted_yuan": 965505.6911255809
+        },
+        {
+          "year": 13,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1606535.0103610992,
+          "fixed_om_yuan": 120000.0,
+          "variable_om_yuan": 7374.49285714431,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1733909.5032182434,
+          "discounted_yuan": 919529.2296434104
+        },
+        {
+          "year": 14,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1606535.0103610992,
+          "fixed_om_yuan": 120000.0,
+          "variable_om_yuan": 7374.49285714431,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1733909.5032182434,
+          "discounted_yuan": 875742.1234699145
+        },
+        {
+          "year": 15,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1606535.0103610992,
+          "fixed_om_yuan": 120000.0,
+          "variable_om_yuan": 7374.49285714431,
+          "replacement_yuan": 166324.5,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1900234.0032182434,
+          "discounted_yuan": 914045.0459218264
+        },
+        {
+          "year": 16,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1606535.0103610992,
+          "fixed_om_yuan": 120000.0,
+          "variable_om_yuan": 7374.49285714431,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1733909.5032182434,
+          "discounted_yuan": 794323.9215146617
+        },
+        {
+          "year": 17,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1606535.0103610992,
+          "fixed_om_yuan": 120000.0,
+          "variable_om_yuan": 7374.49285714431,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1733909.5032182434,
+          "discounted_yuan": 756498.9728711064
+        },
+        {
+          "year": 18,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1606535.0103610992,
+          "fixed_om_yuan": 120000.0,
+          "variable_om_yuan": 7374.49285714431,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1733909.5032182434,
+          "discounted_yuan": 720475.2122581966
+        },
+        {
+          "year": 19,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1606535.0103610992,
+          "fixed_om_yuan": 120000.0,
+          "variable_om_yuan": 7374.49285714431,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 0.0,
+          "net_yuan": 1733909.5032182434,
+          "discounted_yuan": 686166.86881733
+        },
+        {
+          "year": 20,
+          "investment_yuan": 0.0,
+          "energy_yuan": 1606535.0103610992,
+          "fixed_om_yuan": 120000.0,
+          "variable_om_yuan": 7374.49285714431,
+          "replacement_yuan": 0.0,
+          "residual_credit_yuan": 1216717.7980365914,
+          "net_yuan": 517191.705181652,
+          "discounted_yuan": 194924.1143121181
+        }
+      ],
+      "assumption": "同一完整年度的负荷、资源、价格和排放因子重复用于未来每年；无增长、衰减或多年预测；年末付费，更换发生在寿命结束年末，期末线性剩余寿命残值；电网接入费不更换且无残值；运行排放不折现；未计设备隐含排放"
+    },
+    "solver_options": {
+      "time_limit_seconds": 60.0,
+      "mip_rel_gap": 0.002
+    },
+    "parameters": {
+      "devices": {
+        "source_id": "annual-assumptions",
+        "hp_cop": 3.2,
+        "boiler_efficiency": 0.9,
+        "charge_efficiency": 0.95,
+        "discharge_efficiency": 0.95,
+        "soc_min_fraction": 0.1,
+        "soc_max_fraction": 0.9,
+        "soc_initial_fraction": 0.5,
+        "pv_cost_per_kw": 3200.0,
+        "battery_cost_per_kwh": 900.0,
+        "battery_power_cost_per_kw": 450.0,
+        "hp_cost_per_kw_th": 1100.0,
+        "boiler_cost_per_kw_th": 240.0,
+        "installation_fraction": 0.15,
+        "grid_connection_cost_yuan": 0.0
+      },
+      "constraints": {
+        "source_id": "revision-v2",
+        "budget_yuan": 8000000.0,
+        "grid_limit_kw": 5400.0,
+        "pv_limit_kw": 2500.0,
+        "emission_limit_kg": null
+      },
+      "capacity_bounds": {
+        "source_id": "annual-assumptions",
+        "pv_kw": {
+          "lower": 0.0,
+          "upper": 2500.0
+        },
+        "battery_power_kw": {
+          "lower": 0.0,
+          "upper": 1000.0
+        },
+        "battery_energy_kwh": {
+          "lower": 0.0,
+          "upper": 4000.0
+        },
+        "hp_kw_th": {
+          "lower": 0.0,
+          "upper": 797.5908
+        },
+        "boiler_kw_th": {
+          "lower": 0.0,
+          "upper": 797.5908
+        },
+        "battery_min_duration_hours": 0.5,
+        "battery_max_duration_hours": 8.0
+      },
+      "economics": {
+        "source_id": "annual-assumptions",
+        "horizon_years": 20,
+        "discount_rate": 0.05,
+        "assets": {
+          "pv_kw": {
+            "lifetime_years": 25,
+            "fixed_om_fraction": 0.015,
+            "replacement_fraction": 1.0,
+            "residual_method": "straight_line"
+          },
+          "battery_power_kw": {
+            "lifetime_years": 15,
+            "fixed_om_fraction": 0.015,
+            "replacement_fraction": 1.0,
+            "residual_method": "straight_line"
+          },
+          "battery_energy_kwh": {
+            "lifetime_years": 10,
+            "fixed_om_fraction": 0.015,
+            "replacement_fraction": 1.0,
+            "residual_method": "straight_line"
+          },
+          "hp_kw_th": {
+            "lifetime_years": 15,
+            "fixed_om_fraction": 0.015,
+            "replacement_fraction": 1.0,
+            "residual_method": "straight_line"
+          },
+          "boiler_kw_th": {
+            "lifetime_years": 20,
+            "fixed_om_fraction": 0.015,
+            "replacement_fraction": 1.0,
+            "residual_method": "straight_line"
+          }
+        },
+        "battery_variable_om_per_kwh": 0.01,
+        "hp_variable_om_per_kwh_th": 0.005,
+        "boiler_variable_om_per_kwh_th": 0.003,
+        "representative_year_assumption": "同一完整年度的负荷、资源、价格和排放因子重复用于未来每年；无增长、衰减或多年预测"
+      }
+    }
+  }
+}

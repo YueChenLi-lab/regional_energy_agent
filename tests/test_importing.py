@@ -194,6 +194,9 @@ def test_mixed_label_and_co2_scope_not_silently_relabelled(artificial_csv,tmp_pa
     task=build_electric_task(load,ElectricCaseParameters(budget_yuan=1000000,emission_species="CO2"))
     assert case_label(task)=="实测与假设混合案例"
     assert task.data.units["grid_emission_factor"]=="kgCO2/kWh"
+    revised=revise_task(task,TaskPatch(emission_limit_kg=1000000))
+    revision_source=next(s for s in revised.sources if s.source_id==revised.constraints.source_id)
+    assert revision_source.units['emission_limit_kg']=='kgCO2'
     assert validate_inputs(task).ready
     result=EnergyAgent(tmp_path).run(task)
     assert set(pd.read_csv(result.files['csv']).emissions_unit)=={'kgCO2'}
