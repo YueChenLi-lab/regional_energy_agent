@@ -1,4 +1,4 @@
-name: v0.1 validation
+name: v0.2 validation
 on:
   push:
   pull_request:
@@ -20,3 +20,4 @@ jobs:
       - run: python -m pip check
       - run: python -m pytest -q
       - run: python -m energy_agent.cli demo --output outputs/ci
+      - run: python -m energy_agent.cli data-replay --output outputs/ci_real

@@ -1,0 +1,13 @@
+{
+  "input_sha256": "a3e03ab16c3870cd5b44a1f2b53683d0ae385b468e089d566bf4038f42a54e76",
+  "output": {
+    "ranked_ids": [
+      "GPB",
+      "GP",
+      "GB",
+      "G"
+    ],
+    "recommended_id": "GPB",
+    "explanation": "在本次评估的候选方案中，GPB 通过全部约束校验，按评估期运行费升序排名第一。初始投资与评估期排放单独展示；此结果不代表全部可能容量配置的全局最优。"
+  }
+}

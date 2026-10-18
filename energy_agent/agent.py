@@ -82,6 +82,8 @@ def revise_task(task: TaskRequest, patch: TaskPatch, parent_run_id: str | None =
         for name in ("electric_load_kw", "heat_load_kw_th"):
             payload["data"][name] = [x * patch.demand_scale for x in payload["data"][name]]
             payload["data"]["source_ids"][name] = source_id
+        if payload.get("case_context") and patch.demand_scale != 1:
+            payload["case_context"]["pending"].append("本版本负荷已按用户显式倍数进行情景缩放，不再是原始实测；原文件转换能量核对只适用于未缩放输入，不作为本情景能量验收。")
     if patch.unsupported_demands:
         payload["unsupported_demands"] = list(dict.fromkeys(payload["unsupported_demands"] + patch.unsupported_demands))
     payload["sources"].append(Source(

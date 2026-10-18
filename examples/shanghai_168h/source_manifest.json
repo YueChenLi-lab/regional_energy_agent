@@ -1,0 +1,143 @@
+{
+  "created_at": "2026-10-17T09:03:04.015851+00:00",
+  "selection": {
+    "building": "test",
+    "meters": [
+      "Q",
+      "W"
+    ],
+    "timestamp_position": "start",
+    "acknowledge_category_sum": true,
+    "timestamp_assumption_acknowledged": true,
+    "data_kind": "published"
+  },
+  "zenodo": {
+    "record": 6590976,
+    "doi": "10.5281/zenodo.6590976",
+    "title": "XuPengResearchGroup/EnergyDetective2020_dataset",
+    "creators": [
+      {
+        "name": "Xiao, Tong",
+        "affiliation": "Tongji Univ.",
+        "orcid": "0000-0002-2130-2281"
+      },
+      {
+        "name": "Xu, Peng",
+        "affiliation": "Tongji Univ."
+      },
+      {
+        "name": "Sha, Huajing",
+        "affiliation": "Tongji Univ."
+      },
+      {
+        "name": "Chen, Zhe",
+        "affiliation": "Texas A&M Univ.",
+        "orcid": "0000-0003-4715-5651"
+      },
+      {
+        "name": "Gu, Jiefan",
+        "affiliation": "Tongji Univ.",
+        "orcid": "0000-0003-4174-0681"
+      }
+    ],
+    "publication_date": "2022-05-29",
+    "license_id": "CC-BY-4.0",
+    "archive_artifact": {
+      "url": "https://zenodo.org/api/records/6590976/files/dataset_v2.zip/content",
+      "filename": "test_building_records.csv",
+      "sha256": "7a9f6158ca5d6102c72c24623bce7930fc57e16825a2803d8e55b66bd3bb78f9",
+      "retrieved_at": "2026-10-17T08:56:43.164462Z",
+      "member_path": "test_building/test_building_records.csv",
+      "container_sha256": "ae43c6fb205fb9442ab7ac8da7156afdf91767e06ed4a3252a2fa94c662c2fde",
+      "publisher_checksum": "md5:b54c73f1fb441db156b8e6cc7c7551b2",
+      "license_id": "CC-BY-4.0"
+    },
+    "documentation_artifact": {
+      "url": "https://zenodo.org/api/records/6590976/files/dataset_v2.zip/content",
+      "filename": "README.md",
+      "sha256": "2dc077de74c79637c661db62c732f3b3d24ff3decef3d1809c2b5e69a6a6b5c7",
+      "retrieved_at": "2026-10-17T08:56:43.164462Z",
+      "member_path": "README.md",
+      "container_sha256": "ae43c6fb205fb9442ab7ac8da7156afdf91767e06ed4a3252a2fa94c662c2fde",
+      "publisher_checksum": "md5:b54c73f1fb441db156b8e6cc7c7551b2",
+      "license_id": "CC-BY-4.0"
+    }
+  },
+  "subset": {
+    "path": "records.csv",
+    "rows": 336,
+    "sha256": "7b88014d080db98554f5603dab9a472ddfd0eeeaef0cfe969eac3c091b03c76e",
+    "processing": [
+      "从已校验正式CSV选择2017-01-01至2017-01-08(末端不含)、Q/W两类336条，保留原字段、数值字符串和行序",
+      "仅将CSV换行符统一为LF；不填补、不插值、不缩放，不改历史日期"
+    ],
+    "boundary": "Q照明插座与W暖通用电的发布方类别合计；仅所选计量边界，不声称全楼总电量；无电气回路图可独立核实重叠或遗漏",
+    "timestamp_assumption": "发布方只称Time为timestamp，未明确区间锚点/时区；本次显式假设原时间为Asia/Shanghai、区间start；转换后为区间起点，不改历史年份"
+  },
+  "nasa": {
+    "source_id": "nasa-resource",
+    "name": "NASA POWER网格太阳资源与气象（非楼宇实测）",
+    "region": "上海市级代表点，非匿名楼宇精确位置；与NASA网格存在空间代表性误差",
+    "time_range": "2017-01-01T00:00:00+08:00至2017-01-08T00:00:00+08:00",
+    "units": {
+      "ghi": "W/m²（一小时平均）",
+      "temp_air": "℃",
+      "wind_speed": "m/s"
+    },
+    "category": "estimated",
+    "processing": [
+      "显式请求time-standard=UTC，解析后转Asia/Shanghai；官方FAQ Other Time Range说明小时标签为区间起点；严格匹配原历史小时，不填补、不换年",
+      "ALLSKY_SFC_SW_DWN若为Wh/m²，除以1h得到W/m²",
+      "API按UTC整日返回192小时；严格选取与负荷对齐的168小时，保留完整原响应缓存"
+    ],
+    "conditions": "官方POWER免费网格资源，非楼宇或屋顶实测。已读取https://power.larc.nasa.gov/docs/referencing/：成果须包含POWER Reference和Data Reference（服务名、版本和获取日期）；NASA项目请求再分发通知，当前未发送任何通知。致谢NASA Langley Research Center POWER Project，NASA Earth Science Division资助。",
+    "url": "https://power.larc.nasa.gov/api/temporal/hourly/point?parameters=ALLSKY_SFC_SW_DWN%2CT2M%2CWS10M&community=RE&longitude=121.47&latitude=31.23&start=20161231&end=20170107&format=JSON&time-standard=UTC",
+    "version": "NASA POWER Hourly API v2.10.3",
+    "artifacts": [
+      {
+        "url": "https://power.larc.nasa.gov/api/temporal/hourly/point?parameters=ALLSKY_SFC_SW_DWN%2CT2M%2CWS10M&community=RE&longitude=121.47&latitude=31.23&start=20161231&end=20170107&format=JSON&time-standard=UTC",
+        "filename": "point",
+        "sha256": "9bde056e44b1dc75c8b25e8a9d5102f6d172be907ed4c4a2e8a43486e5cb6570",
+        "retrieved_at": "2026-10-17T08:55:51.536164Z",
+        "member_path": null,
+        "container_sha256": null,
+        "publisher_checksum": null,
+        "license_id": "未知"
+      }
+    ],
+    "parent_source_ids": []
+  },
+  "pv_method": {
+    "source_id": "estimated-pv",
+    "name": "pvlib光伏归一化AC出力估算，按1kW_DC额定容量",
+    "region": "上海市级代表点，非匿名楼宇精确位置；与NASA网格存在空间代表性误差",
+    "time_range": "2017-01-01T00:00:00+08:00至2017-01-08T00:00:00+08:00",
+    "units": {
+      "pv_per_kw": "kW/kW"
+    },
+    "category": "estimated",
+    "processing": [
+      "区间中点太阳位置；Erbs分解GHI为DNI/DHI，isotropic转倾斜面POA；Faiman电池温度；PVWatts DC与逆变器AC效率；固定系统损耗",
+      "夜间太阳高度角<=0时估算出力为0；未把辐照量直接当出力；无售电"
+    ],
+    "conditions": "气象驱动的模型估算，不能称为楼宇实测光伏；粗略代表点与小时中点近似带来误差",
+    "url": "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.pvsystem.pvwatts_dc.html",
+    "version": "pvlib 0.16.1",
+    "artifacts": [],
+    "parent_source_ids": [
+      "nasa-resource",
+      "pv-assumptions"
+    ]
+  },
+  "energy_audit": {
+    "raw_energy_kwh": 90087.68999999999,
+    "normalized_energy_kwh": 90087.69,
+    "difference_kwh": 1.4551915228366852e-11,
+    "tolerance_kwh": 0.0002,
+    "input_numeric_precision": 0.01,
+    "source_rounding_bound_kwh": 1.68,
+    "passed": true,
+    "explanation": "转换前后使用同一输入且不舍入，只允许浮点求和误差；容差取声明输入能量分辨率的1/100与1e-8 kWh较大者。原始数值舍入不确定性上界另列，不等同于转换误差或仪表精度。"
+  },
+  "raw_publisher_crosscheck": "GitHub固定版本与Zenodo CSV规范化CRLF后逐字节相同，原始文件SHA各自保留；未直接给GitHub仓库赋予Zenodo之外的代码许可"
+}
