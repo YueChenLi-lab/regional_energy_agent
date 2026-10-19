@@ -23,7 +23,7 @@ energy-agent = "energy_agent.cli:main"
 include = ["energy_agent*"]
 
 [tool.setuptools.package-data]
-energy_agent = ["*.json"]
+energy_agent = ["*.json", "console/*.css"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

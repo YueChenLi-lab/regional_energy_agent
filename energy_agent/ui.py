@@ -118,6 +118,11 @@ def main() -> None:
         from .import_ui import render_import
         render_import(_show_results)
         return
+    render_demo(_show_results)
+
+
+def render_demo(show_results=_show_results) -> None:
+    """Reusable presentation entry; retain existing widgets and business calls."""
     if st.button("加载合成演示案例", key="load_demo"):
         st.session_state.task = make_demo_task()
         st.session_state.last_run = None
@@ -214,7 +219,7 @@ def main() -> None:
                         st.session_state.applied_scale *= new_load / old_load
                     st.rerun()
     if st.session_state.last_run is not None:
-        _show_results(st.session_state.last_run)
+        show_results(st.session_state.last_run)
 
 
 if __name__ == "__main__":

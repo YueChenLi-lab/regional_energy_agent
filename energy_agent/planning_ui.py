@@ -18,7 +18,7 @@ from .schemas import CAPACITY_FIELDS, RunResult, SolverOptions, TaskPatch, TaskR
 _NAMES=dict(zip(CAPACITY_FIELDS,['光伏 kW','电池功率 kW','电池能量 kWh','热泵 kW_th','锅炉 kW_th']))
 
 
-def render_planning(show_results):
+def render_planning(show_results, *, include_model=True, include_experiment=True):
     st.subheader('全年规划与可核对 Agent')
     st.info('上海2017全年Q照明插座实测＋NASA估算PV；可选择参数化仿真供热。价格、成本和经济条件为假设；不是实测全楼改造。原始2个跳变告警保留，峰值影响容量，尚未获发布方核实。')
     heat=st.checkbox('加入物理仿真供热（排除W，研究情景）',value=True,key='annual_heat')
@@ -31,7 +31,8 @@ def render_planning(show_results):
                     st.session_state.pop(k,None)
             st.session_state.annual_task=task;st.session_state.annual_run=None
         except (ValueError,OSError) as exc:st.error(str(exc))
-    render_peak_experiment_view()
+    if include_experiment:
+        render_peak_experiment_view()
     upload=st.file_uploader('或导入统一全年任务JSON（含来源、经济与容量边界）',type=['json'],key='annual_upload')
     if upload and st.button('校验并加载上传任务'):
         from .data import validate_inputs
@@ -124,7 +125,8 @@ def render_planning(show_results):
     run=st.session_state.get('annual_run')
     if run:
         show_results(run)
-        render_model(run)
+        if include_model:
+            render_model(run)
 
 
 def render_model(run):
