@@ -85,6 +85,7 @@ def main() -> None:
         prepare()
         run = selected_run()
         results(run)
+        section('两项决策扩展', '展开下方功能可独立加载24小时合成演示；当前项目与演示结果分别保留。')
         from ..counterfactual_ui import render_counterfactual
         def adopt_repair(adopted):
             key = st.session_state.console_run_key

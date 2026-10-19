@@ -1,0 +1,8 @@
+{
+  "url": "https://regional-energy-agent.streamlit.app/",
+  "result": "ProxyError",
+  "proxy_connect_status": 403,
+  "public_deployment_verified": false,
+  "whitelabel_404_reproduced": false,
+  "note": "用户提供Whitelabel 404文本，但本环境代理无法打开公网，已询问触发网址/操作；不能据此认定相同原因"
+}

@@ -5,7 +5,7 @@ from uuid import uuid4
 
 import streamlit as st
 
-from .agent import ToolRegistry
+from .decision_tools import decision_registry
 from .counterfactual import (CounterfactualRequest, NAMES, RepairRange, adopt_counterfactual_path,
                             clarify_repair_request, counterfactual_enabled, data_fingerprint, unit_for)
 
@@ -16,6 +16,8 @@ def render_counterfactual(run, on_adopt=None):
             st.caption('反事实约束修复已关闭，原有规划流程可继续使用。')
             return
         st.caption('显式执行才搜索；三条路径分别调整一个上限，其余负荷、时段、服务和输入保持。未采用前不改写已确认任务。')
+        from .decision_demo_ui import render_decision_demo
+        render_decision_demo('repair')
         if run is None:
             st.write('待执行：请先完成一次规划评估。')
             return
@@ -64,6 +66,10 @@ def render_counterfactual(run, on_adopt=None):
             submitted = st.form_submit_button('执行授权的反事实搜索', key='cf_search_'+suffix, disabled=not annual_ack)
         if submitted:
             try:
+                if not allowed:
+                    raise ValueError('请至少选择一项明确允许修改的上限；未授权时不会执行搜索。')
+                if set(allowed) & (set(locked) | forbidden):
+                    raise ValueError('同一约束不能既允许修改又锁定，请检查授权与保持条件。')
                 if guidance and not guidance.recognized:
                     raise ValueError(guidance.clarification)
                 request = CounterfactualRequest(baseline=run, base_run_id=run.run_id, input_version=run.input_version,
@@ -74,7 +80,7 @@ def render_counterfactual(run, on_adopt=None):
                     single_solve_seconds=seconds, max_solver_calls=calls, total_seconds=total,
                     output_dir=str(Path(os.getenv('ENERGY_AGENT_OUTPUT_DIR','outputs'))/'counterfactual'))
                 with st.spinner('复核原任务，按预算搜索并独立校验……'):
-                    result = ToolRegistry().call('search_counterfactual_repairs', request)
+                    result = decision_registry().call('search_counterfactual_repairs', request)
                 st.session_state['cf_result_'+suffix] = result
             except (ValueError, OSError) as exc:
                 st.error(str(exc))

@@ -23,3 +23,7 @@ docs/v041_evidence/*_matrix.csv whitespace=cr-at-eol
 docs/v04_evidence/** -text
 docs/v041_evidence/** -text
 docs/v05_ui_evidence/** -text
+
+# Preserve generated demo evidence hashes and ZIP member checks across Windows.
+docs/decision_demo_evidence/** -text
+docs/decision_demo_evidence/*.csv whitespace=cr-at-eol
