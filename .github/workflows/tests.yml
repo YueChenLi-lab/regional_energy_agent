@@ -1,4 +1,4 @@
-name: v0.3.2 offline validation
+name: v0.4.0 offline validation
 on:
   push:
   pull_request:

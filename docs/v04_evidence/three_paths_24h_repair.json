@@ -1,0 +1,2555 @@
+{
+  "request_id": "three_paths_24h",
+  "parent_request_id": null,
+  "request_sha256": "bd972729cd11a86cf195ed035157bc6390ff484f421e2e27a20e15559109a24e",
+  "base_run_id": "a205baf811c94edda23a41c6b7efc097",
+  "input_version": 1,
+  "input_sha256": "2a4e624b0265bd1cd3a48fa02fca8213c1b9c3b4b592d12c6d40339b27f3b2eb",
+  "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+  "status": "completed",
+  "baseline_verification": {
+    "phase": "baseline",
+    "field": null,
+    "value": null,
+    "run_id": "295a68d41ffc443a9d939be995f2dca1",
+    "input_version": 1,
+    "task_sha256": "2a4e624b0265bd1cd3a48fa02fca8213c1b9c3b4b592d12c6d40339b27f3b2eb",
+    "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+    "feasibility": "infeasible",
+    "solver_statuses": {
+      "A": "infeasible",
+      "C": "infeasible",
+      "D": "rejected"
+    },
+    "verified_precheck_exclusions": [
+      "D"
+    ],
+    "locks_preserved": true,
+    "solver_calls": 3,
+    "effective_solve_limits_seconds": [
+      3.0,
+      3.0,
+      3.0
+    ],
+    "seconds": 0.01023312999996051,
+    "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/295a68d41ffc443a9d939be995f2dca1/result.json",
+    "result_sha256": "2b8e441f90d465dc5fd4fd30acfbdd42918d19f4cfc1117537e8d657221da07c",
+    "reasons": [
+      "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+      "模型已包含评估期排放上限 230 kgCO2e",
+      "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 4.250 kW；此上界尚未考虑电池能量限制",
+      "初始投资 401000.00 元超过预算 60000.00 元"
+    ]
+  },
+  "paths": [
+    {
+      "path_id": "d92a5b675429aba6",
+      "field": "budget_yuan",
+      "unit": "元",
+      "original_value": 60000.0,
+      "search_range": {
+        "lower": 60000.0,
+        "upper": 600000.0,
+        "precision": 1000.0,
+        "unit": "元"
+      },
+      "suggested_value": 401191.40625,
+      "adjustment": 341191.40625,
+      "known_infeasible_lower": 400664.0625,
+      "known_feasible_upper": 401191.40625,
+      "boundary_precision_reached": true,
+      "boundary_kind": "bracket",
+      "status": "verified_repair",
+      "locks_preserved": true,
+      "base_run_id": "a205baf811c94edda23a41c6b7efc097",
+      "new_input_version": 2,
+      "run_id": "41f6eebb103040ceb42adf5d4036fb8f",
+      "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/41f6eebb103040ceb42adf5d4036fb8f/result.json",
+      "result_sha256": "04bb7a057083ba0bc7e52d90351c0befea77f972185bcefa15713389628cc5fa",
+      "candidate": {
+        "candidate_id": "D",
+        "name": "光伏＋储能＋热泵",
+        "source_id": "demo-candidates",
+        "pv_kw": 50.0,
+        "battery_power_kw": 20.0,
+        "battery_energy_kwh": 150.0,
+        "hp_kw_th": 20.0,
+        "boiler_kw_th": 0.0
+      },
+      "metrics": {
+        "investment_yuan": 400999.99999999994,
+        "operating_cost_yuan": 67.79668307060774,
+        "emissions_kg": 60.506869110090804,
+        "grid_kwh": 110.0124892910742,
+        "gas_kwh_lhv": 0.0,
+        "curtailed_pv_kwh": 13.643055750247058,
+        "electric_load_kwh": 240.0,
+        "heat_load_kwh_th": 480.0,
+        "supply_satisfied": true,
+        "period_hours": 24.0,
+        "emission_unit": "kgCO2e"
+      },
+      "npv_cost_yuan": null,
+      "solver_status": "optimal",
+      "mip_gap": 0.0,
+      "solve_seconds": 0.015902064000101745,
+      "final_validation": {
+        "valid": true,
+        "checks": [
+          {
+            "name": "solver_has_solution",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0,
+            "detail": "求解状态：optimal"
+          },
+          {
+            "name": "candidate_identity",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0,
+            "detail": ""
+          },
+          {
+            "name": "result_dimensions",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0,
+            "detail": "逐时点=N，SOC=N+1，充放电模式=N"
+          },
+          {
+            "name": "timestamps",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0,
+            "detail": ""
+          },
+          {
+            "name": "objective_available",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0,
+            "detail": ""
+          },
+          {
+            "name": "electric_balance",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "heat_balance",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "heat_pump_cop",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "boiler_efficiency",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "pv_allocation",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "nonnegative_flows",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "grid_limit",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "pv_availability",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "heat_pump_capacity",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "boiler_capacity",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "battery_charge_power",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "battery_discharge_power",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "soc_lower",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "soc_upper",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "soc_initial",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "soc_terminal",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": "期末必须恢复初始能量，不允许免费消耗初始储能"
+          },
+          {
+            "name": "soc_dynamics",
+            "passed": true,
+            "max_violation": 1.3322676295501878e-14,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "binary_charge_mode",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "charge_mode_limit",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "discharge_mode_limit",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "no_simultaneous_charge_discharge",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "investment_budget",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0001,
+            "detail": ""
+          },
+          {
+            "name": "pv_site_limit",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "emission_limit",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0001,
+            "detail": "按评估期统计"
+          },
+          {
+            "name": "objective_recalculation",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0001,
+            "detail": ""
+          }
+        ],
+        "metrics": {
+          "investment_yuan": 400999.99999999994,
+          "operating_cost_yuan": 67.79668307060774,
+          "emissions_kg": 60.506869110090804,
+          "grid_kwh": 110.0124892910742,
+          "gas_kwh_lhv": 0.0,
+          "curtailed_pv_kwh": 13.643055750247058,
+          "electric_load_kwh": 240.0,
+          "heat_load_kwh_th": 480.0,
+          "supply_satisfied": true,
+          "period_hours": 24.0
+        }
+      },
+      "sources": [
+        {
+          "source_id": "demo-series",
+          "name": "合成演示数据：电热负荷与光伏",
+          "region": "虚构园区（未知真实地区）",
+          "time_range": "2025-01-06T00:00:00+08:00 至 2025-01-07T00:00:00+08:00（末端不含）",
+          "units": {
+            "electric_load_kw": "kW",
+            "heat_load_kw_th": "kW_th",
+            "pv_per_kw": "kW/kW"
+          },
+          "category": "synthetic",
+          "processing": [
+            "NumPy default_rng 固定随机种子 42",
+            "电热负荷：解析日周期加正态随机扰动后非负裁剪；光伏：正弦包络乘有界均匀随机系数，夜间显式置零",
+            "反事实验收合成负荷：常规电功率恒10kW，热功率恒20kW_th；原168小时随机日型未拼接或年化；光伏沿用固定种子逐时合成"
+          ],
+          "conditions": "仅用于功能演示，非实测，不能直接用于工程决策",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        },
+        {
+          "source_id": "demo-market",
+          "name": "合成演示数据：价格与排放因子假设",
+          "region": "未知",
+          "time_range": "2025-01-06T00:00:00+08:00 至 2025-01-07T00:00:00+08:00（末端不含）",
+          "units": {
+            "electricity_price": "元/kWh",
+            "gas_price": "元/kWh_LHV",
+            "grid_emission_factor": "kgCO2e/kWh",
+            "gas_emission_factor": "kgCO2e/kWh_LHV"
+          },
+          "category": "synthetic",
+          "processing": [
+            "预设峰谷电价、固定燃气价格和排放因子"
+          ],
+          "conditions": "全部为演示假设，不代表当地现行价格或排放因子",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        },
+        {
+          "source_id": "demo-equipment",
+          "name": "合成演示数据：设备与新建成本假设",
+          "region": "未知",
+          "time_range": "未知",
+          "units": {
+            "hp_cop": "kWh_th/kWh",
+            "efficiency_and_soc": "1",
+            "pv_cost_per_kw": "元/kW",
+            "battery_cost_per_kwh": "元/kWh",
+            "battery_power_cost_per_kw": "元/kW",
+            "hp_cost_per_kw_th": "元/kW_th",
+            "boiler_cost_per_kw_th": "元/kW_th",
+            "installation_fraction": "1",
+            "grid_connection_cost_yuan": "元"
+          },
+          "category": "synthetic",
+          "processing": [
+            "读取 demo_config.json"
+          ],
+          "conditions": "演示假设；统一新建投资；安装费为设备购置费的15%，接入费单列",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        },
+        {
+          "source_id": "demo-conditions",
+          "name": "合成演示数据：项目条件",
+          "region": "未知",
+          "time_range": "未知",
+          "units": {
+            "budget_yuan": "元",
+            "grid_limit_kw": "kW",
+            "pv_limit_kw": "kW",
+            "emission_limit_kg": "kgCO2e"
+          },
+          "category": "synthetic",
+          "processing": [
+            "读取 demo_config.json",
+            "研究假设：预算60000元，购电12kW，排放上限按hours*230/24 kgCO2e；只统计实际输入期"
+          ],
+          "conditions": "预算、场地和接入功率均为演示假设",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        },
+        {
+          "source_id": "demo-candidates",
+          "name": "合成演示数据：有限候选容量",
+          "region": "未知",
+          "time_range": "未知",
+          "units": {
+            "pv_kw": "kW",
+            "battery_power_kw": "kW",
+            "battery_energy_kwh": "kWh",
+            "hp_kw_th": "kW_th",
+            "boiler_kw_th": "kW_th"
+          },
+          "category": "synthetic",
+          "processing": [
+            "读取 demo_config.json 的四个明确容量组合",
+            "研究假设：三个固定候选A(锅炉20)、C(热泵20)、D(光伏50/储能20kW150kWh/热泵20)；容量不随约束放宽而改变"
+          ],
+          "conditions": "不代表所有可能配置；辅助锅炉不构成故障备用保证",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        },
+        {
+          "source_id": "revision-v2",
+          "name": "用户场景修改 v2",
+          "region": "未知",
+          "time_range": "2025-01-06T00:00:00+08:00 至 2025-01-07T00:00:00+08:00（末端不含）",
+          "units": {
+            "budget_yuan": "元",
+            "emission_limit_kg": "kgCO2e",
+            "grid_limit_kw": "kW",
+            "pv_limit_kw": "kW",
+            "demand_scale": "1",
+            "electric_load_kw": "kW",
+            "heat_load_kw_th": "kW_th",
+            "discount_rate": "1",
+            "horizon_years": "年",
+            "lifetime_years": "年",
+            "fixed_om_fraction": "1/年",
+            "additional_fixed_om_yuan_per_year": "元/年"
+          },
+          "category": "synthetic",
+          "processing": [
+            "由输入v1派生；父运行 a205baf811c94edda23a41c6b7efc097",
+            "{\"budget_yuan\": 401191.40625}",
+            "负荷缩放作用于全部已提供时间区间；无缺失填充",
+            "反事实探索；是否采用以单独的显式确认回执为准，未改写基准任务"
+          ],
+          "conditions": "用户设定的场景；原始来源保留；合成演示属性保持",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        }
+      ],
+      "trace": [
+        {
+          "phase": "expand",
+          "field": "budget_yuan",
+          "value": 195000.0,
+          "run_id": "9a487381a3d44c999954d3fea987b307",
+          "input_version": 2,
+          "task_sha256": "8db5266b4ddd9a0abffc42fd9a4c71dd77c5bc84339e95d63c859c6e659238db",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "infeasible",
+            "C": "infeasible",
+            "D": "rejected"
+          },
+          "verified_precheck_exclusions": [
+            "D"
+          ],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.01845211299996663,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/9a487381a3d44c999954d3fea987b307/result.json",
+          "result_sha256": "e94078d8d2c7c6e8dede3c828f55ba67b88d49f87bc28dcbaaca59f6ada7f903",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 230 kgCO2e",
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 4.250 kW；此上界尚未考虑电池能量限制",
+            "初始投资 401000.00 元超过预算 195000.00 元"
+          ]
+        },
+        {
+          "phase": "expand",
+          "field": "budget_yuan",
+          "value": 330000.0,
+          "run_id": "7205251d8f014f53b54c3539d6b9f179",
+          "input_version": 2,
+          "task_sha256": "69c5a78908cf93a9893485ec98f56e892c514e03546f5ed28a65b20d89d12845",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "infeasible",
+            "C": "infeasible",
+            "D": "rejected"
+          },
+          "verified_precheck_exclusions": [
+            "D"
+          ],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.01176066100015305,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/7205251d8f014f53b54c3539d6b9f179/result.json",
+          "result_sha256": "8b3f68133572c5342e2115742620fe196576a0b5a0e27f3f13600e7ee08579e1",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 230 kgCO2e",
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 4.250 kW；此上界尚未考虑电池能量限制",
+            "初始投资 401000.00 元超过预算 330000.00 元"
+          ]
+        },
+        {
+          "phase": "expand",
+          "field": "budget_yuan",
+          "value": 600000.0,
+          "run_id": "7eea8e5ad65d452bb073f11e0af1b62e",
+          "input_version": 2,
+          "task_sha256": "460cc29339a465e4d58a2131a8b39706b66fc3617731bf0f1a5114f45dd0fda8",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "A": "infeasible",
+            "C": "infeasible",
+            "D": "optimal"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.03492627000014181,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/7eea8e5ad65d452bb073f11e0af1b62e/result.json",
+          "result_sha256": "d1f4711180455c25fd8d24609bb1ec2c9c4dc75f0ffb2f28f4b1424631882475",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 230 kgCO2e",
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 4.250 kW；此上界尚未考虑电池能量限制"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "budget_yuan",
+          "value": 465000.0,
+          "run_id": "6e18d5fe019a4e319b80e42fd4eeda4d",
+          "input_version": 2,
+          "task_sha256": "2b875e7d561d270fb3b579f543999cb7692c0906c2e4f76ca6ee8393d51f7299",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "A": "infeasible",
+            "C": "infeasible",
+            "D": "optimal"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.030920050000077026,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/6e18d5fe019a4e319b80e42fd4eeda4d/result.json",
+          "result_sha256": "b811a0f692351faa74c9eb69792ab56e1498b53cc23d1a13a9f855a2f9f4b6f7",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 230 kgCO2e",
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 4.250 kW；此上界尚未考虑电池能量限制"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "budget_yuan",
+          "value": 397500.0,
+          "run_id": "9574adad42544a2f8801f6ff9235e68e",
+          "input_version": 2,
+          "task_sha256": "9ed68de62439173a2601d2ff57a8889c66a8c62f8075b37765283eed028c64cd",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "infeasible",
+            "C": "infeasible",
+            "D": "rejected"
+          },
+          "verified_precheck_exclusions": [
+            "D"
+          ],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.012261557999863726,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/9574adad42544a2f8801f6ff9235e68e/result.json",
+          "result_sha256": "0b1b8719bebea4444699961ac016e3ab99c484abba3963eb81c2df5593c68fa5",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 230 kgCO2e",
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 4.250 kW；此上界尚未考虑电池能量限制",
+            "初始投资 401000.00 元超过预算 397500.00 元"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "budget_yuan",
+          "value": 431250.0,
+          "run_id": "5beb532a22494cdf9304ee77e1816634",
+          "input_version": 2,
+          "task_sha256": "472c806fd1165764b35e45f5b9b2e4cd949623c91ad252b06f7a8d75e71800c9",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "A": "infeasible",
+            "C": "infeasible",
+            "D": "optimal"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.03225680399987141,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/5beb532a22494cdf9304ee77e1816634/result.json",
+          "result_sha256": "5f0165211ddaa5844559da976d02abe54a6c26316f3c8369395b7c5202a36c59",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 230 kgCO2e",
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 4.250 kW；此上界尚未考虑电池能量限制"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "budget_yuan",
+          "value": 414375.0,
+          "run_id": "6cb9bed9a7544f9cbe16290716e537fa",
+          "input_version": 2,
+          "task_sha256": "ece9139e6406f7b2e2943f5509c018d7d5fbba83319b1ac5b30f5a1217dfe089",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "A": "infeasible",
+            "C": "infeasible",
+            "D": "optimal"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.044741656999804036,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/6cb9bed9a7544f9cbe16290716e537fa/result.json",
+          "result_sha256": "394c740da7b39c6e9b0bea3e80cab40f1dcbc3fb1a2ac265c7963df9dd700c97",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 230 kgCO2e",
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 4.250 kW；此上界尚未考虑电池能量限制"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "budget_yuan",
+          "value": 405937.5,
+          "run_id": "8c6c2bc313f649b1a340be76da4e3f75",
+          "input_version": 2,
+          "task_sha256": "48aac5cfd11ab1f3d9f042e194a80908b5725e16c2b287520ffca76089510456",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "A": "infeasible",
+            "C": "infeasible",
+            "D": "optimal"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.06293443300000945,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/8c6c2bc313f649b1a340be76da4e3f75/result.json",
+          "result_sha256": "a3b2204c9db98dde74b01daa9a669f9242f196fc02e506132a3d518de55c6e22",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 230 kgCO2e",
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 4.250 kW；此上界尚未考虑电池能量限制"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "budget_yuan",
+          "value": 401718.75,
+          "run_id": "97299d0581ea4074881eb6406d2e6792",
+          "input_version": 2,
+          "task_sha256": "ee4966845c63a5d997f8af308e869db54a58beb5696daad373fc8c4e9fa816b0",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "A": "infeasible",
+            "C": "infeasible",
+            "D": "optimal"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.03212851200009936,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/97299d0581ea4074881eb6406d2e6792/result.json",
+          "result_sha256": "75193e0abf4a7f2159035184f0295aa92ce5cbbf47e731059ca5641c6294cc40",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 230 kgCO2e",
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 4.250 kW；此上界尚未考虑电池能量限制"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "budget_yuan",
+          "value": 399609.375,
+          "run_id": "162016257fc64a1289596448092a47d8",
+          "input_version": 2,
+          "task_sha256": "76d5f48f6017281a5a43027eb4b2e75a6e417106103877664db5917aa2fb39dc",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "infeasible",
+            "C": "infeasible",
+            "D": "rejected"
+          },
+          "verified_precheck_exclusions": [
+            "D"
+          ],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.011682801000006293,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/162016257fc64a1289596448092a47d8/result.json",
+          "result_sha256": "3a8741acd8b975cce319c1d09dd769af28918e07994619ddf0e04baa864ed1a9",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 230 kgCO2e",
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 4.250 kW；此上界尚未考虑电池能量限制",
+            "初始投资 401000.00 元超过预算 399609.38 元"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "budget_yuan",
+          "value": 400664.0625,
+          "run_id": "eb12877f5d914d6d9c8d8b209817774a",
+          "input_version": 2,
+          "task_sha256": "f00e857abf55ee03fe509c157037f624d60064f2bb6a5773076db1f38bd20eb5",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "infeasible",
+            "C": "infeasible",
+            "D": "rejected"
+          },
+          "verified_precheck_exclusions": [
+            "D"
+          ],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.01119417500012787,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/eb12877f5d914d6d9c8d8b209817774a/result.json",
+          "result_sha256": "ecf4a2d116876b463af8e262e1e4129be17477470495801c63ac7cee141d56ab",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 230 kgCO2e",
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 4.250 kW；此上界尚未考虑电池能量限制",
+            "初始投资 401000.00 元超过预算 400664.06 元"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "budget_yuan",
+          "value": 401191.40625,
+          "run_id": "41f6eebb103040ceb42adf5d4036fb8f",
+          "input_version": 2,
+          "task_sha256": "d939ac3623ab0d0741be2de5fb2ea27f7fa1ad591089e38d83b40a2b3ddc3a85",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "A": "infeasible",
+            "C": "infeasible",
+            "D": "optimal"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.02965336300007948,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/41f6eebb103040ceb42adf5d4036fb8f/result.json",
+          "result_sha256": "04bb7a057083ba0bc7e52d90351c0befea77f972185bcefa15713389628cc5fa",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 230 kgCO2e",
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 4.250 kW；此上界尚未考虑电池能量限制"
+          ]
+        }
+      ],
+      "note": "在声明范围、现有模型和指定精度下找到可行边界；不代表运行目标或所有可能设备模型的全局最优。"
+    },
+    {
+      "path_id": "37c427a72518ec21",
+      "field": "emission_limit_kg",
+      "unit": "kgCO2e",
+      "original_value": 230.0,
+      "search_range": {
+        "lower": 230.0,
+        "upper": 300.0,
+        "precision": 0.05,
+        "unit": "kgCO2e"
+      },
+      "suggested_value": 239.7412109375,
+      "adjustment": 9.7412109375,
+      "known_infeasible_lower": 239.70703125,
+      "known_feasible_upper": 239.7412109375,
+      "boundary_precision_reached": true,
+      "boundary_kind": "bracket",
+      "status": "verified_repair",
+      "locks_preserved": true,
+      "base_run_id": "a205baf811c94edda23a41c6b7efc097",
+      "new_input_version": 2,
+      "run_id": "ef514b4bc4304e198492b869030b45f4",
+      "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/ef514b4bc4304e198492b869030b45f4/result.json",
+      "result_sha256": "69524f5ddeaef21deb6823b5b6d58fd9b6deb5ed7356f093712f99939f142ea5",
+      "candidate": {
+        "candidate_id": "A",
+        "name": "电网＋锅炉",
+        "source_id": "demo-candidates",
+        "pv_kw": 0.0,
+        "battery_power_kw": 0.0,
+        "battery_energy_kwh": 0.0,
+        "hp_kw_th": 0.0,
+        "boiler_kw_th": 20.0
+      },
+      "metrics": {
+        "investment_yuan": 15750.0,
+        "operating_cost_yuan": 341.16666666666663,
+        "emissions_kg": 239.73333333333335,
+        "grid_kwh": 240.0,
+        "gas_kwh_lhv": 533.3333333333333,
+        "curtailed_pv_kwh": 0.0,
+        "electric_load_kwh": 240.0,
+        "heat_load_kwh_th": 480.0,
+        "supply_satisfied": true,
+        "period_hours": 24.0,
+        "emission_unit": "kgCO2e"
+      },
+      "npv_cost_yuan": null,
+      "solver_status": "optimal",
+      "mip_gap": 0.0,
+      "solve_seconds": 0.002047931999868524,
+      "final_validation": {
+        "valid": true,
+        "checks": [
+          {
+            "name": "solver_has_solution",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0,
+            "detail": "求解状态：optimal"
+          },
+          {
+            "name": "candidate_identity",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0,
+            "detail": ""
+          },
+          {
+            "name": "result_dimensions",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0,
+            "detail": "逐时点=N，SOC=N+1，充放电模式=N"
+          },
+          {
+            "name": "timestamps",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0,
+            "detail": ""
+          },
+          {
+            "name": "objective_available",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0,
+            "detail": ""
+          },
+          {
+            "name": "electric_balance",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "heat_balance",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "heat_pump_cop",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "boiler_efficiency",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "pv_allocation",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "nonnegative_flows",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "grid_limit",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "pv_availability",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "heat_pump_capacity",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "boiler_capacity",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "battery_charge_power",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "battery_discharge_power",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "soc_lower",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "soc_upper",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "soc_initial",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "soc_terminal",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": "期末必须恢复初始能量，不允许免费消耗初始储能"
+          },
+          {
+            "name": "soc_dynamics",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "binary_charge_mode",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "charge_mode_limit",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "discharge_mode_limit",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "no_simultaneous_charge_discharge",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "investment_budget",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0001,
+            "detail": ""
+          },
+          {
+            "name": "pv_site_limit",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "emission_limit",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0001,
+            "detail": "按评估期统计"
+          },
+          {
+            "name": "objective_recalculation",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0001,
+            "detail": ""
+          }
+        ],
+        "metrics": {
+          "investment_yuan": 15750.0,
+          "operating_cost_yuan": 341.16666666666663,
+          "emissions_kg": 239.73333333333335,
+          "grid_kwh": 240.0,
+          "gas_kwh_lhv": 533.3333333333333,
+          "curtailed_pv_kwh": 0.0,
+          "electric_load_kwh": 240.0,
+          "heat_load_kwh_th": 480.0,
+          "supply_satisfied": true,
+          "period_hours": 24.0
+        }
+      },
+      "sources": [
+        {
+          "source_id": "demo-series",
+          "name": "合成演示数据：电热负荷与光伏",
+          "region": "虚构园区（未知真实地区）",
+          "time_range": "2025-01-06T00:00:00+08:00 至 2025-01-07T00:00:00+08:00（末端不含）",
+          "units": {
+            "electric_load_kw": "kW",
+            "heat_load_kw_th": "kW_th",
+            "pv_per_kw": "kW/kW"
+          },
+          "category": "synthetic",
+          "processing": [
+            "NumPy default_rng 固定随机种子 42",
+            "电热负荷：解析日周期加正态随机扰动后非负裁剪；光伏：正弦包络乘有界均匀随机系数，夜间显式置零",
+            "反事实验收合成负荷：常规电功率恒10kW，热功率恒20kW_th；原168小时随机日型未拼接或年化；光伏沿用固定种子逐时合成"
+          ],
+          "conditions": "仅用于功能演示，非实测，不能直接用于工程决策",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        },
+        {
+          "source_id": "demo-market",
+          "name": "合成演示数据：价格与排放因子假设",
+          "region": "未知",
+          "time_range": "2025-01-06T00:00:00+08:00 至 2025-01-07T00:00:00+08:00（末端不含）",
+          "units": {
+            "electricity_price": "元/kWh",
+            "gas_price": "元/kWh_LHV",
+            "grid_emission_factor": "kgCO2e/kWh",
+            "gas_emission_factor": "kgCO2e/kWh_LHV"
+          },
+          "category": "synthetic",
+          "processing": [
+            "预设峰谷电价、固定燃气价格和排放因子"
+          ],
+          "conditions": "全部为演示假设，不代表当地现行价格或排放因子",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        },
+        {
+          "source_id": "demo-equipment",
+          "name": "合成演示数据：设备与新建成本假设",
+          "region": "未知",
+          "time_range": "未知",
+          "units": {
+            "hp_cop": "kWh_th/kWh",
+            "efficiency_and_soc": "1",
+            "pv_cost_per_kw": "元/kW",
+            "battery_cost_per_kwh": "元/kWh",
+            "battery_power_cost_per_kw": "元/kW",
+            "hp_cost_per_kw_th": "元/kW_th",
+            "boiler_cost_per_kw_th": "元/kW_th",
+            "installation_fraction": "1",
+            "grid_connection_cost_yuan": "元"
+          },
+          "category": "synthetic",
+          "processing": [
+            "读取 demo_config.json"
+          ],
+          "conditions": "演示假设；统一新建投资；安装费为设备购置费的15%，接入费单列",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        },
+        {
+          "source_id": "demo-conditions",
+          "name": "合成演示数据：项目条件",
+          "region": "未知",
+          "time_range": "未知",
+          "units": {
+            "budget_yuan": "元",
+            "grid_limit_kw": "kW",
+            "pv_limit_kw": "kW",
+            "emission_limit_kg": "kgCO2e"
+          },
+          "category": "synthetic",
+          "processing": [
+            "读取 demo_config.json",
+            "研究假设：预算60000元，购电12kW，排放上限按hours*230/24 kgCO2e；只统计实际输入期"
+          ],
+          "conditions": "预算、场地和接入功率均为演示假设",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        },
+        {
+          "source_id": "demo-candidates",
+          "name": "合成演示数据：有限候选容量",
+          "region": "未知",
+          "time_range": "未知",
+          "units": {
+            "pv_kw": "kW",
+            "battery_power_kw": "kW",
+            "battery_energy_kwh": "kWh",
+            "hp_kw_th": "kW_th",
+            "boiler_kw_th": "kW_th"
+          },
+          "category": "synthetic",
+          "processing": [
+            "读取 demo_config.json 的四个明确容量组合",
+            "研究假设：三个固定候选A(锅炉20)、C(热泵20)、D(光伏50/储能20kW150kWh/热泵20)；容量不随约束放宽而改变"
+          ],
+          "conditions": "不代表所有可能配置；辅助锅炉不构成故障备用保证",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        },
+        {
+          "source_id": "revision-v2",
+          "name": "用户场景修改 v2",
+          "region": "未知",
+          "time_range": "2025-01-06T00:00:00+08:00 至 2025-01-07T00:00:00+08:00（末端不含）",
+          "units": {
+            "budget_yuan": "元",
+            "emission_limit_kg": "kgCO2e",
+            "grid_limit_kw": "kW",
+            "pv_limit_kw": "kW",
+            "demand_scale": "1",
+            "electric_load_kw": "kW",
+            "heat_load_kw_th": "kW_th",
+            "discount_rate": "1",
+            "horizon_years": "年",
+            "lifetime_years": "年",
+            "fixed_om_fraction": "1/年",
+            "additional_fixed_om_yuan_per_year": "元/年"
+          },
+          "category": "synthetic",
+          "processing": [
+            "由输入v1派生；父运行 a205baf811c94edda23a41c6b7efc097",
+            "{\"emission_limit_kg\": 239.7412109375}",
+            "负荷缩放作用于全部已提供时间区间；无缺失填充",
+            "反事实探索；是否采用以单独的显式确认回执为准，未改写基准任务"
+          ],
+          "conditions": "用户设定的场景；原始来源保留；合成演示属性保持",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        }
+      ],
+      "trace": [
+        {
+          "phase": "expand",
+          "field": "emission_limit_kg",
+          "value": 247.5,
+          "run_id": "73a3836d282e400a870277dc7be1d8b9",
+          "input_version": 2,
+          "task_sha256": "33dc987b4c4ff69e433e9e011731cddd727d2125cb7b90fa48dd5de6e2bd0718",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "A": "optimal",
+            "C": "infeasible",
+            "D": "rejected"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.014779491000126654,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/73a3836d282e400a870277dc7be1d8b9/result.json",
+          "result_sha256": "4d8b48e0e8f84eca7330df0cdf0dd917026159aebaef1aa8cb55ef8b0ab028fb",
+          "reasons": [
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 4.250 kW；此上界尚未考虑电池能量限制",
+            "初始投资 401000.00 元超过预算 60000.00 元"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "emission_limit_kg",
+          "value": 238.75,
+          "run_id": "3add4421eeab415cb6c7effb8fa4f5b2",
+          "input_version": 2,
+          "task_sha256": "5d2fb8f44f662b633531f8a2d7d346775b4c9be8deef60546429a6091017d204",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "infeasible",
+            "C": "infeasible",
+            "D": "rejected"
+          },
+          "verified_precheck_exclusions": [
+            "D"
+          ],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.011436537000008684,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/3add4421eeab415cb6c7effb8fa4f5b2/result.json",
+          "result_sha256": "dc62f3ce7afbda12c192e8da6b619cdf45a4a029c251242b5a78acdaaf0cfdce",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 238.75 kgCO2e",
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 4.250 kW；此上界尚未考虑电池能量限制",
+            "初始投资 401000.00 元超过预算 60000.00 元"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "emission_limit_kg",
+          "value": 243.125,
+          "run_id": "df064055242a41da8c288528026481fc",
+          "input_version": 2,
+          "task_sha256": "70f4aae39064b4bdcc9c0c263f14b8641ee982c52b3c28b949a989d931bbdb27",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "A": "optimal",
+            "C": "infeasible",
+            "D": "rejected"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.0138411460000043,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/df064055242a41da8c288528026481fc/result.json",
+          "result_sha256": "2d0142a25cc21655256f114138a02ae0d11caed841c237b76f7ad3314963e250",
+          "reasons": [
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 4.250 kW；此上界尚未考虑电池能量限制",
+            "初始投资 401000.00 元超过预算 60000.00 元"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "emission_limit_kg",
+          "value": 240.9375,
+          "run_id": "3ad76ff8e3504b368b073bbf000fa995",
+          "input_version": 2,
+          "task_sha256": "323f24872d0243ce271dfe0ac083d64e2fd17eb5f1e8ca5c275f75e3b0351a37",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "A": "optimal",
+            "C": "infeasible",
+            "D": "rejected"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.013412365000021964,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/3ad76ff8e3504b368b073bbf000fa995/result.json",
+          "result_sha256": "5723476d0a9f79b45e640885babda88484e09a055cd28b86d18491d2a01477b1",
+          "reasons": [
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 4.250 kW；此上界尚未考虑电池能量限制",
+            "初始投资 401000.00 元超过预算 60000.00 元"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "emission_limit_kg",
+          "value": 239.84375,
+          "run_id": "e85d1e3b99914dee92532c0e328712fc",
+          "input_version": 2,
+          "task_sha256": "e4bbf90757bb53d3feec30e653104109074873a635b011fe9d4f7a696196199f",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "A": "optimal",
+            "C": "infeasible",
+            "D": "rejected"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.013430754000182787,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/e85d1e3b99914dee92532c0e328712fc/result.json",
+          "result_sha256": "1e433cc5996fbf85a2a9c9fff60d7aa94280a426d2fdfb1916db63bbd81589a1",
+          "reasons": [
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 4.250 kW；此上界尚未考虑电池能量限制",
+            "初始投资 401000.00 元超过预算 60000.00 元"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "emission_limit_kg",
+          "value": 239.296875,
+          "run_id": "e6bad70ceb8a4b68b3f938585fc6d42f",
+          "input_version": 2,
+          "task_sha256": "4d5994d65af79b838c84d31406199964bd0ac089606df66c30e5230aea5e894e",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "infeasible",
+            "C": "infeasible",
+            "D": "rejected"
+          },
+          "verified_precheck_exclusions": [
+            "D"
+          ],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.011339227000007668,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/e6bad70ceb8a4b68b3f938585fc6d42f/result.json",
+          "result_sha256": "9a8b4fc4692a556ab0dcd056c154c0b4a3458d22a9cf857a79a4ec94c2be9b96",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 239.297 kgCO2e",
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 4.250 kW；此上界尚未考虑电池能量限制",
+            "初始投资 401000.00 元超过预算 60000.00 元"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "emission_limit_kg",
+          "value": 239.5703125,
+          "run_id": "05da752ea0bc44b2b9178bc614f9d9e1",
+          "input_version": 2,
+          "task_sha256": "38d5afff8ff30bfc8afa1b12dfcbde0c8875ac60162606d4281dbe7dac8f7211",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "infeasible",
+            "C": "infeasible",
+            "D": "rejected"
+          },
+          "verified_precheck_exclusions": [
+            "D"
+          ],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.010899839999865435,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/05da752ea0bc44b2b9178bc614f9d9e1/result.json",
+          "result_sha256": "64525f434253823583b481a5817d5a8b88167b558976e3f7f755dca0a65af3c7",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 239.57 kgCO2e",
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 4.250 kW；此上界尚未考虑电池能量限制",
+            "初始投资 401000.00 元超过预算 60000.00 元"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "emission_limit_kg",
+          "value": 239.70703125,
+          "run_id": "921faca8fcdb47a289b7e44bbaf485e7",
+          "input_version": 2,
+          "task_sha256": "e3be0f90b58ba4e6d240b03983a1d2fb3c6e0eefc2f61d9aefea1d93eff00958",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "infeasible",
+            "C": "infeasible",
+            "D": "rejected"
+          },
+          "verified_precheck_exclusions": [
+            "D"
+          ],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.011588845000005676,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/921faca8fcdb47a289b7e44bbaf485e7/result.json",
+          "result_sha256": "68034a7560cc7fddd060d9d51242023ed408533446d0e7b63b1a39c91f8d5ec8",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 239.707 kgCO2e",
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 4.250 kW；此上界尚未考虑电池能量限制",
+            "初始投资 401000.00 元超过预算 60000.00 元"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "emission_limit_kg",
+          "value": 239.775390625,
+          "run_id": "ddb15484b4834ee785e735601ed6934f",
+          "input_version": 2,
+          "task_sha256": "b862075bfdd6684c4ed93abaeb941742d913e35b65bc5e2100ee7e7d8c224a8b",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "A": "optimal",
+            "C": "infeasible",
+            "D": "rejected"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.015212497000220537,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/ddb15484b4834ee785e735601ed6934f/result.json",
+          "result_sha256": "77c7eabc7b5075c34fe390c0f677ae40ac5f722fb3e4ad4321c3747a98ed9459",
+          "reasons": [
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 4.250 kW；此上界尚未考虑电池能量限制",
+            "初始投资 401000.00 元超过预算 60000.00 元"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "emission_limit_kg",
+          "value": 239.7412109375,
+          "run_id": "ef514b4bc4304e198492b869030b45f4",
+          "input_version": 2,
+          "task_sha256": "8cf449a28b52be1eaf680cb5dbfb52f5727d3a0b4822648b0f0732bd3dad8b95",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "A": "optimal",
+            "C": "infeasible",
+            "D": "rejected"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.013360716999841316,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/ef514b4bc4304e198492b869030b45f4/result.json",
+          "result_sha256": "69524f5ddeaef21deb6823b5b6d58fd9b6deb5ed7356f093712f99939f142ea5",
+          "reasons": [
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 4.250 kW；此上界尚未考虑电池能量限制",
+            "初始投资 401000.00 元超过预算 60000.00 元"
+          ]
+        }
+      ],
+      "note": "在声明范围、现有模型和指定精度下找到可行边界；不代表运行目标或所有可能设备模型的全局最优。"
+    },
+    {
+      "path_id": "41e2e0108ea0d64b",
+      "field": "grid_limit_kw",
+      "unit": "kW",
+      "original_value": 12.0,
+      "search_range": {
+        "lower": 12.0,
+        "upper": 25.0,
+        "precision": 0.01,
+        "unit": "kW"
+      },
+      "suggested_value": 16.2529296875,
+      "adjustment": 4.2529296875,
+      "known_infeasible_lower": 16.24658203125,
+      "known_feasible_upper": 16.2529296875,
+      "boundary_precision_reached": true,
+      "boundary_kind": "bracket",
+      "status": "verified_repair",
+      "locks_preserved": true,
+      "base_run_id": "a205baf811c94edda23a41c6b7efc097",
+      "new_input_version": 2,
+      "run_id": "b8df5a9878bc46db9ff2f2ef2ab507fc",
+      "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/b8df5a9878bc46db9ff2f2ef2ab507fc/result.json",
+      "result_sha256": "89a5beb60fefe022c1708eaa1b45bcf5c2447c9953a9612fd14358d1e554d2f5",
+      "candidate": {
+        "candidate_id": "C",
+        "name": "电网＋热泵",
+        "source_id": "demo-candidates",
+        "pv_kw": 0.0,
+        "battery_power_kw": 0.0,
+        "battery_energy_kwh": 0.0,
+        "hp_kw_th": 20.0,
+        "boiler_kw_th": 0.0
+      },
+      "metrics": {
+        "investment_yuan": 51400.0,
+        "operating_cost_yuan": 277.0625,
+        "emissions_kg": 214.5,
+        "grid_kwh": 390.0,
+        "gas_kwh_lhv": 0.0,
+        "curtailed_pv_kwh": 0.0,
+        "electric_load_kwh": 240.0,
+        "heat_load_kwh_th": 480.0,
+        "supply_satisfied": true,
+        "period_hours": 24.0,
+        "emission_unit": "kgCO2e"
+      },
+      "npv_cost_yuan": null,
+      "solver_status": "optimal",
+      "mip_gap": 0.0,
+      "solve_seconds": 0.001991252000152599,
+      "final_validation": {
+        "valid": true,
+        "checks": [
+          {
+            "name": "solver_has_solution",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0,
+            "detail": "求解状态：optimal"
+          },
+          {
+            "name": "candidate_identity",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0,
+            "detail": ""
+          },
+          {
+            "name": "result_dimensions",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0,
+            "detail": "逐时点=N，SOC=N+1，充放电模式=N"
+          },
+          {
+            "name": "timestamps",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0,
+            "detail": ""
+          },
+          {
+            "name": "objective_available",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0,
+            "detail": ""
+          },
+          {
+            "name": "electric_balance",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "heat_balance",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "heat_pump_cop",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "boiler_efficiency",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "pv_allocation",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "nonnegative_flows",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "grid_limit",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "pv_availability",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "heat_pump_capacity",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "boiler_capacity",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "battery_charge_power",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "battery_discharge_power",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "soc_lower",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "soc_upper",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "soc_initial",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "soc_terminal",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": "期末必须恢复初始能量，不允许免费消耗初始储能"
+          },
+          {
+            "name": "soc_dynamics",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "binary_charge_mode",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "charge_mode_limit",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "discharge_mode_limit",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "no_simultaneous_charge_discharge",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "investment_budget",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0001,
+            "detail": ""
+          },
+          {
+            "name": "pv_site_limit",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "emission_limit",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0001,
+            "detail": "按评估期统计"
+          },
+          {
+            "name": "objective_recalculation",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0001,
+            "detail": ""
+          }
+        ],
+        "metrics": {
+          "investment_yuan": 51400.0,
+          "operating_cost_yuan": 277.0625,
+          "emissions_kg": 214.5,
+          "grid_kwh": 390.0,
+          "gas_kwh_lhv": 0.0,
+          "curtailed_pv_kwh": 0.0,
+          "electric_load_kwh": 240.0,
+          "heat_load_kwh_th": 480.0,
+          "supply_satisfied": true,
+          "period_hours": 24.0
+        }
+      },
+      "sources": [
+        {
+          "source_id": "demo-series",
+          "name": "合成演示数据：电热负荷与光伏",
+          "region": "虚构园区（未知真实地区）",
+          "time_range": "2025-01-06T00:00:00+08:00 至 2025-01-07T00:00:00+08:00（末端不含）",
+          "units": {
+            "electric_load_kw": "kW",
+            "heat_load_kw_th": "kW_th",
+            "pv_per_kw": "kW/kW"
+          },
+          "category": "synthetic",
+          "processing": [
+            "NumPy default_rng 固定随机种子 42",
+            "电热负荷：解析日周期加正态随机扰动后非负裁剪；光伏：正弦包络乘有界均匀随机系数，夜间显式置零",
+            "反事实验收合成负荷：常规电功率恒10kW，热功率恒20kW_th；原168小时随机日型未拼接或年化；光伏沿用固定种子逐时合成"
+          ],
+          "conditions": "仅用于功能演示，非实测，不能直接用于工程决策",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        },
+        {
+          "source_id": "demo-market",
+          "name": "合成演示数据：价格与排放因子假设",
+          "region": "未知",
+          "time_range": "2025-01-06T00:00:00+08:00 至 2025-01-07T00:00:00+08:00（末端不含）",
+          "units": {
+            "electricity_price": "元/kWh",
+            "gas_price": "元/kWh_LHV",
+            "grid_emission_factor": "kgCO2e/kWh",
+            "gas_emission_factor": "kgCO2e/kWh_LHV"
+          },
+          "category": "synthetic",
+          "processing": [
+            "预设峰谷电价、固定燃气价格和排放因子"
+          ],
+          "conditions": "全部为演示假设，不代表当地现行价格或排放因子",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        },
+        {
+          "source_id": "demo-equipment",
+          "name": "合成演示数据：设备与新建成本假设",
+          "region": "未知",
+          "time_range": "未知",
+          "units": {
+            "hp_cop": "kWh_th/kWh",
+            "efficiency_and_soc": "1",
+            "pv_cost_per_kw": "元/kW",
+            "battery_cost_per_kwh": "元/kWh",
+            "battery_power_cost_per_kw": "元/kW",
+            "hp_cost_per_kw_th": "元/kW_th",
+            "boiler_cost_per_kw_th": "元/kW_th",
+            "installation_fraction": "1",
+            "grid_connection_cost_yuan": "元"
+          },
+          "category": "synthetic",
+          "processing": [
+            "读取 demo_config.json"
+          ],
+          "conditions": "演示假设；统一新建投资；安装费为设备购置费的15%，接入费单列",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        },
+        {
+          "source_id": "demo-conditions",
+          "name": "合成演示数据：项目条件",
+          "region": "未知",
+          "time_range": "未知",
+          "units": {
+            "budget_yuan": "元",
+            "grid_limit_kw": "kW",
+            "pv_limit_kw": "kW",
+            "emission_limit_kg": "kgCO2e"
+          },
+          "category": "synthetic",
+          "processing": [
+            "读取 demo_config.json",
+            "研究假设：预算60000元，购电12kW，排放上限按hours*230/24 kgCO2e；只统计实际输入期"
+          ],
+          "conditions": "预算、场地和接入功率均为演示假设",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        },
+        {
+          "source_id": "demo-candidates",
+          "name": "合成演示数据：有限候选容量",
+          "region": "未知",
+          "time_range": "未知",
+          "units": {
+            "pv_kw": "kW",
+            "battery_power_kw": "kW",
+            "battery_energy_kwh": "kWh",
+            "hp_kw_th": "kW_th",
+            "boiler_kw_th": "kW_th"
+          },
+          "category": "synthetic",
+          "processing": [
+            "读取 demo_config.json 的四个明确容量组合",
+            "研究假设：三个固定候选A(锅炉20)、C(热泵20)、D(光伏50/储能20kW150kWh/热泵20)；容量不随约束放宽而改变"
+          ],
+          "conditions": "不代表所有可能配置；辅助锅炉不构成故障备用保证",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        },
+        {
+          "source_id": "revision-v2",
+          "name": "用户场景修改 v2",
+          "region": "未知",
+          "time_range": "2025-01-06T00:00:00+08:00 至 2025-01-07T00:00:00+08:00（末端不含）",
+          "units": {
+            "budget_yuan": "元",
+            "emission_limit_kg": "kgCO2e",
+            "grid_limit_kw": "kW",
+            "pv_limit_kw": "kW",
+            "demand_scale": "1",
+            "electric_load_kw": "kW",
+            "heat_load_kw_th": "kW_th",
+            "discount_rate": "1",
+            "horizon_years": "年",
+            "lifetime_years": "年",
+            "fixed_om_fraction": "1/年",
+            "additional_fixed_om_yuan_per_year": "元/年"
+          },
+          "category": "synthetic",
+          "processing": [
+            "由输入v1派生；父运行 a205baf811c94edda23a41c6b7efc097",
+            "{\"grid_limit_kw\": 16.2529296875}",
+            "负荷缩放作用于全部已提供时间区间；无缺失填充",
+            "反事实探索；是否采用以单独的显式确认回执为准，未改写基准任务"
+          ],
+          "conditions": "用户设定的场景；原始来源保留；合成演示属性保持",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        }
+      ],
+      "trace": [
+        {
+          "phase": "expand",
+          "field": "grid_limit_kw",
+          "value": 15.25,
+          "run_id": "4eca34d576844629a07c8cfdf8e81c49",
+          "input_version": 2,
+          "task_sha256": "87997f3e9ca4d831235ad0dbdcb5d660feebd0a4d0abd6c4f703d4405aa185ee",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "infeasible",
+            "C": "infeasible",
+            "D": "rejected"
+          },
+          "verified_precheck_exclusions": [
+            "D"
+          ],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.01115142900016508,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/4eca34d576844629a07c8cfdf8e81c49/result.json",
+          "result_sha256": "909c208a4589b4960951d53bb9dee1917dcfee8aaa4e0ca4d611771a6ec51113",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 230 kgCO2e",
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 1.000 kW；此上界尚未考虑电池能量限制",
+            "初始投资 401000.00 元超过预算 60000.00 元"
+          ]
+        },
+        {
+          "phase": "expand",
+          "field": "grid_limit_kw",
+          "value": 18.5,
+          "run_id": "06b01107cb5141fa9bffe9a0bace07e3",
+          "input_version": 2,
+          "task_sha256": "23a072fb027d9aa89e89123185cb68d9f5c9e97d310dee320b45afbd3e535d5d",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "A": "infeasible",
+            "C": "optimal",
+            "D": "rejected"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.01538479600003484,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/06b01107cb5141fa9bffe9a0bace07e3/result.json",
+          "result_sha256": "c006024a9757ee78e80b1bd94c503fa388676603da3a2e1031896779c161758a",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 230 kgCO2e",
+            "初始投资 401000.00 元超过预算 60000.00 元"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "grid_limit_kw",
+          "value": 16.875,
+          "run_id": "65f3f029ee794ec6a828669b8d41af93",
+          "input_version": 2,
+          "task_sha256": "9476f76091b6212351d7b1cd0c3799d0d7ad68e7bb1359f92f725f50f0db6875",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "A": "infeasible",
+            "C": "optimal",
+            "D": "rejected"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.015006786999947508,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/65f3f029ee794ec6a828669b8d41af93/result.json",
+          "result_sha256": "0426fdc977ec1f3d11c79df7f33ce3677c44d377a31a97fa3bbdac0fc8a8fd7e",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 230 kgCO2e",
+            "初始投资 401000.00 元超过预算 60000.00 元"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "grid_limit_kw",
+          "value": 16.0625,
+          "run_id": "b65c9db8f2e948a3b3627f954b65ba3c",
+          "input_version": 2,
+          "task_sha256": "6b3757064a94c66d67665eae86163ee6c56ae37de11f27bd705035c8949b98b9",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "infeasible",
+            "C": "infeasible",
+            "D": "rejected"
+          },
+          "verified_precheck_exclusions": [
+            "D"
+          ],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.011316537000084281,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/b65c9db8f2e948a3b3627f954b65ba3c/result.json",
+          "result_sha256": "b6c98242fb7695a87f92be474e1dd099962ef0a7d528bc89b685e1df869c7241",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 230 kgCO2e",
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 0.188 kW；此上界尚未考虑电池能量限制",
+            "初始投资 401000.00 元超过预算 60000.00 元"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "grid_limit_kw",
+          "value": 16.46875,
+          "run_id": "ee4f5579a32e4b2495257f18d17b6047",
+          "input_version": 2,
+          "task_sha256": "e4b015435d6cf6360a8bc4ec9c577339b17201e3024d8e1b11dca2d787b847b5",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "A": "infeasible",
+            "C": "optimal",
+            "D": "rejected"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.01566720100004204,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/ee4f5579a32e4b2495257f18d17b6047/result.json",
+          "result_sha256": "0ed6c3e92f6d44c7211a0d6952fbb273cb1e5a348ce4a2102f1c1a71575623aa",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 230 kgCO2e",
+            "初始投资 401000.00 元超过预算 60000.00 元"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "grid_limit_kw",
+          "value": 16.265625,
+          "run_id": "44cdfa658af442f9b79f47604e318aa9",
+          "input_version": 2,
+          "task_sha256": "8e92e79f3e033ac3dcd896d81bcc83403dde904c83c1633f44d72cf7750500c5",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "A": "infeasible",
+            "C": "optimal",
+            "D": "rejected"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.015939097999989826,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/44cdfa658af442f9b79f47604e318aa9/result.json",
+          "result_sha256": "2000b26e0fcd6106b977ea6ff79f0dda6bf2346957cdae09a6a94dacdbda5e78",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 230 kgCO2e",
+            "初始投资 401000.00 元超过预算 60000.00 元"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "grid_limit_kw",
+          "value": 16.1640625,
+          "run_id": "152d5e57903c44e3a53bf9227c4ccc4c",
+          "input_version": 2,
+          "task_sha256": "f02a02ad22320da2f9e1a08813e05a356b07a3b19fc33e06c05bd945611d06c4",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "infeasible",
+            "C": "infeasible",
+            "D": "rejected"
+          },
+          "verified_precheck_exclusions": [
+            "D"
+          ],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.011779779999869788,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/152d5e57903c44e3a53bf9227c4ccc4c/result.json",
+          "result_sha256": "eb5a8d17a2b7647c2de35e88dad8a7ec04598a3cca6c6c3dc9ccaf339f5f2cb0",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 230 kgCO2e",
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 0.086 kW；此上界尚未考虑电池能量限制",
+            "初始投资 401000.00 元超过预算 60000.00 元"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "grid_limit_kw",
+          "value": 16.21484375,
+          "run_id": "6d0925c7a8ba4d5ca0341f748d4c1c7e",
+          "input_version": 2,
+          "task_sha256": "35613f243a9df298e04bfb750202255f2c7ec1932f0d0508f7d5b6125eb8ebb3",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "infeasible",
+            "C": "infeasible",
+            "D": "rejected"
+          },
+          "verified_precheck_exclusions": [
+            "D"
+          ],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.011405454999930953,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/6d0925c7a8ba4d5ca0341f748d4c1c7e/result.json",
+          "result_sha256": "16979b1d04ab4a38e9aec3fb0ec9d277ae55c8012c640540897432246969c453",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 230 kgCO2e",
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 0.035 kW；此上界尚未考虑电池能量限制",
+            "初始投资 401000.00 元超过预算 60000.00 元"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "grid_limit_kw",
+          "value": 16.240234375,
+          "run_id": "6043fc1897974890aee5de0b439a7690",
+          "input_version": 2,
+          "task_sha256": "4df868413ba9007a336deb8080186bd961571ed33aae1c30ec7a113a568bed5a",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "infeasible",
+            "C": "infeasible",
+            "D": "rejected"
+          },
+          "verified_precheck_exclusions": [
+            "D"
+          ],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.011285763000159932,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/6043fc1897974890aee5de0b439a7690/result.json",
+          "result_sha256": "32621131e9a7921d9922e77f2224fb7710c55118d264e86f41f803597fea3f73",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 230 kgCO2e",
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 0.010 kW；此上界尚未考虑电池能量限制",
+            "初始投资 401000.00 元超过预算 60000.00 元"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "grid_limit_kw",
+          "value": 16.2529296875,
+          "run_id": "b8df5a9878bc46db9ff2f2ef2ab507fc",
+          "input_version": 2,
+          "task_sha256": "99ad14c7515be044cc27727909366b928fd301614bacc8cd8adb83d4c9ad6d7a",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "A": "infeasible",
+            "C": "optimal",
+            "D": "rejected"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.01581293899994307,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/b8df5a9878bc46db9ff2f2ef2ab507fc/result.json",
+          "result_sha256": "89a5beb60fefe022c1708eaa1b45bcf5c2447c9953a9612fd14358d1e554d2f5",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 230 kgCO2e",
+            "初始投资 401000.00 元超过预算 60000.00 元"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "grid_limit_kw",
+          "value": 16.24658203125,
+          "run_id": "8a2af845bc5545e8b02be08308dd9af6",
+          "input_version": 2,
+          "task_sha256": "8fe9a000312804e7b51a20e5ce9138d21be026dfa92476bb78b9b0577c2b4c45",
+          "data_fingerprint": "826a675882113482635b7e066ca0402a7a933df9cad60c94300e526fcd6a18d7",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "infeasible",
+            "C": "infeasible",
+            "D": "rejected"
+          },
+          "verified_precheck_exclusions": [
+            "D"
+          ],
+          "locks_preserved": true,
+          "solver_calls": 3,
+          "effective_solve_limits_seconds": [
+            3.0,
+            3.0,
+            3.0
+          ],
+          "seconds": 0.01201238899989221,
+          "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/8a2af845bc5545e8b02be08308dd9af6/result.json",
+          "result_sha256": "0a43055b4c869300d99efde39fc9273462ebbcb3259fc71b9f4c55ec470fafb3",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 230 kgCO2e",
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 0.003 kW；此上界尚未考虑电池能量限制",
+            "初始投资 401000.00 元超过预算 60000.00 元"
+          ]
+        }
+      ],
+      "note": "在声明范围、现有模型和指定精度下找到可行边界；不代表运行目标或所有可能设备模型的全局最优。"
+    }
+  ],
+  "solver_calls": 102,
+  "elapsed_seconds": 0.6410132410001097,
+  "limits": {
+    "single_solve_seconds": 3.0,
+    "max_solver_calls": 128,
+    "total_seconds": 60.0
+  },
+  "allowed_fields": [
+    "budget_yuan",
+    "emission_limit_kg",
+    "grid_limit_kw"
+  ],
+  "locked_conditions": [
+    "electric_load",
+    "heat_load",
+    "period",
+    "service"
+  ],
+  "sources": [
+    {
+      "source_id": "demo-series",
+      "name": "合成演示数据：电热负荷与光伏",
+      "region": "虚构园区（未知真实地区）",
+      "time_range": "2025-01-06T00:00:00+08:00 至 2025-01-07T00:00:00+08:00（末端不含）",
+      "units": {
+        "electric_load_kw": "kW",
+        "heat_load_kw_th": "kW_th",
+        "pv_per_kw": "kW/kW"
+      },
+      "category": "synthetic",
+      "processing": [
+        "NumPy default_rng 固定随机种子 42",
+        "电热负荷：解析日周期加正态随机扰动后非负裁剪；光伏：正弦包络乘有界均匀随机系数，夜间显式置零",
+        "反事实验收合成负荷：常规电功率恒10kW，热功率恒20kW_th；原168小时随机日型未拼接或年化；光伏沿用固定种子逐时合成"
+      ],
+      "conditions": "仅用于功能演示，非实测，不能直接用于工程决策",
+      "url": null,
+      "version": "未知",
+      "artifacts": [],
+      "parent_source_ids": []
+    },
+    {
+      "source_id": "demo-market",
+      "name": "合成演示数据：价格与排放因子假设",
+      "region": "未知",
+      "time_range": "2025-01-06T00:00:00+08:00 至 2025-01-07T00:00:00+08:00（末端不含）",
+      "units": {
+        "electricity_price": "元/kWh",
+        "gas_price": "元/kWh_LHV",
+        "grid_emission_factor": "kgCO2e/kWh",
+        "gas_emission_factor": "kgCO2e/kWh_LHV"
+      },
+      "category": "synthetic",
+      "processing": [
+        "预设峰谷电价、固定燃气价格和排放因子"
+      ],
+      "conditions": "全部为演示假设，不代表当地现行价格或排放因子",
+      "url": null,
+      "version": "未知",
+      "artifacts": [],
+      "parent_source_ids": []
+    },
+    {
+      "source_id": "demo-equipment",
+      "name": "合成演示数据：设备与新建成本假设",
+      "region": "未知",
+      "time_range": "未知",
+      "units": {
+        "hp_cop": "kWh_th/kWh",
+        "efficiency_and_soc": "1",
+        "pv_cost_per_kw": "元/kW",
+        "battery_cost_per_kwh": "元/kWh",
+        "battery_power_cost_per_kw": "元/kW",
+        "hp_cost_per_kw_th": "元/kW_th",
+        "boiler_cost_per_kw_th": "元/kW_th",
+        "installation_fraction": "1",
+        "grid_connection_cost_yuan": "元"
+      },
+      "category": "synthetic",
+      "processing": [
+        "读取 demo_config.json"
+      ],
+      "conditions": "演示假设；统一新建投资；安装费为设备购置费的15%，接入费单列",
+      "url": null,
+      "version": "未知",
+      "artifacts": [],
+      "parent_source_ids": []
+    },
+    {
+      "source_id": "demo-conditions",
+      "name": "合成演示数据：项目条件",
+      "region": "未知",
+      "time_range": "未知",
+      "units": {
+        "budget_yuan": "元",
+        "grid_limit_kw": "kW",
+        "pv_limit_kw": "kW",
+        "emission_limit_kg": "kgCO2e"
+      },
+      "category": "synthetic",
+      "processing": [
+        "读取 demo_config.json",
+        "研究假设：预算60000元，购电12kW，排放上限按hours*230/24 kgCO2e；只统计实际输入期"
+      ],
+      "conditions": "预算、场地和接入功率均为演示假设",
+      "url": null,
+      "version": "未知",
+      "artifacts": [],
+      "parent_source_ids": []
+    },
+    {
+      "source_id": "demo-candidates",
+      "name": "合成演示数据：有限候选容量",
+      "region": "未知",
+      "time_range": "未知",
+      "units": {
+        "pv_kw": "kW",
+        "battery_power_kw": "kW",
+        "battery_energy_kwh": "kWh",
+        "hp_kw_th": "kW_th",
+        "boiler_kw_th": "kW_th"
+      },
+      "category": "synthetic",
+      "processing": [
+        "读取 demo_config.json 的四个明确容量组合",
+        "研究假设：三个固定候选A(锅炉20)、C(热泵20)、D(光伏50/储能20kW150kWh/热泵20)；容量不随约束放宽而改变"
+      ],
+      "conditions": "不代表所有可能配置；辅助锅炉不构成故障备用保证",
+      "url": null,
+      "version": "未知",
+      "artifacts": [],
+      "parent_source_ids": []
+    }
+  ],
+  "files": {
+    "json": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/repair.json",
+    "markdown": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/repair.md",
+    "request": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/request.json"
+  },
+  "note": "在用户授权范围内搜索替代决策，保持全部负荷、时段、服务与其余业务输入；各路径互为替代，不自动采用。无可行上界时，只能说在当前范围内尚未找到经验证的修复方案。电侧模式不代表供热已建模或得到保障；购电上限放宽不含额外接入增容工程费用。",
+  "tool_call": {
+    "run_id": "three_paths_24h",
+    "input_version": 1,
+    "tool_name": "search_counterfactual_repairs",
+    "status": "success",
+    "seconds": 0.6410132410001097,
+    "summary": "已执行受限搜索；状态completed；求解适配器102次；不自动采用",
+    "source_ids": [
+      "demo-series",
+      "demo-market",
+      "demo-equipment",
+      "demo-conditions",
+      "demo-candidates"
+    ],
+    "result_file": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/repair.json"
+  },
+  "monotonicity": "仅放宽预算、排放或购电功率上界，其余输入、固定候选集/容量边界和逐时足额供能保持，因此原可行解在更宽上界下仍可行。该性质不把超时当成不可行，也不证明唯一冲突原因。"
+}

@@ -1,0 +1,425 @@
+{
+  "request_id": "multiple_conflicts_6h",
+  "parent_request_id": null,
+  "request_sha256": "630c5c86e39f0087710b78c40401348ed32624fdadcf7b3e45c937c8efe0ff47",
+  "base_run_id": "e8c99d42446a4cc698b0a20f43e00e30",
+  "input_version": 1,
+  "input_sha256": "0a27604fedad2a1c584b380297ca14de7540db14844c695e1951bfbce21627a9",
+  "data_fingerprint": "789406d7e7494994866a0cf886f00a33c1429d4027659b64bd416b1d1213bf54",
+  "status": "completed",
+  "baseline_verification": {
+    "phase": "baseline",
+    "field": null,
+    "value": null,
+    "run_id": "6012c907dd7141e19e8960c7db6b98b4",
+    "input_version": 1,
+    "task_sha256": "0a27604fedad2a1c584b380297ca14de7540db14844c695e1951bfbce21627a9",
+    "data_fingerprint": "789406d7e7494994866a0cf886f00a33c1429d4027659b64bd416b1d1213bf54",
+    "feasibility": "infeasible",
+    "solver_statuses": {
+      "A": "rejected"
+    },
+    "verified_precheck_exclusions": [
+      "A"
+    ],
+    "locks_preserved": true,
+    "solver_calls": 1,
+    "effective_solve_limits_seconds": [
+      3.0
+    ],
+    "seconds": 0.005481212999939089,
+    "result_file": "outputs/counterfactual_v04_release/multiple_conflicts_6h/search/de03df3b4c25775e42f48ee47f96ac05de0836ac977aa1feff3ef4522d5f6d35/runs/6012c907dd7141e19e8960c7db6b98b4/result.json",
+    "result_sha256": "cd66790c741d7aa9a13b4fde466f9562a5aa20edcf3411b3b62c5288c3e618c7",
+    "reasons": [
+      "初始投资 15750.00 元超过预算 0.00 元"
+    ]
+  },
+  "paths": [
+    {
+      "path_id": "e36936ae832e9180",
+      "field": "budget_yuan",
+      "unit": "元",
+      "original_value": 0.0,
+      "search_range": {
+        "lower": 0.0,
+        "upper": 50000.0,
+        "precision": 10.0,
+        "unit": "元"
+      },
+      "suggested_value": null,
+      "adjustment": null,
+      "known_infeasible_lower": 50000.0,
+      "known_feasible_upper": null,
+      "boundary_precision_reached": false,
+      "boundary_kind": "not_established",
+      "status": "not_found",
+      "locks_preserved": true,
+      "base_run_id": "e8c99d42446a4cc698b0a20f43e00e30",
+      "new_input_version": null,
+      "run_id": null,
+      "result_file": null,
+      "result_sha256": null,
+      "candidate": null,
+      "metrics": null,
+      "npv_cost_yuan": null,
+      "solver_status": null,
+      "mip_gap": null,
+      "solve_seconds": null,
+      "final_validation": null,
+      "sources": [],
+      "trace": [
+        {
+          "phase": "expand",
+          "field": "budget_yuan",
+          "value": 12500.0,
+          "run_id": "632fda3d69784155913467b0c90180b4",
+          "input_version": 2,
+          "task_sha256": "49bff81bf4b3487bdb2159eda3da5ac1aa0cfba85aa41e46d3a053cb6c0c2f8b",
+          "data_fingerprint": "789406d7e7494994866a0cf886f00a33c1429d4027659b64bd416b1d1213bf54",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "rejected"
+          },
+          "verified_precheck_exclusions": [
+            "A"
+          ],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            3.0
+          ],
+          "seconds": 0.006347071999925902,
+          "result_file": "outputs/counterfactual_v04_release/multiple_conflicts_6h/search/de03df3b4c25775e42f48ee47f96ac05de0836ac977aa1feff3ef4522d5f6d35/runs/632fda3d69784155913467b0c90180b4/result.json",
+          "result_sha256": "3dd20544b49df6b3ac5290f11e1375bf11e5ab8b015e57ac9e6faa187a1dbc2b",
+          "reasons": [
+            "初始投资 15750.00 元超过预算 12500.00 元"
+          ]
+        },
+        {
+          "phase": "expand",
+          "field": "budget_yuan",
+          "value": 25000.0,
+          "run_id": "e2968be41fa94463a6649662fa5c51e2",
+          "input_version": 2,
+          "task_sha256": "c248011f651ca1b69e905d17f0eba19b1303c1407b6f8a73585c413e18c65147",
+          "data_fingerprint": "789406d7e7494994866a0cf886f00a33c1429d4027659b64bd416b1d1213bf54",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "infeasible"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            3.0
+          ],
+          "seconds": 0.0069894729999759875,
+          "result_file": "outputs/counterfactual_v04_release/multiple_conflicts_6h/search/de03df3b4c25775e42f48ee47f96ac05de0836ac977aa1feff3ef4522d5f6d35/runs/e2968be41fa94463a6649662fa5c51e2/result.json",
+          "result_sha256": "5dfad979c838d749b97937800768e58360eb2caf31df4eac598faae294411aa4",
+          "reasons": [
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 10.000 kW；此上界尚未考虑电池能量限制"
+          ]
+        },
+        {
+          "phase": "expand",
+          "field": "budget_yuan",
+          "value": 50000.0,
+          "run_id": "a6afa87eefaf44d9bda7d3d26b8ffd5f",
+          "input_version": 2,
+          "task_sha256": "c2eb3bf6ccff8ddc50a33f09834fe43e9176bf8f73ac02ec8bd14a2e9f2bee73",
+          "data_fingerprint": "789406d7e7494994866a0cf886f00a33c1429d4027659b64bd416b1d1213bf54",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "infeasible"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            3.0
+          ],
+          "seconds": 0.007136285000115095,
+          "result_file": "outputs/counterfactual_v04_release/multiple_conflicts_6h/search/de03df3b4c25775e42f48ee47f96ac05de0836ac977aa1feff3ef4522d5f6d35/runs/a6afa87eefaf44d9bda7d3d26b8ffd5f/result.json",
+          "result_sha256": "24a21242125d956ab3fae98dab10468fde959b4975c50176887d3c1e7370a8a2",
+          "reasons": [
+            "2025-01-06T00:00:00+08:00 常规负荷与最低热泵耗电之和超过电网、可用光伏和最大放电功率之和 10.000 kW；此上界尚未考虑电池能量限制"
+          ]
+        }
+      ],
+      "note": "在当前范围内尚未找到经验证的修复方案；末端状态已保留，不归因于唯一约束。"
+    },
+    {
+      "path_id": "d9d727ff750d2abd",
+      "field": "grid_limit_kw",
+      "unit": "kW",
+      "original_value": 0.0,
+      "search_range": {
+        "lower": 0.0,
+        "upper": 30.0,
+        "precision": 0.01,
+        "unit": "kW"
+      },
+      "suggested_value": null,
+      "adjustment": null,
+      "known_infeasible_lower": 30.0,
+      "known_feasible_upper": null,
+      "boundary_precision_reached": false,
+      "boundary_kind": "not_established",
+      "status": "not_found",
+      "locks_preserved": true,
+      "base_run_id": "e8c99d42446a4cc698b0a20f43e00e30",
+      "new_input_version": null,
+      "run_id": null,
+      "result_file": null,
+      "result_sha256": null,
+      "candidate": null,
+      "metrics": null,
+      "npv_cost_yuan": null,
+      "solver_status": null,
+      "mip_gap": null,
+      "solve_seconds": null,
+      "final_validation": null,
+      "sources": [],
+      "trace": [
+        {
+          "phase": "expand",
+          "field": "grid_limit_kw",
+          "value": 7.5,
+          "run_id": "9b5ec976ea8343b198c074f35e09c498",
+          "input_version": 2,
+          "task_sha256": "b08f61fe8dade1d769f8d268b8470032f6997f064f089c363dd3af6c8d1927a2",
+          "data_fingerprint": "789406d7e7494994866a0cf886f00a33c1429d4027659b64bd416b1d1213bf54",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "rejected"
+          },
+          "verified_precheck_exclusions": [
+            "A"
+          ],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            3.0
+          ],
+          "seconds": 0.006249689000014769,
+          "result_file": "outputs/counterfactual_v04_release/multiple_conflicts_6h/search/de03df3b4c25775e42f48ee47f96ac05de0836ac977aa1feff3ef4522d5f6d35/runs/9b5ec976ea8343b198c074f35e09c498/result.json",
+          "result_sha256": "105372e485f436b80238f44e2afc679120aee8b8eefb35132e23adaf900ef1a6",
+          "reasons": [
+            "初始投资 15750.00 元超过预算 0.00 元"
+          ]
+        },
+        {
+          "phase": "expand",
+          "field": "grid_limit_kw",
+          "value": 15.0,
+          "run_id": "cdb0fe2f2f734e8193216118c04f75e7",
+          "input_version": 2,
+          "task_sha256": "acc6b90b34d09e833aeed9165725e5b71c28b7072a3055a57775222e57d45cc3",
+          "data_fingerprint": "789406d7e7494994866a0cf886f00a33c1429d4027659b64bd416b1d1213bf54",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "rejected"
+          },
+          "verified_precheck_exclusions": [
+            "A"
+          ],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            3.0
+          ],
+          "seconds": 0.006564491000062844,
+          "result_file": "outputs/counterfactual_v04_release/multiple_conflicts_6h/search/de03df3b4c25775e42f48ee47f96ac05de0836ac977aa1feff3ef4522d5f6d35/runs/cdb0fe2f2f734e8193216118c04f75e7/result.json",
+          "result_sha256": "810a2763052e32196f858acc2651b30c5237ff5dc00d1736feb012589525ce4f",
+          "reasons": [
+            "初始投资 15750.00 元超过预算 0.00 元"
+          ]
+        },
+        {
+          "phase": "expand",
+          "field": "grid_limit_kw",
+          "value": 30.0,
+          "run_id": "a839ed63a2554260ac9d6cf4284f4b11",
+          "input_version": 2,
+          "task_sha256": "09298bbb18671c104dc911b784a0fea642fa779c6a92169d7e4680ffdc3380c8",
+          "data_fingerprint": "789406d7e7494994866a0cf886f00a33c1429d4027659b64bd416b1d1213bf54",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "rejected"
+          },
+          "verified_precheck_exclusions": [
+            "A"
+          ],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            3.0
+          ],
+          "seconds": 0.005994694000037271,
+          "result_file": "outputs/counterfactual_v04_release/multiple_conflicts_6h/search/de03df3b4c25775e42f48ee47f96ac05de0836ac977aa1feff3ef4522d5f6d35/runs/a839ed63a2554260ac9d6cf4284f4b11/result.json",
+          "result_sha256": "9a1e7c7a57e12694429ccdc9c35c6efac9d498a9b91177e833d31cb0e8a40397",
+          "reasons": [
+            "初始投资 15750.00 元超过预算 0.00 元"
+          ]
+        }
+      ],
+      "note": "在当前范围内尚未找到经验证的修复方案；末端状态已保留，不归因于唯一约束。"
+    }
+  ],
+  "solver_calls": 7,
+  "elapsed_seconds": 0.04753381600016837,
+  "limits": {
+    "single_solve_seconds": 3.0,
+    "max_solver_calls": 32,
+    "total_seconds": 30.0
+  },
+  "allowed_fields": [
+    "budget_yuan",
+    "grid_limit_kw"
+  ],
+  "locked_conditions": [
+    "electric_load",
+    "heat_load",
+    "period",
+    "service"
+  ],
+  "sources": [
+    {
+      "source_id": "demo-series",
+      "name": "合成演示数据：电热负荷与光伏",
+      "region": "虚构园区（未知真实地区）",
+      "time_range": "2025-01-06T00:00:00+08:00 至 2025-01-06T06:00:00+08:00（末端不含）",
+      "units": {
+        "electric_load_kw": "kW",
+        "heat_load_kw_th": "kW_th",
+        "pv_per_kw": "kW/kW"
+      },
+      "category": "synthetic",
+      "processing": [
+        "NumPy default_rng 固定随机种子 42",
+        "电热负荷：解析日周期加正态随机扰动后非负裁剪；光伏：正弦包络乘有界均匀随机系数，夜间显式置零",
+        "反事实验收合成负荷：常规电功率恒10kW，热功率恒20kW_th；原168小时随机日型未拼接或年化；光伏沿用固定种子逐时合成"
+      ],
+      "conditions": "仅用于功能演示，非实测，不能直接用于工程决策",
+      "url": null,
+      "version": "未知",
+      "artifacts": [],
+      "parent_source_ids": []
+    },
+    {
+      "source_id": "demo-market",
+      "name": "合成演示数据：价格与排放因子假设",
+      "region": "未知",
+      "time_range": "2025-01-06T00:00:00+08:00 至 2025-01-06T06:00:00+08:00（末端不含）",
+      "units": {
+        "electricity_price": "元/kWh",
+        "gas_price": "元/kWh_LHV",
+        "grid_emission_factor": "kgCO2e/kWh",
+        "gas_emission_factor": "kgCO2e/kWh_LHV"
+      },
+      "category": "synthetic",
+      "processing": [
+        "预设峰谷电价、固定燃气价格和排放因子"
+      ],
+      "conditions": "全部为演示假设，不代表当地现行价格或排放因子",
+      "url": null,
+      "version": "未知",
+      "artifacts": [],
+      "parent_source_ids": []
+    },
+    {
+      "source_id": "demo-equipment",
+      "name": "合成演示数据：设备与新建成本假设",
+      "region": "未知",
+      "time_range": "未知",
+      "units": {
+        "hp_cop": "kWh_th/kWh",
+        "efficiency_and_soc": "1",
+        "pv_cost_per_kw": "元/kW",
+        "battery_cost_per_kwh": "元/kWh",
+        "battery_power_cost_per_kw": "元/kW",
+        "hp_cost_per_kw_th": "元/kW_th",
+        "boiler_cost_per_kw_th": "元/kW_th",
+        "installation_fraction": "1",
+        "grid_connection_cost_yuan": "元"
+      },
+      "category": "synthetic",
+      "processing": [
+        "读取 demo_config.json"
+      ],
+      "conditions": "演示假设；统一新建投资；安装费为设备购置费的15%，接入费单列",
+      "url": null,
+      "version": "未知",
+      "artifacts": [],
+      "parent_source_ids": []
+    },
+    {
+      "source_id": "demo-conditions",
+      "name": "合成演示数据：项目条件",
+      "region": "未知",
+      "time_range": "未知",
+      "units": {
+        "budget_yuan": "元",
+        "grid_limit_kw": "kW",
+        "pv_limit_kw": "kW",
+        "emission_limit_kg": "kgCO2e"
+      },
+      "category": "synthetic",
+      "processing": [
+        "读取 demo_config.json",
+        "研究假设：预算60000元，购电12kW，排放上限按hours*230/24 kgCO2e；只统计实际输入期"
+      ],
+      "conditions": "预算、场地和接入功率均为演示假设",
+      "url": null,
+      "version": "未知",
+      "artifacts": [],
+      "parent_source_ids": []
+    },
+    {
+      "source_id": "demo-candidates",
+      "name": "合成演示数据：有限候选容量",
+      "region": "未知",
+      "time_range": "未知",
+      "units": {
+        "pv_kw": "kW",
+        "battery_power_kw": "kW",
+        "battery_energy_kwh": "kWh",
+        "hp_kw_th": "kW_th",
+        "boiler_kw_th": "kW_th"
+      },
+      "category": "synthetic",
+      "processing": [
+        "读取 demo_config.json 的四个明确容量组合",
+        "研究假设：三个固定候选A(锅炉20)、C(热泵20)、D(光伏50/储能20kW150kWh/热泵20)；容量不随约束放宽而改变"
+      ],
+      "conditions": "不代表所有可能配置；辅助锅炉不构成故障备用保证",
+      "url": null,
+      "version": "未知",
+      "artifacts": [],
+      "parent_source_ids": []
+    }
+  ],
+  "files": {
+    "json": "outputs/counterfactual_v04_release/multiple_conflicts_6h/search/de03df3b4c25775e42f48ee47f96ac05de0836ac977aa1feff3ef4522d5f6d35/repair.json",
+    "markdown": "outputs/counterfactual_v04_release/multiple_conflicts_6h/search/de03df3b4c25775e42f48ee47f96ac05de0836ac977aa1feff3ef4522d5f6d35/repair.md",
+    "request": "outputs/counterfactual_v04_release/multiple_conflicts_6h/search/de03df3b4c25775e42f48ee47f96ac05de0836ac977aa1feff3ef4522d5f6d35/request.json"
+  },
+  "note": "在用户授权范围内搜索替代决策，保持全部负荷、时段、服务与其余业务输入；各路径互为替代，不自动采用。无可行上界时，只能说在当前范围内尚未找到经验证的修复方案。电侧模式不代表供热已建模或得到保障；购电上限放宽不含额外接入增容工程费用。",
+  "tool_call": {
+    "run_id": "multiple_conflicts_6h",
+    "input_version": 1,
+    "tool_name": "search_counterfactual_repairs",
+    "status": "success",
+    "seconds": 0.04753381600016837,
+    "summary": "已执行受限搜索；状态completed；求解适配器7次；不自动采用",
+    "source_ids": [
+      "demo-series",
+      "demo-market",
+      "demo-equipment",
+      "demo-conditions",
+      "demo-candidates"
+    ],
+    "result_file": "outputs/counterfactual_v04_release/multiple_conflicts_6h/search/de03df3b4c25775e42f48ee47f96ac05de0836ac977aa1feff3ef4522d5f6d35/repair.json"
+  },
+  "monotonicity": "仅放宽预算、排放或购电功率上界，其余输入、固定候选集/容量边界和逐时足额供能保持，因此原可行解在更宽上界下仍可行。该性质不把超时当成不可行，也不证明唯一冲突原因。"
+}

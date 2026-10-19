@@ -1,0 +1,104 @@
+[
+  {
+    "archive": "three_paths_24h_request.json.gz",
+    "raw_sha256": "e06fb979c4606f675cd62a691ff2fae8fe2cffe4cec373013b153b3305db78b6",
+    "source": "outputs/counterfactual_v04_release/three_paths_24h/request.json",
+    "raw_bytes": 25668
+  },
+  {
+    "archive": "three_paths_24h_baseline_verification.json.gz",
+    "raw_sha256": "2b8e441f90d465dc5fd4fd30acfbdd42918d19f4cfc1117537e8d657221da07c",
+    "source": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/295a68d41ffc443a9d939be995f2dca1/result.json",
+    "raw_bytes": 24043
+  },
+  {
+    "archive": "three_paths_24h_budget_yuan_witness.json.gz",
+    "raw_sha256": "04bb7a057083ba0bc7e52d90351c0befea77f972185bcefa15713389628cc5fa",
+    "source": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/41f6eebb103040ceb42adf5d4036fb8f/result.json",
+    "raw_bytes": 49234
+  },
+  {
+    "archive": "three_paths_24h_emission_limit_kg_witness.json.gz",
+    "raw_sha256": "69524f5ddeaef21deb6823b5b6d58fd9b6deb5ed7356f093712f99939f142ea5",
+    "source": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/ef514b4bc4304e198492b869030b45f4/result.json",
+    "raw_bytes": 48730
+  },
+  {
+    "archive": "three_paths_24h_grid_limit_kw_witness.json.gz",
+    "raw_sha256": "89a5beb60fefe022c1708eaa1b45bcf5c2447c9953a9612fd14358d1e554d2f5",
+    "source": "outputs/counterfactual_v04_release/three_paths_24h/search/d7fa8ed1ae1085207b0f26718b68ce17abca38e2a5d4b1c7de669fbddfcb2e88/runs/b8df5a9878bc46db9ff2f2ef2ab507fc/result.json",
+    "raw_bytes": 48422
+  },
+  {
+    "archive": "budget_6h_request.json.gz",
+    "raw_sha256": "3f05be840966d251ce12e7a5103420a6af35afc52250c94c0ea6ef54ff6b9c2d",
+    "source": "outputs/counterfactual_v04_release/budget_6h/request.json",
+    "raw_bytes": 15427
+  },
+  {
+    "archive": "budget_6h_baseline_verification.json.gz",
+    "raw_sha256": "199a6f24d48a884cbf4affabd2109b48b849a2bd4d90f5963dcb69f6ddf90192",
+    "source": "outputs/counterfactual_v04_release/budget_6h/search/a3299938830d343099750d1b5102c32ff4bea7188f2b01681e801be62b06ec95/runs/16ab2d7f12474bf09fa73ca067cbd90a/result.json",
+    "raw_bytes": 14396
+  },
+  {
+    "archive": "budget_6h_budget_yuan_witness.json.gz",
+    "raw_sha256": "37ce9ce138ff68ee98414598ec5b58b44198e3709c6e81615e7f2d38902499ae",
+    "source": "outputs/counterfactual_v04_release/budget_6h/search/a3299938830d343099750d1b5102c32ff4bea7188f2b01681e801be62b06ec95/runs/658f5a07d1e84abd88d7dfd4d1e89ca0/result.json",
+    "raw_bytes": 30876
+  },
+  {
+    "archive": "emissions_168h_request.json.gz",
+    "raw_sha256": "5b0d6d47b458ed2324107d0fbfb1692cda06d0512932c170d2167c83331df5c3",
+    "source": "outputs/counterfactual_v04_release/emissions_168h/request.json",
+    "raw_bytes": 41300
+  },
+  {
+    "archive": "emissions_168h_baseline_verification.json.gz",
+    "raw_sha256": "a9fab184b4bf29023e17d91f988ebba018d43037486a60880bcb8dccd7169ee7",
+    "source": "outputs/counterfactual_v04_release/emissions_168h/search/c627a07e8929c1aba2ee6c4a3d4e68208d9b874a6a371d255ca927242fd2d436/runs/a2f2fd7326fb47caad2da2744193b8a0/result.json",
+    "raw_bytes": 37651
+  },
+  {
+    "archive": "emissions_168h_emission_limit_kg_witness.json.gz",
+    "raw_sha256": "9070a9dc7f398a810d719bad0ff584f33b7a8c05571be05629ab4fcec088cd5b",
+    "source": "outputs/counterfactual_v04_release/emissions_168h/search/c627a07e8929c1aba2ee6c4a3d4e68208d9b874a6a371d255ca927242fd2d436/runs/98259dcf8af34cec9e3b1fe275ef9d0f/result.json",
+    "raw_bytes": 121866
+  },
+  {
+    "archive": "multiple_conflicts_6h_request.json.gz",
+    "raw_sha256": "cbd438f102ded2ced4e438c396062ce148b7265c9ba2bb1e4a85c13bbfc2fec3",
+    "source": "outputs/counterfactual_v04_release/multiple_conflicts_6h/request.json",
+    "raw_bytes": 15708
+  },
+  {
+    "archive": "multiple_conflicts_6h_baseline_verification.json.gz",
+    "raw_sha256": "cd66790c741d7aa9a13b4fde466f9562a5aa20edcf3411b3b62c5288c3e618c7",
+    "source": "outputs/counterfactual_v04_release/multiple_conflicts_6h/search/de03df3b4c25775e42f48ee47f96ac05de0836ac977aa1feff3ef4522d5f6d35/runs/6012c907dd7141e19e8960c7db6b98b4/result.json",
+    "raw_bytes": 14515
+  },
+  {
+    "archive": "annual_heat_8760h_request.json.gz",
+    "raw_sha256": "e8016beb12ab9b8dabd1f1848f5d05dcea46749faaa01481b5d4fca86c0e1463",
+    "source": "outputs/counterfactual_v04_release/annual_heat_8760h/request.json",
+    "raw_bytes": 1466917
+  },
+  {
+    "archive": "annual_heat_8760h_baseline_verification.json.gz",
+    "raw_sha256": "95ac88e2c1871060565b0c1c0fdb8b917640ff47a773b970f6ff51fac78707ae",
+    "source": "outputs/counterfactual_v04_release/annual_heat_8760h/search/b96c8261a5c04d2be372b2ee8c05e5d4f37dad5bb0018f702c4e0a0c78bc7e3d/runs/87be959ae5714ef9a9b15cb6c71c837f/result.json",
+    "raw_bytes": 1325248
+  },
+  {
+    "archive": "annual_heat_8760h_budget_yuan_witness.json.gz",
+    "raw_sha256": "ac7eb047358a706f6289a79ab3193c54be8bce1bcebc6437500436e2a345a82f",
+    "source": "outputs/counterfactual_v04_release/annual_heat_8760h/search/b96c8261a5c04d2be372b2ee8c05e5d4f37dad5bb0018f702c4e0a0c78bc7e3d/runs/5f49d1d9be3040ec9ce17450818f265b/result.json",
+    "raw_bytes": 5094971
+  },
+  {
+    "archive": "annual_first_limited_witness.json.gz",
+    "raw_sha256": "dddc607b7960bbd3d061a2e21c1c8404c6e8d5b4c10696800d09a6dad7013f9b",
+    "source": "outputs/counterfactual_v04_cases/annual_heat_8760h/search/b96c8261a5c04d2be372b2ee8c05e5d4f37dad5bb0018f702c4e0a0c78bc7e3d/runs/6f237c1091e14c4c805e015d419a93e8/result.json",
+    "raw_bytes": 4965336
+  }
+]

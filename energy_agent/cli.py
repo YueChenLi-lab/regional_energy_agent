@@ -12,12 +12,14 @@ from .schemas import RunResult, RunState, SolverOptions, TaskPatch
 
 def main(argv=None) -> int:
     load_dotenv(Path(__file__).resolve().parents[1] / ".env", override=False)
-    parser = argparse.ArgumentParser(description="区域综合能源低碳规划评估 Agent v0.3.2")
+    parser = argparse.ArgumentParser(description="区域综合能源低碳规划评估 Agent v0.4.0")
     commands = parser.add_subparsers(dest="command", required=True)
     from .import_cli import register_import_commands
     register_import_commands(commands)
     from .planning_cli import register_planning_commands
     register_planning_commands(commands)
+    from .counterfactual_cli import register_counterfactual_commands
+    register_counterfactual_commands(commands)
     demo = commands.add_parser("demo", help="合成演示数据，无需模型密钥")
     demo.add_argument("--seed", type=int, default=42)
     demo.add_argument("--hours", type=int, default=168)
@@ -37,6 +39,12 @@ def main(argv=None) -> int:
         command.add_argument("--grid-limit", type=float)
         command.add_argument("--pv-limit", type=float)
     args = parser.parse_args(argv)
+    if args.command in ('counterfactual', 'counterfactual-adopt'):
+        from .counterfactual_cli import handle_counterfactual_command
+        try:
+            return handle_counterfactual_command(args)
+        except (ValueError, OSError) as exc:
+            parser.exit(2, f'反事实操作未完成：{exc}\n')
     if args.command in ("annual-build","plan-study","agent-chat","llm-check","llm-acceptance","agent-dialog","data-diagnose","peak-study"):
         from .planning_cli import handle_planning_command
         try:

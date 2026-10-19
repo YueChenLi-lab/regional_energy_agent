@@ -1,0 +1,1041 @@
+{
+  "request_id": "emissions_168h",
+  "parent_request_id": null,
+  "request_sha256": "a0456502164ed122c31e7271e0f3a8f6b933641f521aab4681b86dc2fa9a680d",
+  "base_run_id": "a705177e4f7b4b4d935b3a99dc0773b9",
+  "input_version": 1,
+  "input_sha256": "73f0d7e213b9631b1dac5b167a6ec383ae789b44baff85913295389f07229f4e",
+  "data_fingerprint": "bb653e46124eee9f3a6d5bf637c0299a4fc812068ce40da264f53642d4d3ca2c",
+  "status": "completed",
+  "baseline_verification": {
+    "phase": "baseline",
+    "field": null,
+    "value": null,
+    "run_id": "a2f2fd7326fb47caad2da2744193b8a0",
+    "input_version": 1,
+    "task_sha256": "73f0d7e213b9631b1dac5b167a6ec383ae789b44baff85913295389f07229f4e",
+    "data_fingerprint": "bb653e46124eee9f3a6d5bf637c0299a4fc812068ce40da264f53642d4d3ca2c",
+    "feasibility": "infeasible",
+    "solver_statuses": {
+      "A": "infeasible"
+    },
+    "verified_precheck_exclusions": [],
+    "locks_preserved": true,
+    "solver_calls": 1,
+    "effective_solve_limits_seconds": [
+      3.0
+    ],
+    "seconds": 0.012378336999972817,
+    "result_file": "outputs/counterfactual_v04_release/emissions_168h/search/c627a07e8929c1aba2ee6c4a3d4e68208d9b874a6a371d255ca927242fd2d436/runs/a2f2fd7326fb47caad2da2744193b8a0/result.json",
+    "result_sha256": "a9fab184b4bf29023e17d91f988ebba018d43037486a60880bcb8dccd7169ee7",
+    "reasons": [
+      "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+      "模型已包含评估期排放上限 0 kgCO2e"
+    ]
+  },
+  "paths": [
+    {
+      "path_id": "606d6dd58191f800",
+      "field": "emission_limit_kg",
+      "unit": "kgCO2e",
+      "original_value": 0.0,
+      "search_range": {
+        "lower": 0.0,
+        "upper": 3000.0,
+        "precision": 0.1,
+        "unit": "kgCO2e"
+      },
+      "suggested_value": 1678.16162109375,
+      "adjustment": 1678.16162109375,
+      "known_infeasible_lower": 1678.070068359375,
+      "known_feasible_upper": 1678.16162109375,
+      "boundary_precision_reached": true,
+      "boundary_kind": "bracket",
+      "status": "verified_repair",
+      "locks_preserved": true,
+      "base_run_id": "a705177e4f7b4b4d935b3a99dc0773b9",
+      "new_input_version": 2,
+      "run_id": "98259dcf8af34cec9e3b1fe275ef9d0f",
+      "result_file": "outputs/counterfactual_v04_release/emissions_168h/search/c627a07e8929c1aba2ee6c4a3d4e68208d9b874a6a371d255ca927242fd2d436/runs/98259dcf8af34cec9e3b1fe275ef9d0f/result.json",
+      "result_sha256": "9070a9dc7f398a810d719bad0ff584f33b7a8c05571be05629ab4fcec088cd5b",
+      "candidate": {
+        "candidate_id": "A",
+        "name": "电网＋锅炉",
+        "source_id": "demo-candidates",
+        "pv_kw": 0.0,
+        "battery_power_kw": 0.0,
+        "battery_energy_kwh": 0.0,
+        "hp_kw_th": 0.0,
+        "boiler_kw_th": 20.0
+      },
+      "metrics": {
+        "investment_yuan": 15750.0,
+        "operating_cost_yuan": 2388.1666666666665,
+        "emissions_kg": 1678.1333333333337,
+        "grid_kwh": 1680.0,
+        "gas_kwh_lhv": 3733.333333333334,
+        "curtailed_pv_kwh": 0.0,
+        "electric_load_kwh": 1680.0,
+        "heat_load_kwh_th": 3360.0,
+        "supply_satisfied": true,
+        "period_hours": 168.0,
+        "emission_unit": "kgCO2e"
+      },
+      "npv_cost_yuan": null,
+      "solver_status": "optimal",
+      "mip_gap": 0.0,
+      "solve_seconds": 0.00673800200002006,
+      "final_validation": {
+        "valid": true,
+        "checks": [
+          {
+            "name": "solver_has_solution",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0,
+            "detail": "求解状态：optimal"
+          },
+          {
+            "name": "candidate_identity",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0,
+            "detail": ""
+          },
+          {
+            "name": "result_dimensions",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0,
+            "detail": "逐时点=N，SOC=N+1，充放电模式=N"
+          },
+          {
+            "name": "timestamps",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0,
+            "detail": ""
+          },
+          {
+            "name": "objective_available",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0,
+            "detail": ""
+          },
+          {
+            "name": "electric_balance",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "heat_balance",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "heat_pump_cop",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "boiler_efficiency",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "pv_allocation",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "nonnegative_flows",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "grid_limit",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "pv_availability",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "heat_pump_capacity",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "boiler_capacity",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "battery_charge_power",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "battery_discharge_power",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "soc_lower",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "soc_upper",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "soc_initial",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "soc_terminal",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": "期末必须恢复初始能量，不允许免费消耗初始储能"
+          },
+          {
+            "name": "soc_dynamics",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "binary_charge_mode",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "charge_mode_limit",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "discharge_mode_limit",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "no_simultaneous_charge_discharge",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "investment_budget",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0001,
+            "detail": ""
+          },
+          {
+            "name": "pv_site_limit",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "emission_limit",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0001,
+            "detail": "按评估期统计"
+          },
+          {
+            "name": "objective_recalculation",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0001,
+            "detail": ""
+          }
+        ],
+        "metrics": {
+          "investment_yuan": 15750.0,
+          "operating_cost_yuan": 2388.1666666666665,
+          "emissions_kg": 1678.1333333333337,
+          "grid_kwh": 1680.0,
+          "gas_kwh_lhv": 3733.333333333334,
+          "curtailed_pv_kwh": 0.0,
+          "electric_load_kwh": 1680.0,
+          "heat_load_kwh_th": 3360.0,
+          "supply_satisfied": true,
+          "period_hours": 168.0
+        }
+      },
+      "sources": [
+        {
+          "source_id": "demo-series",
+          "name": "合成演示数据：电热负荷与光伏",
+          "region": "虚构园区（未知真实地区）",
+          "time_range": "2025-01-06T00:00:00+08:00 至 2025-01-13T00:00:00+08:00（末端不含）",
+          "units": {
+            "electric_load_kw": "kW",
+            "heat_load_kw_th": "kW_th",
+            "pv_per_kw": "kW/kW"
+          },
+          "category": "synthetic",
+          "processing": [
+            "NumPy default_rng 固定随机种子 42",
+            "电热负荷：解析日周期加正态随机扰动后非负裁剪；光伏：正弦包络乘有界均匀随机系数，夜间显式置零",
+            "反事实验收合成负荷：常规电功率恒10kW，热功率恒20kW_th；原168小时随机日型未拼接或年化；光伏沿用固定种子逐时合成"
+          ],
+          "conditions": "仅用于功能演示，非实测，不能直接用于工程决策",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        },
+        {
+          "source_id": "demo-market",
+          "name": "合成演示数据：价格与排放因子假设",
+          "region": "未知",
+          "time_range": "2025-01-06T00:00:00+08:00 至 2025-01-13T00:00:00+08:00（末端不含）",
+          "units": {
+            "electricity_price": "元/kWh",
+            "gas_price": "元/kWh_LHV",
+            "grid_emission_factor": "kgCO2e/kWh",
+            "gas_emission_factor": "kgCO2e/kWh_LHV"
+          },
+          "category": "synthetic",
+          "processing": [
+            "预设峰谷电价、固定燃气价格和排放因子"
+          ],
+          "conditions": "全部为演示假设，不代表当地现行价格或排放因子",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        },
+        {
+          "source_id": "demo-equipment",
+          "name": "合成演示数据：设备与新建成本假设",
+          "region": "未知",
+          "time_range": "未知",
+          "units": {
+            "hp_cop": "kWh_th/kWh",
+            "efficiency_and_soc": "1",
+            "pv_cost_per_kw": "元/kW",
+            "battery_cost_per_kwh": "元/kWh",
+            "battery_power_cost_per_kw": "元/kW",
+            "hp_cost_per_kw_th": "元/kW_th",
+            "boiler_cost_per_kw_th": "元/kW_th",
+            "installation_fraction": "1",
+            "grid_connection_cost_yuan": "元"
+          },
+          "category": "synthetic",
+          "processing": [
+            "读取 demo_config.json"
+          ],
+          "conditions": "演示假设；统一新建投资；安装费为设备购置费的15%，接入费单列",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        },
+        {
+          "source_id": "demo-conditions",
+          "name": "合成演示数据：项目条件",
+          "region": "未知",
+          "time_range": "未知",
+          "units": {
+            "budget_yuan": "元",
+            "grid_limit_kw": "kW",
+            "pv_limit_kw": "kW",
+            "emission_limit_kg": "kgCO2e"
+          },
+          "category": "synthetic",
+          "processing": [
+            "读取 demo_config.json",
+            "研究假设：预算60000元，购电12kW，排放上限按hours*230/24 kgCO2e；只统计实际输入期"
+          ],
+          "conditions": "预算、场地和接入功率均为演示假设",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        },
+        {
+          "source_id": "demo-candidates",
+          "name": "合成演示数据：有限候选容量",
+          "region": "未知",
+          "time_range": "未知",
+          "units": {
+            "pv_kw": "kW",
+            "battery_power_kw": "kW",
+            "battery_energy_kwh": "kWh",
+            "hp_kw_th": "kW_th",
+            "boiler_kw_th": "kW_th"
+          },
+          "category": "synthetic",
+          "processing": [
+            "读取 demo_config.json 的四个明确容量组合",
+            "研究假设：三个固定候选A(锅炉20)、C(热泵20)、D(光伏50/储能20kW150kWh/热泵20)；容量不随约束放宽而改变"
+          ],
+          "conditions": "不代表所有可能配置；辅助锅炉不构成故障备用保证",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        },
+        {
+          "source_id": "revision-v2",
+          "name": "用户场景修改 v2",
+          "region": "未知",
+          "time_range": "2025-01-06T00:00:00+08:00 至 2025-01-13T00:00:00+08:00（末端不含）",
+          "units": {
+            "budget_yuan": "元",
+            "emission_limit_kg": "kgCO2e",
+            "grid_limit_kw": "kW",
+            "pv_limit_kw": "kW",
+            "demand_scale": "1",
+            "electric_load_kw": "kW",
+            "heat_load_kw_th": "kW_th",
+            "discount_rate": "1",
+            "horizon_years": "年",
+            "lifetime_years": "年",
+            "fixed_om_fraction": "1/年",
+            "additional_fixed_om_yuan_per_year": "元/年"
+          },
+          "category": "synthetic",
+          "processing": [
+            "由输入v1派生；父运行 a705177e4f7b4b4d935b3a99dc0773b9",
+            "{\"emission_limit_kg\": 1678.16162109375}",
+            "负荷缩放作用于全部已提供时间区间；无缺失填充",
+            "反事实探索；是否采用以单独的显式确认回执为准，未改写基准任务"
+          ],
+          "conditions": "用户设定的场景；原始来源保留；合成演示属性保持",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        }
+      ],
+      "trace": [
+        {
+          "phase": "expand",
+          "field": "emission_limit_kg",
+          "value": 750.0,
+          "run_id": "3fa6ead034aa45699d9e930f6898074d",
+          "input_version": 2,
+          "task_sha256": "dd559afc6311a5e254b86f64949108f746bb8f9a55e3f047d7ae1e85e7dc9bfc",
+          "data_fingerprint": "bb653e46124eee9f3a6d5bf637c0299a4fc812068ce40da264f53642d4d3ca2c",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "infeasible"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            3.0
+          ],
+          "seconds": 0.01583273799997187,
+          "result_file": "outputs/counterfactual_v04_release/emissions_168h/search/c627a07e8929c1aba2ee6c4a3d4e68208d9b874a6a371d255ca927242fd2d436/runs/3fa6ead034aa45699d9e930f6898074d/result.json",
+          "result_sha256": "6971cc6c34e0f75c6d7b544b76416bc3fd5086ca5b2d88c176f4d4a34efaa35f",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 750 kgCO2e"
+          ]
+        },
+        {
+          "phase": "expand",
+          "field": "emission_limit_kg",
+          "value": 1500.0,
+          "run_id": "7f0c36a9169a4f35bef4cdde9a3c84fd",
+          "input_version": 2,
+          "task_sha256": "d7c3db6220c1cefeff105a583f3656d10765c9309aee6b796cd19818f4722b9e",
+          "data_fingerprint": "bb653e46124eee9f3a6d5bf637c0299a4fc812068ce40da264f53642d4d3ca2c",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "infeasible"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            3.0
+          ],
+          "seconds": 0.017627066999921226,
+          "result_file": "outputs/counterfactual_v04_release/emissions_168h/search/c627a07e8929c1aba2ee6c4a3d4e68208d9b874a6a371d255ca927242fd2d436/runs/7f0c36a9169a4f35bef4cdde9a3c84fd/result.json",
+          "result_sha256": "a29df462c55893ac93435f40083a4ad730428b5586cc7c1c06e789486da0c68f",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 1500 kgCO2e"
+          ]
+        },
+        {
+          "phase": "expand",
+          "field": "emission_limit_kg",
+          "value": 3000.0,
+          "run_id": "86efb27b49e845f49f90bdea6866d7f8",
+          "input_version": 2,
+          "task_sha256": "6d68efee4bfddb4c75a716efca9b09b60fa9dee0db87f4840502ef79a1e4f48a",
+          "data_fingerprint": "bb653e46124eee9f3a6d5bf637c0299a4fc812068ce40da264f53642d4d3ca2c",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "A": "optimal"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            3.0
+          ],
+          "seconds": 0.029140600999880917,
+          "result_file": "outputs/counterfactual_v04_release/emissions_168h/search/c627a07e8929c1aba2ee6c4a3d4e68208d9b874a6a371d255ca927242fd2d436/runs/86efb27b49e845f49f90bdea6866d7f8/result.json",
+          "result_sha256": "cf4a087164436847f9605dbf83e51323f073c09b74cb989b06270e06c4d98828",
+          "reasons": []
+        },
+        {
+          "phase": "bisect",
+          "field": "emission_limit_kg",
+          "value": 2250.0,
+          "run_id": "4a570fadb070463bb7f08b082b17e61d",
+          "input_version": 2,
+          "task_sha256": "92a2fc4c89c26adce06ac2a622a60d1c821f823bcda19c38e1e40c37d14e9c8a",
+          "data_fingerprint": "bb653e46124eee9f3a6d5bf637c0299a4fc812068ce40da264f53642d4d3ca2c",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "A": "optimal"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            3.0
+          ],
+          "seconds": 0.028662609000093653,
+          "result_file": "outputs/counterfactual_v04_release/emissions_168h/search/c627a07e8929c1aba2ee6c4a3d4e68208d9b874a6a371d255ca927242fd2d436/runs/4a570fadb070463bb7f08b082b17e61d/result.json",
+          "result_sha256": "065582f24f37b5ce3da0cda05153c888fb1f9136913dde5cd2eac6ddffa4df9f",
+          "reasons": []
+        },
+        {
+          "phase": "bisect",
+          "field": "emission_limit_kg",
+          "value": 1875.0,
+          "run_id": "96477e78c7ee473a94d7fde05010357a",
+          "input_version": 2,
+          "task_sha256": "d23ed7caf60557c04c9d80c87c25aab143d370a4a624303083df69180d76a561",
+          "data_fingerprint": "bb653e46124eee9f3a6d5bf637c0299a4fc812068ce40da264f53642d4d3ca2c",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "A": "optimal"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            3.0
+          ],
+          "seconds": 0.026859155000011015,
+          "result_file": "outputs/counterfactual_v04_release/emissions_168h/search/c627a07e8929c1aba2ee6c4a3d4e68208d9b874a6a371d255ca927242fd2d436/runs/96477e78c7ee473a94d7fde05010357a/result.json",
+          "result_sha256": "0aea418c95b2756be01510c2cbae472f82af174c98a2b1f394237de422c95a3c",
+          "reasons": []
+        },
+        {
+          "phase": "bisect",
+          "field": "emission_limit_kg",
+          "value": 1687.5,
+          "run_id": "43f98e161e1749f0a9603071b11ebeb6",
+          "input_version": 2,
+          "task_sha256": "c462ed0cac60e3c8523424ec917a47764c516888ffc6ccbf8b70a52783ed1ae0",
+          "data_fingerprint": "bb653e46124eee9f3a6d5bf637c0299a4fc812068ce40da264f53642d4d3ca2c",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "A": "optimal"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            3.0
+          ],
+          "seconds": 0.026596334000032584,
+          "result_file": "outputs/counterfactual_v04_release/emissions_168h/search/c627a07e8929c1aba2ee6c4a3d4e68208d9b874a6a371d255ca927242fd2d436/runs/43f98e161e1749f0a9603071b11ebeb6/result.json",
+          "result_sha256": "57f1ee7e0ae4eb671a3e54f06f4d81411025487e61e0a2147c6244269729cca7",
+          "reasons": []
+        },
+        {
+          "phase": "bisect",
+          "field": "emission_limit_kg",
+          "value": 1593.75,
+          "run_id": "ab21ceb487dc48249e05081bed3cf76c",
+          "input_version": 2,
+          "task_sha256": "5538aeade992f472768112e2cb2942246c322a158e8e2c3936ff0348ea90d456",
+          "data_fingerprint": "bb653e46124eee9f3a6d5bf637c0299a4fc812068ce40da264f53642d4d3ca2c",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "infeasible"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            3.0
+          ],
+          "seconds": 0.01590388299996448,
+          "result_file": "outputs/counterfactual_v04_release/emissions_168h/search/c627a07e8929c1aba2ee6c4a3d4e68208d9b874a6a371d255ca927242fd2d436/runs/ab21ceb487dc48249e05081bed3cf76c/result.json",
+          "result_sha256": "8baa50f1ff42488b89aac77b3459641a9c6aae138fccf6f0a2a3bf12212ef100",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 1593.75 kgCO2e"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "emission_limit_kg",
+          "value": 1640.625,
+          "run_id": "3e76b040b7b14820877a8a3e354e957a",
+          "input_version": 2,
+          "task_sha256": "5a854abe8069571941f80098a2ec0cd7816272303bfdfdf23a2c8f7d18a8d88a",
+          "data_fingerprint": "bb653e46124eee9f3a6d5bf637c0299a4fc812068ce40da264f53642d4d3ca2c",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "infeasible"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            3.0
+          ],
+          "seconds": 0.016524141999980202,
+          "result_file": "outputs/counterfactual_v04_release/emissions_168h/search/c627a07e8929c1aba2ee6c4a3d4e68208d9b874a6a371d255ca927242fd2d436/runs/3e76b040b7b14820877a8a3e354e957a/result.json",
+          "result_sha256": "39efc1b06d12423bf6c0433a5623daeb1eca9501e0db9d52ad992e0f230891d3",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 1640.62 kgCO2e"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "emission_limit_kg",
+          "value": 1664.0625,
+          "run_id": "21e5754848994c3e9559754d361825b7",
+          "input_version": 2,
+          "task_sha256": "a3d09f5786c541fc34de2b4ed1e00bf524eaf1329b601ee1481127e94ae00b46",
+          "data_fingerprint": "bb653e46124eee9f3a6d5bf637c0299a4fc812068ce40da264f53642d4d3ca2c",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "infeasible"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            3.0
+          ],
+          "seconds": 0.017078153000056773,
+          "result_file": "outputs/counterfactual_v04_release/emissions_168h/search/c627a07e8929c1aba2ee6c4a3d4e68208d9b874a6a371d255ca927242fd2d436/runs/21e5754848994c3e9559754d361825b7/result.json",
+          "result_sha256": "91a904a5ac9b1c67aa0d41ab8a21933d89ed243f2c6adc215c6d7a341a7ba641",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 1664.06 kgCO2e"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "emission_limit_kg",
+          "value": 1675.78125,
+          "run_id": "c2da96a614354d46a0cc8e0f5ea6ac1f",
+          "input_version": 2,
+          "task_sha256": "29fa21f5474ec9d66726fc8ecf30f486b14d34263b85087d64070194f53e28fc",
+          "data_fingerprint": "bb653e46124eee9f3a6d5bf637c0299a4fc812068ce40da264f53642d4d3ca2c",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "infeasible"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            3.0
+          ],
+          "seconds": 0.016636441000173363,
+          "result_file": "outputs/counterfactual_v04_release/emissions_168h/search/c627a07e8929c1aba2ee6c4a3d4e68208d9b874a6a371d255ca927242fd2d436/runs/c2da96a614354d46a0cc8e0f5ea6ac1f/result.json",
+          "result_sha256": "cd8924edd0b1e4bc045f14d81ccb0317ef913b3098aca8f37aaf1eb463971eb2",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 1675.78 kgCO2e"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "emission_limit_kg",
+          "value": 1681.640625,
+          "run_id": "5ddcb20f98b94eac96e0ca5495656111",
+          "input_version": 2,
+          "task_sha256": "59c0e9e9ad07e4abbee07b16145e54d5b0a99a57e6758e6518c6603ad9cbf18b",
+          "data_fingerprint": "bb653e46124eee9f3a6d5bf637c0299a4fc812068ce40da264f53642d4d3ca2c",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "A": "optimal"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            3.0
+          ],
+          "seconds": 0.026534268999967026,
+          "result_file": "outputs/counterfactual_v04_release/emissions_168h/search/c627a07e8929c1aba2ee6c4a3d4e68208d9b874a6a371d255ca927242fd2d436/runs/5ddcb20f98b94eac96e0ca5495656111/result.json",
+          "result_sha256": "33a029afdb31ce8fa61d560f9ea3530dc42128f970599ba88fea4cde7f941b9a",
+          "reasons": []
+        },
+        {
+          "phase": "bisect",
+          "field": "emission_limit_kg",
+          "value": 1678.7109375,
+          "run_id": "6a4bb1453baf482293a2c2d0ab6b8189",
+          "input_version": 2,
+          "task_sha256": "5a543e7a63875643d479d821f604f02acdbc071a967583c7583998319158b6ee",
+          "data_fingerprint": "bb653e46124eee9f3a6d5bf637c0299a4fc812068ce40da264f53642d4d3ca2c",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "A": "optimal"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            3.0
+          ],
+          "seconds": 0.02631521800003611,
+          "result_file": "outputs/counterfactual_v04_release/emissions_168h/search/c627a07e8929c1aba2ee6c4a3d4e68208d9b874a6a371d255ca927242fd2d436/runs/6a4bb1453baf482293a2c2d0ab6b8189/result.json",
+          "result_sha256": "96b05a2d8b5046ef69c8a58beec55c9111ca055e347e603bf427b56e57f97d08",
+          "reasons": []
+        },
+        {
+          "phase": "bisect",
+          "field": "emission_limit_kg",
+          "value": 1677.24609375,
+          "run_id": "c26084a3bd694587b80cf3a89a70696a",
+          "input_version": 2,
+          "task_sha256": "d45b7b3faf3fa6cb3ba7cd1a5a26ff4dfa8afa71670ce4e8f0354f09fe4a161e",
+          "data_fingerprint": "bb653e46124eee9f3a6d5bf637c0299a4fc812068ce40da264f53642d4d3ca2c",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "infeasible"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            3.0
+          ],
+          "seconds": 0.016490220999912708,
+          "result_file": "outputs/counterfactual_v04_release/emissions_168h/search/c627a07e8929c1aba2ee6c4a3d4e68208d9b874a6a371d255ca927242fd2d436/runs/c26084a3bd694587b80cf3a89a70696a/result.json",
+          "result_sha256": "0788764a1493993487eaf3d5a772c220478f2d389580d6247a00dcc96c85cdf6",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 1677.25 kgCO2e"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "emission_limit_kg",
+          "value": 1677.978515625,
+          "run_id": "d26dc6ff02b14e88826c7d1ac9ad0cef",
+          "input_version": 2,
+          "task_sha256": "f874f07722ac18f1f55f7d07b2988877410f735e0044baace3d444c3ced0e2fb",
+          "data_fingerprint": "bb653e46124eee9f3a6d5bf637c0299a4fc812068ce40da264f53642d4d3ca2c",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "infeasible"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            3.0
+          ],
+          "seconds": 0.01797028600003614,
+          "result_file": "outputs/counterfactual_v04_release/emissions_168h/search/c627a07e8929c1aba2ee6c4a3d4e68208d9b874a6a371d255ca927242fd2d436/runs/d26dc6ff02b14e88826c7d1ac9ad0cef/result.json",
+          "result_sha256": "68be7a83c63275fd2383a10bb766a705feb627edf4ad6173e5d656c8b34bc417",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 1677.98 kgCO2e"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "emission_limit_kg",
+          "value": 1678.3447265625,
+          "run_id": "bf4609f935e04f7183202188e4b3f383",
+          "input_version": 2,
+          "task_sha256": "10f24d5c5644e53f2e7c6a51052ea2be2f12eb17ba112bc4074b9daa1ee309ef",
+          "data_fingerprint": "bb653e46124eee9f3a6d5bf637c0299a4fc812068ce40da264f53642d4d3ca2c",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "A": "optimal"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            3.0
+          ],
+          "seconds": 0.04460599899994122,
+          "result_file": "outputs/counterfactual_v04_release/emissions_168h/search/c627a07e8929c1aba2ee6c4a3d4e68208d9b874a6a371d255ca927242fd2d436/runs/bf4609f935e04f7183202188e4b3f383/result.json",
+          "result_sha256": "b3e8b283d31e437d69b270056d55ee4b8ce854c6781fa8f20971a17e36c6bb3c",
+          "reasons": []
+        },
+        {
+          "phase": "bisect",
+          "field": "emission_limit_kg",
+          "value": 1678.16162109375,
+          "run_id": "98259dcf8af34cec9e3b1fe275ef9d0f",
+          "input_version": 2,
+          "task_sha256": "16d623d56f2eb7f94555f0628f1fa2bb992a08df3bc64ccde111aee000aa6058",
+          "data_fingerprint": "bb653e46124eee9f3a6d5bf637c0299a4fc812068ce40da264f53642d4d3ca2c",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "A": "optimal"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            3.0
+          ],
+          "seconds": 0.029214709999905608,
+          "result_file": "outputs/counterfactual_v04_release/emissions_168h/search/c627a07e8929c1aba2ee6c4a3d4e68208d9b874a6a371d255ca927242fd2d436/runs/98259dcf8af34cec9e3b1fe275ef9d0f/result.json",
+          "result_sha256": "9070a9dc7f398a810d719bad0ff584f33b7a8c05571be05629ab4fcec088cd5b",
+          "reasons": []
+        },
+        {
+          "phase": "bisect",
+          "field": "emission_limit_kg",
+          "value": 1678.070068359375,
+          "run_id": "c39d6bdd01854a85876558390bc4be61",
+          "input_version": 2,
+          "task_sha256": "4c768e30b0cbafd633a8d39dc1c3955026f18dcbc8744ac865fb34901fbee5d3",
+          "data_fingerprint": "bb653e46124eee9f3a6d5bf637c0299a4fc812068ce40da264f53642d4d3ca2c",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "A": "infeasible"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            3.0
+          ],
+          "seconds": 0.016811135000125432,
+          "result_file": "outputs/counterfactual_v04_release/emissions_168h/search/c627a07e8929c1aba2ee6c4a3d4e68208d9b874a6a371d255ca927242fd2d436/runs/c39d6bdd01854a85876558390bc4be61/result.json",
+          "result_sha256": "f66cf1c6cf050adb9160eeda6fde675d77548b0563e9543f7cd4056d5d92ac47",
+          "reasons": [
+            "HiGHS 判定当前容量、逐时供能、电池初末状态和运行约束的联合模型不可行；未进行最小冲突集诊断，不能归因于单一约束",
+            "模型已包含评估期排放上限 1678.07 kgCO2e"
+          ]
+        }
+      ],
+      "note": "在声明范围、现有模型和指定精度下找到可行边界；不代表运行目标或所有可能设备模型的全局最优。"
+    }
+  ],
+  "solver_calls": 18,
+  "elapsed_seconds": 0.423315114000161,
+  "limits": {
+    "single_solve_seconds": 3.0,
+    "max_solver_calls": 32,
+    "total_seconds": 30.0
+  },
+  "allowed_fields": [
+    "emission_limit_kg"
+  ],
+  "locked_conditions": [
+    "electric_load",
+    "heat_load",
+    "period",
+    "service"
+  ],
+  "sources": [
+    {
+      "source_id": "demo-series",
+      "name": "合成演示数据：电热负荷与光伏",
+      "region": "虚构园区（未知真实地区）",
+      "time_range": "2025-01-06T00:00:00+08:00 至 2025-01-13T00:00:00+08:00（末端不含）",
+      "units": {
+        "electric_load_kw": "kW",
+        "heat_load_kw_th": "kW_th",
+        "pv_per_kw": "kW/kW"
+      },
+      "category": "synthetic",
+      "processing": [
+        "NumPy default_rng 固定随机种子 42",
+        "电热负荷：解析日周期加正态随机扰动后非负裁剪；光伏：正弦包络乘有界均匀随机系数，夜间显式置零",
+        "反事实验收合成负荷：常规电功率恒10kW，热功率恒20kW_th；原168小时随机日型未拼接或年化；光伏沿用固定种子逐时合成"
+      ],
+      "conditions": "仅用于功能演示，非实测，不能直接用于工程决策",
+      "url": null,
+      "version": "未知",
+      "artifacts": [],
+      "parent_source_ids": []
+    },
+    {
+      "source_id": "demo-market",
+      "name": "合成演示数据：价格与排放因子假设",
+      "region": "未知",
+      "time_range": "2025-01-06T00:00:00+08:00 至 2025-01-13T00:00:00+08:00（末端不含）",
+      "units": {
+        "electricity_price": "元/kWh",
+        "gas_price": "元/kWh_LHV",
+        "grid_emission_factor": "kgCO2e/kWh",
+        "gas_emission_factor": "kgCO2e/kWh_LHV"
+      },
+      "category": "synthetic",
+      "processing": [
+        "预设峰谷电价、固定燃气价格和排放因子"
+      ],
+      "conditions": "全部为演示假设，不代表当地现行价格或排放因子",
+      "url": null,
+      "version": "未知",
+      "artifacts": [],
+      "parent_source_ids": []
+    },
+    {
+      "source_id": "demo-equipment",
+      "name": "合成演示数据：设备与新建成本假设",
+      "region": "未知",
+      "time_range": "未知",
+      "units": {
+        "hp_cop": "kWh_th/kWh",
+        "efficiency_and_soc": "1",
+        "pv_cost_per_kw": "元/kW",
+        "battery_cost_per_kwh": "元/kWh",
+        "battery_power_cost_per_kw": "元/kW",
+        "hp_cost_per_kw_th": "元/kW_th",
+        "boiler_cost_per_kw_th": "元/kW_th",
+        "installation_fraction": "1",
+        "grid_connection_cost_yuan": "元"
+      },
+      "category": "synthetic",
+      "processing": [
+        "读取 demo_config.json"
+      ],
+      "conditions": "演示假设；统一新建投资；安装费为设备购置费的15%，接入费单列",
+      "url": null,
+      "version": "未知",
+      "artifacts": [],
+      "parent_source_ids": []
+    },
+    {
+      "source_id": "demo-conditions",
+      "name": "合成演示数据：项目条件",
+      "region": "未知",
+      "time_range": "未知",
+      "units": {
+        "budget_yuan": "元",
+        "grid_limit_kw": "kW",
+        "pv_limit_kw": "kW",
+        "emission_limit_kg": "kgCO2e"
+      },
+      "category": "synthetic",
+      "processing": [
+        "读取 demo_config.json",
+        "研究假设：预算60000元，购电12kW，排放上限按hours*230/24 kgCO2e；只统计实际输入期"
+      ],
+      "conditions": "预算、场地和接入功率均为演示假设",
+      "url": null,
+      "version": "未知",
+      "artifacts": [],
+      "parent_source_ids": []
+    },
+    {
+      "source_id": "demo-candidates",
+      "name": "合成演示数据：有限候选容量",
+      "region": "未知",
+      "time_range": "未知",
+      "units": {
+        "pv_kw": "kW",
+        "battery_power_kw": "kW",
+        "battery_energy_kwh": "kWh",
+        "hp_kw_th": "kW_th",
+        "boiler_kw_th": "kW_th"
+      },
+      "category": "synthetic",
+      "processing": [
+        "读取 demo_config.json 的四个明确容量组合",
+        "研究假设：三个固定候选A(锅炉20)、C(热泵20)、D(光伏50/储能20kW150kWh/热泵20)；容量不随约束放宽而改变"
+      ],
+      "conditions": "不代表所有可能配置；辅助锅炉不构成故障备用保证",
+      "url": null,
+      "version": "未知",
+      "artifacts": [],
+      "parent_source_ids": []
+    }
+  ],
+  "files": {
+    "json": "outputs/counterfactual_v04_release/emissions_168h/search/c627a07e8929c1aba2ee6c4a3d4e68208d9b874a6a371d255ca927242fd2d436/repair.json",
+    "markdown": "outputs/counterfactual_v04_release/emissions_168h/search/c627a07e8929c1aba2ee6c4a3d4e68208d9b874a6a371d255ca927242fd2d436/repair.md",
+    "request": "outputs/counterfactual_v04_release/emissions_168h/search/c627a07e8929c1aba2ee6c4a3d4e68208d9b874a6a371d255ca927242fd2d436/request.json"
+  },
+  "note": "在用户授权范围内搜索替代决策，保持全部负荷、时段、服务与其余业务输入；各路径互为替代，不自动采用。无可行上界时，只能说在当前范围内尚未找到经验证的修复方案。电侧模式不代表供热已建模或得到保障；购电上限放宽不含额外接入增容工程费用。",
+  "tool_call": {
+    "run_id": "emissions_168h",
+    "input_version": 1,
+    "tool_name": "search_counterfactual_repairs",
+    "status": "success",
+    "seconds": 0.423315114000161,
+    "summary": "已执行受限搜索；状态completed；求解适配器18次；不自动采用",
+    "source_ids": [
+      "demo-series",
+      "demo-market",
+      "demo-equipment",
+      "demo-conditions",
+      "demo-candidates"
+    ],
+    "result_file": "outputs/counterfactual_v04_release/emissions_168h/search/c627a07e8929c1aba2ee6c4a3d4e68208d9b874a6a371d255ca927242fd2d436/repair.json"
+  },
+  "monotonicity": "仅放宽预算、排放或购电功率上界，其余输入、固定候选集/容量边界和逐时足额供能保持，因此原可行解在更宽上界下仍可行。该性质不把超时当成不可行，也不证明唯一冲突原因。"
+}

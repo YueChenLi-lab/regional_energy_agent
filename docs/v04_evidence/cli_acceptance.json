@@ -1,0 +1,10 @@
+{
+  "cli_replay": "passed_no_recompute",
+  "explicit_adoption": "passed_synthetic_case_only",
+  "baseline_sha256_unchanged": "c38b28387b8c855d1fdffe7a6321ba8725f61e2b8e2f742acf3ae431abe8ff7c",
+  "base_run_id": "a205baf811c94edda23a41c6b7efc097",
+  "adopted_run_id": "41f6eebb103040ceb42adf5d4036fb8f",
+  "new_input_version": 2,
+  "heat_and_period_unchanged": true,
+  "real_model_calls": 0
+}

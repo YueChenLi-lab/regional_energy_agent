@@ -185,3 +185,8 @@ JSON 是完整可追溯结果；CSV 便于比较与绘图；Markdown 报告描�
 - `PeakStudyResult`：raw_file_sha256、parent_normalized_sha256、controls_sha256、spec、三组scenarios、结论及文件。每组保留年用电kWh/峰值kW、容量、投资/NPV元、年运行排放kg（物质为任务CO2e）、状态/间隙/耗时、独立检查及原值差异。
 - `treatment.json`：人为处理/原值类别、父文件/标准化父文件哈希、处理方法、局部阈值、精确时间和前后kW/电量变化；派生Source.category=assumption，原始source保留。
 - `standardized.csv`继续使用原load_csv契约：timestamp与既有8个时序字段；伴随metadata.json只含step_hours、units、source_ids。每行是含时区的区间起点，功率乘步长得到能量。处理CSV不是测量校准结果。
+# v0.4 反事实证据契约
+
+新增独立 `CounterfactualRequest` / `RepairRange` / `RepairTrial` / `CounterfactualRepairPath` / `CounterfactualResult`，不删除或改变旧TaskRequest/RunResult字段。请求绑定基准run_id、版本、data_fingerprint，完整输入另存SHA；allowed_fields和ranges必须一致，锁定条件不可重叠。金额元，购电kW，排放kg+原任务物质，搜索precision与原字段同单位；mip_gap是无量纲最优性间隙，不能与边界宽度混淆。最终metrics沿用原评估期，不将短期运行费/排放年化。
+
+路径包含原/建议约束值、调整量、已知不可行/可行边界、边界精度是否达到、版本/父基准、容量、投资/购能费/排放/可用NPV、原始求解状态/gap/耗时、最终独立校验、全部试探轨迹与来源。未执行/未发现可行路径的建议值、指标及最终校验为空，不填0冒充结果。详见 [counterfactual_method.md](counterfactual_method.md)。以下旧格式继续适用。
