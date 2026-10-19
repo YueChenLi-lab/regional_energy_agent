@@ -144,6 +144,9 @@ def test_comparability_uses_actual_inputs_even_when_both_short_period(tmp_path):
     reply=ConversationReply(status='completed',text='实际工具结果',run=modified,request_id='test')
     summary=build_task_summary(reply,modified,original)
     assert '口径C' in summary.basis_text
+    without_recommendation=original.model_copy(update={'comparison':None})
+    missing=build_task_summary(reply,modified,without_recommendation)
+    assert not missing.before_after and '无有效推荐指标' in missing.before_after_note
 
 
 def test_real_contract_fields_clarification_and_cancel_are_not_fake_progress(tmp_path):
