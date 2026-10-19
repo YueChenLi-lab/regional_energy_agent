@@ -1,0 +1,38 @@
+[
+  {
+    "uploaded_file": "decision_presenters.py",
+    "bytes": 41085,
+    "sha256": "87dcfcaa5e42fd46a06ace1916a4722a48ffc3c751b2ae60eed0ea0cc19c843f",
+    "status": "user-provided Claude draft; audited and adapted, not blindly installed"
+  },
+  {
+    "uploaded_file": "decision_components.py",
+    "bytes": 22996,
+    "sha256": "4e301e58de185be4e3ff6aaa728e7022f2ceb671a86520b0f6fe8a98ab0ca87f",
+    "status": "user-provided Claude draft; audited and adapted, not blindly installed"
+  },
+  {
+    "uploaded_file": "chat_workspace.py",
+    "bytes": 3606,
+    "sha256": "b43065a8fd654e9222eff2af835f91caf7feae3381653b4a621089dca7a2c97c",
+    "status": "user-provided Claude draft; audited and adapted, not blindly installed"
+  },
+  {
+    "uploaded_file": "decision_theme.css",
+    "bytes": 13998,
+    "sha256": "87e763d313ac703f0cf1bdc176f8198edb4ffa62d99b4135e73f3ea8caefa6b4",
+    "status": "user-provided Claude draft; audited and adapted, not blindly installed"
+  },
+  {
+    "uploaded_file": "dev_preview.py",
+    "bytes": 7257,
+    "sha256": "86342331f64a1000fd5599e57bed5ab5eae61d3703ba1047f08258ca67d9dfd6",
+    "status": "user-provided Claude draft; audited and adapted, not blindly installed"
+  },
+  {
+    "uploaded_file": "dev_preview_app.py",
+    "bytes": 57,
+    "sha256": "f9473a343f1e9f7763cd3cd4372c35393b426889756ff939b003b73446cfc714",
+    "status": "user-provided Claude draft; audited and adapted, not blindly installed"
+  }
+]
