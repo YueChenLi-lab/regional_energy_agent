@@ -63,23 +63,8 @@ def prepare() -> None:
 
 
 def workbench(run) -> None:
-    section('问答工作台', '确认条件 → 必要澄清 → 明确修改 → 真实重算 → 核对结果')
-    snapshot = st.container()
-    annual = st.session_state.get('annual_run')
-    if annual is None:
-        with snapshot:
-            conversation_snapshot(st.session_state.get('agent_reply'))
-        empty('持续对话沿用现有“全年规划与Agent”任务入口。请先在优化结果中加载并评估全年任务；合成演示的表单与原有参数修改入口仍可使用。')
-        return
-    if run is not None and run.run_id != annual.run_id:
-        st.warning('结果页当前选择了其他运行；下方对话助手的确认基准仍为全年规划运行，不会自动替换基准。')
-    st.caption(f'助手当前任务：{annual.run_id} · v{annual.input_version}。会话恢复和重新选择基准使用原有处理逻辑。')
-    with st.expander('已执行步骤与当前状态'):
-        execution(annual)
-    from ..planning_ui import render_model
-    render_model(annual)
-    with snapshot:
-        conversation_snapshot(st.session_state.get('agent_reply'))
+    from .chat_workspace import render
+    render(run, navigate)
 
 
 def main() -> None:
@@ -118,6 +103,8 @@ def main() -> None:
         workbench(run)
     with tabs[3]:
         experiment()
+        from .decision_archives import render_archived_decisions
+        render_archived_decisions()
     with tabs[4]:
         evidence(run)
 

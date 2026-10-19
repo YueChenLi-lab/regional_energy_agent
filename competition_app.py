@@ -1,4 +1,4 @@
-"""Optional competition presentation; the original app.py remains available."""
+"""Competition entry alias; app.py uses the same console, legacy_app.py keeps the original UI."""
 from pathlib import Path
 
 from dotenv import load_dotenv

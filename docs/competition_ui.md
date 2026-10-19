@@ -84,3 +84,7 @@ python -m streamlit run competition_app.py
 ## v0.4.1 多情景决策集成
 
 `console.app.main` 在结果及反事实修复之后调用 `regret_ui.render_regret(run)`，只读当前选择的RunResult。独立 `regret_<run_id>` 控件/结果状态键保留原会话键和业务调用。只有已确认表单提交才运行注册工具；相同输入的稳定请求ID重放落盘回执，刷新不执行。默认折叠；配置、情景及授权先展示，结果按真实认证/近似/待定状态生成；证据和JSON在展开区。没有采用操作，不改变原任务持久化。`ENERGY_AGENT_ENABLE_REGRET=0` 可关闭。真实桌面/430px截图和对应合成168小时页面文字见 `v041_evidence`，不是全年截图。
+
+## v0.5展示层升级
+
+使用用户Claude草稿，经真实Schema核对、接口修正和浏览器验收后集成双栏工作台、修复卡片及后悔热表。app.py与competition_app.py共用五页，旧入口保留legacy_app.py；详见[接口与回退](decision_workbench_ui.md)、[实际验证](v05_ui_validation.md)。原三工具自动自然语言路由未实现，导航建议不视为授权。

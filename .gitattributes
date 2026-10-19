@@ -18,3 +18,8 @@ examples/peak_sensitivity_v032/**/*.csv whitespace=cr-at-eol
 
 # csv.DictWriter uses CRLF; preserve archived matrix bytes for SHA256 replay.
 docs/v041_evidence/*_matrix.csv whitespace=cr-at-eol
+
+# Read-only decision viewers verify published bytes on Linux and Windows.
+docs/v04_evidence/** -text
+docs/v041_evidence/** -text
+docs/v05_ui_evidence/** -text

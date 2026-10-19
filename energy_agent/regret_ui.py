@@ -32,31 +32,14 @@ def heatmap(matrix, cells, title):
 
 
 def show_regret_result(result):
-    a = result.analysis
-    st.subheader(STATUS[a.status])
-    st.caption(f'基准 {result.base_run_id} · v{result.input_version} · 请求 {result.request_id}')
-    cols = st.columns(3)
-    cols[0].metric('基准情景最便宜', '、'.join(a.baseline_cheapest_ids) or '不可用')
-    cols[1].metric('最小最大后悔候选', '、'.join(a.recommended_ids) or '待定 / 无完整推荐')
-    cols[2].metric('实际求解适配器调用', str(result.solver_calls))
-    st.info(result.explanation)
-    heatmap(a.cost_matrix, result.cells, '成本热力图 · '+('规划期NPV' if result.cost_basis=='npv' else '评估期购能费'))
-    heatmap(a.regret_matrix, result.cells, '后悔成本热力图 · 相对各情景当前候选集最佳')
-    st.caption('最坏后悔对比：仅列出全部指定情景均有可行见证的配置；部分/近似状态不表示精确最优。')
-    worst = {k:v for k,v in a.worst_regret_yuan.items() if v is not None}
-    if worst:
-        st.bar_chart(pd.DataFrame({'最坏后悔（元）':worst}), color='#24bed2')
-    st.dataframe(pd.DataFrame([{'配置':c.candidate_id,'情景':c.scenario_id,
-        '投资（元）':c.investment_yuan,'成本（元）':c.cost_yuan,
-        '运行排放（kg）':c.emissions_kg,'状态':c.solver_status or '未执行',
-        '可行性':c.feasibility,'独立校验':bool(c.validation and c.validation.valid),'gap':c.mip_gap} for c in result.cells]),hide_index=True)
-    st.caption('排放物质与核算边界见原任务；排放未折现。没有“采用”按钮：本分析不会改写当前确认任务。')
-    for kind, label, mime in [('json','下载结构化结果','application/json'),('csv','下载矩阵CSV','text/csv'),('markdown','下载中文报告','text/markdown')]:
-        path=Path(result.files[kind])
-        if path.is_file():
-            st.download_button(label,path.read_bytes(),file_name=path.name,mime=mime,key=f'regret_download_{kind}_{result.base_run_id}')
-    with st.expander('情景定义、容量指纹与逐单元证据'):
-        st.json(result.model_dump(mode='json'))
+    from .console.decision_components import regret_board
+    st.subheader(STATUS[result.analysis.status])
+    regret_board(result)
+    # Native Vega view retains accessible chart/data export for the existing
+    # workflow; the new HTML matrix is the primary interactive presentation.
+    with st.expander('原生图表与图像导出（同一真实矩阵）'):
+        heatmap(result.analysis.cost_matrix,result.cells,'成本矩阵')
+        heatmap(result.analysis.regret_matrix,result.cells,'后悔矩阵')
 
 
 def render_regret(run):

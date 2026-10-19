@@ -11,7 +11,7 @@ def test_annual_ui_load_preview_and_model_does_not_autocall(monkeypatch,tmp_path
     app=AppTest.from_file(str(Path('app.py').resolve()),default_timeout=30).run()
     app.radio(key='workflow').set_value('全年规划与Agent').run()
     assert not app.exception
-    assert app.button[0].disabled
+    assert next(b for b in app.button if b.label=='加载许可全年离线案例').disabled
     app.checkbox(key='annual_ack').check().run()
     next(b for b in app.button if b.label=='加载许可全年离线案例').click().run()
     assert not app.exception

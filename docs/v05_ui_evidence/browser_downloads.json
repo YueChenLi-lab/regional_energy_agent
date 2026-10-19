@@ -1,0 +1,20 @@
+[
+  {
+    "filename": "mixed_heat_8760h_result.json",
+    "bytes": 106754,
+    "sha256": "f85ba7965a406628b0b55a30e53a319a550a13421fb15a1bce475cd43a606aa6",
+    "matches_archive": true
+  },
+  {
+    "filename": "mixed_heat_8760h_matrix.csv",
+    "bytes": 5200,
+    "sha256": "479f8c42bc4a4e54ffce3b25f65d79644ae48ab61efc675ddc1ade4f2ebd7414",
+    "matches_archive": true
+  },
+  {
+    "filename": "mixed_heat_8760h_report.md",
+    "bytes": 20328,
+    "sha256": "5d001ce24beb751ce3eb662a414494c8091ff3724fb3a96635c172caa79bfe9b",
+    "matches_archive": true
+  }
+]

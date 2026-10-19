@@ -79,34 +79,19 @@ def render_counterfactual(run, on_adopt=None):
             except (ValueError, OSError) as exc:
                 st.error(str(exc))
         result = st.session_state.get('cf_result_'+suffix)
-        if result:
-            st.write(f'原任务复核：{result.baseline_verification.feasibility}；调用 {result.solver_calls}；耗时 {result.elapsed_seconds:.2f} 秒。')
-            st.caption('各路径互为替代；不是唯一原因诊断，不是必须同时修改。探索结果尚未自动采用。')
-        columns = st.columns(3)
-        for column, field in zip(columns, NAMES):
-            with column, st.container(border=True):
-                st.write(NAMES[field])
-                path = next((p for p in result.paths if p.field==field),None) if result else None
-                if path is None:
-                    st.caption('待执行 / 未授权')
-                    continue
-                labels = {'not_started':'未启动', 'verified_repair':'已验证可行调整', 'already_feasible':'基准已可行',
-                          'not_found':'范围内尚未找到', 'uncertain':'边界不确定', 'budget_exhausted':'搜索预算耗尽', 'error':'求解或校验失败'}
-                st.write(labels[path.status])
-                st.caption(path.note)
-                if path.suggested_value is not None:
-                    st.write(f'{path.original_value:g} → {path.suggested_value:g} {path.unit}（+{path.adjustment:g}）')
-                    st.caption(f'边界精度达到：{path.boundary_precision_reached}；{path.solver_status}；gap={path.mip_gap}；独立复核通过')
-                    if path.solver_status == 'feasible_limit':
-                        st.caption('已有可行方案，运行目标最优性未证明。边界搜索精度与目标最优性间隙分别判断。')
-                    st.write(f'初投 {path.metrics["investment_yuan"]:,.2f} 元；购能费 {path.metrics["operating_cost_yuan"]:,.2f} 元；排放 {path.metrics["emissions_kg"]:,.2f} {path.metrics["emission_unit"]}')
-                    if path.npv_cost_yuan is not None:st.write(f'NPV {path.npv_cost_yuan:,.2f} 元')
-                    if on_adopt and st.button('确认采用此路径',key='cf_adopt_'+path.path_id):
-                        try:
-                            adopted = adopt_counterfactual_path(result,run,path.path_id,confirmed=True,adoption_id=request_id+':'+path.path_id)
-                            on_adopt(adopted)
-                            st.rerun()
-                        except (ValueError,OSError) as exc:st.error(str(exc))
+        from .console.decision_components import repair_board
+        def adopt_card(path_vm):
+            if on_adopt and st.button('确认采用此路径',key='cf_adopt_'+path_vm.path_id):
+                try:
+                    adopted = adopt_counterfactual_path(result,run,path_vm.path_id,confirmed=True,
+                        adoption_id=result.request_id+':'+path_vm.path_id)
+                    on_adopt(adopted)
+                    st.rerun()
+                except (ValueError,OSError) as exc:
+                    st.error(str(exc))
+        if result is None:
+            st.caption('待执行 / 未授权：尚无当前基准的修复结果。')
+        repair_board(result,adopt=adopt_card if on_adopt else None)
         if result:
             for key, label in [('json','JSON'),('markdown','中文Markdown报告')]:
                 path=Path(result.files[key])

@@ -1,0 +1,272 @@
+{
+  "desktop_workspace": [
+    {
+      "width": 845.484375,
+      "x": 40,
+      "position": "static"
+    },
+    {
+      "width": 440.515625,
+      "x": 949.484375,
+      "position": "sticky"
+    }
+  ],
+  "mobile_workspace": [
+    {
+      "width": 348,
+      "x": 16,
+      "position": "static"
+    },
+    {
+      "width": 348,
+      "x": 16,
+      "position": "static"
+    }
+  ],
+  "mobile_page_overflow": false,
+  "boundaries": {
+    "segments": 3,
+    "positions": [
+      {
+        "left": "0%",
+        "width": "63.086%"
+      },
+      {
+        "left": "63.086%",
+        "width": "0.098%"
+      },
+      {
+        "left": "63.184%",
+        "width": "36.816%"
+      },
+      {
+        "left": "0%",
+        "width": "13.867%"
+      },
+      {
+        "left": "13.867%",
+        "width": "0.049%"
+      },
+      {
+        "left": "13.916%",
+        "width": "86.084%"
+      },
+      {
+        "left": "0%",
+        "width": "32.666%"
+      },
+      {
+        "left": "32.666%",
+        "width": "0.049%"
+      },
+      {
+        "left": "32.715%",
+        "width": "67.285%"
+      }
+    ],
+    "accessible": true
+  },
+  "annual_matrix": {
+    "tables": 2,
+    "cells": 12,
+    "tabindex": "0",
+    "tooltip": "BASE × 基准\n状态：已证明最优\n成本：39,194,982.84 元\n后悔：5,453,528.41 元",
+    "sticky": "sticky"
+  },
+  "mobile_matrix": {
+    "client": 314,
+    "scroll": 520,
+    "scrollLeft": 150,
+    "stickyDelta": -3,
+    "pageOverflow": false
+  },
+  "keyboard": {
+    "active": true,
+    "tabindex": "0",
+    "titlePresent": true
+  },
+  "reduced_motion": "none",
+  "palette": [
+    {
+      "type": "cost",
+      "level": 0,
+      "bg": "rgb(196, 240, 245)",
+      "fg": "rgb(0, 0, 0)",
+      "stripe": "rgba(255,255,255,.10)",
+      "contrast_normal": 17.129702205438313,
+      "contrast_striped": 17.4806905983861
+    },
+    {
+      "type": "cost",
+      "level": 1,
+      "bg": "rgb(177, 221, 230)",
+      "fg": "rgb(0, 0, 0)",
+      "stripe": "rgba(255,255,255,.10)",
+      "contrast_normal": 14.354637093111752,
+      "contrast_striped": 14.93413193209354
+    },
+    {
+      "type": "cost",
+      "level": 2,
+      "bg": "rgb(158, 202, 216)",
+      "fg": "rgb(0, 0, 0)",
+      "stripe": "rgba(255,255,255,.10)",
+      "contrast_normal": 11.893605626378413,
+      "contrast_striped": 12.645021008641361
+    },
+    {
+      "type": "cost",
+      "level": 3,
+      "bg": "rgb(139, 183, 201)",
+      "fg": "rgb(0, 0, 0)",
+      "stripe": "rgba(255,255,255,.10)",
+      "contrast_normal": 9.714597246958594,
+      "contrast_striped": 10.586082303772827
+    },
+    {
+      "type": "cost",
+      "level": 4,
+      "bg": "rgb(120, 164, 187)",
+      "fg": "rgb(0, 0, 0)",
+      "stripe": "rgba(255,255,255,.10)",
+      "contrast_normal": 7.826368950192608,
+      "contrast_striped": 8.767781936398864
+    },
+    {
+      "type": "cost",
+      "level": 5,
+      "bg": "rgb(102, 146, 172)",
+      "fg": "rgb(0, 0, 0)",
+      "stripe": "rgba(255,255,255,.10)",
+      "contrast_normal": 6.272221379963417,
+      "contrast_striped": 7.2380737465567035
+    },
+    {
+      "type": "cost",
+      "level": 6,
+      "bg": "rgb(83, 127, 158)",
+      "fg": "rgb(0, 0, 0)",
+      "stripe": "rgba(255,255,255,.10)",
+      "contrast_normal": 4.897273148198161,
+      "contrast_striped": 5.846899302441423
+    },
+    {
+      "type": "cost",
+      "level": 7,
+      "bg": "rgb(64, 108, 143)",
+      "fg": "rgb(255, 255, 255)",
+      "stripe": "rgba(0,0,0,.10)",
+      "contrast_normal": 5.585616502667848,
+      "contrast_striped": 6.541645886655893
+    },
+    {
+      "type": "cost",
+      "level": 8,
+      "bg": "rgb(45, 89, 129)",
+      "fg": "rgb(255, 255, 255)",
+      "stripe": "rgba(0,0,0,.10)",
+      "contrast_normal": 7.349017283063478,
+      "contrast_striped": 8.41584782585851
+    },
+    {
+      "type": "cost",
+      "level": 9,
+      "bg": "rgb(26, 70, 114)",
+      "fg": "rgb(255, 255, 255)",
+      "stripe": "rgba(0,0,0,.10)",
+      "contrast_normal": 9.708886073276085,
+      "contrast_striped": 10.810043606544319
+    },
+    {
+      "type": "regret",
+      "level": 0,
+      "bg": "rgb(255, 230, 173)",
+      "fg": "rgb(0, 0, 0)",
+      "stripe": "rgba(255,255,255,.10)",
+      "contrast_normal": 17.174151780822655,
+      "contrast_striped": 17.519907663908413
+    },
+    {
+      "type": "regret",
+      "level": 1,
+      "bg": "rgb(242, 209, 156)",
+      "fg": "rgb(0, 0, 0)",
+      "stripe": "rgba(255,255,255,.10)",
+      "contrast_normal": 14.375694801328645,
+      "contrast_striped": 14.949704089076693
+    },
+    {
+      "type": "regret",
+      "level": 2,
+      "bg": "rgb(229, 188, 139)",
+      "fg": "rgb(0, 0, 0)",
+      "stripe": "rgba(255,255,255,.10)",
+      "contrast_normal": 11.897706624886021,
+      "contrast_striped": 12.64124692654222
+    },
+    {
+      "type": "regret",
+      "level": 3,
+      "bg": "rgb(216, 167, 121)",
+      "fg": "rgb(0, 0, 0)",
+      "stripe": "rgba(255,255,255,.10)",
+      "contrast_normal": 9.723367799242604,
+      "contrast_striped": 10.580950237758154
+    },
+    {
+      "type": "regret",
+      "level": 4,
+      "bg": "rgb(203, 146, 104)",
+      "fg": "rgb(0, 0, 0)",
+      "stripe": "rgba(255,255,255,.10)",
+      "contrast_normal": 7.85075099907541,
+      "contrast_striped": 8.770667248570113
+    },
+    {
+      "type": "regret",
+      "level": 5,
+      "bg": "rgb(191, 126, 87)",
+      "fg": "rgb(0, 0, 0)",
+      "stripe": "rgba(255,255,255,.10)",
+      "contrast_normal": 6.337238949637765,
+      "contrast_striped": 7.271219179966996
+    },
+    {
+      "type": "regret",
+      "level": 6,
+      "bg": "rgb(178, 105, 70)",
+      "fg": "rgb(0, 0, 0)",
+      "stripe": "rgba(255,255,255,.10)",
+      "contrast_normal": 5.002064897863902,
+      "contrast_striped": 5.909480903437926
+    },
+    {
+      "type": "regret",
+      "level": 7,
+      "bg": "rgb(165, 84, 52)",
+      "fg": "rgb(255, 255, 255)",
+      "stripe": "rgba(0,0,0,.10)",
+      "contrast_normal": 5.3604483745962375,
+      "contrast_striped": 6.30244929997457
+    },
+    {
+      "type": "regret",
+      "level": 8,
+      "bg": "rgb(152, 63, 35)",
+      "fg": "rgb(255, 255, 255)",
+      "stripe": "rgba(0,0,0,.10)",
+      "contrast_normal": 6.839605372640225,
+      "contrast_striped": 7.894889970134887
+    },
+    {
+      "type": "regret",
+      "level": 9,
+      "bg": "rgb(139, 42, 18)",
+      "fg": "rgb(255, 255, 255)",
+      "stripe": "rgba(0,0,0,.10)",
+      "contrast_normal": 8.614629159874088,
+      "contrast_striped": 9.741175243885206
+    }
+  ],
+  "palette_minimum_contrast": 4.897273148198161
+}
