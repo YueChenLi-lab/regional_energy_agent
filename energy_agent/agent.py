@@ -120,6 +120,8 @@ def revise_task(task: TaskRequest, patch: TaskPatch, parent_run_id: str | None =
 
 
 def compare_runs(previous: RunResult, current: RunResult) -> dict:
+    from .comparability import compare_basis
+    basis=compare_basis(previous.task,current.task)
     before = {s.candidate.candidate_id: s for s in previous.scenarios}
     differences = []
     for scenario in current.scenarios:
@@ -143,7 +145,8 @@ def compare_runs(previous: RunResult, current: RunResult) -> dict:
         "previous_constraints": previous.task.constraints.model_dump() if previous.task.constraints else None,
         "current_constraints": current.task.constraints.model_dump() if current.task.constraints else None,
         "scenarios": differences,
-        "note": "差值为当前运行减前次运行；仅同一评估时段下可直接比较。",
+        "comparison_basis": basis.model_dump(mode="json"),
+        "note": "差值为当前运行减前次运行；"+basis.summary,
     }
 
 

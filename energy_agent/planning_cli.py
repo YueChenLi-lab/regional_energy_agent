@@ -45,6 +45,11 @@ def register_planning_commands(commands):
     diagnostic=commands.add_parser('data-diagnose',help='只读峰值及邻近时段诊断，不处理或覆盖原值')
     diagnostic.add_argument('--task',type=Path,required=True,help='任务JSON或result.json')
     diagnostic.add_argument('--output',type=Path,required=True)
+    peak=commands.add_parser('peak-study',help='三组离线全年Q峰值处理假设实验；不覆盖原始数据')
+    peak.add_argument('--bundle',type=Path,default=Path('examples/shanghai_2017'))
+    peak.add_argument('--spec',type=Path,default=Path('configs/peak_sensitivity_v032.json'))
+    peak.add_argument('--output',type=Path,required=True)
+    peak.add_argument('--time-limit',type=float,default=120)
     check=commands.add_parser('llm-check',help='一次显式连通请求，消耗模型额度')
     check.add_argument('--output',type=Path,default=Path('outputs/model_check'))
     acceptance=commands.add_parser('llm-acceptance',help='真实接口验收，含重试最多10次；需要已确认电热运行')
@@ -77,6 +82,12 @@ def handle_planning_command(args):
         study=sensitivity_analysis(SensitivityRequest(task=task,output_dir=str(out),scans=args.scans,
             options=SolverOptions(time_limit_seconds=args.time_limit,mip_rel_gap=0.002)))
         print(study.model_dump_json(indent=2));return 0
+    if args.command=='peak-study':
+        from .peak_sensitivity import run_peak_study
+        result=run_peak_study(bundle_dir=args.bundle,spec_file=args.spec,output=out,time_limit=args.time_limit)
+        print(result.conclusion)
+        print(json.dumps(result.files,ensure_ascii=False))
+        return 0 if all(r['feasible'] for r in result.scenarios) else 2
     if args.command=='data-diagnose':
         from .diagnostics import diagnose_peak,export_diagnostics
         raw=json.loads(args.task.read_text(encoding='utf-8'))

@@ -175,3 +175,13 @@ JSON 是完整可追溯结果；CSV 便于比较与绘图；Markdown 报告描�
 `Economics.additional_fixed_om_yuan_per_year`单位元/年，默认0，作为项目额外费用在年1…H支付；不同于设备含安装投资比例维护费，二者单列相加。容量优化只增加对应NPV常数，不计入第0年预算。原任务/结果JSON兼容默认值。
 
 `PeakDiagnostics`保存Source ID/category、记录数、峰值/第二大/99分位、时点/邻近区间、跳变、当前约束/容量边界及必要供电条件，不处理或覆盖输入。输入已缩放时按user情景解释，不冒充原始实测。
+
+
+## v0.3.2 修改与可比性证据
+
+- `ModificationContract.edits[]`：field/before/after/unit/evidence保留；新增operation（target/delta/relative_percent/baseline_ratio）与input_unit，单位完整匹配，不从kWh中截出kW。含糊或否定语句只产生missing，不能用于求解。
+- `changes.comparison_basis`：kind为A_same_basis/B_economic_sensitivity/C_input_sensitivity/D_mixed_sensitivity；directly_comparable、每项checks（字段、组别、same、前后指纹）、changed_labels、统一中文summary与限定note。不同口径仍可列原始差值，不称同口径成本节省。
+- `PeakStudySpec`：明确处理时点/原值、局部窗口小时、上限取整步幅kW及容量/NPV敏感判据；不得根据求解结果再选点或改边界。
+- `PeakStudyResult`：raw_file_sha256、parent_normalized_sha256、controls_sha256、spec、三组scenarios、结论及文件。每组保留年用电kWh/峰值kW、容量、投资/NPV元、年运行排放kg（物质为任务CO2e）、状态/间隙/耗时、独立检查及原值差异。
+- `treatment.json`：人为处理/原值类别、父文件/标准化父文件哈希、处理方法、局部阈值、精确时间和前后kW/电量变化；派生Source.category=assumption，原始source保留。
+- `standardized.csv`继续使用原load_csv契约：timestamp与既有8个时序字段；伴随metadata.json只含step_hours、units、source_ids。每行是含时区的区间起点，功率乘步长得到能量。处理CSV不是测量校准结果。

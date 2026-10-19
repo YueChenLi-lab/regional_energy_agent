@@ -9,7 +9,7 @@ import streamlit as st
 
 from .agent import EnergyAgent, revise_task
 from .annual import build_annual_case
-from .conversation import AgentSession, ConnectivityCheck
+from .conversation import AgentSession, ConnectivityCheck,contract_brief
 from .frontier import SensitivityRequest, sensitivity_analysis
 from .llm import LLMError, OpenAICompatibleClient, get_llm_client
 from .schemas import CAPACITY_FIELDS, RunResult, SolverOptions, TaskPatch, TaskRequest
@@ -31,6 +31,7 @@ def render_planning(show_results):
                     st.session_state.pop(k,None)
             st.session_state.annual_task=task;st.session_state.annual_run=None
         except (ValueError,OSError) as exc:st.error(str(exc))
+    render_peak_experiment_view()
     upload=st.file_uploader('或导入统一全年任务JSON（含来源、经济与容量边界）',type=['json'],key='annual_upload')
     if upload and st.button('校验并加载上传任务'):
         from .data import validate_inputs
@@ -149,6 +150,18 @@ def render_model(run):
         directory=Path(os.getenv('ENERGY_AGENT_OUTPUT_DIR','outputs'))/'ui_conversations'/hashlib.sha256(session_id.encode()).hexdigest()
         session=AgentSession(EnergyAgent(directory/'runs',run.solver_options),client,directory/'receipts')
         text=st.text_area('原始要求',value='预算少一点，供热不变。',key='annual_nl')
+        if not session._path(request_id).exists():
+            from .modifications import compile_contract
+            from .comparability import compare_basis
+            preview=compile_contract(text,run)
+            brief=contract_brief(preview)
+            if preview.ready:
+                st.write('准备修改（尚未执行）：'+'；'.join(brief['changes']))
+                st.caption(brief['preserves'])
+                st.caption(compare_basis(run.task,revise_task(run.task,preview.patch)).summary)
+            else:
+                st.caption('准备修改：尚需澄清，未生成可执行修改。'+' '.join(m.question for m in preview.missing))
+        else:st.caption('此请求已绑定原确认基准；请恢复或接续该请求，新修改请使用新请求ID。')
         def remember(reply):
             st.session_state.agent_reply=reply
             if reply.run:
@@ -171,6 +184,9 @@ def render_model(run):
                 c=dialog.confirmed_conditions
                 st.write(f"已确认预算：{c['budget_yuan']:,.2f}元；时段：{c['period_start']} 至 {c['period_end']}。")
                 if reply.contract:
+                    brief=contract_brief(reply.contract)
+                    if brief['changes']:st.caption('变更清单：'+'；'.join(brief['changes']))
+                    st.caption(brief['preserves'])
                     with st.expander('修改前的授权清单：变更与保留条件'):
                         st.dataframe(pd.DataFrame(reply.contract.edits),hide_index=True)
                         st.write('明确保留：'+ '、'.join(reply.contract.preserves))
@@ -215,3 +231,26 @@ def render_model(run):
                     st.json(reply.run.changes)
         if configured:
             with st.expander('脱敏服务调用记录'):st.json(client.budget.records)
+
+
+def render_peak_experiment_view():
+    """Read an experiment record; never rerun a solver or model on refresh."""
+    from .peak_sensitivity import PeakStudyResult
+    with st.expander('推荐对峰值假设是否敏感（离线实验）'):
+        st.caption('只读取实验记录，不自动求解。处理情景是人为研究假设，原始数据未改。')
+        path=Path(__file__).resolve().parents[1]/'docs/v032_evidence/peak_study.json'
+        uploaded=st.file_uploader('导入峰值实验study.json',type=['json'],key='peak_study_upload')
+        if uploaded or (path.exists() and st.button('查看已完成的三组全年实验',key='peak_study_view')):
+            try:
+                raw=uploaded.getvalue() if uploaded else path.read_bytes()
+                st.session_state.peak_study_record=PeakStudyResult.model_validate_json(raw)
+            except ValueError as exc:st.error(str(exc))
+        record=st.session_state.get('peak_study_record')
+        if record:
+            st.info(record.conclusion)
+            columns={'label':'情景','annual_electric_kwh':'年用电量 kWh','peak_kw':'电峰值 kW','npv_cost_yuan':'NPV 元','annual_emissions_kg':'年运行排放 kgCO2e','status':'状态','mip_gap':'间隙'}
+            st.dataframe(pd.DataFrame([{label:r.get(key) for key,label in columns.items()} for r in record.scenarios]),hide_index=True)
+            st.caption('比较口径C：负荷输入发生变化。NPV与排放差值包含用电量变化，不能全部解释为设备配置改善。')
+            with st.expander('容量、处理点、固定条件与详细证据'):
+                st.json(record.model_dump(mode='json'))
+            st.download_button('下载峰值实验JSON',record.model_dump_json(indent=2),file_name='peak_study.json',key='peak_study_download')

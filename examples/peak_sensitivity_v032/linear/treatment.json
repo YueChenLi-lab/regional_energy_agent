@@ -1,0 +1,43 @@
+{
+  "method": "linear",
+  "label": "列出点邻时线性插值假设",
+  "category": "assumption",
+  "raw_file_sha256": "7a9f6158ca5d6102c72c24623bce7930fc57e16825a2803d8e55b66bd3bb78f9",
+  "parent_normalized_sha256": "d5005614ae9d59ef474ea26df55405e1a8f9c6584c5990b3ce5c6e557a8ce07b",
+  "controls_sha256": "4de4205662e761e7dc772beb00851e7125ed1e82a15ec44c620b64ab98ea05c6",
+  "spec": {
+    "format": "regional-energy-peak-study-v1",
+    "year": 2017,
+    "building": "test",
+    "meter": "Q",
+    "points": [
+      {
+        "timestamp": "2017-01-13T00:00:00+08:00",
+        "expected_original_kw": 4907.06
+      }
+    ],
+    "local_reference_hours_each_side": 24.0,
+    "cap_rounding_kw": 100.0,
+    "capacity_relative_threshold": 0.01,
+    "capacity_absolute_threshold": 1.0,
+    "npv_relative_threshold": 0.01,
+    "method_statement": "仅作人为处理假设敏感性实验，不认定原数据错误，不是校准实测。线性情景只对列出的点使用前后未列出时点插值；局部上限由原值数据前后24小时中未列出点的最大值向上取整至100kW，一次计算后固定。三组使用同一原值基准的预算、容量边界、购电上限及其余输入。"
+  },
+  "changes": [
+    {
+      "timestamp": "2017-01-13T00:00:00+08:00",
+      "before_kw": 4907.06,
+      "after_kw": 242.43,
+      "method": "linear",
+      "affected_energy_kwh": -4664.63,
+      "left_reference": "2017-01-12T23:00:00+08:00",
+      "right_reference": "2017-01-13T01:00:00+08:00",
+      "local_reference_hours_each_side": 24.0,
+      "local_reference_count": 48,
+      "local_max_kw": 819.4799999999997,
+      "cap_rounding_kw": 100.0,
+      "predeclared_rule_cap_kw": 900.0
+    }
+  ],
+  "warning": "人为处理研究假设，不认定原数据错误，不是校准后的实测。负荷电量本身改变会影响成本和排放，不能把全部差值归因于设备配置改善；仅评价推荐对这些峰值处理假设是否敏感，不判断真实峰值应是多少。"
+}

@@ -121,7 +121,9 @@ def _edit_label(path):
     if path.startswith('economics.assets.'):
         parts=path.split('.')
         return _ASSET_LABELS[parts[2]]+('寿命' if parts[3]=='lifetime_years' else '年固定维护费率')
-    return _ECON_LABELS.get(path.removeprefix('economics.'),path)
+    labels={'constraints.budget_yuan':'初始投资预算','constraints.grid_limit_kw':'购电功率上限','constraints.pv_limit_kw':'光伏场地上限',
+        'constraints.emission_limit_kg':'运行排放上限','data.electric_load_kw':'电负荷倍数','data.heat_load_kw_th':'热负荷倍数'}
+    return labels.get(path,_ECON_LABELS.get(path.removeprefix('economics.'),path))
 
 
 def _edit_value(value,path,unit):
@@ -133,26 +135,40 @@ def _edit_value(value,path,unit):
     return f'{value:g}{unit}' if isinstance(value,(float,int)) else str(value)
 
 
+def contract_brief(contract):
+    lines=[]
+    names={'constraints.budget_yuan':'初始投资预算','economics.discount_rate':'折现率','economics.horizon_years':'规划期','data.electric_load_kw':'电负荷倍数','data.heat_load_kw_th':'热负荷倍数'}
+    for edit in contract.edits:
+        lines.append(f"- 修改：{names.get(edit['field'],_edit_label(edit['field']))}，{_edit_value(edit['before'],edit['field'],edit['unit'])} → {_edit_value(edit['after'],edit['field'],edit['unit'])}。")
+    keep_names={'heat_load':'供热负荷与逐时足额保障','electric_load':'电负荷','period':'评估时段和步长','budget':'预算','emission_limit':'排放上限','grid_limit':'购电上限','pv_limit':'光伏场地限制','economics':'经济参数'}
+    keys=list(dict.fromkeys(contract.preserves+contract.unchanged))
+    if 'economics' in keys:keys=[k for k in keys if not k.startswith('economics.')]
+    labels=[]
+    for key in keys:
+        if key.startswith('economics.assets.'):
+            label='其余设备寿命' if key.endswith('lifetime_years') else '其余设备年维护费率'
+        else:label=keep_names.get(key,_edit_label(key))
+        if label not in labels:labels.append(label)
+    lines.append('保持：'+'、'.join(labels)+'。')
+    return {'changes':[line.removeprefix('- 修改：') for line in lines if line.startswith('- 修改：')],
+        'preserves':next((line for line in lines if line.startswith('保持：')),'')}
+
+
 def deterministic_reply(run,previous=None,contract=None):
     """All values, differences and units are rendered locally from tool results."""
     annual=run.task.resolution=='full_year'
     period='年度' if annual else '评估期'
     lines=[f'当前运行 {run.run_id}，输入版本 {run.input_version}：{actual_conclusion(run)}。运行排放单位kg{run.task.emission_species}。']
-    if previous:lines.append(f'基准运行：{previous.run_id}，版本{previous.input_version}。')
+    delta_label='同ID方案变化'
+    if previous:
+        from .comparability import compare_basis
+        basis=compare_basis(previous.task,run.task)
+        lines.extend([f'基准运行：{previous.run_id}，版本{previous.input_version}。',basis.summary])
+        if not basis.directly_comparable:delta_label='原始差值（含口径变化）'
     if contract:
-        names={'constraints.budget_yuan':'初始投资预算','economics.discount_rate':'折现率','economics.horizon_years':'规划期','data.electric_load_kw':'电负荷倍数','data.heat_load_kw_th':'热负荷倍数'}
-        for edit in contract.edits:
-            lines.append(f"- 修改：{names.get(edit['field'],_edit_label(edit['field']))}，{_edit_value(edit['before'],edit['field'],edit['unit'])} → {_edit_value(edit['after'],edit['field'],edit['unit'])}。")
-        keep_names={'heat_load':'供热负荷与逐时足额保障','electric_load':'电负荷','period':'评估时段和步长','budget':'预算','emission_limit':'排放上限','grid_limit':'购电上限','pv_limit':'光伏场地限制','economics':'经济参数'}
-        keys=list(dict.fromkeys(contract.preserves+contract.unchanged))
-        if 'economics' in keys:keys=[k for k in keys if not k.startswith('economics.')]
-        labels=[]
-        for key in keys:
-            if key.startswith('economics.assets.'):
-                label='其余设备寿命' if key.endswith('lifetime_years') else '其余设备年维护费率'
-            else:label=keep_names.get(key,_edit_label(key))
-            if label not in labels:labels.append(label)
-        lines.append('保持：'+'、'.join(labels)+'。')
+        brief=contract_brief(contract)
+        lines.extend('- 修改：'+line for line in brief['changes'])
+        lines.append(brief['preserves'])
     old={s.candidate.candidate_id:s for s in previous.scenarios} if previous else {}
     for s in run.scenarios:
         state={'optimal':'当前模型及容差内已证明最优','feasible_limit':'已有可行解，未证明最优','no_solution_limit':'达到时限，未找到可行解'}.get(s.dispatch.status,s.dispatch.status)
@@ -164,7 +180,7 @@ def deterministic_reply(run,previous=None,contract=None):
         for key,label in _LABELS.items():
             if key in ('investment_yuan','npv_cost_yuan','emissions_kg','operating_cost_yuan'):continue
             value=getattr(s.candidate,key)
-            delta=f'，同ID方案变化 {value-getattr(before.candidate,key):+.2f}' if before and before.validation.valid else ''
+            delta=f'，{delta_label} {value-getattr(before.candidate,key):+.2f}' if before and before.validation.valid else ''
             lines.append(f'- {label}：{value:.2f}{delta}。')
         metrics=[('初始投资','元',s.investment_yuan,before.investment_yuan if before and before.validation.valid else None)]
         if s.economics:
@@ -172,7 +188,7 @@ def deterministic_reply(run,previous=None,contract=None):
         metrics.append((period+'运行排放','kg'+run.task.emission_species,s.validation.metrics.emissions_kg,before.validation.metrics.emissions_kg if before and before.validation.valid else None))
         metrics.append((period+'购能费','元',s.validation.metrics.operating_cost_yuan,before.validation.metrics.operating_cost_yuan if before and before.validation.valid else None))
         for label,unit,value,prior in metrics:
-            delta=f'；同ID方案变化 {value-prior:+,.2f}{unit}' if prior is not None else ''
+            delta=f'；{delta_label} {value-prior:+,.2f}{unit}' if prior is not None else ''
             lines.append(f'- {label}：{value:,.2f}{unit}{delta}。')
     if run.comparison:lines.append('推荐依据：'+run.comparison.explanation)
     if run.task.economics:
@@ -420,6 +436,7 @@ class AgentSession:
 
     def _complete(self,run,receipt,path,request_id):
         context={'run_id':run.run_id,'conclusion':actual_conclusion(run),'current_facts':current_facts(run),
+            'comparison_basis':run.changes.get('comparison_basis'),
             'failures':[{'candidate_id':s.candidate.candidate_id,'status':s.dispatch.status,'reasons':s.dispatch.reasons} for s in run.scenarios if not s.validation.valid]}
         explanation=self.client.call_tool('grounded_explanation',GroundedExplanation,context,explain=True)
         validate_explanation(explanation,run);receipt['explanation']=explanation.model_dump()

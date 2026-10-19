@@ -1,0 +1,21 @@
+{
+  "step_hours": 1.0,
+  "units": {
+    "electric_load_kw": "kW",
+    "heat_load_kw_th": "kW_th",
+    "pv_per_kw": "kW/kW",
+    "electricity_price": "元/kWh",
+    "gas_price": "元/kWh_LHV",
+    "grid_emission_factor": "kgCO2e/kWh",
+    "gas_emission_factor": "kgCO2e/kWh_LHV"
+  },
+  "source_ids": {
+    "electric_load_kw": "peak-assumption-local_cap",
+    "heat_load_kw_th": "simulated-heating",
+    "pv_per_kw": "estimated-pv",
+    "electricity_price": "scenario-tariff",
+    "gas_price": "annual-assumptions",
+    "grid_emission_factor": "scenario-emissions",
+    "gas_emission_factor": "annual-assumptions"
+  }
+}

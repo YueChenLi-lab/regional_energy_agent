@@ -244,6 +244,8 @@ def generate_report(request: ReportRequest) -> ReportText:
         ])])
     chunks.extend(["## 模型假设、适用范围与尚未实现内容", "\n".join(f"- {item}" for item in assumptions)])
     if run.previous_run_id is not None:
+        from .comparability import basis_summary
+        chunks.extend(["## 前后结果的可比性",basis_summary(run)])
         chunks.extend(["## 场景变更", f"前次运行：`{run.previous_run_id}`；本次输入版本 {run.input_version}，计算状态见执行追溯。",
                        "```json\n" + json.dumps(run.changes, ensure_ascii=False, indent=2) + "\n```"])
     chunks.extend(["## 执行追溯", "状态流转：" + " → ".join(s.value for s in run.states),
