@@ -11,7 +11,7 @@
 - Streamlit AppTest：准备修改/保持项/口径提示、否定请求澄清、保存的三组实验展示；普通刷新禁止HTTP。不是浏览器视觉验收。
 - 实际全年Q三组实验：每组8760小时，同一预算/容量上下界/购电限制/经济/价格/因子/资源/热负荷；每组38项独立检查全部通过，逐时平衡、SOC及目标复核均包含在内。
 
-完整回归和CI最终状态待下方更新，不提前记作通过。首次完整回归246项通过、1项界面按钮顺序回归失败；已把离线实验查看放到原加载按钮后，保留原测试并针对验证通过，最终完整回归正在执行。
+最终Linux完整回归：**251 passed in49.62s**，原始输出见`v032_evidence/test_output.txt`。首次完整回归发现1项界面按钮顺序回归，已把离线实验查看放到原加载按钮后，保留原测试并在最终完整回归通过。后补CSV兼容及错误单位/同义字段澄清接续测试，均执行真实本地求解。
 
 ## 语义问题核实及测试调整
 
@@ -49,7 +49,9 @@ main实测复现见`v032_evidence/semantics_before.json`：增加到1200万元�
 
 本轮真实API请求：**0次**，没有执行llm-check/llm-acceptance，没有复制聊天密钥或输出配置值；v0.3.1的10次真实验收是历史记录，不记作本轮成果。所有模型流程使用模拟模型/MockTransport，数值仍由真实本地求解器产生。普通CI显式清空模型配置。
 
-Windows CI：尚待本轮提交触发并读取实际状态，未提前记为通过。Windows Conda交互操作、真实浏览器视觉、未核实的Q测点真实性/时间锚点以及更多气象/价格情景未验证。AppTest只覆盖服务端交互，不替代这些项目。
+**Windows CI实际通过**：提交`79636fc29f48760b7bf9d1af8d3425fd7599b02c`的[运行39215428105](https://github.com/YueChenLi-lab/regional_energy_agent/actions/runs/39215428105)，windows-latest/Python3.12与Ubuntu两个job均success。安装、pip check、完整pytest、中文路径合成导出、真实数据离线重放及JUnit上传各步骤均实际success；源代码无skip/xfail，Windows执行了同一完整套件。真实跨进程文件锁/重复提交阻止、解释器退出后的恢复、中文空格路径实际读回包含在其中。详见`v032_evidence/ci_initial.json`。JUnit产物及哈希元数据可读取，云端二进制下载返回403，未核读内容；不把本地251项输出冒充Windows日志。最终PR检查以GitHub最新提交状态为准。
+
+Windows Conda人工交互、真实浏览器视觉、未核实的Q测点真实性/时间锚点以及更多气象/价格情景未验证。Streamlit AppTest通过和健康接口HTTP200/ok不等于浏览器视觉验收。AppTest不替代这些项目。
 
 ## 操作命令
 

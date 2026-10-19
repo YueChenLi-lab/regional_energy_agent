@@ -156,7 +156,7 @@ def compile_contract(text,previous,answers=()):
         def parsed(current,dimension,field=clause_id):
             try:return parse_edit(c,current,dimension,species=task.emission_species)
             except EditMeaningError as exc:
-                question=('预算要减少多少？请说明减少百分比、降到原来比例，或明确金额（元/万元）。' if field=='budget' else '请明确该项修改：')
+                question=('预算要如何修改？请明确增减幅度、原来比例，或最终金额（元/万元）。' if field=='budget' else '请明确该项修改：')
                 need(field,question+' '+str(exc),str(exc));return None
         def edited(key,result,old):
             count=len(edits)
