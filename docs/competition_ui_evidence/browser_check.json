@@ -1,0 +1,29 @@
+{
+  "browser": "Chromium headless / Linux",
+  "mobile": {
+    "width": 390,
+    "scrollWidth": 390,
+    "heroWidth": 348,
+    "cardColumns": "348px"
+  },
+  "desktop_viewport": [
+    1440,
+    1100
+  ],
+  "mobile_viewport": [
+    390,
+    1000
+  ],
+  "browser_exceptions": [],
+  "canvas_count": 13,
+  "workflow": "load synthetic demo -> solve -> results -> archived experiment -> evidence",
+  "real_model_calls": 0,
+  "screenshots": [
+    "desktop_curves.png",
+    "desktop_home.png",
+    "desktop_experiment.png",
+    "desktop_results.png",
+    "mobile_home.png",
+    "mobile_evidence.png"
+  ]
+}
