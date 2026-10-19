@@ -5,7 +5,7 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
-from .agent import ToolRegistry
+from .decision_tools import decision_registry
 from .counterfactual import digest
 from .regret import (RegretRequest, RegretScenario, available_candidates,
                      default_scenarios, regret_enabled)
@@ -48,6 +48,8 @@ def render_regret(run):
     with st.expander('多情景稳健决策 · 固定投资，运行可适应'):
         st.write('基准情景最便宜的方案，未必是在各类变化下后悔成本最小的方案。')
         st.caption('预设问题引导受限表单，不代表任意自然语言理解；刷新和切换页面不求解，不调用付费模型。')
+        from .decision_demo_ui import render_decision_demo
+        render_decision_demo('regret')
         if run is None:
             st.caption('待执行：请先确认一个已有可行任务；不可行时先使用反事实约束修复。')
             return
@@ -81,6 +83,8 @@ def render_regret(run):
             try:
                 if not confirmed:
                     raise ValueError('请明确确认情景授权与保持条件')
+                if not selected:
+                    raise ValueError('请至少选择一个固定配置；未选择时不会执行分析')
                 defaults=default_scenarios()
                 multipliers=[('electric_up',e,'electricity_price_multiplier'),('gas_up',g,'gas_price_multiplier'),('pv_down',p,'pv_multiplier')]
                 scenarios=[defaults[0]]+[RegretScenario(scenario_id=i,name=f'{field} × {factor:g}',**{field:factor}) for i,factor,field in multipliers if i in enabled]
@@ -100,7 +104,7 @@ def render_regret(run):
                     single_solve_seconds=single,total_seconds=total,max_solver_calls=calls,
                     output_dir=str(Path(os.getenv('ENERGY_AGENT_OUTPUT_DIR','outputs'))/'regret'))
                 with st.spinner('固定配置，逐情景求解与独立校验…'):
-                    st.session_state[prefix+'_result']=ToolRegistry().call('evaluate_minimax_regret',request)
+                    st.session_state[prefix+'_result']=decision_registry().call('evaluate_minimax_regret',request)
             except (ValueError,OSError) as exc:
                 st.error(f'分析未执行或未完成：{exc}')
         result=st.session_state.get(prefix+'_result')

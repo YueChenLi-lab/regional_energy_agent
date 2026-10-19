@@ -1,0 +1,306 @@
+{
+  "repair": {
+    "base_run_id": "93ecbb892f3f40ec94ab01a8e8c83136",
+    "input_version": 1,
+    "intervals": 24,
+    "step_hours": 1,
+    "label": "合成演示数据；价格、排放因子、设备和约束均为假设",
+    "baseline_solver_calls": 3,
+    "tool_solver_calls": 102,
+    "tool_seconds": 0.6671386969992454,
+    "files": {
+      "json": "outputs/decision_demo_validation/repair/070ec5e96171119f3b36efbc3834bf9bdcbd02d1d53a610f0f05dea32e44b341/search/1409a3da72e29ac8cf0b69497ad2d3d28aa566a4e1ee40fa21af4c25d2efb4de/repair.json",
+      "markdown": "outputs/decision_demo_validation/repair/070ec5e96171119f3b36efbc3834bf9bdcbd02d1d53a610f0f05dea32e44b341/search/1409a3da72e29ac8cf0b69497ad2d3d28aa566a4e1ee40fa21af4c25d2efb4de/repair.md",
+      "request": "outputs/decision_demo_validation/repair/070ec5e96171119f3b36efbc3834bf9bdcbd02d1d53a610f0f05dea32e44b341/search/1409a3da72e29ac8cf0b69497ad2d3d28aa566a4e1ee40fa21af4c25d2efb4de/request.json"
+    },
+    "status": "completed",
+    "baseline_feasibility": "infeasible",
+    "paths": [
+      {
+        "path_id": "a53bb3c9adf0be42",
+        "field": "budget_yuan",
+        "unit": "元",
+        "original_value": 60000.0,
+        "search_range": {
+          "lower": 60000.0,
+          "upper": 600000.0,
+          "precision": 1000.0,
+          "unit": "元"
+        },
+        "suggested_value": 401191.40625,
+        "adjustment": 341191.40625,
+        "known_infeasible_lower": 400664.0625,
+        "known_feasible_upper": 401191.40625,
+        "boundary_precision_reached": true,
+        "boundary_kind": "bracket",
+        "status": "verified_repair",
+        "locks_preserved": true,
+        "base_run_id": "93ecbb892f3f40ec94ab01a8e8c83136",
+        "new_input_version": 2,
+        "run_id": "7732f271842747c3bb347feac0b957cd",
+        "result_file": "outputs/decision_demo_validation/repair/070ec5e96171119f3b36efbc3834bf9bdcbd02d1d53a610f0f05dea32e44b341/search/1409a3da72e29ac8cf0b69497ad2d3d28aa566a4e1ee40fa21af4c25d2efb4de/runs/7732f271842747c3bb347feac0b957cd/result.json",
+        "result_sha256": "b1e1fbf2a83798e0b4615d7c599e7bb773eb6bb91e65cc9cc8155c4f3b417345",
+        "candidate": {
+          "candidate_id": "D",
+          "name": "光伏＋储能＋热泵",
+          "source_id": "demo-candidates",
+          "pv_kw": 50.0,
+          "battery_power_kw": 20.0,
+          "battery_energy_kwh": 150.0,
+          "hp_kw_th": 20.0,
+          "boiler_kw_th": 0.0
+        },
+        "metrics": {
+          "investment_yuan": 400999.99999999994,
+          "operating_cost_yuan": 67.79668307060774,
+          "emissions_kg": 60.506869110090804,
+          "grid_kwh": 110.0124892910742,
+          "gas_kwh_lhv": 0.0,
+          "curtailed_pv_kwh": 13.643055750247058,
+          "electric_load_kwh": 240.0,
+          "heat_load_kwh_th": 480.0,
+          "supply_satisfied": true,
+          "period_hours": 24.0,
+          "emission_unit": "kgCO2e"
+        },
+        "npv_cost_yuan": null,
+        "solver_status": "optimal",
+        "mip_gap": 0.0,
+        "solve_seconds": 0.017913855999722728,
+        "note": "在声明范围、现有模型和指定精度下找到可行边界；不代表运行目标或所有可能设备模型的全局最优。",
+        "independently_valid": true
+      },
+      {
+        "path_id": "cb48bf5edf1e1d6e",
+        "field": "emission_limit_kg",
+        "unit": "kgCO2e",
+        "original_value": 230.0,
+        "search_range": {
+          "lower": 230.0,
+          "upper": 300.0,
+          "precision": 0.05,
+          "unit": "kgCO2e"
+        },
+        "suggested_value": 239.7412109375,
+        "adjustment": 9.7412109375,
+        "known_infeasible_lower": 239.70703125,
+        "known_feasible_upper": 239.7412109375,
+        "boundary_precision_reached": true,
+        "boundary_kind": "bracket",
+        "status": "verified_repair",
+        "locks_preserved": true,
+        "base_run_id": "93ecbb892f3f40ec94ab01a8e8c83136",
+        "new_input_version": 2,
+        "run_id": "5f73cbba7a2845d38fb3a7a3093ca951",
+        "result_file": "outputs/decision_demo_validation/repair/070ec5e96171119f3b36efbc3834bf9bdcbd02d1d53a610f0f05dea32e44b341/search/1409a3da72e29ac8cf0b69497ad2d3d28aa566a4e1ee40fa21af4c25d2efb4de/runs/5f73cbba7a2845d38fb3a7a3093ca951/result.json",
+        "result_sha256": "001039b124ff4e0fece234d0403f8541b0370e78a75841cefc07a4f93f7a0e92",
+        "candidate": {
+          "candidate_id": "A",
+          "name": "电网＋锅炉",
+          "source_id": "demo-candidates",
+          "pv_kw": 0.0,
+          "battery_power_kw": 0.0,
+          "battery_energy_kwh": 0.0,
+          "hp_kw_th": 0.0,
+          "boiler_kw_th": 20.0
+        },
+        "metrics": {
+          "investment_yuan": 15750.0,
+          "operating_cost_yuan": 341.16666666666663,
+          "emissions_kg": 239.73333333333335,
+          "grid_kwh": 240.0,
+          "gas_kwh_lhv": 533.3333333333333,
+          "curtailed_pv_kwh": 0.0,
+          "electric_load_kwh": 240.0,
+          "heat_load_kwh_th": 480.0,
+          "supply_satisfied": true,
+          "period_hours": 24.0,
+          "emission_unit": "kgCO2e"
+        },
+        "npv_cost_yuan": null,
+        "solver_status": "optimal",
+        "mip_gap": 0.0,
+        "solve_seconds": 0.002507484001398552,
+        "note": "在声明范围、现有模型和指定精度下找到可行边界；不代表运行目标或所有可能设备模型的全局最优。",
+        "independently_valid": true
+      },
+      {
+        "path_id": "4a4d2f5010470082",
+        "field": "grid_limit_kw",
+        "unit": "kW",
+        "original_value": 12.0,
+        "search_range": {
+          "lower": 12.0,
+          "upper": 25.0,
+          "precision": 0.01,
+          "unit": "kW"
+        },
+        "suggested_value": 16.2529296875,
+        "adjustment": 4.2529296875,
+        "known_infeasible_lower": 16.24658203125,
+        "known_feasible_upper": 16.2529296875,
+        "boundary_precision_reached": true,
+        "boundary_kind": "bracket",
+        "status": "verified_repair",
+        "locks_preserved": true,
+        "base_run_id": "93ecbb892f3f40ec94ab01a8e8c83136",
+        "new_input_version": 2,
+        "run_id": "4317dec289c94b89b1d8818a3078dd12",
+        "result_file": "outputs/decision_demo_validation/repair/070ec5e96171119f3b36efbc3834bf9bdcbd02d1d53a610f0f05dea32e44b341/search/1409a3da72e29ac8cf0b69497ad2d3d28aa566a4e1ee40fa21af4c25d2efb4de/runs/4317dec289c94b89b1d8818a3078dd12/result.json",
+        "result_sha256": "cc98198b2fda65977177cb51b3701a782df139b116c2780dbb648024aabe5b88",
+        "candidate": {
+          "candidate_id": "C",
+          "name": "电网＋热泵",
+          "source_id": "demo-candidates",
+          "pv_kw": 0.0,
+          "battery_power_kw": 0.0,
+          "battery_energy_kwh": 0.0,
+          "hp_kw_th": 20.0,
+          "boiler_kw_th": 0.0
+        },
+        "metrics": {
+          "investment_yuan": 51400.0,
+          "operating_cost_yuan": 277.0625,
+          "emissions_kg": 214.5,
+          "grid_kwh": 390.0,
+          "gas_kwh_lhv": 0.0,
+          "curtailed_pv_kwh": 0.0,
+          "electric_load_kwh": 240.0,
+          "heat_load_kwh_th": 480.0,
+          "supply_satisfied": true,
+          "period_hours": 24.0,
+          "emission_unit": "kgCO2e"
+        },
+        "npv_cost_yuan": null,
+        "solver_status": "optimal",
+        "mip_gap": 0.0,
+        "solve_seconds": 0.002322902000742033,
+        "note": "在声明范围、现有模型和指定精度下找到可行边界；不代表运行目标或所有可能设备模型的全局最优。",
+        "independently_valid": true
+      }
+    ]
+  },
+  "regret": {
+    "base_run_id": "fc1f95100d874cab890d956d5758a3ad",
+    "input_version": 1,
+    "intervals": 24,
+    "step_hours": 1,
+    "label": "合成演示数据；价格、排放因子、设备和约束均为假设",
+    "baseline_solver_calls": 3,
+    "tool_solver_calls": 12,
+    "tool_seconds": 0.15159322300132771,
+    "files": {
+      "json": "outputs/decision_demo_validation/regret/43470a1c44c2203e2d741b51d767cc4ecac314d394f090cf8bdb7492f0d787c0/matrix/8ffddd9cc93636161c9b3f2f8eb2b87ed214586d82246bf9499f892b27ec5869/regret.json",
+      "csv": "outputs/decision_demo_validation/regret/43470a1c44c2203e2d741b51d767cc4ecac314d394f090cf8bdb7492f0d787c0/matrix/8ffddd9cc93636161c9b3f2f8eb2b87ed214586d82246bf9499f892b27ec5869/matrix.csv",
+      "markdown": "outputs/decision_demo_validation/regret/43470a1c44c2203e2d741b51d767cc4ecac314d394f090cf8bdb7492f0d787c0/matrix/8ffddd9cc93636161c9b3f2f8eb2b87ed214586d82246bf9499f892b27ec5869/regret.md",
+      "request": "outputs/decision_demo_validation/regret/43470a1c44c2203e2d741b51d767cc4ecac314d394f090cf8bdb7492f0d787c0/matrix/8ffddd9cc93636161c9b3f2f8eb2b87ed214586d82246bf9499f892b27ec5869/request.json"
+    },
+    "status": "certified",
+    "analysis": {
+      "status": "certified",
+      "cost_matrix": {
+        "A": {
+          "base": 1845.381528336603,
+          "electric_up": 2094.383810073651,
+          "gas_up": 1965.4555522668757,
+          "pv_down": 1845.381528336603
+        },
+        "B": {
+          "base": 1319.9093341493235,
+          "electric_up": 1463.8171770489157,
+          "gas_up": 1439.983358079596,
+          "pv_down": 1414.5931822233913
+        },
+        "C": {
+          "base": 1060.7301966794612,
+          "electric_up": 1253.690411908401,
+          "gas_up": 1061.7606852789559,
+          "pv_down": 1168.4272832077643
+        }
+      },
+      "regret_matrix": {
+        "A": {
+          "base": 784.6513316571418,
+          "electric_up": 840.6933981652501,
+          "gas_up": 903.6948669879198,
+          "pv_down": 676.9542451288387
+        },
+        "B": {
+          "base": 259.1791374698623,
+          "electric_up": 210.12676514051464,
+          "gas_up": 378.2226728006401,
+          "pv_down": 246.16589901562702
+        },
+        "C": {
+          "base": 0.0,
+          "electric_up": 0.0,
+          "gas_up": 0.0,
+          "pv_down": 0.0
+        }
+      },
+      "scenario_best_costs": {
+        "base": 1060.7301966794612,
+        "electric_up": 1253.690411908401,
+        "gas_up": 1061.7606852789559,
+        "pv_down": 1168.4272832077643
+      },
+      "scenario_best_ids": {
+        "base": [
+          "C"
+        ],
+        "electric_up": [
+          "C"
+        ],
+        "gas_up": [
+          "C"
+        ],
+        "pv_down": [
+          "C"
+        ]
+      },
+      "scenario_baselines_complete": {
+        "base": true,
+        "electric_up": true,
+        "gas_up": true,
+        "pv_down": true
+      },
+      "full_scenario_feasible_ids": [
+        "A",
+        "B",
+        "C"
+      ],
+      "worst_regret_yuan": {
+        "A": 903.6948669879198,
+        "B": 378.2226728006401,
+        "C": 0.0
+      },
+      "worst_scenario_ids": {
+        "A": [
+          "gas_up"
+        ],
+        "B": [
+          "gas_up"
+        ],
+        "C": [
+          "base",
+          "electric_up",
+          "gas_up",
+          "pv_down"
+        ]
+      },
+      "recommended_ids": [
+        "C"
+      ],
+      "provisional_ids": [],
+      "baseline_cheapest_ids": [
+        "C"
+      ],
+      "minimax_cost_ids": [
+        "C"
+      ],
+      "numerical_tolerance_yuan": 0.0001,
+      "note": "当前有限候选×有限情景内，全部单元已证明最优且校验通过或已确认不可行；在所设数值容差内认证最小最大后悔。 并列项按ID稳定展示，不代表严格优劣；未分配情景概率。"
+    },
+    "independently_valid_cells": 12
+  }
+}

@@ -44,12 +44,8 @@ class ToolRegistry:
             "generate_report": Tool(ReportRequest, ReportText, generate_report),
             "solve_capacity": Tool(CapacitySolveRequest, CapacitySolution, solve_capacity),
         }
-        # Imported here to keep the optional repair module free of an import
-        # cycle. Its contract cannot authorize arbitrary task edits or tools.
-        from .counterfactual import CounterfactualRequest, CounterfactualResult, search_counterfactual_repairs
-        self._tools["search_counterfactual_repairs"] = Tool(CounterfactualRequest, CounterfactualResult, search_counterfactual_repairs)
-        from .regret import RegretRequest, RegretResult, evaluate_minimax_regret
-        self._tools['evaluate_minimax_regret'] = Tool(RegretRequest, RegretResult, evaluate_minimax_regret)
+        from .decision_tools import register_decision_tools
+        register_decision_tools(self)
 
     @property
     def names(self) -> tuple[str, ...]:
