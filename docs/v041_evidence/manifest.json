@@ -1,0 +1,33 @@
+{
+  "format": "regret-evidence-v1",
+  "files": {
+    "synthetic_24h_request.json.gz": "140d3dc519a4e1df930eb1dec8589c0ecad2d9b4fb75de1c2aed9cb3443521c0",
+    "synthetic_24h_result.json": "8ba4f52c2c629c594a214c1f032cb87e02a45b92617a3a2e232ffb03904e2e56",
+    "synthetic_24h_report.md": "e673def70172c568ba0018cb0f8692574b16f8d0a4103967fc2b7baeaad9e85d",
+    "synthetic_24h_matrix.csv": "6b29a407e325eadc61c7d104f33b2d6cf097e373427cd8d3b6ed9b5603aef473",
+    "synthetic_24h_A_base_run.json.gz": "e8fa8113fd1bddeebe05599f9043bc104968b708bada7d1803c2563f2111acc9",
+    "synthetic_24h_B_base_run.json.gz": "d50e8e6b9e40892cacefff0f7127e4d54f125ab4b6dc9622fb75c06cc8ff57bb",
+    "synthetic_24h_C_base_run.json.gz": "fb12310f7743624eb864ec1a37a1ed979b7d5dc3fcee20f72fdbcd5841ecaba7",
+    "synthetic_24h_A_electric_up_run.json.gz": "c7707b2b27ce62744c641335d0444cae64a312240902acf1722f0eb17784de49",
+    "synthetic_24h_B_electric_up_run.json.gz": "6346842654c97fe70888717bb1b7c3c4d19fae9e478e1cd5a01b8bcc7e37287c",
+    "synthetic_24h_C_electric_up_run.json.gz": "2100065d00482c78599188f3d70bc84ced39fed9b3f1b237487f1ecdf70215df",
+    "synthetic_24h_A_gas_up_run.json.gz": "5962c1343449b74f7e47b6f5bfb38b4874d5fcb642bb73f0a2f41bdfd143ab78",
+    "synthetic_24h_B_gas_up_run.json.gz": "27abf2671b2ba6c78cc951e9633103dc37f348e3ce896bb51c6f3f82a3efd0fd",
+    "synthetic_24h_C_gas_up_run.json.gz": "9216a0d83b177a60403694e8a0fc47becb0a2459a48d840f2d50ce52cd388d14",
+    "synthetic_24h_A_pv_down_run.json.gz": "2a207f5418f4382df6ed72561fd3793a78fb1b6bead014a540e314385d84f3bc",
+    "synthetic_24h_B_pv_down_run.json.gz": "b69bab30658ab3ca077a20781c33c59dbbaaf3c6d768cad4943f8e22ab1bbf5b",
+    "synthetic_24h_C_pv_down_run.json.gz": "24b575c80ec1c11c6b011c1a6c11976fc28f8cd76788606500160e38ad0d9edf",
+    "mixed_heat_8760h_request.json.gz": "fc388503ba7e230336b94e3cd069daf506bceb0b5ab67aa6072dfd0a35813d9c",
+    "mixed_heat_8760h_result.json": "f85ba7965a406628b0b55a30e53a319a550a13421fb15a1bce475cd43a606aa6",
+    "mixed_heat_8760h_report.md": "5d001ce24beb751ce3eb662a414494c8091ff3724fb3a96635c172caa79bfe9b",
+    "mixed_heat_8760h_matrix.csv": "479f8c42bc4a4e54ffce3b25f65d79644ae48ab61efc675ddc1ade4f2ebd7414",
+    "mixed_heat_8760h_BASE_base_run.json.gz": "46e8f56c8160c270cf0dde5d42964cb98688efdc65b27901056bc7a2768f0eff",
+    "mixed_heat_8760h_PV_base_run.json.gz": "94a8430a524cd2a6d7b4d68fbf5e49073df0da74d438026fb2191e53da8f8960",
+    "mixed_heat_8760h_BASE_electric_up_run.json.gz": "eb20867d0ebf9ff11cc5331d2ab14223d57fbf998a3241a5a3b50e44f406c6ba",
+    "mixed_heat_8760h_PV_electric_up_run.json.gz": "31579daa6b3cc601b66171dff39ebeb0f7d173097c1337bbe83490c95bc8db0b",
+    "mixed_heat_8760h_BASE_pv_down_run.json.gz": "0aed113b3ffdcafe2f573e0d246fb737a884c44768ddefdcafdc73173a605b6f",
+    "mixed_heat_8760h_PV_pv_down_run.json.gz": "28bdf9f1563abaea10ec3f7f1fbc71af201ace6c209f7bf2addc8d4e181be372",
+    "summary.json": "9b1828669645ad136295c8653e9f345c2b17fa5e0ae28533dfa185acb34a562b",
+    "summary.md": "b057a55f713845c019a2e2dd01056914ba4e8e8ad579208c7d12d140fd5532fb"
+  }
+}

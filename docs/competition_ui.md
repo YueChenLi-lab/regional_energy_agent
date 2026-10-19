@@ -80,3 +80,7 @@ python -m streamlit run competition_app.py
 可先进入“优化结果”→加载合成案例→启动评估→查看配置和曲线→“证据详情”下载报告。全年助手：在同一条件区切换“全年规划与Agent”，确认边界并加载、评估后，再进入问答工作台；仅显式模型按钮可能产生费用。模型配置和限制沿用原项目。
 
 本轮验证详情见 [competition_ui_validation.md](competition_ui_validation.md)。普通CI和AppTest不请求真实模型；比赛界面没有新增算法或重新执行归档全年敏感性实验。
+
+## v0.4.1 多情景决策集成
+
+`console.app.main` 在结果及反事实修复之后调用 `regret_ui.render_regret(run)`，只读当前选择的RunResult。独立 `regret_<run_id>` 控件/结果状态键保留原会话键和业务调用。只有已确认表单提交才运行注册工具；相同输入的稳定请求ID重放落盘回执，刷新不执行。默认折叠；配置、情景及授权先展示，结果按真实认证/近似/待定状态生成；证据和JSON在展开区。没有采用操作，不改变原任务持久化。`ENERGY_AGENT_ENABLE_REGRET=0` 可关闭。真实桌面/430px截图和对应合成168小时页面文字见 `v041_evidence`，不是全年截图。

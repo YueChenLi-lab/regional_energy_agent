@@ -1,0 +1,885 @@
+[
+  {
+    "case": "synthetic_24h",
+    "intervals": 24,
+    "step_hours": 1.0,
+    "base_run_id": "b7c6cf390f91496092682d634aa0c325",
+    "input_sha256": "c8eea86d1428e746f2775684d50058bcc3add01b676e98041e311b765dc92f79",
+    "solver_calls": 12,
+    "elapsed_seconds": 0.1594765310001094,
+    "analysis": {
+      "status": "certified",
+      "cost_matrix": {
+        "A": {
+          "base": 1845.381528336603,
+          "electric_up": 2094.383810073651,
+          "gas_up": 1965.4555522668757,
+          "pv_down": 1845.381528336603
+        },
+        "B": {
+          "base": 1319.9093341493235,
+          "electric_up": 1463.8171770489157,
+          "gas_up": 1439.983358079596,
+          "pv_down": 1414.5931822233913
+        },
+        "C": {
+          "base": 1060.7301966794612,
+          "electric_up": 1253.690411908401,
+          "gas_up": 1061.7606852789559,
+          "pv_down": 1168.4272832077643
+        }
+      },
+      "regret_matrix": {
+        "A": {
+          "base": 784.6513316571418,
+          "electric_up": 840.6933981652501,
+          "gas_up": 903.6948669879198,
+          "pv_down": 676.9542451288387
+        },
+        "B": {
+          "base": 259.1791374698623,
+          "electric_up": 210.12676514051464,
+          "gas_up": 378.2226728006401,
+          "pv_down": 246.16589901562702
+        },
+        "C": {
+          "base": 0.0,
+          "electric_up": 0.0,
+          "gas_up": 0.0,
+          "pv_down": 0.0
+        }
+      },
+      "scenario_best_costs": {
+        "base": 1060.7301966794612,
+        "electric_up": 1253.690411908401,
+        "gas_up": 1061.7606852789559,
+        "pv_down": 1168.4272832077643
+      },
+      "scenario_best_ids": {
+        "base": [
+          "C"
+        ],
+        "electric_up": [
+          "C"
+        ],
+        "gas_up": [
+          "C"
+        ],
+        "pv_down": [
+          "C"
+        ]
+      },
+      "scenario_baselines_complete": {
+        "base": true,
+        "electric_up": true,
+        "gas_up": true,
+        "pv_down": true
+      },
+      "full_scenario_feasible_ids": [
+        "A",
+        "B",
+        "C"
+      ],
+      "worst_regret_yuan": {
+        "A": 903.6948669879198,
+        "B": 378.2226728006401,
+        "C": 0.0
+      },
+      "worst_scenario_ids": {
+        "A": [
+          "gas_up"
+        ],
+        "B": [
+          "gas_up"
+        ],
+        "C": [
+          "base",
+          "electric_up",
+          "gas_up",
+          "pv_down"
+        ]
+      },
+      "recommended_ids": [
+        "C"
+      ],
+      "provisional_ids": [],
+      "baseline_cheapest_ids": [
+        "C"
+      ],
+      "minimax_cost_ids": [
+        "C"
+      ],
+      "numerical_tolerance_yuan": 0.0001,
+      "note": "当前有限候选×有限情景内，全部单元已证明最优且校验通过或已确认不可行；在所设数值容差内认证最小最大后悔。 并列项按ID稳定展示，不代表严格优劣；未分配情景概率。"
+    },
+    "files": {
+      "json": "outputs/regret_acceptance_v041/synthetic_24h/matrix/587f356961c549c034e113112989b1b3d4150568d31bd88a85feffee60efccb0/regret.json",
+      "csv": "outputs/regret_acceptance_v041/synthetic_24h/matrix/587f356961c549c034e113112989b1b3d4150568d31bd88a85feffee60efccb0/matrix.csv",
+      "markdown": "outputs/regret_acceptance_v041/synthetic_24h/matrix/587f356961c549c034e113112989b1b3d4150568d31bd88a85feffee60efccb0/regret.md",
+      "request": "outputs/regret_acceptance_v041/synthetic_24h/matrix/587f356961c549c034e113112989b1b3d4150568d31bd88a85feffee60efccb0/request.json"
+    },
+    "cells": [
+      {
+        "candidate_id": "A",
+        "scenario_id": "base",
+        "feasibility": "feasible",
+        "solver_status": "optimal",
+        "cost_yuan": 1845.381528336603,
+        "cost_is_optimal": true,
+        "run_id": "a737603541a648038ddd3d4bd3501d8d",
+        "input_version": 2,
+        "capacity_sha256": "517c329997cb3da4c281ed248b6ba7f553059a8dee16f6e19b35766af673634b",
+        "scenario_sha256": "603f26b27da3639920783c5eb8d17a8f6bb6cac6ccc17645c0f1f7e75438959c",
+        "cache_key": "da2904910f0d99c132d1df62b0bb61d524814070013e0608c4eb0257405d457b",
+        "task_sha256": "90cdd60e0be4aa6bd3426ddfd5e6ed83e7ab8591797d71b6f17772601b7366f8",
+        "data_sha256": "13034cf7996fd77da78a82e0c90f01f163d6b354d488f9ded465e61176c6d93c",
+        "investment_yuan": 44500.0,
+        "emissions_kg": 1316.2315739755204,
+        "operating_cost_yuan": 1845.381528336603,
+        "npv_cost_yuan": null,
+        "mip_gap": 0.0,
+        "solve_seconds": 0.002166459999898507,
+        "effective_solve_limits_seconds": [
+          5.0
+        ],
+        "capacities_fixed": true,
+        "returned_capacities": {
+          "pv_kw": 0.0,
+          "battery_power_kw": 0.0,
+          "battery_energy_kwh": 0.0,
+          "hp_kw_th": 0.0,
+          "boiler_kw_th": 120.0
+        },
+        "result_file": "outputs/regret_acceptance_v041/synthetic_24h/matrix/587f356961c549c034e113112989b1b3d4150568d31bd88a85feffee60efccb0/runs/a737603541a648038ddd3d4bd3501d8d/result.json",
+        "result_sha256": "352625976dde85b644e7bd4998d3f03885d3f5dadbc35f12701d8be5fca7d487",
+        "reasons": [],
+        "independently_valid": true,
+        "checks": 34
+      },
+      {
+        "candidate_id": "B",
+        "scenario_id": "base",
+        "feasibility": "feasible",
+        "solver_status": "optimal",
+        "cost_yuan": 1319.9093341493235,
+        "cost_is_optimal": true,
+        "run_id": "65335bb93a724021a27e00572ca08d58",
+        "input_version": 2,
+        "capacity_sha256": "fc9ef8c8b0bbcce8d255a08adb5d1f9937c062597b91097ecd5084dccfa4f3cb",
+        "scenario_sha256": "603f26b27da3639920783c5eb8d17a8f6bb6cac6ccc17645c0f1f7e75438959c",
+        "cache_key": "f162c5be92eb942193b834544ffd88e23474793381f9c5de2a02aefba1e19e00",
+        "task_sha256": "f50ad4cf7a2ef76d9b1f363195124784eea4ace9d0f58d4b102eeb7e1be3f09b",
+        "data_sha256": "13034cf7996fd77da78a82e0c90f01f163d6b354d488f9ded465e61176c6d93c",
+        "investment_yuan": 486099.99999999994,
+        "emissions_kg": 922.3906130105552,
+        "operating_cost_yuan": 1319.9093341493235,
+        "npv_cost_yuan": null,
+        "mip_gap": 0.0,
+        "solve_seconds": 0.001931722000335867,
+        "effective_solve_limits_seconds": [
+          5.0
+        ],
+        "capacities_fixed": true,
+        "returned_capacities": {
+          "pv_kw": 120.0,
+          "battery_power_kw": 0.0,
+          "battery_energy_kwh": 0.0,
+          "hp_kw_th": 0.0,
+          "boiler_kw_th": 120.0
+        },
+        "result_file": "outputs/regret_acceptance_v041/synthetic_24h/matrix/587f356961c549c034e113112989b1b3d4150568d31bd88a85feffee60efccb0/runs/65335bb93a724021a27e00572ca08d58/result.json",
+        "result_sha256": "b140a01c0ad98252e0a2a392083765e5a37efa55ce70197e7ebce7d482d4e650",
+        "reasons": [],
+        "independently_valid": true,
+        "checks": 34
+      },
+      {
+        "candidate_id": "C",
+        "scenario_id": "base",
+        "feasibility": "feasible",
+        "solver_status": "optimal",
+        "cost_yuan": 1060.7301966794612,
+        "cost_is_optimal": true,
+        "run_id": "d01d3c187839468298596de123ee2329",
+        "input_version": 2,
+        "capacity_sha256": "04bc7728e79a888a25d5e511fbf59cc1472702f3cc170625430c932788e09be4",
+        "scenario_sha256": "603f26b27da3639920783c5eb8d17a8f6bb6cac6ccc17645c0f1f7e75438959c",
+        "cache_key": "1ccef06b4e6d5acebd99f41f9ede882799d0f33606d85b2c5d7b6e67a54575de",
+        "task_sha256": "96356bdab059e3429ff72d28c70d24b9d107ed62831ebae8cc480cce12d73900",
+        "data_sha256": "13034cf7996fd77da78a82e0c90f01f163d6b354d488f9ded465e61176c6d93c",
+        "investment_yuan": 675850.0,
+        "emissions_kg": 837.8675548384531,
+        "operating_cost_yuan": 1060.7301966794612,
+        "npv_cost_yuan": null,
+        "mip_gap": 0.0,
+        "solve_seconds": 0.0018961659998240066,
+        "effective_solve_limits_seconds": [
+          5.0
+        ],
+        "capacities_fixed": true,
+        "returned_capacities": {
+          "pv_kw": 120.0,
+          "battery_power_kw": 0.0,
+          "battery_energy_kwh": 0.0,
+          "hp_kw_th": 100.0,
+          "boiler_kw_th": 60.0
+        },
+        "result_file": "outputs/regret_acceptance_v041/synthetic_24h/matrix/587f356961c549c034e113112989b1b3d4150568d31bd88a85feffee60efccb0/runs/d01d3c187839468298596de123ee2329/result.json",
+        "result_sha256": "e96fe7924a87f12bf7e1e135528cfb298f9cd39b5719deb8a4f2a320931604f6",
+        "reasons": [],
+        "independently_valid": true,
+        "checks": 34
+      },
+      {
+        "candidate_id": "A",
+        "scenario_id": "electric_up",
+        "feasibility": "feasible",
+        "solver_status": "optimal",
+        "cost_yuan": 2094.383810073651,
+        "cost_is_optimal": true,
+        "run_id": "4f484ac95c2142109fc7428c6a69095d",
+        "input_version": 2,
+        "capacity_sha256": "517c329997cb3da4c281ed248b6ba7f553059a8dee16f6e19b35766af673634b",
+        "scenario_sha256": "16c9932d390571f2fc7bb18d179c877f39497b3747e9d0e367b2929c3a53c87c",
+        "cache_key": "57a0c2f8fc1319861a810481828ec998abae9effb5c1c14a44896c7f56281305",
+        "task_sha256": "18a1a9b26b9ca59a16fb38fefb9011dc694a3458d1767d198ca2b565ba4e10ee",
+        "data_sha256": "e634cb4150bfca3fa9e55e85567706f21e74a2329c483aa5905e1be518790929",
+        "investment_yuan": 44500.0,
+        "emissions_kg": 1316.2315739755204,
+        "operating_cost_yuan": 2094.383810073651,
+        "npv_cost_yuan": null,
+        "mip_gap": 0.0,
+        "solve_seconds": 0.0019008509998457157,
+        "effective_solve_limits_seconds": [
+          5.0
+        ],
+        "capacities_fixed": true,
+        "returned_capacities": {
+          "pv_kw": 0.0,
+          "battery_power_kw": 0.0,
+          "battery_energy_kwh": 0.0,
+          "hp_kw_th": 0.0,
+          "boiler_kw_th": 120.0
+        },
+        "result_file": "outputs/regret_acceptance_v041/synthetic_24h/matrix/587f356961c549c034e113112989b1b3d4150568d31bd88a85feffee60efccb0/runs/4f484ac95c2142109fc7428c6a69095d/result.json",
+        "result_sha256": "923bf8f612c0bb012caa030372c704d9a015ca87570c24b3eff96f90e7351e12",
+        "reasons": [],
+        "independently_valid": true,
+        "checks": 34
+      },
+      {
+        "candidate_id": "B",
+        "scenario_id": "electric_up",
+        "feasibility": "feasible",
+        "solver_status": "optimal",
+        "cost_yuan": 1463.8171770489157,
+        "cost_is_optimal": true,
+        "run_id": "5bc379367a7d49cf98d0f6207161602e",
+        "input_version": 2,
+        "capacity_sha256": "fc9ef8c8b0bbcce8d255a08adb5d1f9937c062597b91097ecd5084dccfa4f3cb",
+        "scenario_sha256": "16c9932d390571f2fc7bb18d179c877f39497b3747e9d0e367b2929c3a53c87c",
+        "cache_key": "0cac249ce40ea3610edcc0af97218c50ef951ceb578477f0ca5bcddd6d351852",
+        "task_sha256": "6be638bbc1a27511a914c16de654cc95ed28c395db6c509c17b80bae7bdcb8b4",
+        "data_sha256": "e634cb4150bfca3fa9e55e85567706f21e74a2329c483aa5905e1be518790929",
+        "investment_yuan": 486099.99999999994,
+        "emissions_kg": 922.3906130105552,
+        "operating_cost_yuan": 1463.8171770489157,
+        "npv_cost_yuan": null,
+        "mip_gap": 0.0,
+        "solve_seconds": 0.0019180409999535186,
+        "effective_solve_limits_seconds": [
+          5.0
+        ],
+        "capacities_fixed": true,
+        "returned_capacities": {
+          "pv_kw": 120.0,
+          "battery_power_kw": 0.0,
+          "battery_energy_kwh": 0.0,
+          "hp_kw_th": 0.0,
+          "boiler_kw_th": 120.0
+        },
+        "result_file": "outputs/regret_acceptance_v041/synthetic_24h/matrix/587f356961c549c034e113112989b1b3d4150568d31bd88a85feffee60efccb0/runs/5bc379367a7d49cf98d0f6207161602e/result.json",
+        "result_sha256": "fe460fce3ca5bed75ade7f6266bd1d96cca3b58e38fb9432d53060b8b63d4459",
+        "reasons": [],
+        "independently_valid": true,
+        "checks": 34
+      },
+      {
+        "candidate_id": "C",
+        "scenario_id": "electric_up",
+        "feasibility": "feasible",
+        "solver_status": "optimal",
+        "cost_yuan": 1253.690411908401,
+        "cost_is_optimal": true,
+        "run_id": "09d03090614a47148ae14e2e265cc842",
+        "input_version": 2,
+        "capacity_sha256": "04bc7728e79a888a25d5e511fbf59cc1472702f3cc170625430c932788e09be4",
+        "scenario_sha256": "16c9932d390571f2fc7bb18d179c877f39497b3747e9d0e367b2929c3a53c87c",
+        "cache_key": "297a5890b3c1d51de816145e8a1c0bcaf84e4a26cdf752e0ac3e73c091f888c6",
+        "task_sha256": "fe51c742e844e5c17c2de4fa98f8923a6bd9ea5cc605abed1f484c09d137a4ed",
+        "data_sha256": "e634cb4150bfca3fa9e55e85567706f21e74a2329c483aa5905e1be518790929",
+        "investment_yuan": 675850.0,
+        "emissions_kg": 837.8675548384531,
+        "operating_cost_yuan": 1253.690411908401,
+        "npv_cost_yuan": null,
+        "mip_gap": 0.0,
+        "solve_seconds": 0.0020928209996782243,
+        "effective_solve_limits_seconds": [
+          5.0
+        ],
+        "capacities_fixed": true,
+        "returned_capacities": {
+          "pv_kw": 120.0,
+          "battery_power_kw": 0.0,
+          "battery_energy_kwh": 0.0,
+          "hp_kw_th": 100.0,
+          "boiler_kw_th": 60.0
+        },
+        "result_file": "outputs/regret_acceptance_v041/synthetic_24h/matrix/587f356961c549c034e113112989b1b3d4150568d31bd88a85feffee60efccb0/runs/09d03090614a47148ae14e2e265cc842/result.json",
+        "result_sha256": "03e022d8e9434371128d8469db0431ea4827cdad72cb4e18b54397f8a9d33fce",
+        "reasons": [],
+        "independently_valid": true,
+        "checks": 34
+      },
+      {
+        "candidate_id": "A",
+        "scenario_id": "gas_up",
+        "feasibility": "feasible",
+        "solver_status": "optimal",
+        "cost_yuan": 1965.4555522668757,
+        "cost_is_optimal": true,
+        "run_id": "d7ce4fa69447400e8aa888a269520895",
+        "input_version": 2,
+        "capacity_sha256": "517c329997cb3da4c281ed248b6ba7f553059a8dee16f6e19b35766af673634b",
+        "scenario_sha256": "46d1a9a57f150a146298220172a5d3466132233d2ffb6ef55dc42f46f53a2bda",
+        "cache_key": "30a3cb6511d3ebc0fd9785653c6386aee4439278837c86b7d91e1b7a613f5833",
+        "task_sha256": "25bdb1722035b548240bfad7a5276abe0eb50fba00c14a8a8a8b0db5ed85bd6f",
+        "data_sha256": "80f8a3c5848df713affe0a21b742a65ebdb29a4911c8954a5c529690645a60b2",
+        "investment_yuan": 44500.0,
+        "emissions_kg": 1316.2315739755204,
+        "operating_cost_yuan": 1965.4555522668757,
+        "npv_cost_yuan": null,
+        "mip_gap": 0.0,
+        "solve_seconds": 0.0018913040003099013,
+        "effective_solve_limits_seconds": [
+          5.0
+        ],
+        "capacities_fixed": true,
+        "returned_capacities": {
+          "pv_kw": 0.0,
+          "battery_power_kw": 0.0,
+          "battery_energy_kwh": 0.0,
+          "hp_kw_th": 0.0,
+          "boiler_kw_th": 120.0
+        },
+        "result_file": "outputs/regret_acceptance_v041/synthetic_24h/matrix/587f356961c549c034e113112989b1b3d4150568d31bd88a85feffee60efccb0/runs/d7ce4fa69447400e8aa888a269520895/result.json",
+        "result_sha256": "4ed7aac263ce0bd323202b959e5ff3eea90e2ab0dc9ce3773ef5a02f9fbbf8a5",
+        "reasons": [],
+        "independently_valid": true,
+        "checks": 34
+      },
+      {
+        "candidate_id": "B",
+        "scenario_id": "gas_up",
+        "feasibility": "feasible",
+        "solver_status": "optimal",
+        "cost_yuan": 1439.983358079596,
+        "cost_is_optimal": true,
+        "run_id": "a3662dc56b744e7bb87ff85f5068d0b2",
+        "input_version": 2,
+        "capacity_sha256": "fc9ef8c8b0bbcce8d255a08adb5d1f9937c062597b91097ecd5084dccfa4f3cb",
+        "scenario_sha256": "46d1a9a57f150a146298220172a5d3466132233d2ffb6ef55dc42f46f53a2bda",
+        "cache_key": "56f3edb235c277f4381194563696c6bc88a606ff0e41744cc3b42c1ac5827c5e",
+        "task_sha256": "0884e102c24cf4c570c08d545794ed32f61829d5f1949e43786db9d8f0a2f6d7",
+        "data_sha256": "80f8a3c5848df713affe0a21b742a65ebdb29a4911c8954a5c529690645a60b2",
+        "investment_yuan": 486099.99999999994,
+        "emissions_kg": 922.3906130105552,
+        "operating_cost_yuan": 1439.983358079596,
+        "npv_cost_yuan": null,
+        "mip_gap": 0.0,
+        "solve_seconds": 0.0023092310002539307,
+        "effective_solve_limits_seconds": [
+          5.0
+        ],
+        "capacities_fixed": true,
+        "returned_capacities": {
+          "pv_kw": 120.0,
+          "battery_power_kw": 0.0,
+          "battery_energy_kwh": 0.0,
+          "hp_kw_th": 0.0,
+          "boiler_kw_th": 120.0
+        },
+        "result_file": "outputs/regret_acceptance_v041/synthetic_24h/matrix/587f356961c549c034e113112989b1b3d4150568d31bd88a85feffee60efccb0/runs/a3662dc56b744e7bb87ff85f5068d0b2/result.json",
+        "result_sha256": "f0cc709ba8d62385f675da835ade623fce105fd19ec4aa3c63c47d9afb3d5c22",
+        "reasons": [],
+        "independently_valid": true,
+        "checks": 34
+      },
+      {
+        "candidate_id": "C",
+        "scenario_id": "gas_up",
+        "feasibility": "feasible",
+        "solver_status": "optimal",
+        "cost_yuan": 1061.7606852789559,
+        "cost_is_optimal": true,
+        "run_id": "81a4eb3819684b679eeba5ad21611f03",
+        "input_version": 2,
+        "capacity_sha256": "04bc7728e79a888a25d5e511fbf59cc1472702f3cc170625430c932788e09be4",
+        "scenario_sha256": "46d1a9a57f150a146298220172a5d3466132233d2ffb6ef55dc42f46f53a2bda",
+        "cache_key": "72d053177ec72a7305bb1fdb94be13849ca6e08538ab876d5ec660693617a924",
+        "task_sha256": "74902b27a9edd69b5cb9d7c4d4c5fc41086c6b215324d5e78c0846239d4d7ce0",
+        "data_sha256": "80f8a3c5848df713affe0a21b742a65ebdb29a4911c8954a5c529690645a60b2",
+        "investment_yuan": 675850.0,
+        "emissions_kg": 823.6842844781374,
+        "operating_cost_yuan": 1061.7606852789559,
+        "npv_cost_yuan": null,
+        "mip_gap": 0.0,
+        "solve_seconds": 0.0021145399996385095,
+        "effective_solve_limits_seconds": [
+          5.0
+        ],
+        "capacities_fixed": true,
+        "returned_capacities": {
+          "pv_kw": 120.0,
+          "battery_power_kw": 0.0,
+          "battery_energy_kwh": 0.0,
+          "hp_kw_th": 100.0,
+          "boiler_kw_th": 60.0
+        },
+        "result_file": "outputs/regret_acceptance_v041/synthetic_24h/matrix/587f356961c549c034e113112989b1b3d4150568d31bd88a85feffee60efccb0/runs/81a4eb3819684b679eeba5ad21611f03/result.json",
+        "result_sha256": "0551e35df28f07effc106cb6155d2dafe83e81492f03958be12dd9e8fcb999b5",
+        "reasons": [],
+        "independently_valid": true,
+        "checks": 34
+      },
+      {
+        "candidate_id": "A",
+        "scenario_id": "pv_down",
+        "feasibility": "feasible",
+        "solver_status": "optimal",
+        "cost_yuan": 1845.381528336603,
+        "cost_is_optimal": true,
+        "run_id": "4edaa595388d41919ffd581fa763156d",
+        "input_version": 2,
+        "capacity_sha256": "517c329997cb3da4c281ed248b6ba7f553059a8dee16f6e19b35766af673634b",
+        "scenario_sha256": "56a2f439638e6bbf5d8e56c215ba4a4b04ff671e5c96d1da961d67f95bf889aa",
+        "cache_key": "dd0f424e354ac79fa36ddb2b9c248352bbba15c2af3be194ce0be3a36c092d8a",
+        "task_sha256": "42fd122de4177994b03c2b123d83ba79a629098539ebc54f80e0ef90b931013b",
+        "data_sha256": "142ac6a86dd6bdf7877ad4b86ad61e4f70f69232682bac680047e41e4fea6976",
+        "investment_yuan": 44500.0,
+        "emissions_kg": 1316.2315739755204,
+        "operating_cost_yuan": 1845.381528336603,
+        "npv_cost_yuan": null,
+        "mip_gap": 0.0,
+        "solve_seconds": 0.007265262000146322,
+        "effective_solve_limits_seconds": [
+          5.0
+        ],
+        "capacities_fixed": true,
+        "returned_capacities": {
+          "pv_kw": 0.0,
+          "battery_power_kw": 0.0,
+          "battery_energy_kwh": 0.0,
+          "hp_kw_th": 0.0,
+          "boiler_kw_th": 120.0
+        },
+        "result_file": "outputs/regret_acceptance_v041/synthetic_24h/matrix/587f356961c549c034e113112989b1b3d4150568d31bd88a85feffee60efccb0/runs/4edaa595388d41919ffd581fa763156d/result.json",
+        "result_sha256": "735144b2ed57eea262735c323cdb4d87b2fcaa3a6c7b1db6c8e3615fffc83f6e",
+        "reasons": [],
+        "independently_valid": true,
+        "checks": 34
+      },
+      {
+        "candidate_id": "B",
+        "scenario_id": "pv_down",
+        "feasibility": "feasible",
+        "solver_status": "optimal",
+        "cost_yuan": 1414.5931822233913,
+        "cost_is_optimal": true,
+        "run_id": "3c61f08d6473450081bd6c1d50e3c259",
+        "input_version": 2,
+        "capacity_sha256": "fc9ef8c8b0bbcce8d255a08adb5d1f9937c062597b91097ecd5084dccfa4f3cb",
+        "scenario_sha256": "56a2f439638e6bbf5d8e56c215ba4a4b04ff671e5c96d1da961d67f95bf889aa",
+        "cache_key": "c332489f185f441b2c29d098325bb57040a83c8ee8bf2e9b15e91c39ab202de0",
+        "task_sha256": "c3951580113992c4af2097177f63acdb0d1044ebe863726fe6853a0a73e6c23d",
+        "data_sha256": "142ac6a86dd6bdf7877ad4b86ad61e4f70f69232682bac680047e41e4fea6976",
+        "investment_yuan": 486099.99999999994,
+        "emissions_kg": 993.2062705926267,
+        "operating_cost_yuan": 1414.5931822233913,
+        "npv_cost_yuan": null,
+        "mip_gap": 0.0,
+        "solve_seconds": 0.0036107799996898393,
+        "effective_solve_limits_seconds": [
+          5.0
+        ],
+        "capacities_fixed": true,
+        "returned_capacities": {
+          "pv_kw": 120.0,
+          "battery_power_kw": 0.0,
+          "battery_energy_kwh": 0.0,
+          "hp_kw_th": 0.0,
+          "boiler_kw_th": 120.0
+        },
+        "result_file": "outputs/regret_acceptance_v041/synthetic_24h/matrix/587f356961c549c034e113112989b1b3d4150568d31bd88a85feffee60efccb0/runs/3c61f08d6473450081bd6c1d50e3c259/result.json",
+        "result_sha256": "bc0383d592692b0dc575a8a575663824b0f09b52a4cac66edec6a22268aa6790",
+        "reasons": [],
+        "independently_valid": true,
+        "checks": 34
+      },
+      {
+        "candidate_id": "C",
+        "scenario_id": "pv_down",
+        "feasibility": "feasible",
+        "solver_status": "optimal",
+        "cost_yuan": 1168.4272832077643,
+        "cost_is_optimal": true,
+        "run_id": "bc57eb28c42c4147a9996b1da1267e6b",
+        "input_version": 2,
+        "capacity_sha256": "04bc7728e79a888a25d5e511fbf59cc1472702f3cc170625430c932788e09be4",
+        "scenario_sha256": "56a2f439638e6bbf5d8e56c215ba4a4b04ff671e5c96d1da961d67f95bf889aa",
+        "cache_key": "f934fba317a0e76042420f9033a222c1747e0893c273f0cf90de0dd092c96c94",
+        "task_sha256": "c8e0dc684177a21ee6bdebd661ef67b2c3c840cc57808434b614eee4047175da",
+        "data_sha256": "142ac6a86dd6bdf7877ad4b86ad61e4f70f69232682bac680047e41e4fea6976",
+        "investment_yuan": 675850.0,
+        "emissions_kg": 918.6238806841764,
+        "operating_cost_yuan": 1168.4272832077643,
+        "npv_cost_yuan": null,
+        "mip_gap": 0.0,
+        "solve_seconds": 0.0020479360000535962,
+        "effective_solve_limits_seconds": [
+          5.0
+        ],
+        "capacities_fixed": true,
+        "returned_capacities": {
+          "pv_kw": 120.0,
+          "battery_power_kw": 0.0,
+          "battery_energy_kwh": 0.0,
+          "hp_kw_th": 100.0,
+          "boiler_kw_th": 60.0
+        },
+        "result_file": "outputs/regret_acceptance_v041/synthetic_24h/matrix/587f356961c549c034e113112989b1b3d4150568d31bd88a85feffee60efccb0/runs/bc57eb28c42c4147a9996b1da1267e6b/result.json",
+        "result_sha256": "acf4471410dddf60e202a925d369078eecf17167c0c0dcb8bba28e298f5b1e69",
+        "reasons": [],
+        "independently_valid": true,
+        "checks": 34
+      }
+    ]
+  },
+  {
+    "case": "mixed_heat_8760h",
+    "intervals": 8760,
+    "step_hours": 1.0,
+    "base_run_id": "e5da592044614d29988ebd320476b170",
+    "input_sha256": "2a05389b85f2bdf6f415e7c047850cda7e96557df8ed82617cb21678da89b26b",
+    "solver_calls": 6,
+    "elapsed_seconds": 8.250166248999449,
+    "analysis": {
+      "status": "certified",
+      "cost_matrix": {
+        "BASE": {
+          "base": 39194982.8389402,
+          "electric_up": 46599808.63260465,
+          "pv_down": 39194982.8389402
+        },
+        "PV": {
+          "base": 33741454.431240514,
+          "electric_up": 39237469.8730623,
+          "pv_down": 35375677.29015628
+        }
+      },
+      "regret_matrix": {
+        "BASE": {
+          "base": 5453528.407699689,
+          "electric_up": 7362338.759542353,
+          "pv_down": 3819305.5487839207
+        },
+        "PV": {
+          "base": 0.0,
+          "electric_up": 0.0,
+          "pv_down": 0.0
+        }
+      },
+      "scenario_best_costs": {
+        "base": 33741454.431240514,
+        "electric_up": 39237469.8730623,
+        "pv_down": 35375677.29015628
+      },
+      "scenario_best_ids": {
+        "base": [
+          "PV"
+        ],
+        "electric_up": [
+          "PV"
+        ],
+        "pv_down": [
+          "PV"
+        ]
+      },
+      "scenario_baselines_complete": {
+        "base": true,
+        "electric_up": true,
+        "pv_down": true
+      },
+      "full_scenario_feasible_ids": [
+        "BASE",
+        "PV"
+      ],
+      "worst_regret_yuan": {
+        "BASE": 7362338.759542353,
+        "PV": 0.0
+      },
+      "worst_scenario_ids": {
+        "BASE": [
+          "electric_up"
+        ],
+        "PV": [
+          "base",
+          "electric_up",
+          "pv_down"
+        ]
+      },
+      "recommended_ids": [
+        "PV"
+      ],
+      "provisional_ids": [],
+      "baseline_cheapest_ids": [
+        "PV"
+      ],
+      "minimax_cost_ids": [
+        "PV"
+      ],
+      "numerical_tolerance_yuan": 0.0001,
+      "note": "当前有限候选×有限情景内，全部单元已证明最优且校验通过或已确认不可行；在所设数值容差内认证最小最大后悔。 并列项按ID稳定展示，不代表严格优劣；未分配情景概率。"
+    },
+    "files": {
+      "json": "outputs/regret_acceptance_v041/mixed_heat_8760h/matrix/2f2646e59bef950f93cff6c71132be08a5cd8249d90d4a94da8ad04f080c01e2/regret.json",
+      "csv": "outputs/regret_acceptance_v041/mixed_heat_8760h/matrix/2f2646e59bef950f93cff6c71132be08a5cd8249d90d4a94da8ad04f080c01e2/matrix.csv",
+      "markdown": "outputs/regret_acceptance_v041/mixed_heat_8760h/matrix/2f2646e59bef950f93cff6c71132be08a5cd8249d90d4a94da8ad04f080c01e2/regret.md",
+      "request": "outputs/regret_acceptance_v041/mixed_heat_8760h/matrix/2f2646e59bef950f93cff6c71132be08a5cd8249d90d4a94da8ad04f080c01e2/request.json"
+    },
+    "cells": [
+      {
+        "candidate_id": "BASE",
+        "scenario_id": "base",
+        "feasibility": "feasible",
+        "solver_status": "optimal",
+        "cost_yuan": 39194982.8389402,
+        "cost_is_optimal": true,
+        "run_id": "e536dd7c87be4051910ad9d1d64b85cb",
+        "input_version": 2,
+        "capacity_sha256": "aeae3a9717aed15562a91b26c9c7a0adb1e4552dda1b686e3aa1532c4fdcf7d8",
+        "scenario_sha256": "603f26b27da3639920783c5eb8d17a8f6bb6cac6ccc17645c0f1f7e75438959c",
+        "cache_key": "5e2bd25174b4b5b5e6f6607be0cb364052b01a7aa28cbc2a2b280e803bc4ce16",
+        "task_sha256": "53bcc3f7feb3c1221289ead0e67616d51a860b40d8998c64ec242be885d4c43d",
+        "data_sha256": "3e6ebda0ccd06e3d9b593540625503f3deb5647184c8a1d683cb8a8b8f3b5456",
+        "investment_yuan": 183445.884,
+        "emissions_kg": 2277022.897813333,
+        "operating_cost_yuan": 3126323.680366667,
+        "npv_cost_yuan": 39194982.8389402,
+        "mip_gap": 0.0,
+        "solve_seconds": 0.8826390369995352,
+        "effective_solve_limits_seconds": [
+          20.0
+        ],
+        "capacities_fixed": true,
+        "returned_capacities": {
+          "pv_kw": 0.0,
+          "battery_power_kw": 0.0,
+          "battery_energy_kwh": 0.0,
+          "hp_kw_th": 0.0,
+          "boiler_kw_th": 664.659
+        },
+        "result_file": "outputs/regret_acceptance_v041/mixed_heat_8760h/matrix/2f2646e59bef950f93cff6c71132be08a5cd8249d90d4a94da8ad04f080c01e2/runs/e536dd7c87be4051910ad9d1d64b85cb/result.json",
+        "result_sha256": "59abe5e7811318d061469e28f30564a391c26113325bed67e5eda76663f6ec37",
+        "reasons": [],
+        "independently_valid": true,
+        "checks": 41
+      },
+      {
+        "candidate_id": "PV",
+        "scenario_id": "base",
+        "feasibility": "feasible",
+        "solver_status": "optimal",
+        "cost_yuan": 33741454.431240514,
+        "cost_is_optimal": true,
+        "run_id": "964ec3c712dc450fb2f0c74498d385a0",
+        "input_version": 2,
+        "capacity_sha256": "3fc020b2e6fa9bf33e0e82a9882ca917c2738b779ce360fe7b68d48246282388",
+        "scenario_sha256": "603f26b27da3639920783c5eb8d17a8f6bb6cac6ccc17645c0f1f7e75438959c",
+        "cache_key": "0ce247b1026ebccc48adc13bbc0cb1af2033130c7cf1e0aaf1c3278c672dcd6b",
+        "task_sha256": "644a948a011cff9258d912bb4b5615d46a0a745650be660924d13de43caa7535",
+        "data_sha256": "3e6ebda0ccd06e3d9b593540625503f3deb5647184c8a1d683cb8a8b8f3b5456",
+        "investment_yuan": 3863445.884,
+        "emissions_kg": 1691576.3475741404,
+        "operating_cost_yuan": 2360484.274925517,
+        "npv_cost_yuan": 33741454.431240514,
+        "mip_gap": 0.0,
+        "solve_seconds": 0.5391555450005399,
+        "effective_solve_limits_seconds": [
+          20.0
+        ],
+        "capacities_fixed": true,
+        "returned_capacities": {
+          "pv_kw": 1000.0,
+          "battery_power_kw": 0.0,
+          "battery_energy_kwh": 0.0,
+          "hp_kw_th": 0.0,
+          "boiler_kw_th": 664.659
+        },
+        "result_file": "outputs/regret_acceptance_v041/mixed_heat_8760h/matrix/2f2646e59bef950f93cff6c71132be08a5cd8249d90d4a94da8ad04f080c01e2/runs/964ec3c712dc450fb2f0c74498d385a0/result.json",
+        "result_sha256": "4e6c3b92ba10195d796f52a6c6b8e051e9ebac85724daa40beb084d3bea9fc32",
+        "reasons": [],
+        "independently_valid": true,
+        "checks": 41
+      },
+      {
+        "candidate_id": "BASE",
+        "scenario_id": "electric_up",
+        "feasibility": "feasible",
+        "solver_status": "optimal",
+        "cost_yuan": 46599808.63260465,
+        "cost_is_optimal": true,
+        "run_id": "b1807cb9afd14de5b6d07440a57aa6e2",
+        "input_version": 2,
+        "capacity_sha256": "aeae3a9717aed15562a91b26c9c7a0adb1e4552dda1b686e3aa1532c4fdcf7d8",
+        "scenario_sha256": "16c9932d390571f2fc7bb18d179c877f39497b3747e9d0e367b2929c3a53c87c",
+        "cache_key": "1035e2f079832416847390b0537aab17f43b5cbf901a8c84916e53a41cbed4c9",
+        "task_sha256": "e11e5b777121af62a45d11a717c8e00d877dddc904b3be6abee2ed7d452d1a0a",
+        "data_sha256": "e922bec308a354d618413474ee409e5f9d12133f68b451785cf05af475ddef6b",
+        "investment_yuan": 183445.884,
+        "emissions_kg": 2277022.897813333,
+        "operating_cost_yuan": 3720506.059746667,
+        "npv_cost_yuan": 46599808.63260465,
+        "mip_gap": 0.0,
+        "solve_seconds": 0.47744424200027424,
+        "effective_solve_limits_seconds": [
+          20.0
+        ],
+        "capacities_fixed": true,
+        "returned_capacities": {
+          "pv_kw": 0.0,
+          "battery_power_kw": 0.0,
+          "battery_energy_kwh": 0.0,
+          "hp_kw_th": 0.0,
+          "boiler_kw_th": 664.659
+        },
+        "result_file": "outputs/regret_acceptance_v041/mixed_heat_8760h/matrix/2f2646e59bef950f93cff6c71132be08a5cd8249d90d4a94da8ad04f080c01e2/runs/b1807cb9afd14de5b6d07440a57aa6e2/result.json",
+        "result_sha256": "a1915bc21596624844c7a06a8e5a70408a93886bca8375f64b7f1afd73106a90",
+        "reasons": [],
+        "independently_valid": true,
+        "checks": 41
+      },
+      {
+        "candidate_id": "PV",
+        "scenario_id": "electric_up",
+        "feasibility": "feasible",
+        "solver_status": "optimal",
+        "cost_yuan": 39237469.8730623,
+        "cost_is_optimal": true,
+        "run_id": "1f965753c3d040dc85cf63a191f5ed41",
+        "input_version": 2,
+        "capacity_sha256": "3fc020b2e6fa9bf33e0e82a9882ca917c2738b779ce360fe7b68d48246282388",
+        "scenario_sha256": "16c9932d390571f2fc7bb18d179c877f39497b3747e9d0e367b2929c3a53c87c",
+        "cache_key": "c0a0917656aa273e899b71a0faab9ce802766d5e9e07c78ef59188c7f8da3870",
+        "task_sha256": "99ae88ed6e7c8fbefcdc5c85ad2fe3c148a4e44fc4f4ee0e9174dbd50210bbdb",
+        "data_sha256": "e922bec308a354d618413474ee409e5f9d12133f68b451785cf05af475ddef6b",
+        "investment_yuan": 3863445.884,
+        "emissions_kg": 1691576.3475741404,
+        "operating_cost_yuan": 2801498.7732172874,
+        "npv_cost_yuan": 39237469.8730623,
+        "mip_gap": 0.0,
+        "solve_seconds": 0.49878078700021433,
+        "effective_solve_limits_seconds": [
+          20.0
+        ],
+        "capacities_fixed": true,
+        "returned_capacities": {
+          "pv_kw": 1000.0,
+          "battery_power_kw": 0.0,
+          "battery_energy_kwh": 0.0,
+          "hp_kw_th": 0.0,
+          "boiler_kw_th": 664.659
+        },
+        "result_file": "outputs/regret_acceptance_v041/mixed_heat_8760h/matrix/2f2646e59bef950f93cff6c71132be08a5cd8249d90d4a94da8ad04f080c01e2/runs/1f965753c3d040dc85cf63a191f5ed41/result.json",
+        "result_sha256": "149c622f5bd67b637fb54f9e4d1043f6cfcc6b9160c0f24195f1e00ce15501d6",
+        "reasons": [],
+        "independently_valid": true,
+        "checks": 41
+      },
+      {
+        "candidate_id": "BASE",
+        "scenario_id": "pv_down",
+        "feasibility": "feasible",
+        "solver_status": "optimal",
+        "cost_yuan": 39194982.8389402,
+        "cost_is_optimal": true,
+        "run_id": "812c18427d9145d781d53aab0c6caeda",
+        "input_version": 2,
+        "capacity_sha256": "aeae3a9717aed15562a91b26c9c7a0adb1e4552dda1b686e3aa1532c4fdcf7d8",
+        "scenario_sha256": "56a2f439638e6bbf5d8e56c215ba4a4b04ff671e5c96d1da961d67f95bf889aa",
+        "cache_key": "77af91b561358d1f318e24acf943dd242521319b2da019f9b41c0b7f52630ef1",
+        "task_sha256": "702cc6f67f43019eb7561156d0d49a830f2ffd8c7bbdd9d22005c02646042689",
+        "data_sha256": "34740dec5e91dd64e2de10a21ff4a13f693ba27b99925f345726c4c6f15c1274",
+        "investment_yuan": 183445.884,
+        "emissions_kg": 2277022.897813333,
+        "operating_cost_yuan": 3126323.680366667,
+        "npv_cost_yuan": 39194982.8389402,
+        "mip_gap": 0.0,
+        "solve_seconds": 0.4758303019998493,
+        "effective_solve_limits_seconds": [
+          20.0
+        ],
+        "capacities_fixed": true,
+        "returned_capacities": {
+          "pv_kw": 0.0,
+          "battery_power_kw": 0.0,
+          "battery_energy_kwh": 0.0,
+          "hp_kw_th": 0.0,
+          "boiler_kw_th": 664.659
+        },
+        "result_file": "outputs/regret_acceptance_v041/mixed_heat_8760h/matrix/2f2646e59bef950f93cff6c71132be08a5cd8249d90d4a94da8ad04f080c01e2/runs/812c18427d9145d781d53aab0c6caeda/result.json",
+        "result_sha256": "e99f34edf546f105898299fbf146df26b56ff7b91f8f37af2b0b411621a194b0",
+        "reasons": [],
+        "independently_valid": true,
+        "checks": 41
+      },
+      {
+        "candidate_id": "PV",
+        "scenario_id": "pv_down",
+        "feasibility": "feasible",
+        "solver_status": "optimal",
+        "cost_yuan": 35375677.29015628,
+        "cost_is_optimal": true,
+        "run_id": "e13d5a68594247ceacc31b092fd9d06f",
+        "input_version": 2,
+        "capacity_sha256": "3fc020b2e6fa9bf33e0e82a9882ca917c2738b779ce360fe7b68d48246282388",
+        "scenario_sha256": "56a2f439638e6bbf5d8e56c215ba4a4b04ff671e5c96d1da961d67f95bf889aa",
+        "cache_key": "57fc65134b48e6fd75f36a81febf9400490de57921c9f2579842042e0068fb7c",
+        "task_sha256": "3f2d2d62232137baf842c14511cf2db119af8bee8d8aa3bd2eeaa3b04e220fab",
+        "data_sha256": "34740dec5e91dd64e2de10a21ff4a13f693ba27b99925f345726c4c6f15c1274",
+        "investment_yuan": 3863445.884,
+        "emissions_kg": 1791834.4271171684,
+        "operating_cost_yuan": 2491618.545171086,
+        "npv_cost_yuan": 35375677.29015628,
+        "mip_gap": 0.0,
+        "solve_seconds": 0.560425665999901,
+        "effective_solve_limits_seconds": [
+          20.0
+        ],
+        "capacities_fixed": true,
+        "returned_capacities": {
+          "pv_kw": 1000.0,
+          "battery_power_kw": 0.0,
+          "battery_energy_kwh": 0.0,
+          "hp_kw_th": 0.0,
+          "boiler_kw_th": 664.659
+        },
+        "result_file": "outputs/regret_acceptance_v041/mixed_heat_8760h/matrix/2f2646e59bef950f93cff6c71132be08a5cd8249d90d4a94da8ad04f080c01e2/runs/e13d5a68594247ceacc31b092fd9d06f/result.json",
+        "result_sha256": "77a818fdf7365d38054fae0a6fbea81e40ad4e86395e7834048525c1f520ec4b",
+        "reasons": [],
+        "independently_valid": true,
+        "checks": 41
+      }
+    ]
+  }
+]
