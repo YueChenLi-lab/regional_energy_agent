@@ -48,6 +48,8 @@ class ToolRegistry:
         # cycle. Its contract cannot authorize arbitrary task edits or tools.
         from .counterfactual import CounterfactualRequest, CounterfactualResult, search_counterfactual_repairs
         self._tools["search_counterfactual_repairs"] = Tool(CounterfactualRequest, CounterfactualResult, search_counterfactual_repairs)
+        from .regret import RegretRequest, RegretResult, evaluate_minimax_regret
+        self._tools['evaluate_minimax_regret'] = Tool(RegretRequest, RegretResult, evaluate_minimax_regret)
 
     @property
     def names(self) -> tuple[str, ...]:

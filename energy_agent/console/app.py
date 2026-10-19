@@ -112,6 +112,8 @@ def main() -> None:
             else:
                 st.session_state.cf_refresh_real = adopted
         render_counterfactual(run, on_adopt=adopt_repair)
+        from ..regret_ui import render_regret
+        render_regret(run)
     with tabs[1]:
         workbench(run)
     with tabs[3]:

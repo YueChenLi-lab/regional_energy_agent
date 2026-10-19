@@ -190,3 +190,19 @@ JSON 是完整可追溯结果；CSV 便于比较与绘图；Markdown 报告描�
 新增独立 `CounterfactualRequest` / `RepairRange` / `RepairTrial` / `CounterfactualRepairPath` / `CounterfactualResult`，不删除或改变旧TaskRequest/RunResult字段。请求绑定基准run_id、版本、data_fingerprint，完整输入另存SHA；allowed_fields和ranges必须一致，锁定条件不可重叠。金额元，购电kW，排放kg+原任务物质，搜索precision与原字段同单位；mip_gap是无量纲最优性间隙，不能与边界宽度混淆。最终metrics沿用原评估期，不将短期运行费/排放年化。
 
 路径包含原/建议约束值、调整量、已知不可行/可行边界、边界精度是否达到、版本/父基准、容量、投资/购能费/排放/可用NPV、原始求解状态/gap/耗时、最终独立校验、全部试探轨迹与来源。未执行/未发现可行路径的建议值、指标及最终校验为空，不填0冒充结果。详见 [counterfactual_method.md](counterfactual_method.md)。以下旧格式继续适用。
+
+## v0.4.1 多情景决策模型
+
+定义见 `energy_agent/regret.py`、`regret_math.py`。
+
+| 模型 / 字段 | 单位与含义 |
+|---|---|
+| RegretRequest | 基准RunResult/run_id/版本/完整input_sha256；稳定request_id；候选、情景、授权与资源预算 |
+| RegretCandidate | 同一基准已有候选或已求得配置；五容量字段SHA256，来源run_id和origin |
+| RegretScenario.*_multiplier | 无量纲1，非负有限0—10；电价、气价、PV、电负荷；基准全1；负荷另需明确授权 |
+| RegretRequest.cost_basis | npv或period_energy；必须与完整年经济参数匹配，不允许混用列口径 |
+| RegretCell | 原solver_status、可行性、独立校验、容量是否保持、成本/投资元、排放kg（原物质）、gap、耗时秒、run_id、输入/数据/文件SHA、证据位置 |
+| RegretAnalysis | 每列B、R矩阵、最坏W（元）、最坏情景、并列、全情景可行列表；certified/approximate/partial/no_recommendation |
+| RegretResult | 请求与情景定义、原容量边界及算法绑定来源、逐单元轨迹、分析、资源、中文解释、JSON/CSV/Markdown文件位置 |
+
+不可用金额为null，状态保留，不写NaN/Infinity。每个情景派生字段重绑定到assumption来源，记录原始父来源、完整原输入和前后数组指纹；不覆盖原始数据。`scenario_inputs.comparison_basis`保存统一口径判断。完整字段机器定义为准；见[方法与复现](regret_method.md)。

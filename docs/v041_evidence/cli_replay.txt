@@ -1,0 +1,14 @@
+当前基准run_id：b7c6cf390f91496092682d634aa0c325；研究成本口径：评估期购能费（初始投资另列，不是生命周期投资最优），单位元。
+
+合成演示数据
+
+基准情景最便宜：C；最小最大后悔候选：C。
+
+当前有限候选×有限情景内，全部单元已证明最优且校验通过或已确认不可行；在所设数值容差内认证最小最大后悔。 并列项按ID稳定展示，不代表严格优劣；未分配情景概率。
+
+C：全部指定情景均有经独立校验的可行运行；最坏情景base、electric_up、gas_up、pv_down，比该情景当前候选集内最佳已得成本多付0.0000元。
+
+最小最大成本项（不同准则）：C；未给情景分配概率，不把平均值称为期望。
+
+投资容量固定、逐时运行可适应；有限候选和有限研究假设不覆盖全部未来，不构成连续容量空间全局稳健最优。探索未改写或采用确认任务。
+{'json': 'outputs/regret_acceptance_v041/synthetic_24h/matrix/587f356961c549c034e113112989b1b3d4150568d31bd88a85feffee60efccb0/regret.json', 'csv': 'outputs/regret_acceptance_v041/synthetic_24h/matrix/587f356961c549c034e113112989b1b3d4150568d31bd88a85feffee60efccb0/matrix.csv', 'markdown': 'outputs/regret_acceptance_v041/synthetic_24h/matrix/587f356961c549c034e113112989b1b3d4150568d31bd88a85feffee60efccb0/regret.md', 'request': 'outputs/regret_acceptance_v041/synthetic_24h/matrix/587f356961c549c034e113112989b1b3d4150568d31bd88a85feffee60efccb0/request.json'}

@@ -1,10 +1,29 @@
-# 区域综合能源低碳规划评估 Agent · v0.4.0
+# 区域综合能源低碳规划评估 Agent · v0.4.1
 
 可运行的单节点电热规划原型：根据负荷、预算、场地与运行排放约束，比较有限的光伏、储能、热泵、燃气锅炉组合。单个 Agent 编排确定性工具，SciPy/HiGHS 求解运行，独立算术检查复核结果，中文 Streamlit 界面与 CLI 共用同一流程。
 
 **合成演示入口采用合成演示数据。** 价格、排放因子、成本与设备参数都是演示假设，不代表当地现行值。结果只覆盖输入的评估期，不年化，也不称为全生命周期零碳或所有容量组合的全局最优。
 
 比赛展示界面：`python -m streamlit run competition_app.py`。深蓝/青蓝主题，包含首页、问答工作台、优化结果、8760小时归档实验及证据详情，复用现有表单、会话状态与计算流程；原版入口仍为 `app.py`。无新增依赖、无页面刷新自动模型调用。见[设计规范、组件接口和集成位置](docs/competition_ui.md)。
+
+## v0.4.1：多情景最小最大后悔决策
+
+在已确认的可行任务上，明确选择已有配置和研究情景；固定投资容量，逐情景重新优化运行并独立校验。在各情景的当前候选集最佳成本基础上计算后悔，比较每个配置的最坏后悔，保留并列、近似和待定状态。全年使用一致NPV目标（投资/维护/更换/残值），短期只比较评估期购能费，投资另列。不分配情景概率，不宣称全部未来或连续容量空间全局稳健最优。
+
+比赛入口：**优化结果 → 多情景稳健决策**。选择配置/情景、确认权限与保持项后显式开始，显示真实成本和后悔热图、最坏情景、独立校验与JSON/CSV/中文报告下载。预设问题仅引导受限表单；没有自动采用配置，不改确认任务。刷新不计算，不调用付费模型；`ENERGY_AGENT_ENABLE_REGRET=0` 可独立关闭。原反事实修复、问答、全年优化及离线功能保留。
+
+```bash
+# Windows：先 conda activate regional-energy；云端用 .venv/bin/python 替换 python
+python scripts/run_regret_cases.py --output outputs/my_regret
+# 显式全年2×3矩阵；请使用新空目录
+python scripts/run_regret_cases.py --output outputs/my_annual_regret --annual
+# 同ID重放，不再调用求解器
+python -m energy_agent.cli regret --request outputs/my_regret/synthetic_24h/request.json
+python scripts/archive_regret_evidence.py --output docs/v041_evidence
+python -m streamlit run competition_app.py
+```
+
+实际完成24小时3×4和8760小时2×3，共18个单元均optimal/gap=0且独立校验通过。全年是上海Q局部实测＋估算PV＋仿真供热＋人为经济参数的混合研究情景：本次有限候选中PV同时为基准最低NPV和最小最大后悔配置，没有刻意制造推荐变化。见[方法与契约](docs/regret_method.md)、[验证与限制](docs/regret_validation.md)、[完整矩阵/见证/截图](docs/v041_evidence/README.md)。成熟最小后悔准则的工程集成，不宣称理论原创。
 
 ## v0.4.0：反事实约束修复
 

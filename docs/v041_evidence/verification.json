@@ -1,0 +1,150 @@
+{
+  "method": "SHA256 + original-derived input equality + fixed capacities + independent physics + cost/objective + matrix recalculation; no new solves",
+  "verified_cells": 18,
+  "cells": [
+    {
+      "case": "mixed_heat_8760h",
+      "candidate": "BASE",
+      "scenario": "base",
+      "run_id": "e536dd7c87be4051910ad9d1d64b85cb",
+      "cost_yuan": 39194982.8389402,
+      "witness_verified": true
+    },
+    {
+      "case": "mixed_heat_8760h",
+      "candidate": "PV",
+      "scenario": "base",
+      "run_id": "964ec3c712dc450fb2f0c74498d385a0",
+      "cost_yuan": 33741454.431240514,
+      "witness_verified": true
+    },
+    {
+      "case": "mixed_heat_8760h",
+      "candidate": "BASE",
+      "scenario": "electric_up",
+      "run_id": "b1807cb9afd14de5b6d07440a57aa6e2",
+      "cost_yuan": 46599808.63260465,
+      "witness_verified": true
+    },
+    {
+      "case": "mixed_heat_8760h",
+      "candidate": "PV",
+      "scenario": "electric_up",
+      "run_id": "1f965753c3d040dc85cf63a191f5ed41",
+      "cost_yuan": 39237469.8730623,
+      "witness_verified": true
+    },
+    {
+      "case": "mixed_heat_8760h",
+      "candidate": "BASE",
+      "scenario": "pv_down",
+      "run_id": "812c18427d9145d781d53aab0c6caeda",
+      "cost_yuan": 39194982.8389402,
+      "witness_verified": true
+    },
+    {
+      "case": "mixed_heat_8760h",
+      "candidate": "PV",
+      "scenario": "pv_down",
+      "run_id": "e13d5a68594247ceacc31b092fd9d06f",
+      "cost_yuan": 35375677.29015628,
+      "witness_verified": true
+    },
+    {
+      "case": "synthetic_24h",
+      "candidate": "A",
+      "scenario": "base",
+      "run_id": "a737603541a648038ddd3d4bd3501d8d",
+      "cost_yuan": 1845.381528336603,
+      "witness_verified": true
+    },
+    {
+      "case": "synthetic_24h",
+      "candidate": "B",
+      "scenario": "base",
+      "run_id": "65335bb93a724021a27e00572ca08d58",
+      "cost_yuan": 1319.9093341493235,
+      "witness_verified": true
+    },
+    {
+      "case": "synthetic_24h",
+      "candidate": "C",
+      "scenario": "base",
+      "run_id": "d01d3c187839468298596de123ee2329",
+      "cost_yuan": 1060.7301966794612,
+      "witness_verified": true
+    },
+    {
+      "case": "synthetic_24h",
+      "candidate": "A",
+      "scenario": "electric_up",
+      "run_id": "4f484ac95c2142109fc7428c6a69095d",
+      "cost_yuan": 2094.383810073651,
+      "witness_verified": true
+    },
+    {
+      "case": "synthetic_24h",
+      "candidate": "B",
+      "scenario": "electric_up",
+      "run_id": "5bc379367a7d49cf98d0f6207161602e",
+      "cost_yuan": 1463.8171770489157,
+      "witness_verified": true
+    },
+    {
+      "case": "synthetic_24h",
+      "candidate": "C",
+      "scenario": "electric_up",
+      "run_id": "09d03090614a47148ae14e2e265cc842",
+      "cost_yuan": 1253.690411908401,
+      "witness_verified": true
+    },
+    {
+      "case": "synthetic_24h",
+      "candidate": "A",
+      "scenario": "gas_up",
+      "run_id": "d7ce4fa69447400e8aa888a269520895",
+      "cost_yuan": 1965.4555522668757,
+      "witness_verified": true
+    },
+    {
+      "case": "synthetic_24h",
+      "candidate": "B",
+      "scenario": "gas_up",
+      "run_id": "a3662dc56b744e7bb87ff85f5068d0b2",
+      "cost_yuan": 1439.983358079596,
+      "witness_verified": true
+    },
+    {
+      "case": "synthetic_24h",
+      "candidate": "C",
+      "scenario": "gas_up",
+      "run_id": "81a4eb3819684b679eeba5ad21611f03",
+      "cost_yuan": 1061.7606852789559,
+      "witness_verified": true
+    },
+    {
+      "case": "synthetic_24h",
+      "candidate": "A",
+      "scenario": "pv_down",
+      "run_id": "4edaa595388d41919ffd581fa763156d",
+      "cost_yuan": 1845.381528336603,
+      "witness_verified": true
+    },
+    {
+      "case": "synthetic_24h",
+      "candidate": "B",
+      "scenario": "pv_down",
+      "run_id": "3c61f08d6473450081bd6c1d50e3c259",
+      "cost_yuan": 1414.5931822233913,
+      "witness_verified": true
+    },
+    {
+      "case": "synthetic_24h",
+      "candidate": "C",
+      "scenario": "pv_down",
+      "run_id": "bc57eb28c42c4147a9996b1da1267e6b",
+      "cost_yuan": 1168.4272832077643,
+      "witness_verified": true
+    }
+  ]
+}
