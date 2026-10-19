@@ -108,7 +108,9 @@ def test_agent_roundtrip_exports_logs_versions_and_real_recalculation(tmp_path, 
     assert len(result.scenarios) == 4
     assert len(result.tool_calls) == 12
     assert all(call.status == "success" and Path(call.result_file).is_file() for call in result.tool_calls)
-    assert set(agent.registry.names) == {call.tool_name for call in result.tool_calls}
+    executed = {call.tool_name for call in result.tool_calls}
+    assert executed == {'validate_inputs', 'build_candidates', 'solve_dispatch', 'validate_solution', 'compare_scenarios', 'generate_report'}
+    assert executed <= set(agent.registry.names)  # Optional tools need not execute on ordinary runs.
     saved = RunResult.model_validate_json(Path(result.files["json"]).read_text())
     assert saved == result
     table = pd.read_csv(result.files["csv"])

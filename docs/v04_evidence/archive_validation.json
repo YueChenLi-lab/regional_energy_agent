@@ -1,0 +1,69 @@
+{
+  "archives_sha_verified": 17,
+  "witnesses_independently_rechecked": [
+    {
+      "archive": "three_paths_24h_budget_yuan_witness.json.gz",
+      "run_id": "41f6eebb103040ceb42adf5d4036fb8f",
+      "independent_valid": true,
+      "checks": 30,
+      "status": "optimal",
+      "gap": 0.0,
+      "energy_hours": 24.0
+    },
+    {
+      "archive": "three_paths_24h_emission_limit_kg_witness.json.gz",
+      "run_id": "ef514b4bc4304e198492b869030b45f4",
+      "independent_valid": true,
+      "checks": 30,
+      "status": "optimal",
+      "gap": 0.0,
+      "energy_hours": 24.0
+    },
+    {
+      "archive": "three_paths_24h_grid_limit_kw_witness.json.gz",
+      "run_id": "b8df5a9878bc46db9ff2f2ef2ab507fc",
+      "independent_valid": true,
+      "checks": 30,
+      "status": "optimal",
+      "gap": 0.0,
+      "energy_hours": 24.0
+    },
+    {
+      "archive": "budget_6h_budget_yuan_witness.json.gz",
+      "run_id": "658f5a07d1e84abd88d7dfd4d1e89ca0",
+      "independent_valid": true,
+      "checks": 30,
+      "status": "optimal",
+      "gap": 0.0,
+      "energy_hours": 6.0
+    },
+    {
+      "archive": "emissions_168h_emission_limit_kg_witness.json.gz",
+      "run_id": "98259dcf8af34cec9e3b1fe275ef9d0f",
+      "independent_valid": true,
+      "checks": 30,
+      "status": "optimal",
+      "gap": 0.0,
+      "energy_hours": 168.0
+    },
+    {
+      "archive": "annual_heat_8760h_budget_yuan_witness.json.gz",
+      "run_id": "5f49d1d9be3040ec9ce17450818f265b",
+      "independent_valid": true,
+      "checks": 37,
+      "status": "optimal",
+      "gap": 0.0,
+      "energy_hours": 8760.0
+    },
+    {
+      "archive": "annual_first_limited_witness.json.gz",
+      "run_id": "6f237c1091e14c4c805e015d419a93e8",
+      "independent_valid": true,
+      "checks": 37,
+      "status": "feasible_limit",
+      "gap": 0.027067137605821825,
+      "energy_hours": 8760.0
+    }
+  ],
+  "real_model_calls": 0
+}

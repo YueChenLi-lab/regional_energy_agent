@@ -1,10 +1,26 @@
-# 区域综合能源低碳规划评估 Agent · v0.3.2
+# 区域综合能源低碳规划评估 Agent · v0.4.0
 
 可运行的单节点电热规划原型：根据负荷、预算、场地与运行排放约束，比较有限的光伏、储能、热泵、燃气锅炉组合。单个 Agent 编排确定性工具，SciPy/HiGHS 求解运行，独立算术检查复核结果，中文 Streamlit 界面与 CLI 共用同一流程。
 
 **合成演示入口采用合成演示数据。** 价格、排放因子、成本与设备参数都是演示假设，不代表当地现行值。结果只覆盖输入的评估期，不年化，也不称为全生命周期零碳或所有容量组合的全局最优。
 
 比赛展示界面：`python -m streamlit run competition_app.py`。深蓝/青蓝主题，包含首页、问答工作台、优化结果、8760小时归档实验及证据详情，复用现有表单、会话状态与计算流程；原版入口仍为 `app.py`。无新增依赖、无页面刷新自动模型调用。见[设计规范、组件接口和集成位置](docs/competition_ui.md)。
+
+## v0.4.0：反事实约束修复
+
+在用户明确允许的范围内，分别搜索追加预算、放宽已有运行排放上限或增加购电功率上限恢复可行所需的调整。复用现有求解器，不重写MILP；保持全部负荷、供能服务、时段、候选/容量范围与其余输入。确认不可行后才自动进入搜索；超时无解不当作不可行，遇到不确定中点停止二分。基准绑定、调用/时间预算、完整轨迹、最后独立校验、JSON/中文报告与显式采用回执均保存。单路径条件边界不是唯一不可行原因，也不是理论原创性声明。
+
+比赛页“优化结果”新增折叠入口；默认待执行，明确勾选权限和范围后点击搜索，只有“确认采用”才更新规划版本。可选中文问题入口为四个预设问句的离线路由，不改原对话机制、不自动请求模型。`ENERGY_AGENT_ENABLE_COUNTERFACTUAL=0` 可独立关闭功能。
+
+```bash
+# 项目根目录；使用新空输出目录，无模型密钥也可运行
+python scripts/run_counterfactual_cases.py --output outputs/my_repairs
+# 全年重算必须显式追加 --annual，普通页面/CI不运行它
+python scripts/run_counterfactual_cases.py --output outputs/my_annual_repairs --annual
+python -m streamlit run competition_app.py
+```
+
+Windows先 `conda activate regional-energy`；云端将 `python` 换为 `.venv/bin/python`。实际300项回归、三条24小时可行路径及8760小时容量修复证据见[验收记录](docs/counterfactual_validation.md)、[方法与接口](docs/counterfactual_method.md)、[报告与压缩逐时结果](docs/v04_evidence/README.md)。本轮真实付费模型请求0次；首轮全年可行未证明最优与复跑optimal证据分别保留。
 
 
 

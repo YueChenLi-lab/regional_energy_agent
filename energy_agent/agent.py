@@ -42,7 +42,12 @@ class ToolRegistry:
             "validate_solution": Tool(ValidationRequest, SolutionValidation, validate_solution),
             "compare_scenarios": Tool(ComparisonRequest, Comparison, compare_scenarios),
             "generate_report": Tool(ReportRequest, ReportText, generate_report),
+            "solve_capacity": Tool(CapacitySolveRequest, CapacitySolution, solve_capacity),
         }
+        # Imported here to keep the optional repair module free of an import
+        # cycle. Its contract cannot authorize arbitrary task edits or tools.
+        from .counterfactual import CounterfactualRequest, CounterfactualResult, search_counterfactual_repairs
+        self._tools["search_counterfactual_repairs"] = Tool(CounterfactualRequest, CounterfactualResult, search_counterfactual_repairs)
 
     @property
     def names(self) -> tuple[str, ...]:
@@ -223,7 +228,6 @@ class EnergyAgent:
                 candidates = invoke("build_candidates", ready).candidates
                 if ready.planning_mode == "capacity":
                     state(RunState.SOLVING)
-                    self.registry._tools["solve_capacity"] = Tool(CapacitySolveRequest, CapacitySolution, solve_capacity)
                     capacity = invoke("solve_capacity", CapacitySolveRequest(task=ready,options=self.options,objective=ready.capacity_objective))
                     candidates = [capacity.candidate]
                 for candidate in candidates:

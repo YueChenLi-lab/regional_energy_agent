@@ -36,6 +36,13 @@ def prepare() -> None:
     from ..ui import render_demo
 
     before = {k: getattr(st.session_state.get(k), 'run_id', None) for k in ('annual_run', 'last_run', 'real_run')}
+    adopted_real = st.session_state.pop('cf_refresh_real', None)
+    if adopted_real:
+        st.session_state.real_budget = float(adopted_real.task.constraints.budget_yuan)
+        st.session_state.real_grid = float(adopted_real.task.constraints.grid_limit_kw)
+        st.session_state.real_carbon_on = adopted_real.task.constraints.emission_limit_kg is not None
+        if adopted_real.task.constraints.emission_limit_kg is not None:
+            st.session_state.real_carbon_limit = float(adopted_real.task.constraints.emission_limit_kg)
     if st.session_state.pop('console_collapse_prepare', False):
         st.session_state.console_prepare_open = False
     with st.expander('准备评估条件 · 加载案例 / 修改参数', expanded=not any(
@@ -93,6 +100,18 @@ def main() -> None:
         prepare()
         run = selected_run()
         results(run)
+        from ..counterfactual_ui import render_counterfactual
+        def adopt_repair(adopted):
+            key = st.session_state.console_run_key
+            st.session_state[key] = adopted
+            if key == 'annual_run':
+                st.session_state.annual_task = adopted.task
+            elif key == 'last_run':
+                st.session_state.task = adopted.task
+                st.session_state.refresh_conditions = True
+            else:
+                st.session_state.cf_refresh_real = adopted
+        render_counterfactual(run, on_adopt=adopt_repair)
     with tabs[1]:
         workbench(run)
     with tabs[3]:

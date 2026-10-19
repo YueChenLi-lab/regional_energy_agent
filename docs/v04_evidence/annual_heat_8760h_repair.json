@@ -1,0 +1,1077 @@
+{
+  "request_id": "annual_heat_8760h",
+  "parent_request_id": null,
+  "request_sha256": "f5ce140b63361264e7c2f494920b7c9b980abfeea4998b1cfdb2a2ba02957641",
+  "base_run_id": "48626cad2189408a87b27916c486acfd",
+  "input_version": 1,
+  "input_sha256": "5965a22f549e8d74fd67dfb2a92a259d532e8d0dca581adef5fc81626dc17432",
+  "data_fingerprint": "3e6ebda0ccd06e3d9b593540625503f3deb5647184c8a1d683cb8a8b8f3b5456",
+  "status": "completed",
+  "baseline_verification": {
+    "phase": "baseline",
+    "field": null,
+    "value": null,
+    "run_id": "87be959ae5714ef9a9b15cb6c71c837f",
+    "input_version": 1,
+    "task_sha256": "5965a22f549e8d74fd67dfb2a92a259d532e8d0dca581adef5fc81626dc17432",
+    "data_fingerprint": "3e6ebda0ccd06e3d9b593540625503f3deb5647184c8a1d683cb8a8b8f3b5456",
+    "feasibility": "infeasible",
+    "solver_statuses": {
+      "OPT": "infeasible"
+    },
+    "verified_precheck_exclusions": [],
+    "locks_preserved": true,
+    "solver_calls": 1,
+    "effective_solve_limits_seconds": [
+      15.0
+    ],
+    "seconds": 0.7115801310001189,
+    "result_file": "outputs/counterfactual_v04_release/annual_heat_8760h/search/b96c8261a5c04d2be372b2ee8c05e5d4f37dad5bb0018f702c4e0a0c78bc7e3d/runs/87be959ae5714ef9a9b15cb6c71c837f/result.json",
+    "result_sha256": "95ac88e2c1871060565b0c1c0fdb8b917640ff47a773b970f6ff51fac78707ae",
+    "reasons": [
+      "HiGHS判定容量边界、预算、逐时供能与排放等联合约束不可行；未计算最小冲突集，不能指定唯一原因"
+    ]
+  },
+  "paths": [
+    {
+      "path_id": "35398c7d3c58b733",
+      "field": "budget_yuan",
+      "unit": "元",
+      "original_value": 0.0,
+      "search_range": {
+        "lower": 0.0,
+        "upper": 1000000.0,
+        "precision": 20000.0,
+        "unit": "元"
+      },
+      "suggested_value": 187500.0,
+      "adjustment": 187500.0,
+      "known_infeasible_lower": 171875.0,
+      "known_feasible_upper": 187500.0,
+      "boundary_precision_reached": true,
+      "boundary_kind": "bracket",
+      "status": "verified_repair",
+      "locks_preserved": true,
+      "base_run_id": "48626cad2189408a87b27916c486acfd",
+      "new_input_version": 2,
+      "run_id": "5f49d1d9be3040ec9ce17450818f265b",
+      "result_file": "outputs/counterfactual_v04_release/annual_heat_8760h/search/b96c8261a5c04d2be372b2ee8c05e5d4f37dad5bb0018f702c4e0a0c78bc7e3d/runs/5f49d1d9be3040ec9ce17450818f265b/result.json",
+      "result_sha256": "ac7eb047358a706f6289a79ab3193c54be8bce1bcebc6437500436e2a345a82f",
+      "candidate": {
+        "candidate_id": "OPT",
+        "name": "连续容量联合规划",
+        "source_id": "annual-assumptions",
+        "pv_kw": 1.1016619565217418,
+        "battery_power_kw": 0.0,
+        "battery_energy_kwh": 0.0,
+        "hp_kw_th": 0.0,
+        "boiler_kw_th": 664.659
+      },
+      "metrics": {
+        "investment_yuan": 187500.0,
+        "operating_cost_yuan": 3125408.8089905316,
+        "emissions_kg": 2276323.563647615,
+        "grid_kwh": 3960399.7733350564,
+        "gas_kwh_lhv": 485661.82333333325,
+        "curtailed_pv_kwh": 0.0,
+        "electric_load_kwh": 3961671.29,
+        "heat_load_kwh_th": 437095.64099999995,
+        "supply_satisfied": true,
+        "period_hours": 8760.0,
+        "emission_unit": "kgCO2e"
+      },
+      "npv_cost_yuan": 39188087.89337306,
+      "solver_status": "optimal",
+      "mip_gap": 0.0,
+      "solve_seconds": 13.344893438999861,
+      "final_validation": {
+        "valid": true,
+        "checks": [
+          {
+            "name": "solver_has_solution",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0,
+            "detail": "求解状态：optimal"
+          },
+          {
+            "name": "candidate_identity",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0,
+            "detail": ""
+          },
+          {
+            "name": "result_dimensions",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0,
+            "detail": "逐时点=N，SOC=N+1，充放电模式=N"
+          },
+          {
+            "name": "timestamps",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0,
+            "detail": ""
+          },
+          {
+            "name": "objective_available",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0,
+            "detail": ""
+          },
+          {
+            "name": "electric_balance",
+            "passed": true,
+            "max_violation": 1.1368683772161603e-13,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "heat_balance",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "heat_pump_cop",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "boiler_efficiency",
+            "passed": true,
+            "max_violation": 5.684341886080802e-14,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "pv_allocation",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "nonnegative_flows",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "grid_limit",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "pv_availability",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "heat_pump_capacity",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "boiler_capacity",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "battery_charge_power",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "battery_discharge_power",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "soc_lower",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "soc_upper",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "soc_initial",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "soc_terminal",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": "期末必须恢复初始能量，不允许免费消耗初始储能"
+          },
+          {
+            "name": "soc_dynamics",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "binary_charge_mode",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "charge_mode_limit",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "discharge_mode_limit",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "no_simultaneous_charge_discharge",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "investment_budget",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0001,
+            "detail": ""
+          },
+          {
+            "name": "pv_site_limit",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "emission_limit",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.0001,
+            "detail": "未设置排放上限"
+          },
+          {
+            "name": "objective_recalculation",
+            "passed": true,
+            "max_violation": 4.656612873077393e-10,
+            "tolerance": 0.0001,
+            "detail": ""
+          },
+          {
+            "name": "capacity_bound_pv_kw",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "capacity_bound_battery_power_kw",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "capacity_bound_battery_energy_kwh",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "capacity_bound_hp_kw_th",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "capacity_bound_boiler_kw_th",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "battery_min_duration",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          },
+          {
+            "name": "battery_max_duration",
+            "passed": true,
+            "max_violation": 0.0,
+            "tolerance": 0.00001,
+            "detail": ""
+          }
+        ],
+        "metrics": {
+          "investment_yuan": 187500.0,
+          "operating_cost_yuan": 3125408.8089905316,
+          "emissions_kg": 2276323.563647615,
+          "grid_kwh": 3960399.7733350564,
+          "gas_kwh_lhv": 485661.82333333325,
+          "curtailed_pv_kwh": 0.0,
+          "electric_load_kwh": 3961671.29,
+          "heat_load_kwh_th": 437095.64099999995,
+          "supply_satisfied": true,
+          "period_hours": 8760.0
+        }
+      },
+      "sources": [
+        {
+          "source_id": "energydetective-load",
+          "name": "EnergyDetective实测用电/建筑test/Q",
+          "region": "中国上海；匿名办公楼精确位置未知",
+          "time_range": "2017-01-01T00:00:00+08:00至2018-01-01T00:00:00+08:00（末端不含）",
+          "units": {
+            "raw.Record": "kWh/一小时间隔",
+            "electric_load_kw": "kW"
+          },
+          "category": "measured",
+          "processing": [
+            "发布方只称Time为timestamp，未明确区间锚点/时区；本次显式假设原时间为Asia/Shanghai、区间start；转换后为区间起点，不改历史年份",
+            "原文件建筑筛选=test；类别=['Q']；对每类按原时间稳定排序；检查(time,type)重复，未去重",
+            "按发布方README把Record解释为每小时电量，除以1h得到区间平均kW；未缩放实测负荷，未插补、删点或填零",
+            "异常跳变策略：显式保留全部跳变，研究情景未经测点核实；不代表质量告警解除",
+            "输入数值分辨率按0.01kWh声明用于核对，不代表已核实仪表精度；浮点长尾保留",
+            "{\"raw_energy_kwh\":3961671.29,\"normalized_energy_kwh\":3961671.29,\"difference_kwh\":0.0,\"tolerance_kwh\":0.0001,\"input_numeric_precision\":0.01,\"source_rounding_bound_kwh\":43.800000000000004,\"passed\":true,\"explanation\":\"转换前后使用同一输入且不舍入，只允许浮点求和误差；容差取声明输入能量分辨率的1/100与1e-8 kWh较大者。原始数值舍入不确定性上界另列，不等同于转换误差或仪表精度。\"}"
+          ],
+          "conditions": "已读取Zenodo记录metadata.license.id=cc-by-4.0；引用Xiao、Xu、Sha、Chen、Gu（2022），DOI 10.5281/zenodo.6590976，CC BY 4.0。派生数据需署名、链接许可并说明转换；本案例仅计量边界分析，不代表全楼完整计量。",
+          "url": "https://zenodo.org/records/6590976",
+          "version": "Zenodo 6590976 / DOI 10.5281/zenodo.6590976 / dataset_v2.zip",
+          "artifacts": [
+            {
+              "url": "https://zenodo.org/api/records/6590976/files/dataset_v2.zip/content",
+              "filename": "test_building_records.csv",
+              "sha256": "7a9f6158ca5d6102c72c24623bce7930fc57e16825a2803d8e55b66bd3bb78f9",
+              "retrieved_at": "2026-10-17T08:56:43.164462Z",
+              "member_path": "test_building/test_building_records.csv",
+              "container_sha256": "ae43c6fb205fb9442ab7ac8da7156afdf91767e06ed4a3252a2fa94c662c2fde",
+              "publisher_checksum": "md5:b54c73f1fb441db156b8e6cc7c7551b2",
+              "license_id": "CC-BY-4.0"
+            },
+            {
+              "url": "https://zenodo.org/api/records/6590976/files/dataset_v2.zip/content",
+              "filename": "README.md",
+              "sha256": "2dc077de74c79637c661db62c732f3b3d24ff3decef3d1809c2b5e69a6a6b5c7",
+              "retrieved_at": "2026-10-17T08:56:43.164462Z",
+              "member_path": "README.md",
+              "container_sha256": "ae43c6fb205fb9442ab7ac8da7156afdf91767e06ed4a3252a2fa94c662c2fde",
+              "publisher_checksum": "md5:b54c73f1fb441db156b8e6cc7c7551b2",
+              "license_id": "CC-BY-4.0"
+            }
+          ],
+          "parent_source_ids": []
+        },
+        {
+          "source_id": "nasa-resource",
+          "name": "NASA POWER网格太阳资源与气象（非楼宇实测）",
+          "region": "上海市级代表点，非匿名楼宇精确位置；与NASA网格存在空间代表性误差",
+          "time_range": "2017-01-01T00:00:00+08:00至2018-01-01T00:00:00+08:00",
+          "units": {
+            "ghi": "W/m²（一小时平均）",
+            "temp_air": "℃",
+            "wind_speed": "m/s"
+          },
+          "category": "estimated",
+          "processing": [
+            "显式请求time-standard=UTC，解析后转Asia/Shanghai；官方FAQ Other Time Range说明小时标签为区间起点；严格匹配原历史小时，不填补、不换年",
+            "ALLSKY_SFC_SW_DWN若为Wh/m²，除以1h得到W/m²",
+            "API按UTC整日返回8784小时；严格选取与负荷对齐的8760小时，保留完整原响应缓存"
+          ],
+          "conditions": "官方POWER免费网格资源，非楼宇或屋顶实测。已读取https://power.larc.nasa.gov/docs/referencing/：成果须包含POWER Reference和Data Reference（服务名、版本和获取日期）；NASA项目请求再分发通知，当前未发送任何通知。致谢NASA Langley Research Center POWER Project，NASA Earth Science Division资助。",
+          "url": "https://power.larc.nasa.gov/api/temporal/hourly/point?parameters=ALLSKY_SFC_SW_DWN%2CT2M%2CWS10M&community=RE&longitude=121.47&latitude=31.23&start=20161231&end=20171231&format=JSON&time-standard=UTC",
+          "version": "NASA POWER Hourly API v2.10.3",
+          "artifacts": [
+            {
+              "url": "https://power.larc.nasa.gov/api/temporal/hourly/point?parameters=ALLSKY_SFC_SW_DWN%2CT2M%2CWS10M&community=RE&longitude=121.47&latitude=31.23&start=20161231&end=20171231&format=JSON&time-standard=UTC",
+              "filename": "point",
+              "sha256": "cb0417cff0bd8cf2adcd6f4c40a43c2cc4e753752e12c0960c3627e8f66d452b",
+              "retrieved_at": "2026-10-18T03:47:29.756697Z",
+              "member_path": null,
+              "container_sha256": null,
+              "publisher_checksum": null,
+              "license_id": "未知"
+            }
+          ],
+          "parent_source_ids": []
+        },
+        {
+          "source_id": "pv-assumptions",
+          "name": "光伏安装与模型参数假设",
+          "region": "上海市级代表点，非匿名楼宇精确位置；与NASA网格存在空间代表性误差",
+          "time_range": "未知",
+          "units": {
+            "tilt_degrees": "度",
+            "azimuth_degrees": "度（北0南180）",
+            "system_loss_fraction": "1",
+            "gamma_pdc": "1/℃"
+          },
+          "category": "assumption",
+          "processing": [
+            "{\"latitude\":31.23,\"longitude\":121.47,\"coordinate_scope\":\"上海市级代表点，非匿名楼宇精确位置；与NASA网格存在空间代表性误差\",\"tilt_degrees\":20.0,\"azimuth_degrees\":180.0,\"system_loss_fraction\":0.14,\"gamma_pdc\":-0.004,\"inverter_efficiency\":0.96}",
+            "固定albedo=0.2、Faiman u0=25 W/(m²·K)、u1=6.84 W·s/(m³·K)；未校准遮挡、积雪与屋顶条件"
+          ],
+          "conditions": "安装角度和损耗为可修改情景假设，非现场勘查",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        },
+        {
+          "source_id": "estimated-pv",
+          "name": "pvlib光伏归一化AC出力估算，按1kW_DC额定容量",
+          "region": "上海市级代表点，非匿名楼宇精确位置；与NASA网格存在空间代表性误差",
+          "time_range": "2017-01-01T00:00:00+08:00至2018-01-01T00:00:00+08:00",
+          "units": {
+            "pv_per_kw": "kW/kW"
+          },
+          "category": "estimated",
+          "processing": [
+            "区间中点太阳位置；Erbs分解GHI为DNI/DHI，isotropic转倾斜面POA；Faiman电池温度；PVWatts DC与逆变器AC效率；固定系统损耗",
+            "夜间太阳高度角<=0时估算出力为0；未把辐照量直接当出力；无售电"
+          ],
+          "conditions": "气象驱动的模型估算，不能称为楼宇实测光伏；粗略代表点与小时中点近似带来误差",
+          "url": "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.pvsystem.pvwatts_dc.html",
+          "version": "pvlib 0.16.1",
+          "artifacts": [],
+          "parent_source_ids": [
+            "nasa-resource",
+            "pv-assumptions"
+          ]
+        },
+        {
+          "source_id": "heating-disabled",
+          "name": "电侧模式明确停用供热/燃气",
+          "region": "未知",
+          "time_range": "未知",
+          "units": {
+            "heat_load_kw_th": "kW_th",
+            "gas_price": "元/kWh_LHV",
+            "gas_emission_factor": "kgCO2e/kWh_LHV"
+          },
+          "category": "assumption",
+          "processing": [
+            "热负荷、燃气价格和因子为零占位；候选热泵与锅炉容量均为零，不把W暖通电量转为热需求"
+          ],
+          "conditions": "不建模供热，不代表楼宇没有供热需求，也不代表供热已得到保障；W若选中仍保留为电负荷",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        },
+        {
+          "source_id": "scenario-tariff",
+          "name": "人工情景时段电价（非上海官方历史价格）",
+          "region": "上海（人工情景，非官方现行电价）",
+          "time_range": "情景假设，不宣称适用于2017或当前年份",
+          "units": {
+            "electricity_price": "元/kWh"
+          },
+          "category": "assumption",
+          "processing": [
+            "{\"region\":\"上海（人工情景，非官方现行电价）\",\"applicable_year\":\"情景假设，不宣称适用于2017或当前年份\",\"customer_class\":\"办公建筑情景，未核实电压等级与用户分类\",\"cost_scope\":\"仅按购电量计费；未计基本电费、需量费、容量费、功率因数调整及税费差异\",\"periods\":[{\"start_hour\":0,\"end_hour\":7,\"yuan_per_kwh\":0.38},{\"start_hour\":7,\"end_hour\":17,\"yuan_per_kwh\":0.72},{\"start_hour\":17,\"end_hour\":22,\"yuan_per_kwh\":1.15},{\"start_hour\":22,\"end_hour\":24,\"yuan_per_kwh\":0.72}]}",
+            "按原负荷日期的北京时间小时展开，不改动时间轴"
+          ],
+          "conditions": "办公建筑情景，未核实电压等级与用户分类；仅按购电量计费；未计基本电费、需量费、容量费、功率因数调整及税费差异",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        },
+        {
+          "source_id": "scenario-emissions",
+          "name": "人工情景常数排放因子（未冒充官方因子）",
+          "region": "上海情景；非已核实官方省级因子",
+          "time_range": "人为情景假设，非官方历史因子",
+          "units": {
+            "grid_emission_factor": "kgCO2e/kWh"
+          },
+          "category": "assumption",
+          "processing": [
+            "人工设置0.55 kgCO2e/kWh，展开为逐时常数；不是实测逐时碳强度"
+          ],
+          "conditions": "仅购电运行排放情景，不含生命周期；CO2和CO2e按用户声明分别保留，不互换。官方适用年份与核算范围尚待核实",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        },
+        {
+          "source_id": "electric-scenario",
+          "name": "新增电侧设备、容量与项目约束假设",
+          "region": "匿名上海办公楼情景",
+          "time_range": "未知",
+          "units": {
+            "pv_cost_per_kw": "元/kW_DC",
+            "battery_cost_per_kwh": "元/kWh",
+            "battery_power_cost_per_kw": "元/kW",
+            "budget_yuan": "元",
+            "grid_limit_kw": "kW",
+            "pv_limit_kw": "kW_DC"
+          },
+          "category": "assumption",
+          "processing": [
+            "{\"budget_yuan\":0.0,\"grid_limit_kw\":null,\"pv_limit_kw\":2500.0,\"emission_limit_kg\":null,\"emission_factor\":0.55,\"emission_species\":\"CO2e\",\"emission_factor_year\":\"人为情景假设，非官方历史因子\",\"tariff\":{\"region\":\"上海（人工情景，非官方现行电价）\",\"applicable_year\":\"情景假设，不宣称适用于2017或当前年份\",\"customer_class\":\"办公建筑情景，未核实电压等级与用户分类\",\"cost_scope\":\"仅按购电量计费；未计基本电费、需量费、容量费、功率因数调整及税费差异\",\"periods\":[{\"start_hour\":0,\"end_hour\":7,\"yuan_per_kwh\":0.38},{\"start_hour\":7,\"end_hour\":17,\"yuan_per_kwh\":0.72},{\"start_hour\":17,\"end_hour\":22,\"yuan_per_kwh\":1.15},{\"start_hour\":22,\"end_hour\":24,\"yuan_per_kwh\":0.72}]},\"pv_cost_per_kw\":3200.0,\"battery_cost_per_kwh\":900.0,\"battery_power_cost_per_kw\":450.0,\"installation_fraction\":0.15,\"battery_charge_efficiency\":0.95,\"battery_discharge_efficiency\":0.95,\"battery_power_fraction_of_peak\":0.25,\"battery_duration_hours\":2.0,\"pv_fraction_of_peak\":0.5,\"solar\":{\"latitude\":31.23,\"longitude\":121.47,\"coordinate_scope\":\"上海市级代表点，非匿名楼宇精确位置；与NASA网格存在空间代表性误差\",\"tilt_degrees\":20.0,\"azimuth_degrees\":180.0,\"system_loss_fraction\":0.14,\"gamma_pdc\":-0.004,\"inverter_efficiency\":0.96},\"include_solar\":true}",
+            "负荷保持原值：峰值4907.06kW；电池功率=ceil(峰值×0.25/10)×10=1230kW，能量=功率×2h=2460kWh",
+            "光伏候选容量=ceil(峰值×0.5/10)×10=2460kW_DC；规模受控的情景容量，不是优化定容或已核实屋顶容量"
+          ],
+          "conditions": "增量投资：只计新增PV、电池、功率变换与比例安装费；既有电网接入、既有暖通及照明设备不计投资，不主张新建全楼投资",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": [
+            "energydetective-load"
+          ]
+        },
+        {
+          "source_id": "annual-assumptions",
+          "name": "全年研究情景：容量及经济参数假设",
+          "region": "上海匿名楼宇研究情景",
+          "time_range": "2017代表年，未来20年重复，不是预测",
+          "units": {
+            "capacities": "kW/kWh/kW_th",
+            "cost": "元",
+            "gas_price": "元/kWh_LHV",
+            "gas_emission_factor": "kgCO2e/kWh_LHV"
+          },
+          "category": "assumption",
+          "processing": [
+            "使用完整原始Q照明插座电量；排除W暖通，不缩放、不改日期",
+            "容量上界：PV2500kW，电池1000kW/4000kWh；场地未实勘，无强制最低装机",
+            "{\"source_id\":\"annual-assumptions\",\"horizon_years\":20,\"discount_rate\":0.05,\"assets\":{\"pv_kw\":{\"lifetime_years\":25,\"fixed_om_fraction\":0.015,\"replacement_fraction\":1.0,\"residual_method\":\"straight_line\"},\"battery_power_kw\":{\"lifetime_years\":15,\"fixed_om_fraction\":0.015,\"replacement_fraction\":1.0,\"residual_method\":\"straight_line\"},\"battery_energy_kwh\":{\"lifetime_years\":10,\"fixed_om_fraction\":0.015,\"replacement_fraction\":1.0,\"residual_method\":\"straight_line\"},\"hp_kw_th\":{\"lifetime_years\":15,\"fixed_om_fraction\":0.015,\"replacement_fraction\":1.0,\"residual_method\":\"straight_line\"},\"boiler_kw_th\":{\"lifetime_years\":20,\"fixed_om_fraction\":0.015,\"replacement_fraction\":1.0,\"residual_method\":\"straight_line\"}},\"additional_fixed_om_yuan_per_year\":0.0,\"battery_variable_om_per_kwh\":0.01,\"hp_variable_om_per_kwh_th\":0.005,\"boiler_variable_om_per_kwh_th\":0.003,\"representative_year_assumption\":\"同一完整年度的负荷、资源、价格和排放因子重复用于未来每年；无增长、衰减或多年预测\"}",
+            "{\"floor_area_m2\":20000.0,\"envelope_area_m2\":30000.0,\"envelope_u_w_m2_k\":0.7,\"air_volume_m3\":60000.0,\"air_changes_per_hour\":0.5,\"air_heat_capacity_wh_m3_k\":0.33,\"indoor_setpoint_c\":20.0,\"heating_months\":[1,2,3,11,12],\"start_hour\":7,\"end_hour\":20}",
+            "新增热泵1100元/kW_th，锅炉240元/kW_th，燃气0.32元/kWh_LHV、0.202kgCO2e/kWh_LHV均为假设；安装费沿用15%",
+            "容量上界量级依据：原Q峰值4907.06kW，PV=ceil(0.5*峰值/100)*100=2500，电池功率=ceil(0.2*峰值/100)*100=1000，能量上界=4h*功率；热容量上界=1.2*仿真峰值=797.591；候选PV=ceil(0.2*峰值/100)*100；均为可修改研究范围，非实测场地"
+          ],
+          "conditions": "设备寿命、维护、更换、残值与价格/排放均为研究假设，可修改；无工程报价，不含税费、土地、融资、设备隐含排放",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        },
+        {
+          "source_id": "simulated-heating",
+          "name": "Q局部实测电量＋稳态物理仿真供热研究情景",
+          "region": "上海代表点，非匿名建筑精确定位",
+          "time_range": "2017-01-01T00:00:00+08:00至2018-01-01T00:00:00+08:00（末端不含）",
+          "units": {
+            "heat_load_kw_th": "kW_th"
+          },
+          "category": "simulated",
+          "processing": [
+            "{\"floor_area_m2\":20000.0,\"envelope_area_m2\":30000.0,\"envelope_u_w_m2_k\":0.7,\"air_volume_m3\":60000.0,\"air_changes_per_hour\":0.5,\"air_heat_capacity_wh_m3_k\":0.33,\"indoor_setpoint_c\":20.0,\"heating_months\":[1,2,3,11,12],\"start_hour\":7,\"end_hour\":20}",
+            "H=(A_envelope*U + volume*ACH*0.33)/1000 * max(Tset-Tout,0)；仅指定供热月份、工作日及时段。未计太阳得热、内热源、蓄热和动态预热；面积参数为假设，未校准"
+          ],
+          "conditions": "非实测热负荷、非全楼改造；排除W暖通用电，避免同一供热重复计量；未覆盖供冷、热水、原暖通服务及非选中计量类别",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": [
+            "nasa-resource",
+            "annual-assumptions"
+          ]
+        },
+        {
+          "source_id": "revision-v2",
+          "name": "用户场景修改 v2",
+          "region": "未知",
+          "time_range": "2017-01-01T00:00:00+08:00至2018-01-01T00:00:00+08:00（末端不含）",
+          "units": {
+            "budget_yuan": "元",
+            "emission_limit_kg": "kgCO2e",
+            "grid_limit_kw": "kW",
+            "pv_limit_kw": "kW",
+            "demand_scale": "1",
+            "electric_load_kw": "kW",
+            "heat_load_kw_th": "kW_th",
+            "discount_rate": "1",
+            "horizon_years": "年",
+            "lifetime_years": "年",
+            "fixed_om_fraction": "1/年",
+            "additional_fixed_om_yuan_per_year": "元/年"
+          },
+          "category": "user",
+          "processing": [
+            "由输入v1派生；父运行 48626cad2189408a87b27916c486acfd",
+            "{\"budget_yuan\": 187500.0}",
+            "负荷缩放作用于全部已提供时间区间；无缺失填充",
+            "反事实探索；是否采用以单独的显式确认回执为准，未改写基准任务"
+          ],
+          "conditions": "用户指定的情景假设，不代表实测",
+          "url": null,
+          "version": "未知",
+          "artifacts": [],
+          "parent_source_ids": []
+        }
+      ],
+      "trace": [
+        {
+          "phase": "expand",
+          "field": "budget_yuan",
+          "value": 250000.0,
+          "run_id": "7042cae0e6b248f9b8a4c690f27d4a3c",
+          "input_version": 2,
+          "task_sha256": "e23e0e3cfbe344f3d37f26254cd84c9f389a2ae3bfdc253df4db332f469558d6",
+          "data_fingerprint": "3e6ebda0ccd06e3d9b593540625503f3deb5647184c8a1d683cb8a8b8f3b5456",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "OPT": "optimal"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            15.0
+          ],
+          "seconds": 12.532600154999955,
+          "result_file": "outputs/counterfactual_v04_release/annual_heat_8760h/search/b96c8261a5c04d2be372b2ee8c05e5d4f37dad5bb0018f702c4e0a0c78bc7e3d/runs/7042cae0e6b248f9b8a4c690f27d4a3c/result.json",
+          "result_sha256": "b74a0922aac4ed8ef0d4eb0a4f6f299ce74bc29be02692103c11af08c1edc204",
+          "reasons": []
+        },
+        {
+          "phase": "bisect",
+          "field": "budget_yuan",
+          "value": 125000.0,
+          "run_id": "a095ce17948b4fda9810d6ed6e2a916a",
+          "input_version": 2,
+          "task_sha256": "4ffcc220250491817f248c7bd97201d11240d1116ab5cba98bfa73a69a987f03",
+          "data_fingerprint": "3e6ebda0ccd06e3d9b593540625503f3deb5647184c8a1d683cb8a8b8f3b5456",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "OPT": "infeasible"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            15.0
+          ],
+          "seconds": 11.775637964999987,
+          "result_file": "outputs/counterfactual_v04_release/annual_heat_8760h/search/b96c8261a5c04d2be372b2ee8c05e5d4f37dad5bb0018f702c4e0a0c78bc7e3d/runs/a095ce17948b4fda9810d6ed6e2a916a/result.json",
+          "result_sha256": "b77162c08508e750632576c3d7ff36986a117d214475dbb82e5de5cb3201ff64",
+          "reasons": [
+            "HiGHS判定容量边界、预算、逐时供能与排放等联合约束不可行；未计算最小冲突集，不能指定唯一原因"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "budget_yuan",
+          "value": 187500.0,
+          "run_id": "5f49d1d9be3040ec9ce17450818f265b",
+          "input_version": 2,
+          "task_sha256": "a7958a573aceb12f2148aabab4995c10ad62e1642e32ab2b0ba0eef6a15d154b",
+          "data_fingerprint": "3e6ebda0ccd06e3d9b593540625503f3deb5647184c8a1d683cb8a8b8f3b5456",
+          "feasibility": "feasible",
+          "solver_statuses": {
+            "OPT": "optimal"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            15.0
+          ],
+          "seconds": 14.27605696899991,
+          "result_file": "outputs/counterfactual_v04_release/annual_heat_8760h/search/b96c8261a5c04d2be372b2ee8c05e5d4f37dad5bb0018f702c4e0a0c78bc7e3d/runs/5f49d1d9be3040ec9ce17450818f265b/result.json",
+          "result_sha256": "ac7eb047358a706f6289a79ab3193c54be8bce1bcebc6437500436e2a345a82f",
+          "reasons": []
+        },
+        {
+          "phase": "bisect",
+          "field": "budget_yuan",
+          "value": 156250.0,
+          "run_id": "0904e0da3b744ab8bf50ef70ebf95b34",
+          "input_version": 2,
+          "task_sha256": "a5ed27c881d34e7471101ce854055d52f3c8757f51462b9202b6b0158379e7e2",
+          "data_fingerprint": "3e6ebda0ccd06e3d9b593540625503f3deb5647184c8a1d683cb8a8b8f3b5456",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "OPT": "infeasible"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            15.0
+          ],
+          "seconds": 13.45196949800038,
+          "result_file": "outputs/counterfactual_v04_release/annual_heat_8760h/search/b96c8261a5c04d2be372b2ee8c05e5d4f37dad5bb0018f702c4e0a0c78bc7e3d/runs/0904e0da3b744ab8bf50ef70ebf95b34/result.json",
+          "result_sha256": "0b7f573495fab16b21c8f564ddb904f15cd784c2ddd8bb516234a7723ed56f34",
+          "reasons": [
+            "HiGHS判定容量边界、预算、逐时供能与排放等联合约束不可行；未计算最小冲突集，不能指定唯一原因"
+          ]
+        },
+        {
+          "phase": "bisect",
+          "field": "budget_yuan",
+          "value": 171875.0,
+          "run_id": "ed7281f52d314b4681a4527ccd23ecdf",
+          "input_version": 2,
+          "task_sha256": "be22d7e0fe1379f2dadecab7056741919cf7d7b93c6d15ceb449a864a7cc9db6",
+          "data_fingerprint": "3e6ebda0ccd06e3d9b593540625503f3deb5647184c8a1d683cb8a8b8f3b5456",
+          "feasibility": "infeasible",
+          "solver_statuses": {
+            "OPT": "infeasible"
+          },
+          "verified_precheck_exclusions": [],
+          "locks_preserved": true,
+          "solver_calls": 1,
+          "effective_solve_limits_seconds": [
+            15.0
+          ],
+          "seconds": 12.667703476000042,
+          "result_file": "outputs/counterfactual_v04_release/annual_heat_8760h/search/b96c8261a5c04d2be372b2ee8c05e5d4f37dad5bb0018f702c4e0a0c78bc7e3d/runs/ed7281f52d314b4681a4527ccd23ecdf/result.json",
+          "result_sha256": "b3c448005d0b6ed076936fcb4bcef56219ed0964ca5a5c6d11b7387554a4db5a",
+          "reasons": [
+            "HiGHS判定容量边界、预算、逐时供能与排放等联合约束不可行；未计算最小冲突集，不能指定唯一原因"
+          ]
+        }
+      ],
+      "note": "在声明范围、现有模型和指定精度下找到可行边界；不代表运行目标或所有可能设备模型的全局最优。"
+    }
+  ],
+  "solver_calls": 6,
+  "elapsed_seconds": 65.76737869900012,
+  "limits": {
+    "single_solve_seconds": 15.0,
+    "max_solver_calls": 12,
+    "total_seconds": 120.0
+  },
+  "allowed_fields": [
+    "budget_yuan"
+  ],
+  "locked_conditions": [
+    "electric_load",
+    "heat_load",
+    "period",
+    "service"
+  ],
+  "sources": [
+    {
+      "source_id": "energydetective-load",
+      "name": "EnergyDetective实测用电/建筑test/Q",
+      "region": "中国上海；匿名办公楼精确位置未知",
+      "time_range": "2017-01-01T00:00:00+08:00至2018-01-01T00:00:00+08:00（末端不含）",
+      "units": {
+        "raw.Record": "kWh/一小时间隔",
+        "electric_load_kw": "kW"
+      },
+      "category": "measured",
+      "processing": [
+        "发布方只称Time为timestamp，未明确区间锚点/时区；本次显式假设原时间为Asia/Shanghai、区间start；转换后为区间起点，不改历史年份",
+        "原文件建筑筛选=test；类别=['Q']；对每类按原时间稳定排序；检查(time,type)重复，未去重",
+        "按发布方README把Record解释为每小时电量，除以1h得到区间平均kW；未缩放实测负荷，未插补、删点或填零",
+        "异常跳变策略：显式保留全部跳变，研究情景未经测点核实；不代表质量告警解除",
+        "输入数值分辨率按0.01kWh声明用于核对，不代表已核实仪表精度；浮点长尾保留",
+        "{\"raw_energy_kwh\":3961671.29,\"normalized_energy_kwh\":3961671.29,\"difference_kwh\":0.0,\"tolerance_kwh\":0.0001,\"input_numeric_precision\":0.01,\"source_rounding_bound_kwh\":43.800000000000004,\"passed\":true,\"explanation\":\"转换前后使用同一输入且不舍入，只允许浮点求和误差；容差取声明输入能量分辨率的1/100与1e-8 kWh较大者。原始数值舍入不确定性上界另列，不等同于转换误差或仪表精度。\"}"
+      ],
+      "conditions": "已读取Zenodo记录metadata.license.id=cc-by-4.0；引用Xiao、Xu、Sha、Chen、Gu（2022），DOI 10.5281/zenodo.6590976，CC BY 4.0。派生数据需署名、链接许可并说明转换；本案例仅计量边界分析，不代表全楼完整计量。",
+      "url": "https://zenodo.org/records/6590976",
+      "version": "Zenodo 6590976 / DOI 10.5281/zenodo.6590976 / dataset_v2.zip",
+      "artifacts": [
+        {
+          "url": "https://zenodo.org/api/records/6590976/files/dataset_v2.zip/content",
+          "filename": "test_building_records.csv",
+          "sha256": "7a9f6158ca5d6102c72c24623bce7930fc57e16825a2803d8e55b66bd3bb78f9",
+          "retrieved_at": "2026-10-17T08:56:43.164462Z",
+          "member_path": "test_building/test_building_records.csv",
+          "container_sha256": "ae43c6fb205fb9442ab7ac8da7156afdf91767e06ed4a3252a2fa94c662c2fde",
+          "publisher_checksum": "md5:b54c73f1fb441db156b8e6cc7c7551b2",
+          "license_id": "CC-BY-4.0"
+        },
+        {
+          "url": "https://zenodo.org/api/records/6590976/files/dataset_v2.zip/content",
+          "filename": "README.md",
+          "sha256": "2dc077de74c79637c661db62c732f3b3d24ff3decef3d1809c2b5e69a6a6b5c7",
+          "retrieved_at": "2026-10-17T08:56:43.164462Z",
+          "member_path": "README.md",
+          "container_sha256": "ae43c6fb205fb9442ab7ac8da7156afdf91767e06ed4a3252a2fa94c662c2fde",
+          "publisher_checksum": "md5:b54c73f1fb441db156b8e6cc7c7551b2",
+          "license_id": "CC-BY-4.0"
+        }
+      ],
+      "parent_source_ids": []
+    },
+    {
+      "source_id": "nasa-resource",
+      "name": "NASA POWER网格太阳资源与气象（非楼宇实测）",
+      "region": "上海市级代表点，非匿名楼宇精确位置；与NASA网格存在空间代表性误差",
+      "time_range": "2017-01-01T00:00:00+08:00至2018-01-01T00:00:00+08:00",
+      "units": {
+        "ghi": "W/m²（一小时平均）",
+        "temp_air": "℃",
+        "wind_speed": "m/s"
+      },
+      "category": "estimated",
+      "processing": [
+        "显式请求time-standard=UTC，解析后转Asia/Shanghai；官方FAQ Other Time Range说明小时标签为区间起点；严格匹配原历史小时，不填补、不换年",
+        "ALLSKY_SFC_SW_DWN若为Wh/m²，除以1h得到W/m²",
+        "API按UTC整日返回8784小时；严格选取与负荷对齐的8760小时，保留完整原响应缓存"
+      ],
+      "conditions": "官方POWER免费网格资源，非楼宇或屋顶实测。已读取https://power.larc.nasa.gov/docs/referencing/：成果须包含POWER Reference和Data Reference（服务名、版本和获取日期）；NASA项目请求再分发通知，当前未发送任何通知。致谢NASA Langley Research Center POWER Project，NASA Earth Science Division资助。",
+      "url": "https://power.larc.nasa.gov/api/temporal/hourly/point?parameters=ALLSKY_SFC_SW_DWN%2CT2M%2CWS10M&community=RE&longitude=121.47&latitude=31.23&start=20161231&end=20171231&format=JSON&time-standard=UTC",
+      "version": "NASA POWER Hourly API v2.10.3",
+      "artifacts": [
+        {
+          "url": "https://power.larc.nasa.gov/api/temporal/hourly/point?parameters=ALLSKY_SFC_SW_DWN%2CT2M%2CWS10M&community=RE&longitude=121.47&latitude=31.23&start=20161231&end=20171231&format=JSON&time-standard=UTC",
+          "filename": "point",
+          "sha256": "cb0417cff0bd8cf2adcd6f4c40a43c2cc4e753752e12c0960c3627e8f66d452b",
+          "retrieved_at": "2026-10-18T03:47:29.756697Z",
+          "member_path": null,
+          "container_sha256": null,
+          "publisher_checksum": null,
+          "license_id": "未知"
+        }
+      ],
+      "parent_source_ids": []
+    },
+    {
+      "source_id": "pv-assumptions",
+      "name": "光伏安装与模型参数假设",
+      "region": "上海市级代表点，非匿名楼宇精确位置；与NASA网格存在空间代表性误差",
+      "time_range": "未知",
+      "units": {
+        "tilt_degrees": "度",
+        "azimuth_degrees": "度（北0南180）",
+        "system_loss_fraction": "1",
+        "gamma_pdc": "1/℃"
+      },
+      "category": "assumption",
+      "processing": [
+        "{\"latitude\":31.23,\"longitude\":121.47,\"coordinate_scope\":\"上海市级代表点，非匿名楼宇精确位置；与NASA网格存在空间代表性误差\",\"tilt_degrees\":20.0,\"azimuth_degrees\":180.0,\"system_loss_fraction\":0.14,\"gamma_pdc\":-0.004,\"inverter_efficiency\":0.96}",
+        "固定albedo=0.2、Faiman u0=25 W/(m²·K)、u1=6.84 W·s/(m³·K)；未校准遮挡、积雪与屋顶条件"
+      ],
+      "conditions": "安装角度和损耗为可修改情景假设，非现场勘查",
+      "url": null,
+      "version": "未知",
+      "artifacts": [],
+      "parent_source_ids": []
+    },
+    {
+      "source_id": "estimated-pv",
+      "name": "pvlib光伏归一化AC出力估算，按1kW_DC额定容量",
+      "region": "上海市级代表点，非匿名楼宇精确位置；与NASA网格存在空间代表性误差",
+      "time_range": "2017-01-01T00:00:00+08:00至2018-01-01T00:00:00+08:00",
+      "units": {
+        "pv_per_kw": "kW/kW"
+      },
+      "category": "estimated",
+      "processing": [
+        "区间中点太阳位置；Erbs分解GHI为DNI/DHI，isotropic转倾斜面POA；Faiman电池温度；PVWatts DC与逆变器AC效率；固定系统损耗",
+        "夜间太阳高度角<=0时估算出力为0；未把辐照量直接当出力；无售电"
+      ],
+      "conditions": "气象驱动的模型估算，不能称为楼宇实测光伏；粗略代表点与小时中点近似带来误差",
+      "url": "https://pvlib-python.readthedocs.io/en/stable/reference/generated/pvlib.pvsystem.pvwatts_dc.html",
+      "version": "pvlib 0.16.1",
+      "artifacts": [],
+      "parent_source_ids": [
+        "nasa-resource",
+        "pv-assumptions"
+      ]
+    },
+    {
+      "source_id": "heating-disabled",
+      "name": "电侧模式明确停用供热/燃气",
+      "region": "未知",
+      "time_range": "未知",
+      "units": {
+        "heat_load_kw_th": "kW_th",
+        "gas_price": "元/kWh_LHV",
+        "gas_emission_factor": "kgCO2e/kWh_LHV"
+      },
+      "category": "assumption",
+      "processing": [
+        "热负荷、燃气价格和因子为零占位；候选热泵与锅炉容量均为零，不把W暖通电量转为热需求"
+      ],
+      "conditions": "不建模供热，不代表楼宇没有供热需求，也不代表供热已得到保障；W若选中仍保留为电负荷",
+      "url": null,
+      "version": "未知",
+      "artifacts": [],
+      "parent_source_ids": []
+    },
+    {
+      "source_id": "scenario-tariff",
+      "name": "人工情景时段电价（非上海官方历史价格）",
+      "region": "上海（人工情景，非官方现行电价）",
+      "time_range": "情景假设，不宣称适用于2017或当前年份",
+      "units": {
+        "electricity_price": "元/kWh"
+      },
+      "category": "assumption",
+      "processing": [
+        "{\"region\":\"上海（人工情景，非官方现行电价）\",\"applicable_year\":\"情景假设，不宣称适用于2017或当前年份\",\"customer_class\":\"办公建筑情景，未核实电压等级与用户分类\",\"cost_scope\":\"仅按购电量计费；未计基本电费、需量费、容量费、功率因数调整及税费差异\",\"periods\":[{\"start_hour\":0,\"end_hour\":7,\"yuan_per_kwh\":0.38},{\"start_hour\":7,\"end_hour\":17,\"yuan_per_kwh\":0.72},{\"start_hour\":17,\"end_hour\":22,\"yuan_per_kwh\":1.15},{\"start_hour\":22,\"end_hour\":24,\"yuan_per_kwh\":0.72}]}",
+        "按原负荷日期的北京时间小时展开，不改动时间轴"
+      ],
+      "conditions": "办公建筑情景，未核实电压等级与用户分类；仅按购电量计费；未计基本电费、需量费、容量费、功率因数调整及税费差异",
+      "url": null,
+      "version": "未知",
+      "artifacts": [],
+      "parent_source_ids": []
+    },
+    {
+      "source_id": "scenario-emissions",
+      "name": "人工情景常数排放因子（未冒充官方因子）",
+      "region": "上海情景；非已核实官方省级因子",
+      "time_range": "人为情景假设，非官方历史因子",
+      "units": {
+        "grid_emission_factor": "kgCO2e/kWh"
+      },
+      "category": "assumption",
+      "processing": [
+        "人工设置0.55 kgCO2e/kWh，展开为逐时常数；不是实测逐时碳强度"
+      ],
+      "conditions": "仅购电运行排放情景，不含生命周期；CO2和CO2e按用户声明分别保留，不互换。官方适用年份与核算范围尚待核实",
+      "url": null,
+      "version": "未知",
+      "artifacts": [],
+      "parent_source_ids": []
+    },
+    {
+      "source_id": "electric-scenario",
+      "name": "新增电侧设备、容量与项目约束假设",
+      "region": "匿名上海办公楼情景",
+      "time_range": "未知",
+      "units": {
+        "pv_cost_per_kw": "元/kW_DC",
+        "battery_cost_per_kwh": "元/kWh",
+        "battery_power_cost_per_kw": "元/kW",
+        "budget_yuan": "元",
+        "grid_limit_kw": "kW",
+        "pv_limit_kw": "kW_DC"
+      },
+      "category": "assumption",
+      "processing": [
+        "{\"budget_yuan\":0.0,\"grid_limit_kw\":null,\"pv_limit_kw\":2500.0,\"emission_limit_kg\":null,\"emission_factor\":0.55,\"emission_species\":\"CO2e\",\"emission_factor_year\":\"人为情景假设，非官方历史因子\",\"tariff\":{\"region\":\"上海（人工情景，非官方现行电价）\",\"applicable_year\":\"情景假设，不宣称适用于2017或当前年份\",\"customer_class\":\"办公建筑情景，未核实电压等级与用户分类\",\"cost_scope\":\"仅按购电量计费；未计基本电费、需量费、容量费、功率因数调整及税费差异\",\"periods\":[{\"start_hour\":0,\"end_hour\":7,\"yuan_per_kwh\":0.38},{\"start_hour\":7,\"end_hour\":17,\"yuan_per_kwh\":0.72},{\"start_hour\":17,\"end_hour\":22,\"yuan_per_kwh\":1.15},{\"start_hour\":22,\"end_hour\":24,\"yuan_per_kwh\":0.72}]},\"pv_cost_per_kw\":3200.0,\"battery_cost_per_kwh\":900.0,\"battery_power_cost_per_kw\":450.0,\"installation_fraction\":0.15,\"battery_charge_efficiency\":0.95,\"battery_discharge_efficiency\":0.95,\"battery_power_fraction_of_peak\":0.25,\"battery_duration_hours\":2.0,\"pv_fraction_of_peak\":0.5,\"solar\":{\"latitude\":31.23,\"longitude\":121.47,\"coordinate_scope\":\"上海市级代表点，非匿名楼宇精确位置；与NASA网格存在空间代表性误差\",\"tilt_degrees\":20.0,\"azimuth_degrees\":180.0,\"system_loss_fraction\":0.14,\"gamma_pdc\":-0.004,\"inverter_efficiency\":0.96},\"include_solar\":true}",
+        "负荷保持原值：峰值4907.06kW；电池功率=ceil(峰值×0.25/10)×10=1230kW，能量=功率×2h=2460kWh",
+        "光伏候选容量=ceil(峰值×0.5/10)×10=2460kW_DC；规模受控的情景容量，不是优化定容或已核实屋顶容量"
+      ],
+      "conditions": "增量投资：只计新增PV、电池、功率变换与比例安装费；既有电网接入、既有暖通及照明设备不计投资，不主张新建全楼投资",
+      "url": null,
+      "version": "未知",
+      "artifacts": [],
+      "parent_source_ids": [
+        "energydetective-load"
+      ]
+    },
+    {
+      "source_id": "annual-assumptions",
+      "name": "全年研究情景：容量及经济参数假设",
+      "region": "上海匿名楼宇研究情景",
+      "time_range": "2017代表年，未来20年重复，不是预测",
+      "units": {
+        "capacities": "kW/kWh/kW_th",
+        "cost": "元",
+        "gas_price": "元/kWh_LHV",
+        "gas_emission_factor": "kgCO2e/kWh_LHV"
+      },
+      "category": "assumption",
+      "processing": [
+        "使用完整原始Q照明插座电量；排除W暖通，不缩放、不改日期",
+        "容量上界：PV2500kW，电池1000kW/4000kWh；场地未实勘，无强制最低装机",
+        "{\"source_id\":\"annual-assumptions\",\"horizon_years\":20,\"discount_rate\":0.05,\"assets\":{\"pv_kw\":{\"lifetime_years\":25,\"fixed_om_fraction\":0.015,\"replacement_fraction\":1.0,\"residual_method\":\"straight_line\"},\"battery_power_kw\":{\"lifetime_years\":15,\"fixed_om_fraction\":0.015,\"replacement_fraction\":1.0,\"residual_method\":\"straight_line\"},\"battery_energy_kwh\":{\"lifetime_years\":10,\"fixed_om_fraction\":0.015,\"replacement_fraction\":1.0,\"residual_method\":\"straight_line\"},\"hp_kw_th\":{\"lifetime_years\":15,\"fixed_om_fraction\":0.015,\"replacement_fraction\":1.0,\"residual_method\":\"straight_line\"},\"boiler_kw_th\":{\"lifetime_years\":20,\"fixed_om_fraction\":0.015,\"replacement_fraction\":1.0,\"residual_method\":\"straight_line\"}},\"additional_fixed_om_yuan_per_year\":0.0,\"battery_variable_om_per_kwh\":0.01,\"hp_variable_om_per_kwh_th\":0.005,\"boiler_variable_om_per_kwh_th\":0.003,\"representative_year_assumption\":\"同一完整年度的负荷、资源、价格和排放因子重复用于未来每年；无增长、衰减或多年预测\"}",
+        "{\"floor_area_m2\":20000.0,\"envelope_area_m2\":30000.0,\"envelope_u_w_m2_k\":0.7,\"air_volume_m3\":60000.0,\"air_changes_per_hour\":0.5,\"air_heat_capacity_wh_m3_k\":0.33,\"indoor_setpoint_c\":20.0,\"heating_months\":[1,2,3,11,12],\"start_hour\":7,\"end_hour\":20}",
+        "新增热泵1100元/kW_th，锅炉240元/kW_th，燃气0.32元/kWh_LHV、0.202kgCO2e/kWh_LHV均为假设；安装费沿用15%",
+        "容量上界量级依据：原Q峰值4907.06kW，PV=ceil(0.5*峰值/100)*100=2500，电池功率=ceil(0.2*峰值/100)*100=1000，能量上界=4h*功率；热容量上界=1.2*仿真峰值=797.591；候选PV=ceil(0.2*峰值/100)*100；均为可修改研究范围，非实测场地"
+      ],
+      "conditions": "设备寿命、维护、更换、残值与价格/排放均为研究假设，可修改；无工程报价，不含税费、土地、融资、设备隐含排放",
+      "url": null,
+      "version": "未知",
+      "artifacts": [],
+      "parent_source_ids": []
+    },
+    {
+      "source_id": "simulated-heating",
+      "name": "Q局部实测电量＋稳态物理仿真供热研究情景",
+      "region": "上海代表点，非匿名建筑精确定位",
+      "time_range": "2017-01-01T00:00:00+08:00至2018-01-01T00:00:00+08:00（末端不含）",
+      "units": {
+        "heat_load_kw_th": "kW_th"
+      },
+      "category": "simulated",
+      "processing": [
+        "{\"floor_area_m2\":20000.0,\"envelope_area_m2\":30000.0,\"envelope_u_w_m2_k\":0.7,\"air_volume_m3\":60000.0,\"air_changes_per_hour\":0.5,\"air_heat_capacity_wh_m3_k\":0.33,\"indoor_setpoint_c\":20.0,\"heating_months\":[1,2,3,11,12],\"start_hour\":7,\"end_hour\":20}",
+        "H=(A_envelope*U + volume*ACH*0.33)/1000 * max(Tset-Tout,0)；仅指定供热月份、工作日及时段。未计太阳得热、内热源、蓄热和动态预热；面积参数为假设，未校准"
+      ],
+      "conditions": "非实测热负荷、非全楼改造；排除W暖通用电，避免同一供热重复计量；未覆盖供冷、热水、原暖通服务及非选中计量类别",
+      "url": null,
+      "version": "未知",
+      "artifacts": [],
+      "parent_source_ids": [
+        "nasa-resource",
+        "annual-assumptions"
+      ]
+    }
+  ],
+  "files": {
+    "json": "outputs/counterfactual_v04_release/annual_heat_8760h/search/b96c8261a5c04d2be372b2ee8c05e5d4f37dad5bb0018f702c4e0a0c78bc7e3d/repair.json",
+    "markdown": "outputs/counterfactual_v04_release/annual_heat_8760h/search/b96c8261a5c04d2be372b2ee8c05e5d4f37dad5bb0018f702c4e0a0c78bc7e3d/repair.md",
+    "request": "outputs/counterfactual_v04_release/annual_heat_8760h/search/b96c8261a5c04d2be372b2ee8c05e5d4f37dad5bb0018f702c4e0a0c78bc7e3d/request.json"
+  },
+  "note": "在用户授权范围内搜索替代决策，保持全部负荷、时段、服务与其余业务输入；各路径互为替代，不自动采用。无可行上界时，只能说在当前范围内尚未找到经验证的修复方案。电侧模式不代表供热已建模或得到保障；购电上限放宽不含额外接入增容工程费用。",
+  "tool_call": {
+    "run_id": "annual_heat_8760h",
+    "input_version": 1,
+    "tool_name": "search_counterfactual_repairs",
+    "status": "success",
+    "seconds": 65.76737869900012,
+    "summary": "已执行受限搜索；状态completed；求解适配器6次；不自动采用",
+    "source_ids": [
+      "energydetective-load",
+      "nasa-resource",
+      "pv-assumptions",
+      "estimated-pv",
+      "heating-disabled",
+      "scenario-tariff",
+      "scenario-emissions",
+      "electric-scenario",
+      "annual-assumptions",
+      "simulated-heating"
+    ],
+    "result_file": "outputs/counterfactual_v04_release/annual_heat_8760h/search/b96c8261a5c04d2be372b2ee8c05e5d4f37dad5bb0018f702c4e0a0c78bc7e3d/repair.json"
+  },
+  "monotonicity": "仅放宽预算、排放或购电功率上界，其余输入、固定候选集/容量边界和逐时足额供能保持，因此原可行解在更宽上界下仍可行。该性质不把超时当成不可行，也不证明唯一冲突原因。"
+}
