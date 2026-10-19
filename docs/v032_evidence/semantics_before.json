@@ -1,0 +1,65 @@
+[
+  {
+    "text": "预算增加到1200万元",
+    "ready": true,
+    "patch": {
+      "budget_yuan": 22000000.0
+    }
+  },
+  {
+    "text": "预算增加200万元",
+    "ready": true,
+    "patch": {
+      "budget_yuan": 12000000.0
+    }
+  },
+  {
+    "text": "预算增加20%",
+    "ready": true,
+    "patch": {
+      "budget_multiplier": 1.2
+    }
+  },
+  {
+    "text": "预算提高到原来的120%",
+    "ready": true,
+    "patch": {
+      "budget_multiplier": 1.2
+    }
+  },
+  {
+    "text": "预算不要减少20%",
+    "ready": true,
+    "patch": {
+      "budget_multiplier": 0.8
+    }
+  },
+  {
+    "text": "不要把预算减少20%",
+    "ready": true,
+    "patch": {
+      "budget_multiplier": 0.8
+    }
+  },
+  {
+    "text": "购电上限改为1000kWh",
+    "ready": true,
+    "patch": {
+      "grid_limit_kw": 1000.0
+    }
+  },
+  {
+    "text": "排放上限改为100T",
+    "ready": true,
+    "patch": {
+      "emission_limit_kg": 100.0
+    }
+  },
+  {
+    "text": "排放上限改为100t",
+    "ready": true,
+    "patch": {
+      "emission_limit_kg": 100000.0
+    }
+  }
+]

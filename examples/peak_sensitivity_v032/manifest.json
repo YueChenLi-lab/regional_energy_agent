@@ -1,0 +1,17 @@
+{
+  "format": "regional-energy-peak-evidence-v1",
+  "raw_file_sha256": "7a9f6158ca5d6102c72c24623bce7930fc57e16825a2803d8e55b66bd3bb78f9",
+  "parent_normalized_sha256": "d5005614ae9d59ef474ea26df55405e1a8f9c6584c5990b3ce5c6e557a8ce07b",
+  "controls_sha256": "4de4205662e761e7dc772beb00851e7125ed1e82a15ec44c620b64ab98ea05c6",
+  "files": {
+    "original/standardized.csv": "d5005614ae9d59ef474ea26df55405e1a8f9c6584c5990b3ce5c6e557a8ce07b",
+    "original/metadata.json": "4aa0c80e096e770f1c8e15499753de5a5cc55b1eaa26e945b11ffa1efb9ad51c",
+    "original/treatment.json": "f24a05a02c6d47d9b4ac638ae961d03d2c241ba6ebd8a3ff66fd27626e2c3401",
+    "linear/standardized.csv": "079a0e4a6c42a39b564794067d5db053b97c210bf4f12c92759111cfe31cfcd2",
+    "linear/metadata.json": "4b05b4516c6e97f37fa051b7751566e1322d3398e6b9fe84c38d27f1a882eb84",
+    "linear/treatment.json": "f23cce7095e0b87a0be2cea67e388e1d729a8ce488196493d317ec53ea15bc05",
+    "local_cap/standardized.csv": "5813285c083ac3a8858398a0678869859f4a79665c69a9e86886977001754018",
+    "local_cap/metadata.json": "fcf4e4cdd9ee958dc8940875628c0afaf4832e7da58c16830b914e02ed3ceddd",
+    "local_cap/treatment.json": "5db5689b5d93190c7c358f084a9057d81c56b4fa0fc0b2521956ee11ddc7a2fa"
+  }
+}

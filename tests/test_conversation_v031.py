@@ -264,7 +264,7 @@ def test_nonbudget_negative_values_and_choices_require_clarification(base,text):
 def test_economic_reductions_distinguish_delta_from_target(base):
     base.task.economics=default_economics('demo-equipment')
     base.task.economics.additional_fixed_om_yuan_per_year=30000
-    c=compile_contract('折现率降低到4%，规划期减少5年，光伏寿命减少5年，光伏维护费率降低到2%，项目额外年固定维护费降低到1万元，供热不变',base)
+    c=compile_contract('折现率降低到4%，规划期减少5年，光伏寿命减少5年，光伏维护费率提高到2%，项目额外年固定维护费降低到1万元，供热不变',base)
     assert c.ready
     updated=revise_task(base.task,c.patch)
     assert updated.economics.discount_rate==.04

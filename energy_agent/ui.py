@@ -81,7 +81,9 @@ def _show_results(run: RunResult) -> None:
             with st.expander("独立约束检查"):
                 st.dataframe(pd.DataFrame([c.model_dump() for c in scenario.validation.checks]), hide_index=True)
     if run.previous_run_id:
-        with st.expander("条件变更与前后差异", expanded=True):
+        from .comparability import basis_summary
+        st.info(basis_summary(run))
+        with st.expander("条件变更与前后差异（详细证据）", expanded=False):
             st.caption(f"前次运行：{run.previous_run_id}")
             st.json(run.changes)
     if run.files:
@@ -105,7 +107,7 @@ def _show_results(run: RunResult) -> None:
 def main() -> None:
     st.set_page_config(page_title="区域综合能源低碳规划评估 Agent", layout="wide")
     st.title("区域综合能源低碳规划评估 Agent")
-    st.write("v0.3.1 · 可接续对话 · 单供能节点 · 全年容量/有限候选 · 运行阶段排放")
+    st.write("v0.3.2 · 可接续对话 · 单供能节点 · 全年容量/有限候选 · 运行阶段排放")
     st.info("规则演示模式：支持预设任务和表单修改，可在没有模型密钥时完成评估；不具备任意自然语言理解能力。")
     workflow = st.radio("工作流程", ["合成演示", "外部数据导入（电侧）", "全年规划与Agent"], horizontal=True, key="workflow")
     if workflow == "全年规划与Agent":

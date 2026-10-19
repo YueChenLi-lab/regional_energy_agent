@@ -1,0 +1,70 @@
+# v0.3.2 验收记录
+
+日期：2026-10-19（北京时间）。从远程最新main `f514190`创建`feat/v0.3.2-semantics-robustness`；初始工作区干净，未发现AGENTS.md。沿用项目Python3.12.14 `.venv`和固定依赖；版本0.3.2，没有新增第三方依赖或修改全局Python/模型认证。更新工作流的Windows验证在GitHub runner执行。
+
+## 已实际执行
+
+- main基线：169 passed in102.46s；输出`v032_evidence/baseline_tests.txt`。
+- 语义两层回归：授权字段/值/完整单位/保留条件，以及模拟模型＋真实本地求解。否定/含糊/错误单位停在澄清，正确修改产生新版本并采用正确预算；强行修改的模拟模型也不能绕过本地校验。
+- 可比性：预算为A；年数/折现率等为B；负荷/时段/服务/因子等为C或D；同一摘要实际进入报告、UI与对话。全年人工常量电热用例真实重算经济修改，不冒充实测样本。
+- Linux跨进程验证：真实解释器进程持锁、第二进程重复提交受阻、退出后新进程恢复、接续求解、重复回答，以及中文空格路径导出/读回。
+- Streamlit AppTest：准备修改/保持项/口径提示、否定请求澄清、保存的三组实验展示；普通刷新禁止HTTP。不是浏览器视觉验收。
+- 实际全年Q三组实验：每组8760小时，同一预算/容量上下界/购电限制/经济/价格/因子/资源/热负荷；每组38项独立检查全部通过，逐时平衡、SOC及目标复核均包含在内。
+
+最终Linux完整回归：**266 passed in51.78s**，原始输出见`v032_evidence/test_output.txt`。首次完整回归发现1项界面按钮顺序回归，已把离线实验查看放到原加载按钮后，保留原测试并在最终完整回归通过。后补CSV兼容及错误单位/同义字段澄清接续测试，均执行真实本地求解。
+
+## 语义问题核实及测试调整
+
+main实测复现见`v032_evidence/semantics_before.json`：增加到1200万元被解释为2200万元；两类否定被解释为减20%；kWh被截成kW；100T与100t相差1000倍。修复使用共用操作/完整单位/否定规则，不只处理单个句式。
+
+旧测试中从1.5%“降低到2%”方向矛盾，原测试改为“提高到2%”保留目标值目的；新增原矛盾句必须澄清的测试，没有删掉或弱化原验证。不同用户措辞、寿命与维护费的目标/增量规则也覆盖。统一拦截近似量/不等式及“无须/勿/不需要”等否定，中文/全角或带空格负号不能被取成正数；“比原来增加20%”明确按相对增幅计算。无法可靠理解的表达没有有效契约，不调用求解器。
+
+## 实际峰值实验
+
+命令：
+
+```bash
+.venv/bin/python -m energy_agent.cli peak-study --bundle examples/shanghai_2017 --spec configs/peak_sensitivity_v032.json --output outputs/v032_peak_final --time-limit 120
+```
+
+原始发布文件SHA与三份标准化CSV/处理记录的SHA随证据保存。导出已核对兼容原load_csv契约，并提供metadata.json；为验收此导出修正重新执行了完整三组流程，以下为最终运行。原文件未改。预声明仅处理2017-01-13 00:00，插值242.43kW；局部参考窗口48个原值点最大819.48kW，按100kW向上取整为900kW。阈值在任何求解前写入predeclared_treatments.json。
+
+|情景|年电量kWh|峰值kW|NPV元|年运行排放kgCO2e|耗时秒|状态/间隙|
+|---|---:|---:|---:|---:|---:|---|
+|原值|3961671.29|4907.06|29718716.515954|1255841.146504|9.9948|optimal/0|
+|邻时线性|3957006.66|898.55|29696626.507867|1253275.600004|9.6232|optimal/0|
+|局部上限|3957664.23|900.00|29699740.522616|1253637.263504|9.8402|optimal/0|
+
+每个模型70086变量、8760二进制变量、105127约束、249657非零元素；时限120秒，目标为NPV，保留充放电互斥和周期SOC，无隐含缺供。原值run_id `ac077f0bfcf9483989200ec667fa1e8a`；线性`88e42dab1dfe45b2843bf526081748f8`；局部上限`272e9fd9aca549748b735b2659a77126`。
+
+三组容量完全相同：PV1819.444791kW、电池421.702086kW/2628.218395kWh、热泵184.590918kW_th、锅炉480.068082kW_th；初投1000万元（浮点尾差在独立校验容差内）。保持原值基准购电上限5400kW、PV上界2500kW、电池1000kW/4000kWh及原热容量边界，未按处理后峰值改变搜索范围。
+
+相对原值，插值用电量减少4664.63kWh、NPV减少22090.008087元、年排放减少2565.5465kgCO2e；局部上限分别减少4007.06kWh、18975.993339元、2203.8830kgCO2e。容量和初投未变，不能称为设备配置改善。仅对本次预算、范围和假设，按预声明1%容量/NPV及1kW(kW_th)/kWh绝对阈值，未显示明显敏感。不判断真实峰值应是多少。
+
+电量处理依据原小时kWh的0.01kWh输入精度，修改前后能量差的复核采用0.01kWh绝对容差；这是算术/导出核对，不声称测量误差只有0.01kWh。实际浮点累计差远小于容差。解的约束检查按原模型各检查容差保存；跨平台若出现非唯一最优容量，结合目标、排放及全部约束判断，不要求CSV浮点字节哈希在重算后完全一致。
+
+案例边界仍是上海2017全年Q局部实测＋仿真供热、NASA估算PV，排除W；价格、排放因子、设备与经济参数为假设，20年/5%重复代表年，不是实测全楼改造、多年预测、生命周期碳核算或工程投资建议。未下载新的外部文件，使用已核验许可文件和缓存离线重放。
+
+## 模拟通过、未验证与真实模型
+
+本轮真实API请求：**0次**，没有执行llm-check/llm-acceptance，没有复制聊天密钥或输出配置值；v0.3.1的10次真实验收是历史记录，不记作本轮成果。所有模型流程使用模拟模型/MockTransport，数值仍由真实本地求解器产生。普通CI显式清空模型配置。
+
+**Windows CI实际通过**：提交`79636fc29f48760b7bf9d1af8d3425fd7599b02c`的[运行39215428105](https://github.com/YueChenLi-lab/regional_energy_agent/actions/runs/39215428105)，windows-latest/Python3.12与Ubuntu两个job均success。安装、pip check、完整pytest、中文路径合成导出、真实数据离线重放及JUnit上传各步骤均实际success；源代码无skip/xfail，Windows执行了同一完整套件。真实跨进程文件锁/重复提交阻止、解释器退出后的恢复、中文空格路径实际读回包含在其中。详见`v032_evidence/ci_initial.json`。JUnit产物及哈希元数据可读取，云端二进制下载返回403，未核读内容；不把本地输出冒充Windows日志。最终PR检查以GitHub最新提交状态为准。
+
+Windows Conda人工交互、真实浏览器视觉、未核实的Q测点真实性/时间锚点以及更多气象/价格情景未验证。Streamlit AppTest通过和健康接口HTTP200/ok不等于浏览器视觉验收。AppTest不替代这些项目。
+
+## 操作命令
+
+```powershell
+git fetch origin
+git switch --track origin/feat/v0.3.2-semantics-robustness
+conda activate regional-energy
+$env:PYTHONUTF8="1"
+python -m pip install -r requirements.txt
+python -m pip install -e . --no-deps
+python -m pytest -q
+python -m energy_agent.cli peak-study --bundle examples/shanghai_2017 --spec configs/peak_sensitivity_v032.json --output outputs/my_peak_study --time-limit 120
+python -m streamlit run app.py
+```
+
+新空输出目录防止覆盖证据。云端用`.venv/bin/python`，安装恢复用`bash scripts/setup.sh`。界面“全年规划与Agent”可查看保存实验；对话预览不求解、不调用模型。JSON、CSV与中文报告见v032_evidence与examples/peak_sensitivity_v032。PR不自动合并、不部署。

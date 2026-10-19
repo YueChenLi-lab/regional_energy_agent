@@ -1,0 +1,13 @@
+{
+  "format": "regional-energy-peak-study-v1",
+  "year": 2017,
+  "building": "test",
+  "meter": "Q",
+  "points": [{"timestamp": "2017-01-13T00:00:00+08:00", "expected_original_kw": 4907.06}],
+  "local_reference_hours_each_side": 24,
+  "cap_rounding_kw": 100,
+  "capacity_relative_threshold": 0.01,
+  "capacity_absolute_threshold": 1.0,
+  "npv_relative_threshold": 0.01,
+  "method_statement": "仅作人为处理假设敏感性实验，不认定原数据错误，不是校准实测。线性情景只对列出的点使用前后未列出时点插值；局部上限由原值数据前后24小时中未列出点的最大值向上取整至100kW，一次计算后固定。三组使用同一原值基准的预算、容量边界、购电上限及其余输入。"
+}

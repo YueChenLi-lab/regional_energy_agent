@@ -1,10 +1,26 @@
-# 区域综合能源低碳规划评估 Agent · v0.3.1
+# 区域综合能源低碳规划评估 Agent · v0.3.2
 
 可运行的单节点电热规划原型：根据负荷、预算、场地与运行排放约束，比较有限的光伏、储能、热泵、燃气锅炉组合。单个 Agent 编排确定性工具，SciPy/HiGHS 求解运行，独立算术检查复核结果，中文 Streamlit 界面与 CLI 共用同一流程。
 
 **合成演示入口采用合成演示数据。** 价格、排放因子、成本与设备参数都是演示假设，不代表当地现行值。结果只覆盖输入的评估期，不年化，也不称为全生命周期零碳或所有容量组合的全局最优。
 
 
+
+## v0.3.2：准确修改、可比性与峰值稳健性
+
+新增共用操作/完整单位解析：区分“增加到1200万元”和“增加200万元”，保留否定作用范围，拒绝kWh冒充kW，T/t统一按吨换算。预算、负荷、寿命与维护修改采用同一规则；无法可靠理解或方向矛盾时先澄清。模型提议仍须与本地授权一致，普通测试/CI不调用付费模型，本轮真实API请求0次。
+
+报告、界面和对话统一核对前后时段、服务/负荷、排放口径与经济假设；经济参数变化标为敏感性比较，不把原始NPV差值写成同口径生命周期成本节省。界面先显示准备修改、保持项和比较口径，JSON/工具轨迹放折叠区。
+
+已实际完成三组8760小时Q峰值处理假设实验，均optimal、间隙0、38项独立检查通过。只处理预声明的一个点，预算/容量边界/购电限制/供热与其他输入保持。三组容量与初投相同；成本与排放差值伴随电量减少，不能当作设备配置改善。原始文件未改，完整派生CSV和来源另存。Windows Python3.12 CI及实际状态见[本轮验收](docs/v032_validation.md)；AppTest不代表真实浏览器视觉验证。
+
+```bash
+# 离线，不需要API密钥；每次使用新的空输出目录
+python -m energy_agent.cli peak-study --bundle examples/shanghai_2017 --spec configs/peak_sensitivity_v032.json --output outputs/my_peak_study --time-limit 120
+python -m streamlit run app.py
+```
+
+云端使用`.venv/bin/python`；Windows使用已有Conda环境regional-energy。完整[修改契约/比较/复现说明](docs/changes_v032.md)、[中文实验报告](docs/v032_evidence/peak_report.md)、[机器结果](docs/v032_evidence/peak_study.json)、[派生数据及许可](examples/peak_sensitivity_v032/README.md)。本轮没有重新接入或调用真实模型；以下v0.3.1的10次是上一版本历史验收。
 
 ## v0.3.1：真实 DeepSeek 验收与可接续对话
 

@@ -1,0 +1,167 @@
+{
+  "category": "synthetic contract fixtures; full dialogue separately tested",
+  "rows": [
+    {
+      "text": "预算增加到1200万元",
+      "ready": true,
+      "patch": {
+        "budget_yuan": 12000000.0
+      },
+      "edits": [
+        {
+          "field": "constraints.budget_yuan",
+          "before": 10000000.0,
+          "after": 12000000.0,
+          "unit": "元",
+          "evidence": "预算增加到1200万元",
+          "operation": "target",
+          "input_unit": "万元"
+        }
+      ],
+      "preserves": [],
+      "missing": []
+    },
+    {
+      "text": "预算增加200万元",
+      "ready": true,
+      "patch": {
+        "budget_yuan": 12000000.0
+      },
+      "edits": [
+        {
+          "field": "constraints.budget_yuan",
+          "before": 10000000.0,
+          "after": 12000000.0,
+          "unit": "元",
+          "evidence": "预算增加200万元",
+          "operation": "delta",
+          "input_unit": "万元"
+        }
+      ],
+      "preserves": [],
+      "missing": []
+    },
+    {
+      "text": "预算增加20%",
+      "ready": true,
+      "patch": {
+        "budget_multiplier": 1.2
+      },
+      "edits": [
+        {
+          "field": "constraints.budget_yuan",
+          "before": 10000000.0,
+          "after": 12000000.0,
+          "unit": "元",
+          "evidence": "预算增加20%",
+          "operation": "relative_percent",
+          "input_unit": "%"
+        }
+      ],
+      "preserves": [],
+      "missing": []
+    },
+    {
+      "text": "预算提高到原来的120%",
+      "ready": true,
+      "patch": {
+        "budget_multiplier": 1.2
+      },
+      "edits": [
+        {
+          "field": "constraints.budget_yuan",
+          "before": 10000000.0,
+          "after": 12000000.0,
+          "unit": "元",
+          "evidence": "预算提高到原来的120%",
+          "operation": "baseline_ratio",
+          "input_unit": "%"
+        }
+      ],
+      "preserves": [],
+      "missing": []
+    },
+    {
+      "text": "预算不要减少20%",
+      "ready": false,
+      "patch": {},
+      "edits": [],
+      "preserves": [],
+      "missing": [
+        {
+          "field": "clause_5c616e2881",
+          "question": "修改包含否定，请明确是否修改和最终目标：预算不要减少20%。",
+          "reason": "保留否定作用范围；未执行被否定的修改"
+        }
+      ]
+    },
+    {
+      "text": "不要把预算减少20%",
+      "ready": false,
+      "patch": {},
+      "edits": [],
+      "preserves": [],
+      "missing": [
+        {
+          "field": "clause_35d54f093d",
+          "question": "修改包含否定，请明确是否修改和最终目标：不要把预算减少20%。",
+          "reason": "保留否定作用范围；未执行被否定的修改"
+        }
+      ]
+    },
+    {
+      "text": "购电上限改为1000kWh",
+      "ready": false,
+      "patch": {},
+      "edits": [],
+      "preserves": [],
+      "missing": [
+        {
+          "field": "grid_limit_kw",
+          "question": "请明确该项修改： 单位“kWh”不属于该字段要求的power，不能按单位前缀截取",
+          "reason": "单位“kWh”不属于该字段要求的power，不能按单位前缀截取"
+        }
+      ]
+    },
+    {
+      "text": "排放上限改为100T",
+      "ready": true,
+      "patch": {
+        "emission_limit_kg": 100000.0
+      },
+      "edits": [
+        {
+          "field": "constraints.emission_limit_kg",
+          "before": null,
+          "after": 100000.0,
+          "unit": "kgCO2e",
+          "evidence": "排放上限改为100T",
+          "operation": "target",
+          "input_unit": "T"
+        }
+      ],
+      "preserves": [],
+      "missing": []
+    },
+    {
+      "text": "排放上限改为100t",
+      "ready": true,
+      "patch": {
+        "emission_limit_kg": 100000.0
+      },
+      "edits": [
+        {
+          "field": "constraints.emission_limit_kg",
+          "before": null,
+          "after": 100000.0,
+          "unit": "kgCO2e",
+          "evidence": "排放上限改为100t",
+          "operation": "target",
+          "input_unit": "t"
+        }
+      ],
+      "preserves": [],
+      "missing": []
+    }
+  ]
+}
