@@ -6,7 +6,7 @@
 
 | 项目 | 实际证据 |
 |---|---|
-| 完整测试 | **365 passed，74.47秒**，命令`.venv/bin/python -m pytest -q --junitxml=outputs/v05_final_tests.xml`，退出0；[完整输出](v05_ui_evidence/pytest_output.txt) |
+| 完整测试 | **365 passed，77.70秒**，命令`.venv/bin/python -m pytest -q --junitxml=outputs/v05_final_tests.xml`，退出0；[完整输出](v05_ui_evidence/pytest_output.txt) |
 | 原测试保留 | 原333项＋新增32项；未删除/跳过测试或删除业务断言。仅把全年入口测试的`button[0]`定位改为“加载许可全年离线案例”按钮，仍断言未确认时禁用，避免新首页按钮改变索引 |
 | 入口切换前 | 比赛页完整361项通过、真实浏览器及入口专项32项通过后，才最小切换`app.py`；新增细化测试后再执行最终365项 |
 | 依赖与编译 | 项目`.venv` Python3.12；`pip check`退出0、No broken requirements found；`compileall`通过；无新增运行依赖 |
@@ -64,7 +64,7 @@ Chromium headless/CDP，实际尺寸1440×900与390×844。实际在根`app.py`�
 
 修复过程中发现并重验：缺少待执行caption的旧UI回归、草稿局部导入造成path_title未绑定、数值/边界/费用可比性问题；首次尝试无隔离wheel构建因项目虚拟环境无setuptools后端失败，改用pyproject既定隔离构建成功。新study测试曾错误假设老归档含较新字段，改为核对老归档实际NPV/排放列，未删除点数和来源断言。开发热更新期间旧Pydantic内存类实例曾失配，重启后用固定源码版本重新完成浏览器验收，未修改核心模型/存储或归档。
 
-**Ubuntu/Windows CI**：保留原双平台Python3.12离线矩阵、pip check、中文路径demo和离线重放。本文写入时尚待推送；最终执行状态及链接在PR Checks和交付报告中更新，本地365计数不替代Windows实际执行。Windows Conda真实浏览器和屏幕阅读器未执行，不用Linux尺寸模拟冒充真机测试。
+**Ubuntu/Windows CI**：保留原双平台Python3.12离线矩阵、pip check、中文路径demo和离线重放。首轮提交5cc006a的[PR CI](https://github.com/YueChenLi-lab/regional_energy_agent/actions/runs/39256547254)已实际完成Ubuntu和Windows且均success；之后补充了基准无有效指标的提示及断言，再次本地365通过。最终提交状态见[PR #10 Checks](https://github.com/YueChenLi-lab/regional_energy_agent/pull/10/checks)，本地计数不替代Windows实际执行。Windows Conda真实浏览器和屏幕阅读器未执行，不用Linux尺寸模拟冒充真机测试。
 
 **公网未验证**：探测`https://regional-energy-agent.streamlit.app/`时得到ProxyError，无法检查公网页面/健康或Cloud管理日志。Cloud绑定main/app.py依据用户说明，本轮没有Cloud管理台权限证据，没有更改设置、删除/重建应用或切换域名。PR未人工合并前不能声称v0.5已上线。
 

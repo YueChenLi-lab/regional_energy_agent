@@ -758,7 +758,7 @@ def build_task_summary(reply: Any, annual: Any, old_run: Any = None) -> TaskSumm
         result_version=f'v{g(run,"input_version","?")}', basis_text=basis,
         before_after=ba,
         before_after_note=('差值为当前减基准；口径变化时标为敏感性差值，不能解释为同口径生命周期成本节省。' if ba else
-                           ('基准运行不在当前会话，未列出新旧数值；口径说明见上。' if run is not None and g(run, 'previous_run_id') else '')),
+                           ('基准快照缺失，或基准/当前无有效推荐指标；未列新旧数值，口径说明见上。' if run is not None and g(run, 'previous_run_id') else '')),
         verify_text=verify_text, verify_tone=verify_tone, tool_rows=calls)
 
 
