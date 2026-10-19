@@ -18,8 +18,9 @@ _NUMBER = re.compile(r'(?<![A-Za-z0-9_.])([+-]?\d+(?:\.\d+)?)(?:\s*)((?:个百�
 _TARGET = re.compile(r'改为|设为|设置为|调整为|变为|调至|(?:增加|提高|上调|降低|减少|削减|下调|缩减|延长|缩短|降|减|增)(?:到|至)')
 _UP = re.compile(r'增加|提高|上调|增长|上升|延长')
 _DOWN = re.compile(r'减少|降低|削减|下调|缩减|下降|缩短')
-_NEGATION = re.compile(r'不要|不得|不许|禁止|不能|无需|不必|别|不想|不打算|不希望|不应|不再|不(?:减少|增加|降低|提高|修改|调整|取消|移除|清除|缩放|缩短|延长)|不是')
-_CHOICE = re.compile(r'或者|或|至少|不低于|不超过|范围|\d\s*(?:~|～|—|-)\s*\d')
+_NEGATION = re.compile(r'不(?!变)|不要|勿|别|禁止|无需|无须|无意|没有|尚未')
+_CHOICE = re.compile(r'或者|或|至少|不低于|不超过|范围|以上|以下|以内|至多|不多于|最多|最少|超过|低于|高于|大于|小于|少于|多于|\d\s*(?:~|～|—|-)\s*\d')
+_APPROXIMATE = re.compile(r'大约|大概|约莫|差不多|左右|上下|近似|大致|视情况|看情况|酌情|适当|约(?=\s*\d|增加|提高|减少|降低|为|到|至)')
 
 
 def has_negation(text):
@@ -84,8 +85,9 @@ def parse_edit(text,current,dimension,*,species='CO2e'):
     Percentages for scalar rates may be absolute targets. For physical amounts
     and load scales, a target percentage must explicitly reference the baseline.
     """
+    if re.search(r'(?:[-−－]|负)\s*\d',text):raise EditMeaningError('负数不能转换为正数执行，请明确有效值')
     if has_negation(text):raise EditMeaningError('修改包含否定，需先明确是否修改及最终目标；未执行被否定的操作')
-    if _CHOICE.search(text):raise EditMeaningError('多个选项、范围或不等式需要澄清为唯一目标')
+    if _CHOICE.search(text) or _APPROXIMATE.search(text):raise EditMeaningError('近似量、多个选项、范围或不等式需要澄清为唯一目标')
     matches=list(_NUMBER.finditer(text))
     if not matches:raise EditMeaningError('缺少明确数值与完整单位')
     quantities=[_quantity(m) for m in matches]
@@ -109,7 +111,7 @@ def parse_edit(text,current,dimension,*,species='CO2e'):
     ratio=bool(re.search(r'原来|原有|基准',text))
     if q.unit=='%' and (dimension!='rate' or ratio or (not target and up!=down)):
         if target and not ratio:raise EditMeaningError('百分比目标需要明确“原来的/基准的”比例，或给出绝对值及单位')
-        if ratio and not target:raise EditMeaningError('基准比例需要明确“调整到/改为/提高到”等目标操作')
+        if ratio and not target and up==down:raise EditMeaningError('基准比例需要明确“调整到/改为/提高到”等目标操作')
         if target:factor=q.value/100
         elif up!=down:factor=1+q.value/100*(1 if up else -1)
         else:raise EditMeaningError('百分比没有明确的目标或增减方向')

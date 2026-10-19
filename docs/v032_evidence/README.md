@@ -10,7 +10,7 @@
 
 这些是实测与假设混合研究情景。处理数据是人为假设，不是校准实测；没有真实API请求。Windows CI、AppTest和真实浏览器验收分开记录于`../v032_validation.md`。
 
-- `test_output.txt`：最终本地251项完整回归。
+- `test_output.txt`：最终本地266项完整回归。
 - `ci_initial.json`：Windows与Ubuntu实际CI步骤状态、提交和产物元数据；产物二进制下载403，未核读内容。
 - `semantics_after.json`：修复后人工契约样本，与完整模拟对话测试分开。
 - `startup_check.json`、`model_invocation_policy.json`：实际启动检查与本轮真实API0次说明。
